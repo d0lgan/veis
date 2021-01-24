@@ -1,0 +1,212 @@
+.itog {
+    margin: 10px auto;
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+}
+.prod_title {
+    min-height: 50px;
+}
+.fa.fa-shopping-cart {
+    font-size: 20px;
+}
+.im_page{
+    width: 100%;
+    padding: 10px;
+}
+
+.im_page_slide{
+    width: 50% !important;
+    padding: 10px;
+}
+
+.cat_port_site{
+
+}
+
+.prod_price {
+    display: inline-block;
+    font-size: 18px;
+}
+
+.prod_butt_buy {
+    margin: 10px auto;
+}
+.col-md-6.im_prod_box {
+    padding-bottom: 50px;
+}
+.alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+    width: 400px;
+    height: auto;
+    position: absolute;
+    text-align: center;
+    z-index: 999;
+    left: 450px;
+}
+
+.cart_up {
+    margin: 10px;
+    border: 2px solid #d3e0e9;
+    border-radius: 5px;
+    background: #ffffff;
+    padding: 2px 10px;
+}
+
+.call_button_service {
+    display: inline-block;
+    margin: 10px;
+}
+
+.footer {
+    position: absolute;
+    /*bottom: 0px;*/
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #f5f5f5;
+}
+.tag_prod_list {
+    float: left;
+    padding: 0px 5px;
+    list-style: none;
+}
+
+/* The sidebar menu */
+.sidenav {
+    /*height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 220px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 170px; /* Stay at the top */
+    left: 0;
+    background-color: #ffffff; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding: 20px 0;
+    border: 1px solid #d3e0e9;
+
+    border-radius: 3px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    display: block;
+    ext-decoration: none;
+    padding: 0;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f48e26;
+}
+/* Style page content */
+.main {
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.nalozka{
+    display: none;
+}
+.online{
+    display: block;
+}
+.bank{
+    display: none;
+}
+
+.product_gallery {
+
+}
+
+.row.desc_up {
+    padding: 20px;
+}
+
+ul.hor_nav {
+    margin: 5px;
+    padding: 10px;
+    float: left;
+    background: #f9f9f9;
+}
+ul.hor_nav li {
+    display: inline;
+    margin-right: 4px;
+    padding: 2px;
+}
+.im_prod_gal {
+    width: 50px;
+}
+
+.widget_filter.sidebar {
+    display: inline-block;
+    height: 100%;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    width: 100%;
+}
+.widget_category.sidebar {
+    display: inline-block;
+    height: 100%;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    width: 100%;
+}
+.dropdown-menu.ver_category {
+    box-shadow: none;
+    border: none;
+}
+.product_price_block {
+    font-size: 25px;
+}
+.im_cart {
+    width: 50px;
+}
+.prod.favorite_star {
+    font-size: 25px;
+    position: absolute;
+    right: 50px;
+    background: #e1e1e1;
+    padding: 10px;
+    border-radius: 5px;
+}
+.favor.favorite_star {
+    font-size: 20px;
+}
+.favor.prod_butt_buy {
+    margin: 0;
+    float: left;
+}
+.container.text-center.text-md-left {
+    text-align: left;
+    padding: 20px;
+}
+.font-weight-bold.text-uppercase.mt-3.mb-4 {
+    font-weight: bold;
+}
+.page-footer.font-small.indigo {
+    background: #f5f5f5;
+    box-shadow: 1px 1px 5px 2px #d5d1d1;
+    margin-top: 100px;
+}
+.footer-copyright.text-center.py-3 {
+    padding: 10px;
+    background: #ddd;
+}
+
+.featherlight-next span, .featherlight-previous span {
+    text-shadow: 0 0 5px #fff;
+    color: #f00 !important;
+}
+.featherlight-next, .featherlight-previous {
+    background: rgba(0, 0, 0, 0.02) !important;
+}
