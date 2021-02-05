@@ -157,7 +157,6 @@
                 console.log('img saved');
             },
             changeTab: function (event) {
-
                 this.tab == 'ru' ? this.tab = 'uk' : this.tab = 'ru';
             }
         },

@@ -143,7 +143,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
         $res = json_decode($request->categories);
         $gallery = json_decode($request->gallery);
         $image = json_decode($request->image);
@@ -246,6 +245,8 @@ class ProductController extends Controller
 
         $product->save();
 
+//        TODO: Сделать сохранение связанных данных у товара при копировании в api
+
         $langs = Language::all();
 
         foreach ($langs as $lang) {
@@ -266,25 +267,30 @@ class ProductController extends Controller
 
         }
 
-        $values = [];
-
-        for ($i = 0; $i < count($request->price_option); $i++) {
-
-            $product_value = ProductValue::with('valueOption')->create([
-                'price_option' => $request->price_option[$i],
-                'operation_option' => $request->operation_option[$i],
-                'value_option_id' => $request->value_option[$i],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-            $values[] = $product_value->id;
+        if ($request->price_option) {
+            $values = [];
+    
+            for ($i = 0; $i < count($request->price_option); $i++) {
+    
+                $product_value = ProductValue::with('valueOption')->create([
+                    'price_option' => $request->price_option[$i],
+                    'operation_option' => $request->operation_option[$i],
+                    'value_option_id' => $request->value_option[$i],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
+                $values[] = $product_value->id;
+            }
+            
+            $product->productValues()->attach($values);
         }
 
 
-//        dd($gallery);
-
         if (!empty($gallery[0]->name)) {
             for ($i = 0; $i < count($gallery); $i++) {
+                if (!$gallery[$i]->sort) {
+                    $gallery[$i]->sort = 0;
+                }
                 Gallery::create([
                     'name' => $gallery[$i]->name,
                     'sort' => $gallery[$i]->sort,
@@ -294,6 +300,9 @@ class ProductController extends Controller
             }
 
         }
+
+        $p = Product::where('title_ru', $request->title_ru);
+        dd($gallery, $p->galleries()->get());
 
         //заись в сводную таблицу
         $product->attributes()->attach($request->attribute_id);
@@ -317,7 +326,7 @@ class ProductController extends Controller
             $product->categories()->syncWithoutDetaching($request->category_id);
         }
 
-        $product->productValues()->attach($values);
+
 
         return redirect()->route('admin-products-index');
     }
@@ -751,23 +760,26 @@ class ProductController extends Controller
 
         $product->save();
 
-
-        $product->productValues()->delete();
-        $product->productValues()->detach();
-        $values = [];
-
-        for ($i = 0; $i < count($request->price_option); $i++) {
-
-            $product_value = ProductValue::with('valueOption')->create([
-                'price_option' => $request->price_option[$i],
-                'operation_option' => $request->operation_option[$i],
-                'value_option_id' => $request->value_option[$i],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-            $values[] = $product_value->id;
+        if (!is_null($request->price_option)) {
+            $product->productValues()->delete();
+            $product->productValues()->detach();
+            $values = [];
+    
+            for ($i = 0; $i < count($request->price_option); $i++) {
+    
+                $product_value = ProductValue::with('valueOption')->create([
+                    'price_option' => $request->price_option[$i],
+                    'operation_option' => $request->operation_option[$i],
+                    'value_option_id' => $request->value_option[$i],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
+                $values[] = $product_value->id;
+            }
+            
+            $product->productValues()->attach($values);
         }
-
+        
         $langs = Language::all();
 
         foreach ($langs as $lang) {
@@ -813,11 +825,13 @@ class ProductController extends Controller
             $product->categories()->syncWithoutDetaching($request->category_id);
         }
 //dd($gallery);
-        $product->productValues()->attach($values);
+        
         if (!empty($gallery[0]->name)) {
             for ($i = 0; $i < count($gallery); $i++) {
                 $image = Gallery::where('name', $gallery[$i]->name)->first();
-
+                if (!$gallery[$i]->sort) {
+                    $gallery[$i]->sort = 0;
+                }
                 if (!$image) {
                     Gallery::create([
                         'name' => $gallery[$i]->name,

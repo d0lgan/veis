@@ -50,6 +50,7 @@
                 <label for="desc">Описание:</label>
                 <div class="w-100">
                   <editor-component :name="{{ json_encode('description_' . $lang->locate_code)}}" :v="{{ $lang->locate_code == 'ru' ? json_encode(@optional($item)->description_ru) : json_encode(@optional($item)->description_uk) }}"></editor-component>
+
                 </div>
                     {{--<textarea id="editor1" name="description_{{ $lang->locate_code }}"
                               --}}{{--id="editor_{{ $key }}"--}}{{--

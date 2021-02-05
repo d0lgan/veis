@@ -554,6 +554,67 @@ class ApiController extends Controller
 //            $new_product->image = null;
             $new_product->save();
 
+
+
+            if ($product->price_option) {
+                $values = [];
+
+                for ($i = 0; $i < count($product->price_option); $i++) {
+
+                    $product_value = ProductValue::with('valueOption')->create([
+                        'price_option' => $request->price_option[$i],
+                        'operation_option' => $request->operation_option[$i],
+                        'value_option_id' => $request->value_option[$i],
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
+                    ]);
+                    $values[] = $product_value->id;
+                }
+
+                $new_product->productValues()->attach($values);
+            }
+
+
+            if (!empty($gallery[0]->name)) {
+                for ($i = 0; $i < count($gallery); $i++) {
+                    if (!$gallery[$i]->sort) {
+                        $gallery[$i]->sort = 0;
+                    }
+                    Gallery::create([
+                        'name' => $gallery[$i]->name,
+                        'sort' => $gallery[$i]->sort,
+                        'alt' => $gallery[$i]->alt,
+                        'product_id' => $product->id
+                    ]);
+                }
+
+            }
+
+            //заись в сводную таблицу
+            $product->attributes()->attach($request->attribute_id);
+
+            //запись в сводную таблицу
+            $product->tags()->attach($request->tag_id);
+
+            $mainCat = false;
+            if ($res) {
+                foreach ($res as $r) {
+                    if ($r->id == $request->category_id) {
+                        $mainCat = true;
+                    }
+                    $product->categories()->syncWithoutDetaching($r->id);
+
+                }
+            }
+
+
+            if (!$mainCat) {
+                $product->categories()->syncWithoutDetaching($request->category_id);
+            }
+
+
+
+
             $documents = Document::where('module_id', $select[$i]['id'])->get();
 
             foreach ($documents as $document) {

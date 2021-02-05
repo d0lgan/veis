@@ -32,7 +32,7 @@
                         <li class="nav-item"><a class="nav-link" href="#tags" data-toggle="tab">Теги</a></li>
                         <li class="nav-item"><a class="nav-link" href="#glasses_sizes" data-toggle="tab">Размеры (очки)</a></li>
                         <li class="nav-item"><a class="nav-link" href="#seo" data-toggle="tab">Seo</a></li>
-                        {{--<li class="nav-item"><a class="nav-link" href="#add" data-toggle="tab">Доп</a></li>--}}
+                        <li class="nav-item"><a class="nav-link" href="#add" data-toggle="tab">Доп</a></li>
                     </ul>
 
 

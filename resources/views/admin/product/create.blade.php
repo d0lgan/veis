@@ -27,7 +27,7 @@
                         <li class="nav-item"><a class="nav-link" href="#tags" data-toggle="tab"><strong>Теги</strong></a></li>
                         <li class="nav-item"><a class="nav-link" href="#glasses_sizes" data-toggle="tab"><strong>Размеры (очки)</strong></a></li>
                         <li class="nav-item"><a class="nav-link" href="#seo" data-toggle="tab"><strong>Seo</strong></a></li>
-                        {{--<li class="nav-item"><a class="nav-link" href="#add" data-toggle="tab"><strong>Доп</strong></a></li>--}}
+                        <li class="nav-item"><a class="nav-link" href="#add" data-toggle="tab"><strong>Доп</strong></a></li>
                     </ul>
 
                     <div class="tab-content" style="background-color: #fff">

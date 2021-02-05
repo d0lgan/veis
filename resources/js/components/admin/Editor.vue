@@ -2,6 +2,7 @@
     <div class="w-100">
         <vue-ckeditor v-model="editorData" :config="config"></vue-ckeditor>
         <input class="w-100" type="hidden" :name="name" v-model="editorData">
+
     </div>
 
 </template>
