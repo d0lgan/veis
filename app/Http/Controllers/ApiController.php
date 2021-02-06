@@ -410,7 +410,10 @@ class ApiController extends Controller
 
         $destinationPath = public_path() . '/house/uploads/';
         $img_type = explode("/", $_FILES['image']['type']);
-        $image_name = 'product_main_' . time() . '.' . $img_type[1];
+
+        $path_name_parts = pathinfo($_FILES['image']['name']);
+
+        $image_name = $path_name_parts['filename'] . '_product_main_' . time() . '.' . $img_type[1];
         Image::make($_FILES['image']['tmp_name'])
             ->resize(null, 400, function ($constraint) {
                 $constraint->aspectRatio();
@@ -454,7 +457,10 @@ class ApiController extends Controller
 
         $destinationPath = public_path() . '/house/uploads/';
         $img_type = explode("/", $_FILES['image']['type']);
-        $image_name = 'product_gallery_' . time() . '.' . $img_type[1];
+
+        $path_name_parts = pathinfo($_FILES['image']['name']);
+
+        $image_name = $path_name_parts['filename'] . '_product_gallery_' . time() . '.' . $img_type[1];
         Image::make($_FILES['image']['tmp_name'])
             ->resize(null, 400, function ($constraint) {
                 $constraint->aspectRatio();
@@ -548,23 +554,19 @@ class ApiController extends Controller
             $product = Product::find($select[$i]['id']);
 
             $new_product = $product->replicate();
-            /*$new_product->category_id = Category::first()->id;
-            $new_product->category_title = Category::first()->title;*/
             $new_product->public = 0;
-//            $new_product->image = null;
             $new_product->save();
 
-
-
-            if ($product->price_option) {
+            $product_values = $product->productValues()->get();
+            if ($product_values) {
                 $values = [];
 
-                for ($i = 0; $i < count($product->price_option); $i++) {
+                for ($i = 0; $i < count($product_values); $i++) {
 
                     $product_value = ProductValue::with('valueOption')->create([
-                        'price_option' => $request->price_option[$i],
-                        'operation_option' => $request->operation_option[$i],
-                        'value_option_id' => $request->value_option[$i],
+                        'price_option' => $product_values[$i]->price_option,
+                        'operation_option' => $product_values[$i]->operation_option,
+                        'value_option_id' => $product_values[$i]->value_option_id,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now()
                     ]);
@@ -575,59 +577,65 @@ class ApiController extends Controller
             }
 
 
-            if (!empty($gallery[0]->name)) {
-                for ($i = 0; $i < count($gallery); $i++) {
-                    if (!$gallery[$i]->sort) {
-                        $gallery[$i]->sort = 0;
+            $product_gallery = $product->galleries()->get();
+            if (!empty($product_gallery)) {
+                for ($i = 0; $i < count($product_gallery); $i++) {
+                    if (!$product_gallery[$i]->sort) {
+                        $product_gallery[$i]->sort = 0;
                     }
                     Gallery::create([
-                        'name' => $gallery[$i]->name,
-                        'sort' => $gallery[$i]->sort,
-                        'alt' => $gallery[$i]->alt,
-                        'product_id' => $product->id
+                        'name' => $product_gallery[$i]->name,
+                        'sort' => $product_gallery[$i]->sort,
+                        'alt' => $product_gallery[$i]->alt,
+                        'product_id' => $new_product->id
                     ]);
                 }
 
             }
 
             //заись в сводную таблицу
-            $product->attributes()->attach($request->attribute_id);
+            $product_attrs = $product->attributes()->get()->pluck('id')->toArray();
+            $new_product->attributes()->attach($product_attrs);
 
             //запись в сводную таблицу
-            $product->tags()->attach($request->tag_id);
+            $product_tags = $product->tags()->get()->pluck('id')->toArray();
+            $new_product->tags()->attach($product_tags);
+
+
+            $product_category_id = $product->category()->first()->id;
+            $product_categories = $product->categories()->get()->toArray();
 
             $mainCat = false;
-            if ($res) {
-                foreach ($res as $r) {
-                    if ($r->id == $request->category_id) {
+            if ($product_categories) {
+                foreach ($product_categories as $cat) {
+                    if ($cat['id'] == $product_category_id) {
                         $mainCat = true;
                     }
-                    $product->categories()->syncWithoutDetaching($r->id);
-
+                    $new_product->categories()->syncWithoutDetaching($cat['id']);
                 }
             }
 
 
             if (!$mainCat) {
-                $product->categories()->syncWithoutDetaching($request->category_id);
+                $new_product->categories()->syncWithoutDetaching($product_category_id);
             }
 
 
 
 
-            $documents = Document::where('module_id', $select[$i]['id'])->get();
+//        $documents = Document::where('module_id', $select[$i]['id'])->get();
+//
+//        foreach ($documents as $document) {
+//
+//            $doc = Document::find($document->id);
+//
+//            $new_doc = $doc->replicate();
+//            $new_doc->module_id = $new_product->id;
+//            $new_doc->save();
+//
+//        }
 
-            foreach ($documents as $document) {
-
-                $doc = Document::find($document->id);
-
-                $new_doc = $doc->replicate();
-                $new_doc->module_id = $new_product->id;
-                $new_doc->save();
-
-            }
-
-            $new_product->categories()->syncWithoutDetaching($new_product->category_id);
+            $new_product->categories()->syncWithoutDetaching($product_category_id);
 
         }
 
@@ -1451,7 +1459,10 @@ class ApiController extends Controller
 
         $destinationPath = public_path() . '/house/uploads/';
         $img_type = explode("/", $_FILES['image']['type']);
-        $image_name = 'option_value_' . time() . '.' . $img_type[1];
+
+        $path_name_parts = pathinfo($_FILES['image']['name']);
+
+        $image_name = $path_name_parts['filename'] . '_option_value_' . time() . '.' . $img_type[1];
 
         Image::make($_FILES['image']['tmp_name'])
             ->resize(null, 400, function ($constraint) {

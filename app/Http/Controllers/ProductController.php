@@ -147,6 +147,8 @@ class ProductController extends Controller
         $gallery = json_decode($request->gallery);
         $image = json_decode($request->image);
 
+        dd($request->all(), $gallery, $image);
+
         if (!empty($image->tmp_name)) {
             $file = public_path() . '/house/uploads/' . $image->tmp_name;
             if (File::exists($file)) {
@@ -157,10 +159,10 @@ class ProductController extends Controller
         // dd(__METHOD__, $request->all(), $res, $gallery, $image);
 
         $this->validate($request, [
-            'price' => 'required',
-            'manufacturer_id' => 'required',
-            'category_id' => 'required',
-            'image' => 'required',
+//            'price' => 'required',
+//            'manufacturer_id' => 'required',
+//            'category_id' => 'required',
+//            'image' => 'required',
         ]);
 
         $product = new Product;
@@ -245,7 +247,6 @@ class ProductController extends Controller
 
         $product->save();
 
-//        TODO: Сделать сохранение связанных данных у товара при копировании в api
 
         $langs = Language::all();
 
@@ -301,8 +302,6 @@ class ProductController extends Controller
 
         }
 
-        $p = Product::where('title_ru', $request->title_ru);
-        dd($gallery, $p->galleries()->get());
 
         //заись в сводную таблицу
         $product->attributes()->attach($request->attribute_id);
@@ -325,6 +324,17 @@ class ProductController extends Controller
         if (!$mainCat) {
             $product->categories()->syncWithoutDetaching($request->category_id);
         }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

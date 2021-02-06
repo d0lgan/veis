@@ -114,6 +114,8 @@
                     }
                 });
 
+
+
             },
             addGalleryImage: function(index, key, event){
                 let form = new FormData();
