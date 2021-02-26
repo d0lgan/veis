@@ -44,7 +44,7 @@ class ApiController extends Controller
 
             $result = Product::where(function ($q) use ($searchValues) {
                 foreach ($searchValues as $value) {
-                    $q->where('title', 'LIKE', "%{$value}%");
+                    $q->where('title_ru', 'LIKE', "%{$value}%");
                     $q->where('public', 1);
                 }
             })->get();

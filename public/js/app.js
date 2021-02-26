@@ -4612,6 +4612,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7780,15 +7782,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7815,14 +7808,14 @@ __webpack_require__.r(__webpack_exports__);
         w: 50
       }, {
         key: 'title_ru',
-        name: "Название RU",
+        name: "Название",
         "public": true,
         value: '',
         w: 200
       }, {
         key: 'title_uk',
         name: "Название UK",
-        "public": true,
+        "public": false,
         value: '',
         w: 200
       }, {
@@ -87934,7 +87927,11 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                    Ничего не найдено\n                                "
+                                "\n                                    Ничего не найдено\n                                    " +
+                                  _vm._s(_vm.res) +
+                                  "\n                                    " +
+                                  _vm._s(_vm.products) +
+                                  "\n                                "
                               )
                             ]
                           ),
@@ -87955,7 +87952,7 @@ var render = function() {
                                 },
                                 [
                                   _c("div", { staticClass: "col-md-9" }, [
-                                    _c("strong", [_vm._v(_vm._s(res.title))])
+                                    _c("strong", [_vm._v(_vm._s(res.title_ru))])
                                   ]),
                                   _vm._v(" "),
                                   res.status_stock
@@ -91225,7 +91222,9 @@ var render = function() {
               _vm._v(" "),
               _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
+              _c("option", { attrs: { value: "50", selected: "selected" } }, [
+                _vm._v("50")
+              ]),
               _vm._v(" "),
               _c("option", { attrs: { value: "100" } }, [_vm._v("100")])
             ]
@@ -91931,7 +91930,7 @@ var render = function() {
                           "padding align-middle d-flex justify-content-end "
                       },
                       _vm._l(_vm.headers, function(header) {
-                        return header.key === "title"
+                        return header.key === "title_ru"
                           ? _c(
                               "div",
                               {
@@ -91954,7 +91953,7 @@ var render = function() {
                                     staticStyle: { height: "35px" }
                                   },
                                   _vm._l(_vm.headers, function(header) {
-                                    return header.key === "title"
+                                    return header.key === "title_ru"
                                       ? _c(
                                           "div",
                                           {
@@ -92557,6 +92556,30 @@ var render = function() {
                                       },
                                       [_vm._v("D")]
                                     )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass:
+                                      "item p-1 d-flex justify-content-center align-items-center",
+                                    staticStyle: {
+                                      width: "25px",
+                                      height: "25px",
+                                      "border-radius": "100%",
+                                      "background-color": "#e5e5e5"
+                                    },
+                                    attrs: {
+                                      href: "/product/" + product.slug_ru,
+                                      title: "Посмотреть"
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "far fa-eye",
+                                      staticStyle: { "font-size": "12px" }
+                                    })
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -96555,7 +96578,7 @@ var render = function() {
                   return _c("div", { staticClass: "col-12 h5" }, [
                     _vm._v(
                       "\n                        -" +
-                        _vm._s(tag.title) +
+                        _vm._s(tag.name_ru) +
                         "\n                    "
                     )
                   ])

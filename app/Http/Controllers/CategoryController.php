@@ -294,20 +294,18 @@ class CategoryController extends Controller
     {
 
         $this->validate($request, [
-
-            ///'description' => 'required',
-//            'image' => 'required',
-//            'at_home' => 'required|numeric',
+            'slug_ru' => 'nullable|unique:products',
+            'slug_uk' => 'nullable|unique:products',
         ]);
 
 
         $category = new Category;
         $category->title_ru = $request->title_ru;
         $category->title_uk = $request->title_uk;
-        if (isset($request->slug_ru)) {
+        if ($request->slug_ru) {
             $category->slug_ru = $request->slug_ru;
         }
-        if (isset($request->slug_uk)) {
+        if ($request->slug_uk) {
             $category->slug_uk = $request->slug_uk;
         }
         $category->meta_h1_ru = $request->meta_ru;
@@ -355,9 +353,7 @@ class CategoryController extends Controller
 
         }
 
-        return redirect()->route('admin-categories-index')
-            ->withInput()
-            ->withErrors(array('info_messages' => 'Категория создана!'));
+        return redirect()->route('admin-categories-index')->with('success', 'Категория успешно сохранена');
     }
 
     /**
@@ -411,10 +407,8 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            //'title'       => 'required',
-//            'meta_h1' => 'required',
-//            'at_home' => 'required|numeric',
-            //'description' => 'required',
+            'slug_ru' => 'nullable|unique:products',
+            'slug_uk' => 'nullable|unique:products',
         ]);
 
         $category = Category::find($id);
@@ -422,10 +416,10 @@ class CategoryController extends Controller
         $category->title_uk = $request->title_uk;
         $category->meta_h1_ru = $request->meta_ru;
         $category->meta_h1_uk = $request->meta_ru;
-        if (isset($request->slug_ru)) {
+        if ($request->slug_ru) {
             $category->slug_ru = $request->slug_ru;
         }
-        if (isset($request->slug_uk)) {
+        if ($request->slug_uk) {
             $category->slug_uk = $request->slug_uk;
         }
         $category->sort = $request->sort;
@@ -481,9 +475,8 @@ class CategoryController extends Controller
 
         }
 
-        return redirect()->route('admin-categories-index')
-            ->withInput()
-            ->withErrors(array('info_messages' => 'Обновлено'));
+        return redirect()->route('admin-categories-index')->with('success', 'Категория успешно обновлена');
+
     }
 
     /**

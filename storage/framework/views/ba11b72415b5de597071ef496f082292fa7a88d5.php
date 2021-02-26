@@ -14,13 +14,15 @@
         <?php endif; ?>
 
         <?php if($meta): ?>
+                <?php $method = "meta_h1_" . $lang->locate_code ?>
             <div class="form-group">
                 <label for="meta_<?php echo e($lang->locate_code); ?>">Meta Заголовок:</label>
                 <input type="text"
                        id="meta_<?php echo e($lang->locate_code); ?>"
                        name="meta_<?php echo e($lang->locate_code); ?>"
                        class="form-control"
-                       value="<?php echo e(json_encode(@optional($item)->data[$lang->locate_code]['meta'] ?: old('meta_' . $lang->locate_code)) == 'null' ? @optional($item)->meta_h1 : @optional($item)->data[$lang->locate_code]['meta'] ?: old('meta_' . $lang->locate_code)); ?>"
+                       value="<?php echo e(// json_encode(@optional($item)->data[$lang->locate_code]['meta'] ?: old('meta_' . $lang->locate_code)) == 'null' ? @optional($item)->meta_h1 : @optional($item)->data[$lang->locate_code]['meta'] ?: old('meta_' . $lang->locate_code)
+                        @optional($item)->$method); ?>"
                        placeholder="Meta H1 <?php echo e(strtoupper($lang->locate_code)); ?>"/>
             </div>
         <?php endif; ?>
@@ -35,21 +37,21 @@
             <?php if(isset($tag_url)): ?>
                 <div class="form-group">
                     <label for="slug">Url</label>
-                    <input type="text"  name="" class="form-control">
+                    <input type="text" value="<?php echo e($lang->locate_code == 'ru' ? $item->slug_ru : $item->slug_uk); ?>" name="slug_<?php echo e($lang->locate_code); ?>" class="form-control">
                 </div>
             <?php endif; ?>
 
             <?php if(isset($prod_url)): ?>
                 <div class="form-group">
                     <label for="slug">Url</label>
-                    <input type="text"  name="" class="form-control">
+                    <input type="text"  name="slug_<?php echo e($lang->locate_code); ?>" class="form-control">
                 </div>
             <?php endif; ?>
 
             <?php if(isset($category_url)): ?>
                 <div class="form-group">
                     <label for="slug">Url</label>
-                    <input name="slug"  type="text" value="<?php echo e($category->slug); ?>" class="form-control">
+                    <input type="text" name="slug_<?php echo e($lang->locate_code); ?>" value="<?php echo e($lang->locate_code == 'ru' ? $item->slug_ru : $item->slug_uk); ?>" class="form-control">
                 </div>
             <?php endif; ?>
 

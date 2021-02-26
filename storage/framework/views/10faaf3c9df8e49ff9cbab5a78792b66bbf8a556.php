@@ -2,11 +2,15 @@
     <div class="tab-pane <?php echo e($key == 0 ? 'active' : null); ?>"
          id="<?php echo e($id); ?>_<?php echo e($type); ?>_<?php echo e($lang->locate_code); ?>">
         <?php if($title): ?>
+            <?php $method = "title_" . $lang->locate_code ?>
             <div class="form-group">
                 <label for="title_<?php echo e($lang->locate_code); ?>"><?php echo e(isset($title_name) ? $title_name . ':' : 'Название:'); ?></label>
                 <input required name="title_<?php echo e($lang->locate_code); ?>"
                        id="title_<?php echo e($lang->locate_code); ?>"
-                       value="<?php echo e(json_encode(@optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code)) == 'null' ? @optional($item)->title ?: @optional($item)->name : @optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code)); ?>"
+                       value="<?php echo e(/*json_encode(@optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code)) == 'null'
+     ? @optional($item)->title ?: @optional($item)->name
+     : @optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code)*/
+                        @optional($item)->$method); ?>"
                        placeholder="Title <?php echo e(strtoupper($lang->locate_code)); ?>"
                        type="text"
                        class="form-control"/>
@@ -65,6 +69,7 @@
                 
             <?php endif; ?>
             <?php if(isset($additional)): ?>
+                
                 <div class="form-group">
                     <label for="additional_title_<?php echo e($lang->locate_code); ?>">Дополнительное поле:</label>
                     <input name="additional_title_<?php echo e($lang->locate_code); ?>"
@@ -76,6 +81,8 @@
                 </div>
             <?php endif; ?>
             <?php if(isset($additional)): ?>
+                <?php $method = "how_size_" . $lang->locate_code ?>
+
                 <div class="form-group">
                     <label for="desc">Описание:</label>
                     <editor-component :name="<?php echo e(json_encode('additional_' . $lang->locate_code)); ?>" :v="<?php echo e(json_encode(@optional($item)->data[$lang->locate_code]['additional'] ?: old('additional_' . $lang->locate_code))); ?>"></editor-component>
@@ -84,7 +91,7 @@
                     <label for="how_size_<?php echo e($lang->locate_code); ?>">Название кнопки "Как узнать размер":</label>
                     <input name="how_size_<?php echo e($lang->locate_code); ?>"
                            id="how_size_<?php echo e($lang->locate_code); ?>"
-                           value="<?php echo e(@optional($item)->data[$lang->locate_code]['how_size'] ?: old('how_size_' . $lang->locate_code)); ?>"
+                           value="<?php echo e(/*@optional($item)->data[$lang->locate_code]['how_size'] ?: old('how_size_' . $lang->locate_code)*/ @optional($item)->$method); ?>"
                            placeholder="<?php echo e(strtoupper($lang->locate_code)); ?>"
                            type="text"
                            class="form-control"/>

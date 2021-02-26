@@ -14,13 +14,17 @@
         @endif
 
         @if($meta)
+                @php $method = "meta_h1_" . $lang->locate_code @endphp
             <div class="form-group">
                 <label for="meta_{{ $lang->locate_code }}">Meta Заголовок:</label>
                 <input type="text"
                        id="meta_{{ $lang->locate_code }}"
                        name="meta_{{ $lang->locate_code }}"
                        class="form-control"
-                       value="{{ json_encode(@optional($item)->data[$lang->locate_code]['meta'] ?: old('meta_' . $lang->locate_code)) == 'null' ? @optional($item)->meta_h1 : @optional($item)->data[$lang->locate_code]['meta'] ?: old('meta_' . $lang->locate_code) }}"
+                       value="{{
+                        // json_encode(@optional($item)->data[$lang->locate_code]['meta'] ?: old('meta_' . $lang->locate_code)) == 'null' ? @optional($item)->meta_h1 : @optional($item)->data[$lang->locate_code]['meta'] ?: old('meta_' . $lang->locate_code)
+                        @optional($item)->$method
+                        }}"
                        placeholder="Meta H1 {{ strtoupper($lang->locate_code) }}"/>
             </div>
         @endif
@@ -35,21 +39,21 @@
             @if(isset($tag_url))
                 <div class="form-group">
                     <label for="slug">Url</label>
-                    <input type="text"  name="" class="form-control">
+                    <input type="text" value="{{ $lang->locate_code == 'ru' ? $item->slug_ru : $item->slug_uk }}" name="slug_{{ $lang->locate_code }}" class="form-control">
                 </div>
             @endif
 
             @if(isset($prod_url))
                 <div class="form-group">
                     <label for="slug">Url</label>
-                    <input type="text"  name="" class="form-control">
+                    <input type="text"  name="slug_{{ $lang->locate_code }}" class="form-control">
                 </div>
             @endif
 
             @if(isset($category_url))
                 <div class="form-group">
                     <label for="slug">Url</label>
-                    <input name="slug"  type="text" value="{{ $category->slug }}" class="form-control">
+                    <input type="text" name="slug_{{ $lang->locate_code }}" value="{{ $lang->locate_code == 'ru' ? $item->slug_ru : $item->slug_uk }}" class="form-control">
                 </div>
             @endif
 

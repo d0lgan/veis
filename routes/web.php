@@ -11,12 +11,76 @@
 |
 */
 
-/*vue api*/
-
 if(env('APP_DEBUG'))
 {
 	Artisan::call('view:clear');
 }
+
+
+/*страницы*/
+Route::get('/', 'PageController@home')->name('home');
+
+Route::get('/about', 'PageController@about')->name('about')->middleware('pagePublic');
+
+Route::resource('contact-form', 'ContactController');
+Route::get('/contact', 'ContactController@index')
+    ->name('contact')->middleware('pagePublic');
+
+Route::get('/product/{slug?}', 'ProductController@show')
+    ->name('product')->middleware('pagePublic');
+
+Route::get('/category/{slug?}', 'CategoryController@index')
+    ->name('category')->middleware('pagePublic');
+
+Route::get('/manufacturer/{slug?}', 'ManufacturerController@index')
+    ->name('manufacturer')->middleware('pagePublic');
+
+/*Route::get( '/sitemaps', 'CategoryController@SiteMapsIndex' )
+     ->name( 'categories' )->middleware('pagePublic');*/
+Route::get('/tag/{slug?}', 'TagController@index')->name('tag')->middleware('pagePublic');
+
+Route::get('/service', 'PageController@service')
+    ->name('service')->middleware('pagePublic');
+
+Route::get('/search', 'SearchController@index')->name('search')->middleware('pagePublic');
+Route::post('/comment-product/{id}', 'ProductController@postProductComment')
+    ->name('comment-product');
+Route::get('/blog/{id}', 'BlogController@index')
+    ->name('blog-index');
+Route::get('/blog-category/{id}', 'BlogCategoryController@show')
+    ->name('blog-category');
+
+
+Route::group(['middleware' => ['auth', 'blocked']], function () {
+
+    Route::get('/user/profile', 'UserController@index')
+        ->name('profile')->middleware('pagePublic');
+
+});
+
+Route::group(['prefix' => 'design'], function () {
+
+    Route::get('/', 'DesignController@index')
+        ->name('design-index');
+
+    Route::get('/main', 'DesignController@main')
+        ->name('design-main');
+    Route::get('/product', 'DesignController@product')
+        ->name('design-product');
+    Route::get('/filter', 'DesignController@filter')
+        ->name('design-filter');
+    Route::get('/info', 'DesignController@info')
+        ->name('design-info');
+    Route::get('/search', 'DesignController@search')
+        ->name('design-search');
+    Route::get('/order', 'DesignController@order')
+        ->name('design-order');
+    Route::get('/blog', 'DesignController@blog')
+        ->name('design-blog');
+
+});
+
+
 
 Route::group(['prefix' => 'api'], function () {
     Route::post('/searching', [
@@ -229,61 +293,7 @@ Route::group(
             ->name('select2-np-delivery-points-ajax');
 
 
-        /*страницы*/
 
-        Route::get('/about', 'PageController@about')->name('about')->middleware('pagePublic');
-        Route::resource('contact-form', 'ContactController');
-        Route::get('/contact', 'ContactController@index')
-            ->name('contact')->middleware('pagePublic');
-        Route::get('/', 'PageController@home')->name('home');
-        Route::get('/product/{slug?}', 'ProductController@show')
-            ->name('product')->middleware('pagePublic');
-        Route::get('/category/{slug?}', 'CategoryController@index')
-            ->name('category')->middleware('pagePublic');
-        Route::get('/manufacturer/{slug?}', 'ManufacturerController@index')
-            ->name('manufacturer')->middleware('pagePublic');
-        /*Route::get( '/sitemaps', 'CategoryController@SiteMapsIndex' )
-             ->name( 'categories' )->middleware('pagePublic');*/
-        Route::get('/tag/{slug?}', 'TagController@index')->name('tag')->middleware('pagePublic');
-        Route::get('/service', 'PageController@service')
-            ->name('service')->middleware('pagePublic');
-        Route::get('/search', 'SearchController@index')->name('search')->middleware('pagePublic');
-        Route::post('/comment-product/{id}', 'ProductController@postProductComment')
-            ->name('comment-product');
-        Route::get('/blog/{id}', 'BlogController@index')
-            ->name('blog-index');
-        Route::get('/blog-category/{id}', 'BlogCategoryController@show')
-            ->name('blog-category');
-
-
-        Route::group(['middleware' => ['auth', 'blocked']], function () {
-
-            Route::get('/user/profile', 'UserController@index')
-                ->name('profile')->middleware('pagePublic');
-
-        });
-
-        Route::group(['prefix' => 'design'], function () {
-
-            Route::get('/', 'DesignController@index')
-                ->name('design-index');
-
-            Route::get('/main', 'DesignController@main')
-                ->name('design-main');
-            Route::get('/product', 'DesignController@product')
-                ->name('design-product');
-            Route::get('/filter', 'DesignController@filter')
-                ->name('design-filter');
-            Route::get('/info', 'DesignController@info')
-                ->name('design-info');
-            Route::get('/search', 'DesignController@search')
-                ->name('design-search');
-            Route::get('/order', 'DesignController@order')
-                ->name('design-order');
-            Route::get('/blog', 'DesignController@blog')
-                ->name('design-blog');
-
-        });
 
         /*админка*/
         /*Route::group( [ 'middleware' => 'AdminPanel' ], function () {

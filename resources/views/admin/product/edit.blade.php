@@ -1,13 +1,35 @@
 @extends('layouts.admin.app')
 @section('content')
 
-
-
-
-
-
-
     <div class="main-content">
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col-12">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="list-unstyled">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <div class="section__content section__content--p30">
             <div class="row">
                 <div id="app" class="w-100">
@@ -299,8 +321,8 @@
 
                                 <div class="tab-content">
                                     @include('admin.partials.title', ['item' => $product, 'title' => false, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'add', 'additional' => true])
-                                    @if($product->how_size_image)
-                                        <img class="col-md-2" src="{{ asset('/house/uploads/' . $product->how_size_image) }}" alt="">
+                                    @if($product->how_size)
+                                        <img class="col-md-2" src="{{ asset('/house/uploads/' . $product->how_size) }}" alt="">
 
                                         <div class="form-check col-md-4">
                                             <input type="checkbox" name="del_how_size">
@@ -310,7 +332,7 @@
                                         </div>
                                     @endif
                                     <div class="form-group ">
-                                        <label for="how_size_image">Изображение</label>
+                                        <label for="how_size_image">Загрузить новое изображение</label>
                                         <input type="file" id="how_size_image" name="how_size_image" class="form-control">
                                     </div>
                                 </div>

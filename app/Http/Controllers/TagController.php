@@ -74,6 +74,14 @@ class TagController extends Controller {
 
 		$tag->name_ru = $request->title_ru;
 		$tag->name_uk = $request->title_uk;
+
+        if ($request->slug_ru) {
+            $tag->slug_ru = $request->slug_ru;
+        }
+        if ($request->slug_uk) {
+            $tag->slug_uk = $request->slug_uk;
+        }
+
 		$tag->save();
 
 

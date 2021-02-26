@@ -142,11 +142,13 @@
                                 <div class="position-absolute m-t-10 search w-100 d-flex justify-content-between" v-if="keywords">
                                     <div class="col-md-10" v-show="result.length === 0">
                                         Ничего не найдено
+                                        {{ res }}
+                                        {{ products }}
                                     </div>
                                     <div class="w-100 d-flex flex-column">
                                         <!-- col-md-12 py-3 result border-bottom border-secondary -->
                                         <div v-for="(res, key_r) in result" class="h-auto result m-b-10" @click="addProduct(key_r)">
-                                            <div class="col-md-9"><strong>{{ res.title }}</strong></div>
+                                            <div class="col-md-9"><strong>{{ res.title_ru }}</strong></div>
                                             <div v-if="res.status_stock" class="col-md-3">{{ res.price_stock }} грн</div>
                                             <div v-else class="col-md-3">{{ res.price }} грн</div>
                                         </div>

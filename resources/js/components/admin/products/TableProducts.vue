@@ -1,5 +1,4 @@
 <template>
-    
     <div class="col-md-12 p-t-10">
         <!-- DATA TABLE -->
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -24,7 +23,7 @@
                 <select name="" id="" style="padding: 0 25px; height: 40px !important" class="form-control w-100 h-100" @change="countPages()" v-model="sort_count">
                     <option value="10">10</option>
                     <option value="25">25</option>
-                    <option value="50">50</option>
+                    <option value="50" selected="selected">50</option>
                     <option value="100">100</option>
                 </select>
             </div>
@@ -230,32 +229,24 @@
 
 
 
-
-
-
-            <!-- <label class="au-checkbox">
-                <input @change="allCheck()" v-model="allChecked" type="checkbox">
-                <span class="au-checkmark"></span>
-            </label> 
-
-            <div class="table-data__tool-left d-flex">
-                <div class="rs-select2--light rs-select2--md h-100 srw">
-                    <div class="h-100 sr" v-model="headers" v-for="header in headers" v-if="header.key === 'title'">
-                        <input type="text" placeholder="Поиск" v-model="header.value" style="background-color: #9ea3a7; color: #fff" class="inp form-control w-100 h-100"> 
+            <!--<div class="table-data__tool-left d-flex">
+                <div class="rs-select2&#45;&#45;light rs-select2&#45;&#45;md h-100 srw">
+                    <div class="h-100 sr" v-model="headers" v-for="header in headers" v-if="header.key === 'title_ru'">
+                        <input type="text" placeholder="Поиск" v-model="header.value" style="background-color: #9ea3a7; color: #fff" class="inp form-control w-100 h-100">
                         <i class="fas fa-search sr_icon" style="color: #fff"></i>
                     </div>
                 </div>
                 <button class="au-btn-filter d-flex justify-content-center align-items-center text-center" style="padding: auto !important; background-color: #9ea3a7" @click="searchProducts()">
                     <i class="far fa-trash-alt" style="color: #fff"></i>
                 </button>
-            </div>
-
-        -->
+            </div>-->
 
 
 
-
-
+             <!--<label class="au-checkbox">
+                <input @change="allCheck()" v-model="allChecked" type="checkbox">
+                <span class="au-checkmark"></span>
+            </label>-->
 
 
         </div>
@@ -294,9 +285,9 @@
                             <span style="font-size: 10px" v-else>{{ header.name }}</span>
                         </th>
                         <th class="padding align-middle d-flex justify-content-end ">
-                            <div style="height: 35px" v-model="headers" v-for="header in headers" v-if="header.key === 'title'" class="d-flex">
+                            <div style="height: 35px" v-model="headers" v-for="header in headers" v-if="header.key === 'title_ru'" class="d-flex">
                                 <div class="rs-select2--light rs-select2--md srw" style="height: 35px">
-                                    <div class="sr" style="height: 35px" v-model="headers" v-for="header in headers" v-if="header.key === 'title'">
+                                    <div class="sr" style="height: 35px" v-model="headers" v-for="header in headers" v-if="header.key === 'title_ru'">
                                         <input type="text" placeholder="Поиск" v-model="header.value" style="background-color: #9ea3a7; color: #fff; border-radius: 3px" class="inp form-control w-100 h-100"> 
                                         <i class="fas fa-search sr_icon" style="color: #fff; cursor: pointer;" @click="searchProducts()"></i>
                                     </div>
@@ -382,8 +373,8 @@
                                         <span style="color: #808080; font-size: 15px; font-weight: bold">D</span>
                                     </a>
 
-                                    <!--<a :href="'/product/' + product.slug_ru" style="width: 25px; height: 25px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Посмотреть"><i style="font-size: 12px" class="far fa-eye"></i></a>
--->
+                                    <a :href="'/product/' + product.slug_ru" style="width: 25px; height: 25px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Посмотреть"><i style="font-size: 12px" class="far fa-eye"></i></a>
+
                                     <a :href="`/admin-products/`+ product.id + `/edit`" style="width: 25px; height: 25px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Редактировать">
                                         <i style="font-size: 12px; text-decoration: none;" class="fas fa-pencil-alt"></i>
                                     </a>
@@ -504,7 +495,7 @@
                             <select name="" id="" class="col-md-1 form-control" @change="countPages()" v-model="sort_count">
                                 <option value="10">10</option>
                                 <option value="25">25</option>
-                                <option value="50">50</option>
+                                <option value="50" selected="selected">50</option>
                                 <option value="100">100</option>
                             </select>
                         </div>
@@ -1024,7 +1015,7 @@
                 <select name="" id="" class="col-md-1 form-control" @change="countPages()" v-model="sort_count">
                     <option value="10">10</option>
                     <option value="25">25</option>
-                    <option value="50">50</option>
+                    <option value="50" selected="selected">50</option>
                     <option value="100">100</option>
                 </select>
             </div>
@@ -1321,8 +1312,8 @@
                 headers: [
                     {key: 'checkbox', name: "Чекбокс", public: true, value: '', w: 30},
                     {key: 'image', name: "Изображение", public: true, value: '', w: 50},
-                    {key: 'title_ru', name: "Название RU", public: true, value: '', w: 200},
-                    {key: 'title_uk', name: "Название UK", public: true, value: '', w: 200},
+                    {key: 'title_ru', name: "Название", public: true, value: '', w: 200},
+                    {key: 'title_uk', name: "Название UK", public: false, value: '', w: 200},
                     {key: 'category_title', name: "Категория", public: true, value: '', w: 60},
                     {key: 'manufacturer_title', name: "Производитель", public: true, value: '', w: 70},
                     {key: 'vendor_code', name: "Артикул", public: true, value: '', w: 70},

@@ -55,6 +55,8 @@ class CreateProductsTable extends Migration {
 			$table->string('model')->nullable();
 			$table->string('supplier')->nullable();
 			$table->string('how_size')->nullable();
+			$table->string('how_size_ru')->nullable();
+			$table->string('how_size_uk')->nullable();
 			$table->string('meta_h1_ru')->nullable();
 			$table->string('meta_h1_uk')->nullable();
 			$table->string('alt')->nullable();

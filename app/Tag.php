@@ -15,11 +15,14 @@ class Tag extends Model
 	 */
 	public function sluggable()
 	{
-		return [
-			'slug' => [
-				'source' => 'title'
-			]
-		];
+        return [
+            'slug_ru' => [
+                'source' => 'title_ru'
+            ],
+            'slug_uk' => [
+                'source' => 'title_uk'
+            ]
+        ];
 	}
 
 	protected $table = 'tags';

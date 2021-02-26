@@ -36,6 +36,7 @@ use App\Gallery;
 use App\Manufacturer;
 use Illuminate\Support\Facades\Lang;
 use Intervention\Image\ImageManagerStatic as Image;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductController extends Controller
 {
@@ -68,6 +69,18 @@ class ProductController extends Controller
         $contacts_count = $contacts->count();
         $orders = Order::all();
         $order_count = $orders->count();
+
+
+        $products = Product::all();
+        foreach ($products as $product) {
+            $new_slug_ru = SlugService::createSlug(Product::class, 'slug_ru', $product->title_ru);
+            $new_slug_uk = SlugService::createSlug(Product::class, 'slug_uk', $product->title_uk);
+            $product->slug_ru = $new_slug_ru;
+            $product->slug_uk = $new_slug_uk;
+
+            $product->update();
+        }
+
 
         return view('admin.product.index', compact('products', 'categories', 'manufacturers', 'settings', 'count_p', 'order_count', 'contacts_count'));
     }
@@ -140,14 +153,22 @@ class ProductController extends Controller
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'price' => 'required',
+            'manufacturer_id' => 'required',
+            'category_id' => 'required',
+            'slug_ru' => 'nullable|unique:products',
+            'slug_uk' => 'nullable|unique:products',
+        ]);
+
         $res = json_decode($request->categories);
         $gallery = json_decode($request->gallery);
         $image = json_decode($request->image);
 
-        dd($request->all(), $gallery, $image);
 
         if (!empty($image->tmp_name)) {
             $file = public_path() . '/house/uploads/' . $image->tmp_name;
@@ -158,27 +179,28 @@ class ProductController extends Controller
 
         // dd(__METHOD__, $request->all(), $res, $gallery, $image);
 
-        $this->validate($request, [
-//            'price' => 'required',
-//            'manufacturer_id' => 'required',
-//            'category_id' => 'required',
-//            'image' => 'required',
-        ]);
-
         $product = new Product;
         $product->title_ru = $request->title_ru;
         $product->title_uk = $request->title_uk;
 
-        if (empty($product->meta_h1_ru)) {
-            $product->meta_h1_ru = $product->title_ru;
-        } else {
-            $product->meta_h1_ru = $request->meta_h1_ru;
+        if ($request->slug_ru) {
+            $product->slug_ru = $request->slug_ru;
         }
 
-        if (empty($product->meta_h1_uk)) {
+        if ($request->slug_uk) {
+            $product->slug_uk = $request->slug_uk;
+        }
+
+        if (empty($request->meta_ru)) {
+            $product->meta_h1_ru = $product->title_ru;
+        } else {
+            $product->meta_h1_ru = $request->meta_ru;
+        }
+
+        if (empty($request->meta_uk)) {
             $product->meta_h1_uk = $product->title_uk;
         } else {
-            $product->meta_h1_uk = $request->meta_h1_uk;
+            $product->meta_h1_uk = $request->meta_uk;
         }
 
         if ($request->type_stock == 'percent' && $request->stock !== null) {
@@ -201,7 +223,8 @@ class ProductController extends Controller
 
         $product->seo = $request->seo_ru;
         $product->price = $request->price;
-        $product->how_size = $request->how_size_ru;
+        $product->how_size_ru = $request->how_size_ru;
+        $product->how_size_uk = $request->how_size_uk;
         $product->category_id = $request->category_id;
         $product->category_title = Category::find($request->category_id)->title_ru;
         $product->undiscounted = $request->undiscounted;
@@ -229,8 +252,10 @@ class ProductController extends Controller
         if ($request->how_size_image) {
             $destinationPath = public_path() . '/house/uploads/';
 
+            $path_name_parts = pathinfo($_FILES['how_size_image']['name']);
             $img_type = explode("/", $_FILES['how_size_image']['type']);
-            $image_name = 'how_size_product_' . time() . '.' . $img_type[1];
+
+            $image_name = $path_name_parts['filename'] . '_how_size_product_' . time() . '.' . $img_type[1];
             Image::make($request->how_size_image)
                 ->resize(null, 400, function ($constraint) {
                     $constraint->aspectRatio();
@@ -338,7 +363,7 @@ class ProductController extends Controller
 
 
 
-        return redirect()->route('admin-products-index');
+        return redirect()->route('admin-products-index')->with('success', 'Товар успешно сохранен!');
     }
 
     /**
@@ -381,7 +406,7 @@ class ProductController extends Controller
         $pages = Page::all();
         $page = DB::table('pages')->where('type', 'product')->first();
         $locale = App::getLocale();
-        $product = Product::whereSlug($slug)->firstOrFail();
+        $product = Product::where('slug_ru', $slug)->firstOrFail();
         pagetitle($product->meta_h1);
         $langs = Language::all();
 
@@ -398,10 +423,10 @@ class ProductController extends Controller
             'how_size' => Document::get('product', 'how_size', $product->id, $locale),
         ];
 
-        $product->category_title = Document::get('category', 'title', $product->category_id, $locale);
+        //$product->category_title = Document::get('category', 'title', $product->category_id, $locale);
         $product->data = $arr;
         $product->galleries;
-        $product->description = trim($product->description, '<p></p>');
+        $product->description = trim($product->description_ru, '<p></p>');
 
 
         $options = Option::with('values')->get();
@@ -493,7 +518,9 @@ class ProductController extends Controller
 
 
         $product->tags;
-//dd($product);
+
+        //dd($product, $group_attributes, $select_attributes, $selected_attr);
+
         return view('site.product', compact('product', 'pages', 'page', 'locale', 'selected_attr', 'settings', 'translate', 'translate_watch'));
 
     }
@@ -656,7 +683,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-//dd($request);
+        $this->validate($request, [
+            'price' => 'required',
+            'manufacturer_id' => 'required',
+            'category_id' => 'required',
+        ]);
 
         $res = json_decode($request->categories);
         $gallery = json_decode($request->gallery);
@@ -670,15 +701,6 @@ class ProductController extends Controller
             }
         }
 
-        $this->validate($request, [
-            //'title'           => 'required',
-            //'meta_h1'         => 'required',
-            //'description'     => 'required',
-//            'price' => 'required',
-//            'category_id' => 'required',
-//            'manufacturer_id' => 'required',
-
-        ]);
 
         $product = Product::find($id);
 
@@ -701,13 +723,32 @@ class ProductController extends Controller
         $product->start_stock = $request->start_stock;
         $product->end_stock = $request->end_stock;
 
+            // Meta info
+        if (empty($request->meta_ru)) {
+            $product->meta_h1_ru = $product->title_ru;
+        } else {
+            $product->meta_h1_ru = $request->meta_ru;
+        }
+        if (empty($request->meta_uk)) {
+            $product->meta_h1_uk = $product->title_uk;
+        } else {
+            $product->meta_h1_uk = $request->meta_uk;
+        }
+
+            // Slug
+        if ($request->slug_ru) {
+            $product->slug_ru = $request->slug_ru;
+        }
+        if ($request->slug_uk) {
+            $product->slug_uk = $request->slug_uk;
+        }
+
         $product->title_ru = $request->title_ru;
         $product->title_uk = $request->title_uk;
-        $product->slug_ru = $request->title_ru;
-        $product->slug_uk = $request->title_uk;
         $product->seo = $request->seo_ru;
         $product->price = $request->price;
-        $product->how_size = $request->how_size_ru;
+        $product->how_size_ru = $request->how_size_ru;
+        $product->how_size_uk = $request->how_size_uk;
         $product->category_id = $request->category_id;
         $product->category_title = Category::find($request->category_id)->title_ru;
         $product->undiscounted = $request->undiscounted;
@@ -743,24 +784,26 @@ class ProductController extends Controller
         }
 
         if ($request->how_size_image) {
-            if ($product->how_size_image) {
+            if ($product->how_size) {
                 $file = public_path() . '/house/uploads/' . $product->how_size_image;
                 if (File::exists($file)) {
                     File::delete($file);
                 }
-                $product->how_size_image = null;
+                $product->how_size = null;
             }
             $destinationPath = public_path() . '/house/uploads/';
 
+            $path_name_parts = pathinfo($_FILES['how_size_image']['name']);
             $img_type = explode("/", $_FILES['how_size_image']['type']);
-            $image_name = 'how_size_product_' . time() . '.' . $img_type[1];
+
+            $image_name = $path_name_parts['filename'] . '_how_size_product_' . time() . '.' . $img_type[1];
             Image::make($request->how_size_image)
                 ->resize(null, 400, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 })
                 ->save($destinationPath . $image_name);
-            $product->how_size_image = $image_name;
+            $product->how_size = $image_name;
         }
 
         //создаем изображение
@@ -869,7 +912,7 @@ class ProductController extends Controller
 
         return back()
             ->withInput()
-            ->withErrors(array('info_messages' => 'Обновлен!'));
+            ->with('success', 'Товар обновлен');
     }
 
     /**

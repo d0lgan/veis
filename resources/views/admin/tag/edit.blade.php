@@ -19,7 +19,7 @@
                             'multiple' => 'multiple'])!!}
 
                         <div class="mb-2 d-flex align-items-center justify-content-between">
-                            <strong>Редактирование {{ $tag->name_ru }}</strong>
+                            <strong>Редактирование - {{ $tag->name_ru }}</strong>
 
                             <div class="m-0 p-0 d-flex align-items-center">
                                 <button class="btn mr-3 save" type="submit"><i class="far fa-save"></i></button>
@@ -52,7 +52,7 @@
                                     </ul>
 
                                     <div class="tab-content">
-                                        @include('admin.partials.title', ['item' => $tag, 'title' => true, 'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                        @include('admin.partials.title', ['item' => $tag, 'title' => true, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
 
                                         <!-- <label for="description">Описание</label>
                                         <editor-component :name="'description'" :v="{{ json_encode($tag->description) }}"></editor-component> -->
@@ -77,7 +77,7 @@
                                     </ul>
 
                                     <div class="tab-content">
-                                        @include('admin.partials.url', ['item' => $tag, 'title' => false, 'tag_url' => '1','description' => false, 'meta' => true, 'seo' => true, 'id' => 'language', 'type' => 'seo'])
+                                        @include('admin.partials.url', ['item' => $tag, 'title' => false, 'tag_url' => '1','description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'seo'])
                                     </div>
                                 </div>
                             </div>

@@ -146,7 +146,7 @@
                 <div class="row" v-if="product.tags[0]">
                     <h1>Теги</h1>
                     <div class="col-12 h5" v-for="tag in product.tags">
-                        -{{tag.title}}
+                        -{{tag.name_ru}}
                     </div>
                 </div>
                 <div class="row" v-if="product.data[locale].additional">

@@ -2,11 +2,16 @@
     <div class="tab-pane {{ $key == 0 ? 'active' : null }}"
          id="{{$id}}_{{$type}}_{{ $lang->locate_code }}">
         @if($title)
+            @php $method = "title_" . $lang->locate_code @endphp
             <div class="form-group">
                 <label for="title_{{ $lang->locate_code }}">{{ isset($title_name) ? $title_name . ':' : 'Название:' }}</label>
                 <input required name="title_{{ $lang->locate_code }}"
                        id="title_{{ $lang->locate_code }}"
-                       value="{{ json_encode(@optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code)) == 'null' ? @optional($item)->title ?: @optional($item)->name : @optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code) }}"
+                       value="{{
+    /*json_encode(@optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code)) == 'null'
+     ? @optional($item)->title ?: @optional($item)->name
+     : @optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code)*/
+                        @optional($item)->$method }}"
                        placeholder="Title {{ strtoupper($lang->locate_code) }}"
                        type="text"
                        class="form-control"/>
@@ -79,6 +84,8 @@
                 </div>--}}
             @endif
             @if(isset($additional))
+                {{--@php $method = "additional_" . $lang->locate_code @endphp
+                @optional($item)->$method--}}
                 <div class="form-group">
                     <label for="additional_title_{{ $lang->locate_code }}">Дополнительное поле:</label>
                     <input name="additional_title_{{ $lang->locate_code }}"
@@ -90,6 +97,8 @@
                 </div>
             @endif
             @if(isset($additional))
+                @php $method = "how_size_" . $lang->locate_code @endphp
+
                 <div class="form-group">
                     <label for="desc">Описание:</label>
                     <editor-component :name="{{json_encode('additional_' . $lang->locate_code)}}" :v="{{ json_encode(@optional($item)->data[$lang->locate_code]['additional'] ?: old('additional_' . $lang->locate_code)) }}"></editor-component>
@@ -98,7 +107,7 @@
                     <label for="how_size_{{ $lang->locate_code }}">Название кнопки "Как узнать размер":</label>
                     <input name="how_size_{{ $lang->locate_code }}"
                            id="how_size_{{ $lang->locate_code }}"
-                           value="{{ @optional($item)->data[$lang->locate_code]['how_size'] ?: old('how_size_' . $lang->locate_code) }}"
+                           value="{{ /*@optional($item)->data[$lang->locate_code]['how_size'] ?: old('how_size_' . $lang->locate_code)*/ @optional($item)->$method }}"
                            placeholder="{{ strtoupper($lang->locate_code) }}"
                            type="text"
                            class="form-control"/>
