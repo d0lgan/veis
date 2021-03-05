@@ -19,6 +19,7 @@ if(env('APP_DEBUG'))
 
 /*страницы*/
 Route::get('/', 'PageController@home')->name('home');
+Route::get('/catalog', 'PageController@catalog')->name('catalog');
 
 Route::get('/about', 'PageController@about')->name('about')->middleware('pagePublic');
 
@@ -35,8 +36,7 @@ Route::get('/category/{slug?}', 'CategoryController@index')
 Route::get('/manufacturer/{slug?}', 'ManufacturerController@index')
     ->name('manufacturer')->middleware('pagePublic');
 
-/*Route::get( '/sitemaps', 'CategoryController@SiteMapsIndex' )
-     ->name( 'categories' )->middleware('pagePublic');*/
+
 Route::get('/tag/{slug?}', 'TagController@index')->name('tag')->middleware('pagePublic');
 
 Route::get('/service', 'PageController@service')
