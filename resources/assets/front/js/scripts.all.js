@@ -114,7 +114,7 @@ window.addEventListener('load',function(){
 
 	$(".phone").mask("+38(999) 999-9999");
 
-	$( "#slider-range" ).slider({
+	$("#slider-range").slider({
 		range: true,
 		min: 0,
 		max: 9999,

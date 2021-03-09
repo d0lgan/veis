@@ -51,6 +51,8 @@ Vue.component('site-nav-cart-component', require('./components/site/NavCart').de
 Vue.component('site-contact-component', require('./components/site/Contact').default);
 // Vue.component('site-test-component', require('./components/site/Test').default);
 
+// Пользовательский сайт:
+Vue.component('site-catalog-component', require('./components/site/Catalog').default);
 
 
 import store from '../assets/js/store.js';

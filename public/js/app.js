@@ -9276,6 +9276,719 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/site/Catalog.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/site/Catalog.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Catalog"
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/site/Category.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/site/Category.vue?vue&type=script&lang=js& ***!
@@ -94510,6 +95223,1961 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/site/Catalog.vue?vue&type=template&id=6087e708&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/site/Catalog.vue?vue&type=template&id=6087e708&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "root" }, [
+    _c("section", { staticClass: "catalog" }, [
+      _c("div", { staticClass: "holder catalog__holder" }, [
+        _c("div", { staticClass: "catalog-filters" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "catalog-filters__box" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "catalog-filters__block catalog-filters__block--mainlinks"
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "catalog-filters__block-head activee" },
+                  [
+                    _c("p", { staticClass: "catalog-filters__type" }, [
+                      _vm._v("ПЕРЧАТКИ")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "svg",
+                      {
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          width: "20",
+                          height: "8",
+                          viewBox: "0 0 20 8"
+                        }
+                      },
+                      [
+                        _c("g", [
+                          _c("g", [
+                            _c("path", {
+                              attrs: {
+                                fill: "#5c5c5c",
+                                d:
+                                  "M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"
+                              }
+                            })
+                          ])
+                        ])
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "catalog-filters__box" }, [
+            _c("div", { staticClass: "catalog-filters__block" }, [
+              _c(
+                "div",
+                { staticClass: "catalog-filters__block-head activee" },
+                [
+                  _c("span", [_vm._v("ТИП")]),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "20",
+                        height: "8",
+                        viewBox: "0 0 20 8"
+                      }
+                    },
+                    [
+                      _c("g", [
+                        _c("g", [
+                          _c("path", {
+                            attrs: {
+                              fill: "#5c5c5c",
+                              d:
+                                "M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"
+                            }
+                          })
+                        ])
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(2)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "catalog-filters__block" }, [
+              _c(
+                "div",
+                { staticClass: "catalog-filters__block-head activee" },
+                [
+                  _c("span", [_vm._v("ТИП")]),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "20",
+                        height: "8",
+                        viewBox: "0 0 20 8"
+                      }
+                    },
+                    [
+                      _c("g", [
+                        _c("g", [
+                          _c("path", {
+                            attrs: {
+                              fill: "#5c5c5c",
+                              d:
+                                "M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"
+                            }
+                          })
+                        ])
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(3)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "catalog-filters__block" }, [
+              _c(
+                "div",
+                { staticClass: "catalog-filters__block-head activee" },
+                [
+                  _c("span", [_vm._v("ДЛЯ КОГО")]),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "20",
+                        height: "8",
+                        viewBox: "0 0 20 8"
+                      }
+                    },
+                    [
+                      _c("g", [
+                        _c("g", [
+                          _c("path", {
+                            attrs: {
+                              fill: "#5c5c5c",
+                              d:
+                                "M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"
+                            }
+                          })
+                        ])
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(4)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "catalog-filters__block" }, [
+              _c(
+                "div",
+                { staticClass: "catalog-filters__block-head activee" },
+                [
+                  _c("span", [_vm._v("ПРОИЗВОДИТЕЛЬ")]),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "20",
+                        height: "8",
+                        viewBox: "0 0 20 8"
+                      }
+                    },
+                    [
+                      _c("g", [
+                        _c("g", [
+                          _c("path", {
+                            attrs: {
+                              fill: "#5c5c5c",
+                              d:
+                                "M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"
+                            }
+                          })
+                        ])
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(5)
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(6),
+          _vm._v(" "),
+          _vm._m(7),
+          _vm._v(" "),
+          _c("div", { staticClass: "catalog-filters__box" }, [
+            _c("div", { staticClass: "catalog-filters__block" }, [
+              _c(
+                "div",
+                { staticClass: "catalog-filters__block-head activee" },
+                [
+                  _c("span", [_vm._v("ФОРМА ОПРАВЫ")]),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "20",
+                        height: "8",
+                        viewBox: "0 0 20 8"
+                      }
+                    },
+                    [
+                      _c("g", [
+                        _c("g", [
+                          _c("path", {
+                            attrs: {
+                              fill: "#5c5c5c",
+                              d:
+                                "M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"
+                            }
+                          })
+                        ])
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(8)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "catalog-filters__block" }, [
+              _c(
+                "div",
+                { staticClass: "catalog-filters__block-head activee" },
+                [
+                  _c("span", [_vm._v("ДЛЯ КОГО")]),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "20",
+                        height: "8",
+                        viewBox: "0 0 20 8"
+                      }
+                    },
+                    [
+                      _c("g", [
+                        _c("g", [
+                          _c("path", {
+                            attrs: {
+                              fill: "#5c5c5c",
+                              d:
+                                "M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"
+                            }
+                          })
+                        ])
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(9)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "catalog-filters__block" }, [
+              _c(
+                "div",
+                { staticClass: "catalog-filters__block-head activee" },
+                [
+                  _c("span", [_vm._v("ТЕГИ")]),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "20",
+                        height: "8",
+                        viewBox: "0 0 20 8"
+                      }
+                    },
+                    [
+                      _c("g", [
+                        _c("g", [
+                          _c("path", {
+                            attrs: {
+                              fill: "#5c5c5c",
+                              d:
+                                "M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"
+                            }
+                          })
+                        ])
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(10)
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(11)
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "catalog__box" }, [
+          _c("div", { staticClass: "catalog__head" }, [
+            _vm._m(12),
+            _vm._v(" "),
+            _c("div", { staticClass: "catalog__sorter" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "select_mate",
+                  attrs: { "data-mate-select": "active" }
+                },
+                [
+                  _vm._m(13),
+                  _vm._v(" "),
+                  _c("p", {
+                    staticClass: "selecionado_opcion",
+                    attrs: { onclick: "open_select(this)" }
+                  }),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "icon_select_mate",
+                      attrs: { onclick: "open_select(this)" }
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "20",
+                            height: "8",
+                            viewBox: "0 0 20 8"
+                          }
+                        },
+                        [
+                          _c("g", [
+                            _c("g", [
+                              _c("path", {
+                                attrs: {
+                                  fill: "#5c5c5c",
+                                  d:
+                                    "M-.01.254L.102 0l9.9 7.575 9.886-7.52.11.25-9.778 7.437.004.003-.11.252L10 7.91l-.043.033-.044-.099z"
+                                }
+                              })
+                            ])
+                          ])
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(14)
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(15),
+          _vm._v(" "),
+          _c("a", { staticClass: "btn__more", attrs: { href: "" } }, [
+            _vm._v("ПОКАЗАТЬ ЕЩЕ  24 ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "pagination" }, [
+            _c(
+              "a",
+              {
+                staticClass: "pagination__view pagination__view--prev",
+                attrs: { href: "" }
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      width: "8",
+                      height: "20",
+                      viewBox: "0 0 8 20"
+                    }
+                  },
+                  [
+                    _c("g", [
+                      _c("g", [
+                        _c("path", {
+                          attrs: {
+                            fill: "#5c5c5c",
+                            d: "M7 0h1L1 10l7 10H7L0 10z"
+                          }
+                        })
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v("\n                    предыдущая\n                ")
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(16),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "pagination__view pagination__view--next",
+                attrs: { href: "" }
+              },
+              [
+                _vm._v("\n                    следующая\n                    "),
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      width: "8",
+                      height: "20",
+                      viewBox: "0 0 8 20"
+                    }
+                  },
+                  [
+                    _c("g", [
+                      _c("g", [
+                        _c("path", {
+                          attrs: {
+                            fill: "#5c5c5c",
+                            d: "M1 20H0l7-10L0 0h1l7 10z"
+                          }
+                        })
+                      ])
+                    ])
+                  ]
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "catalog__btns" }, [
+      _c(
+        "button",
+        {
+          staticClass: "catalog__btns-item",
+          attrs: { "data-filters-closer": "" }
+        },
+        [_vm._v("\n                    ОТМЕНА\n                ")]
+      ),
+      _vm._v(" "),
+      _c("button", { staticClass: "catalog__btns-item" }, [
+        _vm._v("\n                    ПРИМЕНИТЬ\n                ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "catalog-filters__block-body",
+        staticStyle: { display: "none" }
+      },
+      [
+        _c(
+          "a",
+          { staticClass: "catalog-filters__type", attrs: { href: "#" } },
+          [_vm._v("ОЧКИ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          { staticClass: "catalog-filters__type", attrs: { href: "#" } },
+          [_vm._v("ЗОНТЫ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          { staticClass: "catalog-filters__type", attrs: { href: "#" } },
+          [_vm._v("СУМКИ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          { staticClass: "catalog-filters__type", attrs: { href: "#" } },
+          [_vm._v("ПОРТФЕЛИ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          { staticClass: "catalog-filters__type", attrs: { href: "#" } },
+          [_vm._v("КОШЕЛЬКИ")]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "catalog-filters__block-body",
+        staticStyle: { display: "none" }
+      },
+      [
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("АВТОМОБИЛЬНЫЕ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("32")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ДЛИННЫЕ ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("43")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("КЛАССИЧЕСКИЕ ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("11")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("АВМИТЕНКИ ТОМОБИЛЬНЫЕ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("23")
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "catalog-filters__block-body",
+        staticStyle: { display: "none" }
+      },
+      [
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("АВТОМОБИЛЬНЫЕ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("32")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ДЛИННЫЕ ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("43")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("КЛАССИЧЕСКИЕ ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("11")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("АВМИТЕНКИ ТОМОБИЛЬНЫЕ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("23")
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "catalog-filters__block-body",
+        staticStyle: { display: "none" }
+      },
+      [
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("МУЖСКИЕ ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("32")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ЖЕНСКИЕ ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("43")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("УНИСЕКС  ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("11")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ДЕТСКИЕ ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("23")
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "catalog-filters__block-body",
+        staticStyle: { display: "none" }
+      },
+      [
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("AIRTON  ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("32")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("DOPPLER  ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("43")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ESPRIT  ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("11")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("FARE ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("23")
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "catalog-filters__slider" }, [
+      _c("p", { staticClass: "catalog-filters__slider-title" }, [
+        _vm._v("\n                    ЦЕНА\n                ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "catalog-filters__slider-box" }, [
+        _c(
+          "span",
+          {
+            staticClass:
+              "catalog-filters__slider-val catalog-filters__slider-val--min"
+          },
+          [_vm._v("1175")]
+        ),
+        _vm._v(" "),
+        _c("div", {
+          staticClass: "catalog-filters__slider-slider",
+          attrs: { id: "slider-range" }
+        }),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            staticClass:
+              "catalog-filters__slider-val catalog-filters__slider-val--max"
+          },
+          [_vm._v("8500")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "catalog-filters__radio" }, [
+      _c("div", { staticClass: "radio" }, [
+        _c("input", { attrs: { type: "checkbox" } }),
+        _vm._v(" "),
+        _c("span")
+      ]),
+      _vm._v("\n                товар по акции\n            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "catalog-filters__block-body",
+        staticStyle: { display: "none" }
+      },
+      [
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ОБЛЕГАЮЩИЕ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("32")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ПРЯМОУГОЛЬНЫЕ  ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("43")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("КВАДРАТНЫЕ  ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("11")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("МАСКА ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("23")
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "catalog-filters__block-body",
+        staticStyle: { display: "none" }
+      },
+      [
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("МУЖСКИЕ ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("32")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ЖЕНСКИЕ ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("43")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("УНИСЕКС  ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("11")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ДЕТСКИЕ ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("23")
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "catalog-filters__block-body",
+        staticStyle: { display: "none" }
+      },
+      [
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ЗИМА   ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("32")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ОСЕНЬ   ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("43")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ЛЕТО  ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("11")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("label", { staticClass: "catalog-filters__item" }, [
+          _c("input", { attrs: { name: "type", type: "checkbox" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "catalog-filters__item-name" }, [
+            _vm._v("ВЕСНА ")
+          ]),
+          _vm._v(" /\n                            "),
+          _c("span", { staticClass: "catalog-filters__item-num" }, [
+            _vm._v("23")
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "catalog__clear" }, [
+      _vm._v("Сбросить фильтр\n                "),
+      _c("img", { attrs: { src: "assets/front/img/close-tag.png", alt: "" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "catalog__tags" }, [
+      _c("div", { staticClass: "catalog__tag" }, [
+        _c("span", { staticClass: "catalog__tag-text" }, [
+          _vm._v("АВТОМОБИЛЬНЫЕ")
+        ]),
+        _vm._v(" "),
+        _c("img", { attrs: { src: "assets/front/img/close-tag.png", alt: "" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "catalog__tag" }, [
+        _c("span", { staticClass: "catalog__tag-text" }, [_vm._v("МУЖСКИЕ")]),
+        _vm._v(" "),
+        _c("img", { attrs: { src: "assets/front/img/close-tag.png", alt: "" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "catalog__tag" }, [
+        _c("span", { staticClass: "catalog__tag-text" }, [_vm._v("AIRTON")]),
+        _vm._v(" "),
+        _c("img", { attrs: { src: "assets/front/img/close-tag.png", alt: "" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "catalog__tag" }, [
+        _c("span", { staticClass: "catalog__tag-text" }, [
+          _vm._v("БЕЗ ПОДКЛАДКИ")
+        ]),
+        _vm._v(" "),
+        _c("img", { attrs: { src: "assets/front/img/close-tag.png", alt: "" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "catalog__tag" }, [
+        _c("span", { staticClass: "catalog__tag-text" }, [
+          _vm._v("ОБЛЕГАЮЩИЕ")
+        ]),
+        _vm._v(" "),
+        _c("img", { attrs: { src: "assets/front/img/close-tag.png", alt: "" } })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { attrs: { name: "", onchange: "", onclick: "return false;", id: "" } },
+      [
+        _c("option", { attrs: { value: "" } }, [_vm._v(" НОВИНКИ")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "1" } }, [
+          _vm._v("ОТ ДЕШЕВЫХ К ДОРОГИМ")
+        ]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "2" } }, [
+          _vm._v("ОТ ДОРОГИХ К ДЕШЕВЫМ")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cont_list_select_mate" }, [
+      _c("ul", { staticClass: "cont_select_int" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "catalog__products" }, [
+      _c("div", { staticClass: "product__iteam" }, [
+        _c("img", { attrs: { src: "assets/front/img/product__foto.png" } }),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__text" }, [
+          _vm._v("Сумка из натуральной кожи")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__number" }, [
+          _vm._v("020265, цвет голубой")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__prise" }, [_vm._v("цена 1699 грн")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__foto_btn" }, [_vm._v("New")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__hide" }, [
+          _c("div", { staticClass: "product__hide_inner" }, [
+            _c("div", { staticClass: "product__hide_colors" }, [
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto2.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto3.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto4.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "product__icon_box" }, [
+                _c("img", {
+                  staticClass: "product__hide_icon",
+                  attrs: { src: "assets/front/img/next.svg", alt: "" }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_prise" }, [
+            _vm._v(
+              "\n                            цена 1699 грн\n                        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_box" }, [
+            _c("a", { attrs: { href: "#/" } }, [_vm._v("посмотреть")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product__cart_box" }, [
+              _c("img", {
+                attrs: { src: "assets/front/img/cart.svg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#/" } }, [_vm._v("КУПИТЬ")])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product__iteam" }, [
+        _c("img", { attrs: { src: "assets/front/img/product__foto.png" } }),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__text" }, [
+          _vm._v("Сумка из натуральной кожи")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__number" }, [
+          _vm._v("020265, цвет голубой")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__prise" }, [_vm._v("цена 1699 грн")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__foto_btn" }, [_vm._v("New")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__hide" }, [
+          _c("div", { staticClass: "product__hide_inner" }, [
+            _c("div", { staticClass: "product__hide_colors" }, [
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto2.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto3.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto4.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "product__icon_box" }, [
+                _c("img", {
+                  staticClass: "product__hide_icon",
+                  attrs: { src: "assets/front/img/next.svg", alt: "" }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_prise" }, [
+            _vm._v(
+              "\n                            цена 1699 грн\n                        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_box" }, [
+            _c("a", { attrs: { href: "#/" } }, [_vm._v("посмотреть")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product__cart_box" }, [
+              _c("img", {
+                attrs: { src: "assets/front/img/cart.svg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#/" } }, [_vm._v("КУПИТЬ")])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product__iteam" }, [
+        _c("img", { attrs: { src: "assets/front/img/product__foto.png" } }),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__text" }, [
+          _vm._v("Сумка из натуральной кожи")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__number" }, [
+          _vm._v("020265, цвет голубой")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__prise" }, [_vm._v("цена 1699 грн")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__foto_btn" }, [_vm._v("New")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__hide" }, [
+          _c("div", { staticClass: "product__hide_inner" }, [
+            _c("div", { staticClass: "product__hide_colors" }, [
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto2.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto3.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto4.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "product__icon_box" }, [
+                _c("img", {
+                  staticClass: "product__hide_icon",
+                  attrs: { src: "assets/front/img/next.svg", alt: "" }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_prise" }, [
+            _vm._v(
+              "\n                            цена 1699 грн\n                        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_box" }, [
+            _c("a", { attrs: { href: "#/" } }, [_vm._v("посмотреть")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product__cart_box" }, [
+              _c("img", {
+                attrs: { src: "assets/front/img/cart.svg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#/" } }, [_vm._v("КУПИТЬ")])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product__iteam" }, [
+        _c("img", { attrs: { src: "assets/front/img/product__foto.png" } }),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__text" }, [
+          _vm._v("Сумка из натуральной кожи")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__number" }, [
+          _vm._v("020265, цвет голубой")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__prise" }, [_vm._v("цена 1699 грн")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__foto_btn" }, [_vm._v("New")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__hide" }, [
+          _c("div", { staticClass: "product__hide_inner" }, [
+            _c("div", { staticClass: "product__hide_colors" }, [
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto2.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto3.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto4.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "product__icon_box" }, [
+                _c("img", {
+                  staticClass: "product__hide_icon",
+                  attrs: { src: "assets/front/img/next.svg", alt: "" }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_prise" }, [
+            _vm._v(
+              "\n                            цена 1699 грн\n                        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_box" }, [
+            _c("a", { attrs: { href: "#/" } }, [_vm._v("посмотреть")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product__cart_box" }, [
+              _c("img", {
+                attrs: { src: "assets/front/img/cart.svg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#/" } }, [_vm._v("КУПИТЬ")])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product__iteam" }, [
+        _c("img", { attrs: { src: "assets/front/img/product__foto.png" } }),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__text" }, [
+          _vm._v("Сумка из натуральной кожи")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__number" }, [
+          _vm._v("020265, цвет голубой")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__prise" }, [_vm._v("цена 1699 грн")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__foto_btn" }, [_vm._v("New")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__hide" }, [
+          _c("div", { staticClass: "product__hide_inner" }, [
+            _c("div", { staticClass: "product__hide_colors" }, [
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto2.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto3.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto4.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "product__icon_box" }, [
+                _c("img", {
+                  staticClass: "product__hide_icon",
+                  attrs: { src: "assets/front/img/next.svg", alt: "" }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_prise" }, [
+            _vm._v(
+              "\n                            цена 1699 грн\n                        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_box" }, [
+            _c("a", { attrs: { href: "#/" } }, [_vm._v("посмотреть")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product__cart_box" }, [
+              _c("img", {
+                attrs: { src: "assets/front/img/cart.svg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#/" } }, [_vm._v("КУПИТЬ")])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product__iteam" }, [
+        _c("img", { attrs: { src: "assets/front/img/product__foto.png" } }),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__text" }, [
+          _vm._v("Сумка из натуральной кожи")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__number" }, [
+          _vm._v("020265, цвет голубой")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__prise" }, [_vm._v("цена 1699 грн")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__foto_btn" }, [_vm._v("New")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__hide" }, [
+          _c("div", { staticClass: "product__hide_inner" }, [
+            _c("div", { staticClass: "product__hide_colors" }, [
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto2.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto3.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto4.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "product__icon_box" }, [
+                _c("img", {
+                  staticClass: "product__hide_icon",
+                  attrs: { src: "assets/front/img/next.svg", alt: "" }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_prise" }, [
+            _vm._v(
+              "\n                            цена 1699 грн\n                        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_box" }, [
+            _c("a", { attrs: { href: "#/" } }, [_vm._v("посмотреть")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product__cart_box" }, [
+              _c("img", {
+                attrs: { src: "assets/front/img/cart.svg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#/" } }, [_vm._v("КУПИТЬ")])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product__iteam" }, [
+        _c("img", { attrs: { src: "assets/front/img/product__foto.png" } }),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__text" }, [
+          _vm._v("Сумка из натуральной кожи")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__number" }, [
+          _vm._v("020265, цвет голубой")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__prise" }, [_vm._v("цена 1699 грн")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__foto_btn" }, [_vm._v("New")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__hide" }, [
+          _c("div", { staticClass: "product__hide_inner" }, [
+            _c("div", { staticClass: "product__hide_colors" }, [
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto2.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto3.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto4.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "product__icon_box" }, [
+                _c("img", {
+                  staticClass: "product__hide_icon",
+                  attrs: { src: "assets/front/img/next.svg", alt: "" }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_prise" }, [
+            _vm._v(
+              "\n                            цена 1699 грн\n                        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_box" }, [
+            _c("a", { attrs: { href: "#/" } }, [_vm._v("посмотреть")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product__cart_box" }, [
+              _c("img", {
+                attrs: { src: "assets/front/img/cart.svg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#/" } }, [_vm._v("КУПИТЬ")])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product__iteam" }, [
+        _c("img", { attrs: { src: "assets/front/img/product__foto.png" } }),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__text" }, [
+          _vm._v("Сумка из натуральной кожи")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__number" }, [
+          _vm._v("020265, цвет голубой")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__prise" }, [_vm._v("цена 1699 грн")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__foto_btn" }, [_vm._v("New")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "product__hide" }, [
+          _c("div", { staticClass: "product__hide_inner" }, [
+            _c("div", { staticClass: "product__hide_colors" }, [
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto2.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto3.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto4.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "product__hide_iteam",
+                attrs: { src: "assets/front/img/hidden_foto5.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "product__icon_box" }, [
+                _c("img", {
+                  staticClass: "product__hide_icon",
+                  attrs: { src: "assets/front/img/next.svg", alt: "" }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_prise" }, [
+            _vm._v(
+              "\n                            цена 1699 грн\n                        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product__hide_box" }, [
+            _c("a", { attrs: { href: "#/" } }, [_vm._v("посмотреть")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product__cart_box" }, [
+              _c("img", {
+                attrs: { src: "assets/front/img/cart.svg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#/" } }, [_vm._v("КУПИТЬ")])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "catalog__more" }, [
+        _c("a", { staticClass: "catalog__more-link", attrs: { href: "#" } }),
+        _vm._v(" "),
+        _c("div", { staticClass: "catalog__more-main" }, [
+          _c("span", { staticClass: "catalog__more-num" }, [_vm._v("24")]),
+          _vm._v(" "),
+          _c(
+            "span",
+            { staticClass: "catalog__more-num catalog__more-num--small" },
+            [_vm._v("ПОКАЗАТЬ ЕЩЕ")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__text" }, [_vm._v("В ЭТОЙ КАТЕГОРИИ")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "product__number" }, [
+          _vm._v("всего "),
+          _c("span", [_vm._v("1712")]),
+          _vm._v(" товаров в категории")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "pagination__list" }, [
+      _c("li", { staticClass: "pagination__item" }, [
+        _c("a", { staticClass: "pagination__num", attrs: { href: "" } }, [
+          _vm._v("1")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "pagination__item" }, [
+        _c("a", { staticClass: "pagination__num", attrs: { href: "" } }, [
+          _vm._v("2")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "pagination__item active" }, [
+        _c("a", { staticClass: "pagination__num", attrs: { href: "" } }, [
+          _vm._v("3")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "pagination__item" }, [
+        _c("a", { staticClass: "pagination__num", attrs: { href: "" } }, [
+          _vm._v("4")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "pagination__item" }, [
+        _c("a", { staticClass: "pagination__num", attrs: { href: "" } }, [
+          _vm._v("5")
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "li",
+        { staticClass: "pagination__item pagination__item--separator" },
+        [_vm._v("\n                        ...\n                    ")]
+      ),
+      _vm._v(" "),
+      _c("li", { staticClass: "pagination__item" }, [
+        _c("a", { staticClass: "pagination__num", attrs: { href: "" } }, [
+          _vm._v("72")
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/site/Category.vue?vue&type=template&id=ef9248aa&scoped=true&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/site/Category.vue?vue&type=template&id=ef9248aa&scoped=true& ***!
@@ -114690,7 +117358,9 @@ Vue.component('site-cart-component', __webpack_require__(/*! ./components/site/C
 Vue.component('site-order-component', __webpack_require__(/*! ./components/site/Order */ "./resources/js/components/site/Order.vue")["default"]);
 Vue.component('site-nav-cart-component', __webpack_require__(/*! ./components/site/NavCart */ "./resources/js/components/site/NavCart.vue")["default"]);
 Vue.component('site-contact-component', __webpack_require__(/*! ./components/site/Contact */ "./resources/js/components/site/Contact.vue")["default"]); // Vue.component('site-test-component', require('./components/site/Test').default);
+// Пользовательский сайт:
 
+Vue.component('site-catalog-component', __webpack_require__(/*! ./components/site/Catalog */ "./resources/js/components/site/Catalog.vue")["default"]);
 
 var app = new Vue({
   el: '#app',
@@ -117329,6 +119999,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cart_vue_vue_type_template_id_603d8b4d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cart_vue_vue_type_template_id_603d8b4d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/site/Catalog.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/site/Catalog.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Catalog_vue_vue_type_template_id_6087e708_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Catalog.vue?vue&type=template&id=6087e708&scoped=true& */ "./resources/js/components/site/Catalog.vue?vue&type=template&id=6087e708&scoped=true&");
+/* harmony import */ var _Catalog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Catalog.vue?vue&type=script&lang=js& */ "./resources/js/components/site/Catalog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Catalog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Catalog_vue_vue_type_template_id_6087e708_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Catalog_vue_vue_type_template_id_6087e708_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "6087e708",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/site/Catalog.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/site/Catalog.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/site/Catalog.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Catalog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Catalog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/site/Catalog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Catalog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/site/Catalog.vue?vue&type=template&id=6087e708&scoped=true&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/site/Catalog.vue?vue&type=template&id=6087e708&scoped=true& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Catalog_vue_vue_type_template_id_6087e708_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Catalog.vue?vue&type=template&id=6087e708&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/site/Catalog.vue?vue&type=template&id=6087e708&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Catalog_vue_vue_type_template_id_6087e708_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Catalog_vue_vue_type_template_id_6087e708_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
