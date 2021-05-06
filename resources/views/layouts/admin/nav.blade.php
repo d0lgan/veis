@@ -30,6 +30,7 @@
                     <li><a href="{{route('admin-options-index')}}">Опции</a></li>
                     <li><a href="{{route('admin-manufacturers-index')}}">Производители</a></li>
                     <li><a href="{{route('admin-suppliers-index')}}">Поставщики</a></li>
+                    <li><a href="{{route('admin-products-export')}}" style="color: #2b2b2b;">Экспорт в XML</a></li>
                 </ul>
             </div>
             

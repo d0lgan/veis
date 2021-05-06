@@ -17,6 +17,7 @@ use App\City;
 use Auth;
 use App\Cart;
 use Cache;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Session;
 use App\Page;
@@ -206,6 +207,28 @@ class OrderController extends Controller {
             'settings' => $settings
 		] );
 	}
+
+    public function getBasket() {
+        $page = Page::where( 'type', 'shopping-cart' )->first();
+        pagetitle( $page->meta_h1 );
+        $settings = Setting::first();
+        $locale = App::getLocale();
+
+        if ( ! Session::has( 'cart' ) ) {
+            return view( 'site.basket', compact( 'page', 'settings', 'locale' ) );
+        }
+        $oldCart = Session::get( 'cart' );
+        $cart    = new Cart( $oldCart );
+
+
+        return view( 'site.basket', [
+            'products'   => $cart->items,
+            'totalPrice' => $cart->totalPrice,
+            'page'       => $page,
+            'settings' => $settings,
+            'locale' => $locale,
+        ] );
+    }
 
 	//удаление одного товара из корзины
 	public function getReduceByOne( $id ) {

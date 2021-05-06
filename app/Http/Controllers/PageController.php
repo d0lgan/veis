@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Blog;
 use App\BlogCategory;
 use App\Contact;
+use App\GroupAttribute;
+use App\Http\Middleware\LocaleMiddleware;
 use App\Order;
 use App\Brand;
 use App\Category;
@@ -24,6 +26,7 @@ use Session;
 use App\Product;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\User;
+use function foo\func;
 
 class PageController extends Controller {
 
@@ -174,10 +177,152 @@ class PageController extends Controller {
 	}
 
     public function home() {
-	    return view('site.home');
+	    $translate = [
+            'new' => Lang::trans('site.productCard.new'),
+            'sale' => Lang::trans('site.productCard.sale'),
+            'gloves' => Lang::trans('site.productCard.gloves'),
+            'sunglasses' => Lang::trans('site.productCard.sunglasses'),
+            'umbrellas' => Lang::trans('site.productCard.umbrellas'),
+            'bags' => Lang::trans('site.productCard.bags'),
+            'watch' => Lang::trans('site.productCard.watch'),
+            'buy' => Lang::trans('site.productCard.buy'),
+            'price' => Lang::trans('site.productCard.price'),
+            'color' => Lang::trans('site.productCard.color'),
+            'show_all' => Lang::trans('site.productCard.show_all'),
+        ];
+        $latestGlasses = Product::orderBy('created_at', 'desc')
+            ->where('title_ru', 'like', '%очки%')
+            ->take(8)
+            ->with('galleries', 'attributes', 'tags')
+            ->get();
+        foreach ($latestGlasses as $i => $item) {
+            $latestGlasses[$i] = $item->toArray();
+        }
+
+        $locale = App::getLocale();
+	    return view('site.home', compact('latestGlasses', 'locale', 'translate'));
     }
 
     public function catalog() {
-        return view('site.catalog');
+	    /*$ps = Product::where('id', '>', 100)->take(10)->get();
+	    foreach ($ps as $p) {
+	        foreach($p->attributes()->get() as $atr) {
+	            if ($atr->id == 61) {
+	                dump($p, $p->attributes()->get());
+                }
+            };
+        }
+	    dd();*/
+
+	    /*$genders = [60];
+        $ps = Product::whereHas('attributes', function($q) use ($genders) {
+                $q->whereIn('attributes.id', $genders);
+            })->get();
+        dd($ps);*/
+        $translate = [
+            'catalog' => Lang::trans('site.footer.catalog'),
+            'store' => Lang::trans('product.store'),
+
+            'new' => Lang::trans('site.productCard.new'),
+            'sale' => Lang::trans('site.productCard.sale'),
+            'gloves' => Lang::trans('site.productCard.gloves'),
+            'sunglasses' => Lang::trans('site.productCard.sunglasses'),
+            'umbrellas' => Lang::trans('site.productCard.umbrellas'),
+            'bags' => Lang::trans('site.productCard.bags'),
+            'watch' => Lang::trans('site.productCard.watch'),
+            'buy' => Lang::trans('site.productCard.buy'),
+            'price' => Lang::trans('site.productCard.price'),
+            'color' => Lang::trans('site.productCard.color'),
+            'show_all' => Lang::trans('site.productCard.show_all'),
+
+            'filter' => Lang::trans('site.catalog.filter'),
+            'sort' => Lang::trans('site.catalog.sort'),
+            'newest' => Lang::trans('site.catalog.newest'),
+            'price_asc' => Lang::trans('site.catalog.price_asc'),
+            'price_desc' => Lang::trans('site.catalog.price_desc'),
+            'for' => Lang::trans('site.catalog.for'),
+            'manuf' => Lang::trans('site.catalog.manuf'),
+            'shape' => Lang::trans('site.catalog.shape'),
+            'uv_filter' => Lang::trans('site.catalog.uv_filter'),
+            'lensColor' => Lang::trans('site.catalog.lensColor'),
+            'frameColor' => Lang::trans('site.catalog.frameColor'),
+            'gradient' => Lang::trans('site.catalog.gradient'),
+            'frameMaterial' => Lang::trans('site.catalog.frameMaterial'),
+            'features' => Lang::trans('site.catalog.features'),
+            'tags' => Lang::trans('site.catalog.tags'),
+            'priceUp' => Lang::trans('site.catalog.priceUp'),
+            'use_filter' => Lang::trans('site.catalog.use_filter'),
+            'reset' => Lang::trans('site.catalog.reset'),
+            'next' => Lang::trans('site.catalog.next'),
+            'prev' => Lang::trans('site.catalog.prev'),
+            'glasses' => Lang::trans('site.products.glasses'),
+            'portfolios' => Lang::trans('site.products.portfolios'),
+            'wallets' => Lang::trans('site.products.wallets'),
+            'is_sale' => Lang::trans('site.catalog.is_sale'),
+            'category' => Lang::trans('site.catalog.category'),
+        ];
+        $locale = App::getLocale();
+
+        $filters = GroupAttribute::where('public', 1)->with(['attributes' => function ($query) {
+            $query->withCount('products');
+        }])->get()->map->toArray()->sortBy('sort')->toArray();
+
+
+
+
+        foreach ($filters as $key => $group) {
+            // Добавление продуктов с атрибута Унисекс в атрибуты Мужские и Женские (костыль)
+            if ($group['id'] == 14) {
+                $filters[$key]['attributes'][0]['products_count'] += $filters[$key]['attributes'][2]['products_count'];
+                $filters[$key]['attributes'][1]['products_count'] += $filters[$key]['attributes'][2]['products_count'];
+                unset($filters[$key]['attributes'][2]);
+            }
+        }
+
+        $colorsOfLens = collect($filters)->filter(function($value, $key) {
+            return $value['title_ru'] === 'Цвет линз';
+        })->all();
+
+
+        // Объединение цветов линз
+        $firstElement = true;
+        foreach ($filters as $key => $group) {
+            if ($group['title_ru'] != 'Цвет линз') continue;
+
+            if($firstElement) {
+                $firstElement = false;
+                $firstElementId = $key;
+            } else {
+                foreach ($group['attributes'] as $attribute) {
+                    $isColorInMainGroup = false;
+                    foreach ($filters[$firstElementId]['attributes'] as $indexOfMainAttr => $mainAttribute) {
+                        if ($attribute['name_ru'] == $mainAttribute['name_ru']) {
+                            $isColorInMainGroup = true;
+                            $filters[$firstElementId]['attributes'][$indexOfMainAttr]['products_count'] += $attribute['products_count'];
+                        }
+                    }
+
+                    if (!$isColorInMainGroup) {
+                        array_push($filters[$firstElementId]['attributes'], $attribute);
+                    }
+                }
+
+                unset($filters[$key]);
+            }
+
+        }
+
+        // Сортировка атрибутов группы атрибутов по количеству привязанных продуктов
+        $filters = array_values(collect($filters)->map(function ($item) {
+            $item['attributes'] = array_values(collect($item['attributes'])->sortByDesc('products_count')->toArray());
+            return $item;
+        })->toArray());
+
+
+        return view('site.catalog', compact('translate', 'locale', 'filters'));
+    }
+
+    public function info() {
+	    return view('site.info');
     }
 }

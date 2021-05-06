@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <!--<div>
         <div v-if="products.length > 0" class="col-md-12 h2 mt-5">{{ translate_watch.watched }}</div>
         <div :key="update" v-if="categories.length > 0" :class="{active : categories.length > 0, show : categories.length > 0}" class="tab-pane fade" id="new-items" role="tabpanel" aria-labelledby="new-items-tab">
             <div class="col-md-12 d-flex justify-content-center">
@@ -36,7 +36,7 @@
                             </div>
 
                             <img v-if="product.relations.length > 0" v-for="relation in product.relations" @click="getRelationProduct(relation.id, key_p)" :src="'/house/uploads/' + relation.image" class="col-md-4" :alt="relation.alt ? relation.alt : relation.meta_h1">
-<!--                            <img :src="'/house/uploads/' + image.name" class="col-md-4" v-for="image in product.galleries">-->
+&lt;!&ndash;                            <img :src="'/house/uploads/' + image.name" class="col-md-4" v-for="image in product.galleries">&ndash;&gt;
 
                             <div v-if="settings.shop_buy" class="btn btn-primary" @click="addToCart(product)">Add Cart</div>
                         </div>
@@ -47,7 +47,123 @@
                 <a :href="'category/' + select_category.slug" class="btn btn-primary">{{ translate_watch.show_all }} {{ select_category.title }}</a>
             </div>
         </div>
-    </div>
+    </div>-->
+
+
+    <section class="product product-more">
+        <div class="mobile__product">
+            <div class="media__foot_iteam">
+                <span>{{ translate.viewed }}</span>
+                <img src="/assets/front/img/down_white.png">
+            </div>
+            <!--<div class="media__foot_hide">
+                <a href="#/">ПЕРЧАТКИ</a>
+                <a href="#/">СОЛНЦЕЗАЩИТНЫЕ ОЧКИ</a>
+                <a href="#/">СУМКИ</a>
+                <a href="#/">ЗОНТЫ</a>
+            </div>-->
+
+        </div>
+        <div class="conteiner">
+            <h2 class="section-title product-more__title xs-hidden">{{ translate.viewed }}</h2>
+            <!--<div class="product__name">
+                <pre><span class="product__name_active">ПЕРЧАТКИ</span>   /   <span>СОЛНЦЕЗАЩИТНЫЕ ОЧКИ</span>   /   <span>СУМКИ</span>   /   <span>ЗОНТЫ</span></pre>
+            </div>-->
+            <div class="product-more__sliderbox">
+                    <span class="slider-arrow prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
+                            <g>
+                                <g>
+                                    <path fill="#5c5c5c" d="M24 0h1L.794 30.984 25 61l-.955.008L0 32v-2z" />
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                <div class="product-more__slider">
+                    <!--<div class="product__iteam product__iteam&#45;&#45;more">
+                        <img src="/assets/front/img/product__foto.png">
+
+                        <p class="product__text">Сумка из натуральной кожи</p>
+                        <p class="product__number">020265, цвет голубой</p>
+                        <p class="product__prise">цена 1699 грн</p>
+
+                        <div class="product__foto_btn">New</div>
+
+                        <div class="product__hide_box">
+                            <a href="#/">посмотреть</a>
+
+                            <div class="product__cart_box">
+                                <img src="/assets/front/img/cart.svg" alt="">
+                                <a href="#/">КУПИТЬ</a>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <div v-for="product in products">
+                        <!--<a :href="getLang ? '/produce/' + product.slug_ru : '/uk/produce/' + product.slug_uk" style="display: flex; align-items: center; flex-direction: column; text-decoration: none; margin: 15px 15px 0 0">
+
+                            <img :src="'/house/uploads/' + product.image" style="width: 94%;">
+
+                            <p class="product__text">{{ firstThreeLetterInProduct(product) }}</p>
+                            &lt;!&ndash;<p class="product__number">{{ translate.color }} <span v-for="attr in product.attributes">
+                                    <span v-if="attr.group_attribute_id == 18">{{ getLang ? attr.name_ru : attr.name_uk}} </span>
+                                </span></p>&ndash;&gt;
+                            <p class="product__number">{{ restLetterInProduct(product) }}</p>
+
+                            <div v-if="(!product.end_stock && product.percent) || (product.end_stock && (product.end_stock > date))">
+                                <p class="product__prise lowprise">{{ product.undiscounted }} грн</p>
+                                <p class="lowprise__number">{{ translate.price }} {{ product.price }} грн</p>
+                            </div>
+                            <p class="product__prise" v-else>{{ translate.price }} {{ product.price }} грн</p>
+
+                            &lt;!&ndash;<div class="product__foto_btn">New</div>&ndash;&gt;
+
+                            <div class="product__hide">
+                                <div class="product__hide_inner">
+                                    <div class="product__hide_colors">
+                                        <img class="product__hide_iteam" :src="'/house/uploads/' + img.name" alt="" v-for="img in product.galleries" v-if="!(img.name.substr(0, 7) == 'futlyar')">
+                                        &lt;!&ndash;<div class="product__icon_box">
+                                            <img class="product__hide_icon" src="/assets/front/img/next.svg" alt="">
+                                        </div>&ndash;&gt;
+                                    </div>
+                                </div>
+
+                                <div v-if="(!product.end_stock && product.percent) || (product.end_stock && (product.end_stock > date))">
+                                    <p class="product__hide_prise lowprise">{{ product.undiscounted }} грн</p>
+                                    <div class="product__hide_prise lowprise__number">
+                                        {{ translate.price }} {{ product.price }} грн
+                                    </div>
+                                </div>
+                                <div class="product__hide_prise" v-else>
+                                    {{ translate.price }} {{ product.price }} грн
+                                </div>
+                                <div class="product__hide_box">
+                                    <span>{{ translate.watch }}</span>
+
+                                    <div class="product__cart_box">
+                                        <img src="/assets/front/img/cart.svg" alt="">
+                                        <a href="#">{{ translate.buy }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    -->
+                        <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
+
+                    </div>
+                </div>
+                <span class="slider-arrow next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
+                    <g>
+                        <g>
+                            <path fill="#5c5c5c" d="M.795 61.008L0 61l24.206-30.016L0 0l.955-.008L25 30v2z" />
+                        </g>
+                    </g>
+                </svg>
+            </span>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>
@@ -62,8 +178,7 @@
         },
         props:[
             'locale',
-            'settings',
-            'translate_watch'
+            'translate',
         ],
         data(){
             return{
@@ -109,8 +224,35 @@
                     this.select_products[key] = res.data;
                     this.update++;
                 });
-            }
+            },
+
+            firstThreeLetterInProduct(product) {
+                if (this.locale == 'ru') {
+                    return product.title_ru.split( " " ).slice(0, 3).join(' ');
+                } else {
+                    return product.title_uk.split( " " ).slice(0, 3).join(' ');
+                }
+            },
+
+            restLetterInProduct(product) {
+                if (this.locale == 'ru') {
+                    return product.title_ru.split( " " ).slice(3).join(' ');
+                } else {
+                    return product.title_uk.split( " " ).slice(3).join(' ');
+                }
+            },
         },
+
+        computed: {
+            getLang: function() {
+                if (this.locale == 'ru') {
+                    return true;
+                } else if (this.locale == 'uk') {
+                    return false;
+                }
+            },
+        },
+
         mounted() {
             this.now = this.date.getFullYear() + '-' + (this.date.getMonth()+1) + '-' + this.date.getDate();
             let prod = window.localStorage.getItem('viewed');
@@ -125,7 +267,37 @@
                     });
 
             }
+        },
 
+        updated () {
+            $('.product-more__slider').slick({
+                infinite: true,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                dots: false,
+                arrows: true,
+                dots: false,
+                prevArrow: '.product-more__sliderbox .prev',
+                nextArrow: '.product-more__sliderbox .next',
+                responsive: [
+                    {
+                        breakpoint: 900,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            infinite: true,
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            infinite: true,
+                        }
+                    },
+                ]
+            });
         }
     }
 </script>

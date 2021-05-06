@@ -39,7 +39,7 @@ class CategoryController extends Controller
         ];
         $locale = App::getLocale();
         $page = DB::table('pages')->where('type', 'category')->first();
-        $category = Category::whereSlug($slug)->firstOrFail();
+        $category = Category::whereSlug_ru($slug)->firstOrFail();
         $category->title = Document::get('category', 'title', $category->id, $locale);
         $categories = Category::all();
         pagetitle($category->meta_h1);

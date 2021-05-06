@@ -518,16 +518,19 @@ window.addEventListener('load',function(){
 
 	$(".phone").mask("+38(999) 999-9999");
 
-	$("#slider-range").slider({
-		range: true,
-		min: 0,
-		max: 9999,
-		values: [ 1175, 8500 ],
-		slide: function( event, ui ) {
-		  $(this).parent().find('.catalog-filters__slider-val--min').text(ui.values[0]);
-		  $(this).parent().find('.catalog-filters__slider-val--max').text(ui.values[1]);
-		}
-	  });
+
+	setTimeout(() => {
+		$("#slider-range").slider({
+			range: true,
+			min: 0,
+			max: $("#maxValPrice").val(),
+			values: [ 0, $("#maxValPrice").val() ],
+			slide: function( event, ui ) {
+				$(this).parent().find('.catalog-filters__slider-val--min').text(ui.values[0]);
+				$(this).parent().find('.catalog-filters__slider-val--max').text(ui.values[1]);
+			}
+		});
+	}, 1000);
 
 
 			var newYear = new Date(); 
@@ -583,13 +586,13 @@ window.addEventListener('load',function(){
 		  ]
 	  });
 
-	  $('.product-more__slider').slick({
+
+	  /*$('.product-more__slider').slick({
 		infinite: true,
 		slidesToShow: 4,
-		slidesToScroll: 1, 
+		slidesToScroll: 1,
 		dots: false,
 		arrows: true,
-		dots: false,
 		prevArrow: '.product-more__sliderbox .prev',
 		nextArrow: '.product-more__sliderbox .next',
 		responsive: [
@@ -610,7 +613,7 @@ window.addEventListener('load',function(){
 				}
 			  },
 		  ]
-	  });
+	  });*/
 
 	  $('.select').select({
 		//options
@@ -1166,7 +1169,6 @@ window.addEventListener('load',function(){
 	  				a += 2
 	  			}
 	  			if(counter <=  (brandIteam2.clientWidth * -1) * b){
-	  				console.log('cvbcvb')
 	  				brandIteam2.style.transform = 'translateX(' + brandIteam.clientWidth * 2 * (b / 2)   + 'px)';
 	  				b += 2
 	  			}
@@ -1174,12 +1176,10 @@ window.addEventListener('load',function(){
 						brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
 
 	  				if(counter >=  (brandIteam.clientWidth) * a2){
-		  				console.log('asd')
 		  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2) + 'px)';
 		  				a2 += 2
 		  			}
 		  			if(counter >=  (brandIteam2.clientWidth) * b2){
-		  				console.log('cvbcvb')
 		  				brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
 		  				b2 += 2
 		  			}

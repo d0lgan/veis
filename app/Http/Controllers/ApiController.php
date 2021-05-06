@@ -1658,7 +1658,7 @@ class ApiController extends Controller
 
     public function getLang(Request $request){
 
-$res = [];
+        $res = [];
         foreach ($request->products as $product){
 
             $product['title'] = Document::get('product', 'title', $product['id'], $request->locate);

@@ -23,64 +23,64 @@
         <div class="conteiner">
             <div class="top__head">
                 <nav>
-                    <a href="#/">Доставка</a>
-                    <a href="#/">Оплата</a>
-                    <a href="#/">Гарантия и возврат</a>
+                    <a href="#/">{{ __('site.menu.delivery') }}</a>
+                    <a href="#/">{{ __('site.menu.pay') }}</a>
+                    <a href="#/">{{ __('site.menu.guarantee') }}</a>
                     <div class="head__contact">
-                        <span>Контакты</span>
-                        <img src="assets/front/img/down_white.png" alt="down_white.png">
+                        <span>{{ __('site.menu.contacts') }}</span>
+                        <img src="/assets/front/img/down_white.png" alt="down_white.png">
                     </div>
                     <div class="contact__hide">
                         <div class="contact__iteam">
-                            <img src="assets/front/img/kievstar_black.jpg">
+                            <img src="/assets/front/img/kievstar_black.jpg">
                             <a href="tel:380672740200">
                                 +38 (067) 27-40-200
                             </a>
                         </div>
                         <div class="contact__iteam">
-                            <img src="assets/front/img/vodafone_black.jpg">
+                            <img src="/assets/front/img/vodafone_black.jpg">
                             <a href="tel:380952740200">
                                 +38 (095) 27-40-200
                             </a>
                         </div>
                         <div class="contact__iteam">
-                            <img src="assets/front/img/life_black.jpg">
+                            <img src="/assets/front/img/life_black.jpg">
                             <a href="tel:380732740200">
                                 +38 (073) 27-40-200
                             </a>
                         </div>
                         <a href="mailto:dnepr.veis@gmail.com" class="contact__email">dnepr.veis@gmail.com</a>
                         <div class="contact__iteam contact__margin">
-                            <img  src="assets/front/img/phone.jpg">
+                            <img  src="/assets/front/img/phone.jpg">
                             <div class="contact__content">
-                                <p class="contact__title">Звоните нам</p>
+                                <p class="contact__title">{{ __('site.menu.call') }}</p>
                                 <p class="contact__text">с 08:00 до 21:00 (пн.-пт.)</p>
                                 <p class="contact__text">и с 09.00 до 20:00 (сб,-вс.)</p>
                             </div>
                         </div>
                         <div class="contact__iteam2">
-                            <img src="assets/front/img/marker.jpg">
+                            <img src="/assets/front/img/marker.jpg">
                             <div class="contact__content">
-                                <p class="contact__title">Мы находимся:</p>
+                                <p class="contact__title">{{ __('site.menu.geo') }}</p>
                                 <p class="contact__text">г. Днепро 49000 ул. Солидарная 2</p>
-                                <a href="#/">Показать на карте » </a>
+                                <a href="#/">{{ __('site.menu.map') }} » </a>
                             </div>
                         </div>
                     </div>
-                    <a href="#/">Блог</a>
-                    <a href="#/">Отзывы</a>
+                    <a href="#/">{{ __('site.menu.blog') }}</a>
+                    <a href="#/">{{ __('site.menu.reviews') }}</a>
                 </nav>
                 <div class="top__head_info">
-                    <p class="work__info">График работы с 08 – 21 (пн.-пт.) и с 09 – 20 (сб.-вс.) </p>
-                    <img class="cart__icon" src="assets/front/img/cart.svg">
-                    <p class="lang__info"><a href="#/">UA</a> | <a href="#/">RU</a></p>
+                    <p class="work__info">{{ __('site.menu.schedule') }}</p>
+
+                    <site-basket-element-component :locale="{{ json_encode(App::getLocale()) }}"></site-basket-element-component>
+
+                    <p class="lang__info"><a href="{{ route('setlocale', ['lang' => 'uk']) }}">UA</a> | <a href="{{ route('setlocale', ['lang' => 'ru']) }}">RU</a></p>
                 </div>
             </div>
             <div class="media__head">
-                <div class="media__head_cart">
-                    <img src="assets/front/img/cart.svg">
-                    <span>5</span>
-                </div>
+
+                <site-basket-element-component :locale="{{ json_encode(App::getLocale()) }}"></site-basket-element-component>
 
                 <a href="index.html" class="logo media__head_logo">VEIS<br><span>COLLECTION</span></a>
 
@@ -88,7 +88,7 @@
                     <span class="top"></span>
                     <span class="center"></span>
                     <span class="bottom"></span>
-                    <img src="assets/front/img/down.svg" style="display: none;">
+                    <img src="/assets/front/img/down.svg" style="display: none;">
                 </div>
             </div>
         </div>
@@ -97,47 +97,47 @@
     <div class="media__modal">
         <div class="conteiner">
             <div class="media__modal_iteam">
-                <a href="#/">Доставка</a>
-                <a href="#/">Оплата</a>
-                <a href="#/">Гарантия и возврат</a>
+                <a href="#/">{{ __('site.menu.delivery') }}</a>
+                <a href="#/">{{ __('site.menu.pay') }}</a>
+                <a href="#/">{{ __('site.menu.guarantee') }}</a>
                 <div class="head__contact  modal__hide">
-                    <span>Контакты</span>
-                    <img src="assets/front/img/down_white.png" alt="">
+                    <span>{{ __('site.menu.contacts') }}</span>
+                    <img src="/assets/front/img/down_white.png" alt="">
                     <div class="contact__hide">
                         <div class="contact__iteam">
-                            <img src="assets/front/img/kievstar_black.jpg">
+                            <img src="/assets/front/img/kievstar_black.jpg">
                             <a href="tel:380672740200">
                                 +38 (067) 27-40-200
                             </a>
                         </div>
                         <div class="contact__iteam">
-                            <img src="assets/front/img/vodafone_black.jpg">
+                            <img src="/assets/front/img/vodafone_black.jpg">
                             <a href="tel:380952740200">
                                 +38 (095) 27-40-200
                             </a>
                         </div>
                         <div class="contact__iteam">
-                            <img src="assets/front/img/life_black.jpg">
+                            <img src="/assets/front/img/life_black.jpg">
                             <a href="tel:380732740200">
                                 +38 (073) 27-40-200
                             </a>
                         </div>
                         <a href="mailto:dnepr.veis@gmail.com" class="contact__email">dnepr.veis@gmail.com</a>
                         <div class="contact__iteam contact__margin">
-                            <img src="assets/front/img/phone.jpg">
+                            <img src="/assets/front/img/phone.jpg">
                             <div class="contact__content">
-                                <p class="contact__title">Звоните нам</p>
+                                <p class="contact__title">{{ __('site.menu.call') }}</p>
                                 <p class="contact__text">с 08:00 до 21:00 (пн.-пт.)</p>
                                 <p class="contact__text">и с 09.00 до 20:00 (сб,-вс.)</p>
                             </div>
                         </div>
                         <div class="contact__iteam2">
-                            <img src="assets/front/img/marker.jpg">
+                            <img src="/assets/front/img/marker.jpg">
                             <div class="contact__content">
-                                <p class="contact__title">Мы находимся:</p>
+                                <p class="contact__title">{{ __('site.menu.geo') }}</p>
                                 <div class="contact__desktop">
                                     <p class="contact__text">г. Днепро 49000 ул. Солидарная 2</p>
-                                    <a href="#/">Показать на карте » </a>
+                                    <a href="#/">{{ __('site.menu.map') }} » </a>
                                 </div>
                                 <div class="contant__tablet">
                                     <a href="#/" class="contact__text">г. Днепро 49000 ул. Солидарная 2</a>
@@ -146,19 +146,19 @@
                         </div>
                     </div>
                 </div>
-                <a href="#/">Блог</a>
+                <a href="#/">{{ __('site.menu.blog') }}</a>
             </div>
-            <a href="#/" class="hide__btn">перезвоните мне</a>
+            <a href="#/" class="hide__btn">{{ __('site.menu.call_me') }}</a>
         </div>
     </div>
     <div class="bottom__head">
         <div class="conteiner">
             <div class="bottom__block">
                 <div class="map__head_input head__search">
-                    <input id="head__input" type="text" placeholder="Введите ваш запрос">
+                    <input id="head__input" type="text" placeholder="{{ __('site.menu.query') }}">
 
                     <svg id="seacrh" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-                    <img class="close__icon" src="assets/front/img/close.svg" alt="close">
+                    <img class="close__icon" src="/assets/front/img/close.svg" alt="close">
 
                     <div class="head__hide">
                         <p>САПОГИ ЗИМНИЕ НА КАБЛУКЕ</p>
@@ -171,27 +171,27 @@
                 <a href="index.html" class="logo media__logo_hide">VEIS<br><span>COLLECTION</span></a>
                 <div class="block__number">
                     <div class="head__box">
-                        <img class="vodafone__icon" id='foto' src="assets/front/img/kievstar.svg" alt="vodafone">
+                        <img class="vodafone__icon" id='foto' src="/assets/front/img/kievstar.svg" alt="vodafone">
                         <p id="phone">+38 (067) 27-40-200</p>
-                        <img class="rotate" src="assets/front/img/down_white.png" alt="">
+                        <img class="rotate" src="/assets/front/img/down_white.png" alt="">
                     </div>
                     <div class="number__hide">
                         <div class="number__block">
                             <a href="tel:380672740200" class="number__iteam">
-                                <img class="vodafone__icon" src="assets/front/img/kievstar_black.jpg" alt="vodafone">
+                                <img class="vodafone__icon" src="/assets/front/img/kievstar_black.jpg" alt="vodafone">
                                 <p>+38 (067) 27-40-200</p>
                             </a>
-                            <img src="assets/front/img/down.svg" title="Свернуть окно" class="down__icon">
+                            <img src="/assets/front/img/down.svg" title="Свернуть окно" class="down__icon">
                         </div>
                         <a href="tel:380952740200" class="number__iteam">
-                            <img class="vodafone__icon" src="assets/front/img/vodafone_black.jpg" alt="vodafone">
+                            <img class="vodafone__icon" src="/assets/front/img/vodafone_black.jpg" alt="vodafone">
                             <p>+38 (095) 27-40-200</p>
                         </a>
                         <a href="tel:380732740200" class="number__iteam">
-                            <img class="vodafone__icon" src="assets/front/img/life_black.jpg" alt="vodafone">
+                            <img class="vodafone__icon" src="/assets/front/img/life_black.jpg" alt="vodafone">
                             <p>+38 (073) 27-40-200</p>
                         </a>
-                        <a href="#/" class="hide__btn">перезвоните мне</a>
+                        <a href="#" class="hide__btn">{{ __('site.menu.call_me') }}</a>
                     </div>
                 </div>
             </div>
@@ -202,104 +202,100 @@
         </div>
         <div class="head__tabs">
             <div class="first__tab  tab active__tab">
-                ПЕРЧАТКИ
-                <img src="assets/front/img/down_white.png">
+                {{ __('site.header.gloves') }}
+                <img src="/assets/front/img/down_white.png">
             </div>
 
             <div class="second__tab tab">
-                ОЧКИ
-                <img style="fill: #fff;" src="assets/front/img/down_white.png">
+                {{ __('site.header.glasses') }}
+                <img style="fill: #fff;" src="/assets/front/img/down_white.png">
             </div>
         </div>
         <div class="tab__hide">
-            <a href="#/" class="choose__bar_active">АКЦИЯ</a>
-            <a href="#/">Без подкладки</a>
-            <a href="#/">На подкладке</a>
-            <a href="#/">Длинные</a>
-            <a href="#/">Автомобильные</a>
-            <a href="#/">Митенки</a>
+            <a href="#/" class="choose__bar_active">{{ __('site.header.sail') }}</a>
+            <a href="#/">{{ __('site.header.male') }}</a>
+            <a href="#/">{{ __('site.header.female') }}</a>
+            <a href="#/">{{ __('site.header.auto') }}</a>
         </div>
         <div class="tab__hide">
-            <a href="#/" class="choose__bar_active">АКЦИЯ</a>
-            <a href="#/">Без подкладки2</a>
-            <a href="#/">На подкладке2</a>
-            <a href="#/">Длинные2</a>
-            <a href="#/">Автомобильные2</a>
-            <a href="#/">Митенки2</a>
+            <a href="#/" class="choose__bar_active">{{ __('site.header.sail') }}</a>
+            <a href="#/">{{ __('site.header.male') }}</a>
+            <a href="#/">{{ __('site.header.female') }}</a>
+            <a href="#/">{{ __('site.header.sport') }}</a>
         </div>
     </div>
     <div class="choose__bar">
         <div class="choose__content">
-            <a href="#/" class="choose__bar_active">АКЦИЯ</a>
-            <a href="#/">Без подкладки</a>
-            <a href="#/">На подкладке</a>
-            <a href="#/">Длинные</a>
-            <a href="#/">Автомобильные</a>
-            <a href="#/">Митенки</a>
+            <a href="#/" class="choose__bar_active">{{ __('site.header.sail') }}</a>
+            <a href="#/">{{ __('site.header.male') }}</a>
+            <a href="#/">{{ __('site.header.female') }}</a>
+            <a href="#/">{{ __('site.header.auto') }}</a>
         </div>
         <div class="choose__content hide">
-            <a href="#/" class="choose__bar_active">АКЦИЯ1</a>
-            <a href="#/">Без подкладки2</a>
-            <a href="#/">На подкладке3</a>
-            <a href="#/">Длинные4</a>
-            <a href="#/">Автомобильные5</a>
-            <a href="#/">Митенки6</a>
+            <a href="#/" class="choose__bar_active">{{ __('site.header.sail') }}</a>
+            <a href="#/">{{ __('site.header.male') }}</a>
+            <a href="#/">{{ __('site.header.female') }}</a>
+            <a href="#/">{{ __('site.header.sport') }}</a>
         </div>
     </div>
 </div>
 
+
+
 @yield('content')
+
+
 
 <footer>
     <div class="foot__inner">
         <div class="foot__iteam">
-            <div class="foot__title">КАТАЛОГ</div>
-            <a href="#/">ЖЕНСКИЕ ПЕРЧАТКИ</a>
-            <a href="#/">МУЖСКИЕ ПЕРЧАТКИ</a>
-            <a href="#/">СУМКИ ЖЕНСКИЕ</a>
-            <a href="#/">СУМКИ МУЖСКИЕ</a>
-            <a href="#/">АКСЕССУАРЫ</a>
-            <a href="#/">ОЧКИ СОЛНЦЕЗАЩИТНЫЕ </a>
-            <a href="#/">ОЧКИ СПОРТИВНЫЕ</a>
-            <a href="#/">АКЦИЯ</a>
+            <div class="foot__title">{{ __('site.footer.catalog') }}</div>
+            <a href="#/">{{ __('site.footer.female_gloves') }}</a>
+            <a href="#/">{{ __('site.footer.male_gloves') }}</a>
+            <a href="#/">{{ __('site.footer.female_bags') }}</a>
+            <a href="#/">{{ __('site.footer.male_bags') }}</a>
+            <a href="#/">{{ __('site.footer.accessories') }}</a>
+            <a href="#/">{{ __('site.footer.sunglasses') }}</a>
+            <a href="#/">{{ __('site.footer.sportglasses') }}</a>
+            <a href="#/">{{ __('site.footer.sail') }}</a>
         </div>
         <div class="foot__iteam2">
-            <div class="foot__title">О МАГАЗИНЕ</div>
-            <a href="#/">О нас</a>
-            <a href="#/">Статьи</a>
-            <a href="#/">Отзывы</a>
-            <a href="#/">Карта сайта</a>
+            <div class="foot__title">{{ __('site.footer.about_magazine') }}</div>
+            <a href="#/">{{ __('site.footer.about_us') }}</a>
+            <a href="#/">{{ __('site.footer.articles') }}</a>
+            <a href="#/">{{ __('site.footer.replies') }}</a>
+            <a href="#/">{{ __('site.footer.map') }}</a>
 
-            <div class="foot__subtitle">Мы находимся:</div>
+            <div class="foot__subtitle">{{ __('site.menu.geo') }}</div>
             <a href="#">г. Днепро 49000 ул. Солидарная 2</a>
-            <a href="#/" class="show__map">Показать на карте » </a>
+            <a href="#/" class="show__map">{{ __('site.menu.map') }} » </a>
         </div>
         <div class="foot__iteam3">
-            <div class="foot__title">ПОКУПАТЕЛЯМ</div>
-            <a href="#/">Доставка</a>
-            <a href="#/">Оплата</a>
-            <a href="#/">Гарантия</a>
-            <a href="#/">Возврат</a>
-            <a href="#/">Аксессуары</a>
+            <div class="foot__title">{{ __('site.footer.buyers') }}</div>
+            <a href="#/">{{ __('site.menu.delivery') }}</a>
+            <a href="#/">{{ __('site.menu.pay') }}</a>
+            <a href="#/">{{ __('site.menu.guarantee') }}</a>
+            <a href="#/">{{ __('site.footer.return') }}</a>
+            <a href="#/">{{ __('site.footer.accessories_lower') }}</a>
         </div>
         <div class="foot__iteam4">
-            <div class="foot__title">КОНТАКТЫ</div>
+            <div class="foot__title">{{ __('site.footer.contacts') }}</div>
             <div class="foot__iteam_box">
-                <img src="assets/front/img/kievstar.svg">
+                <img src="/assets/front/img/kievstar.svg">
                 <a href="tel:380672740200">+38 (067) 27-40-200</a>
             </div>
             <div class="foot__iteam_box">
-                <img src="assets/front/img/vodafone.svg">
+                <img src="/assets/front/img/vodafone.svg">
                 <a href="tel:380952740200">+38 (095) 27-40-200</a>
             </div>
             <div class="foot__iteam_box">
-                <img src="assets/front/img/life.svg">
+                <img src="/assets/front/img/life.svg">
                 <a href="tel:380732740200">+38 (073) 27-40-200</a>
             </div>
             <div class="foot__iteam_block">
                 <a href="mailto:dnepr.veis@gmail.com">dnepr.veis@gmail.com</a>
 
-                <div class="foot__subtitle2">Звоните нам:</div>
+                <div class="foot__subtitle2">{{ __('site.menu.call') }}</div>
                 <p>с 08:00 до 21:00 (пн.-пт.)</p>
                 <p>с 09.00 до 20:00 (сб,-вс.)</p>
             </div>
@@ -308,57 +304,57 @@
     <div class="media__foot">
         <div class="media__foot_iteam">
             <span>КАТАЛОГ</span>
-            <img src="assets/front/img/down_white.png">
+            <img src="/assets/front/img/down_white.png">
         </div>
         <div class="media__foot_hide">
-            <a href="#/">ЖЕНСКИЕ ПЕРЧАТКИ</a>
-            <a href="#/">МУЖСКИЕ ПЕРЧАТКИ</a>
-            <a href="#/">СУМКИ ЖЕНСКИЕ</a>
-            <a href="#/">СУМКИ МУЖСКИЕ</a>
-            <a href="#/">АКСЕССУАРЫ</a>
-            <a href="#/">ОЧКИ СОЛНЦЕЗАЩИТНЫЕ </a>
-            <a href="#/">ОЧКИ СПОРТИВНЫЕ</a>
-            <a href="#/">АКЦИЯ</a>
+            <a href="#/">{{ __('site.footer.female_gloves') }}</a>
+            <a href="#/">{{ __('site.footer.male_gloves') }}</a>
+            <a href="#/">{{ __('site.footer.female_bags') }}</a>
+            <a href="#/">{{ __('site.footer.male_bags') }}</a>
+            <a href="#/">{{ __('site.footer.accessories') }}</a>
+            <a href="#/">{{ __('site.footer.sunglasses') }}</a>
+            <a href="#/">{{ __('site.footer.sportglasses') }}</a>
+            <a href="#/">{{ __('site.footer.sail') }}</a>
         </div>
 
         <div class="media__foot_iteam">
-            <span>О МАГАЗИНЕ</span>
-            <img src="assets/front/img/down_white.png">
+            <span>{{ __('site.footer.about_magazine') }}</span>
+            <img src="/assets/front/img/down_white.png">
         </div>
         <div class="media__foot_hide">
-            <a href="#/">О нас</a>
-            <a href="#/">Статьи</a>
-            <a href="#/">Отзывы</a>
-            <a href="#/">Карта сайта</a>
+            <a href="#/">{{ __('site.footer.about_us') }}</a>
+            <a href="#/">{{ __('site.footer.articles') }}</a>
+            <a href="#/">{{ __('site.footer.replies') }}</a>
+            <a href="#/">{{ __('site.footer.map') }}</a>
         </div>
 
         <div class="media__foot_iteam">
             <span>ПОКУПАТЕЛЯМ</span>
-            <img src="assets/front/img/down_white.png">
+            <img src="/assets/front/img/down_white.png">
         </div>
         <div class="media__foot_hide">
-            <a href="#/">Доставка</a>
-            <a href="#/">Оплата</a>
-            <a href="#/">Гарантия</a>
-            <a href="#/">Возврат</a>
-            <a href="#/">Аксессуары</a>
+            <a href="#/">{{ __('site.menu.delivery') }}</a>
+            <a href="#/">{{ __('site.menu.pay') }}</a>
+            <a href="#/">{{ __('site.menu.guarantee') }}</a>
+            <a href="#/">{{ __('site.footer.return') }}</a>
+            <a href="#/">{{ __('site.footer.accessories_lower') }}</a>
         </div>
 
         <div class="media__foot_iteam">
             <span>КОНТАКТЫ</span>
-            <img src="assets/front/img/down_white.png">
+            <img src="/assets/front/img/down_white.png">
         </div>
         <div class="media__foot_hide">
             <div class="foot__iteam_box">
-                <img src="assets/front/img/kievstar.svg">
+                <img src="/assets/front/img/kievstar.svg">
                 <a href="tel:380672740200">+38 (067) 27-40-200</a>
             </div>
             <div class="foot__iteam_box">
-                <img src="assets/front/img/vodafone.svg">
+                <img src="/assets/front/img/vodafone.svg">
                 <a href="tel:380952740200">+38 (095) 27-40-200</a>
             </div>
             <div class="foot__iteam_box">
-                <img src="assets/front/img/life.svg">
+                <img src="/assets/front/img/life.svg">
                 <a href="tel:380732740200">+38 (073) 27-40-200</a>
             </div>
             <div class="foot__iteam_box">
@@ -369,21 +365,21 @@
     <div class="foot__down">
         <div class="media__down">
             <div class="foot__logo">VEIS</div>
-            <p>© 2017-2020 ИНТЕРНЕТ МАГАЗИН VEIS ВСЕ ПРАВА ЗАЩИЩЕНЫ</p>
-            <p>Мы в социальных сетях –</p>
+            <p>© 2017-2020 {{ __('site.footer.copyright') }}</p>
+            <p>{{ __('site.footer.social') }} –</p>
         </div>
         <div class="media__social">
             <a href="#/">
-                <img src="assets/front/img/facebook.png">
+                <img src="/assets/front/img/facebook.png">
             </a>
             <a href="#/">
-                <img src="assets/front/img/instagram.png">
+                <img src="/assets/front/img/instagram.png">
             </a>
             <a href="#/">
-                <img src="assets/front/img/telegram.png">
+                <img src="/assets/front/img/telegram.png">
             </a>
             <a href="#/">
-                <img src="assets/front/img/viber.png">
+                <img src="/assets/front/img/viber.png">
             </a>
         </div>
     </div>
@@ -394,7 +390,7 @@
         <div class="media__info_iteam"><a href="#">г. Днепро 49000 ул. Солидарная 2</a></div>
 
         <div class="media__info_iteam">
-            © 2017-2020 ИНТЕРНЕТ МАГАЗИН VEIS ВСЕ ПРАВА ЗАЩИЩЕНЫ
+            © 2017-2020 {{ __('site.footer.copyright') }}
         </div>
     </div>
 </footer>

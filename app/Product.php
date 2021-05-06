@@ -140,6 +140,45 @@ class Product extends Model
     }*/
 
 
+  //Скоуп для фильтров товаров в каталоге
+
+    public function scopeWithFilters($query, $filters, $prices, $tags, $sale)
+    {
+//        dd($filters);
+        return $query
+            ->when(count($filters), function ($query) use ($filters) {
+                foreach ($filters as $index => $filter) {
+                    // $filters это всегда массив со строками
+                    if ($filter == "undefined" || $filter == "[]") continue;
+                    $query->whereHas('attributes', function($q) use ($index, $filter) {
+                        // $filter это массив, в виде строки, поэтому тут мы преобразовываем его обратно в массив
+                        $filter = explode(',', substr($filter, 1, -1));
+                        if ($index == 14) {
+                            array_push($filter, '62');
+                        }
+
+                        if ($index == 18) {
+                            $colors = Attribute::whereIn('id', $filter)->get()->pluck('name_ru');
+                            $q->whereIn('attributes.name_ru', $colors);
+                        } else {
+                            $q->whereIn('attributes.id', $filter);
+                        }
+                    });
+                }
+            })
+            ->when($sale == 'true', function ($query) use ($sale) {
+                $query->where('percent', '>', 0);
+            })
+            ->when($prices, function ($query) use ($prices) {
+                $query->whereBetween('price', [$prices[0], $prices[1]]);
+            })
+            ->when(count($tags), function ($query) use ($tags) {
+                $query->whereHas('tags', function($q) use ($tags) {
+                    $q->whereIn('tags.id', $tags);
+                });
+            });
+
+    }
 
     /**
 	 * Set query filters

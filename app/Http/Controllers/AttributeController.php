@@ -167,8 +167,12 @@ class AttributeController extends Controller
     {
 //dd($request);
         $attribute = Attribute::find($id);
-        $attribute->name = $request->title_ru;
-        $attribute->item_name = $request->long_title_ru;
+
+        $attribute->name_ru = $request->title_ru;
+        $attribute->name_uk = $request->title_uk;
+        $attribute->item_name_ru = $request->long_title_ru;
+        $attribute->item_name_uk = $request->long_title_uk;
+
         $attribute->group_attribute_id = $request->group_attribute_id;
         $attribute->sort = $request->sort;
         $attribute->save();

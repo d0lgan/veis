@@ -42,6 +42,9 @@ class Kernel extends HttpKernel
 	        //активность пользователя
 	        \App\Http\Middleware\UserActivity::class,
 
+            // Проверка локали
+            \App\Http\Middleware\LocaleMiddleware::class,
+
         ],
 
         'api' => [

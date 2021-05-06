@@ -16,6 +16,22 @@ use Illuminate\Http\Request;
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
+Route::group(['prefix' => 'getForCatalogGlasses'], function() {
+    Route::get('products', 'SiteApiController@getProducts');
+    Route::get('genders', 'SiteApiController@getGenders');
+    Route::get('manufacturers', 'SiteApiController@getManufacturers');
+    Route::get('shapes', 'SiteApiController@getShapes');
+    Route::get('tags', 'SiteApiController@getTags');
+    Route::get('uvFilters', 'SiteApiController@getUvFilters');
+    Route::get('lensColors', 'SiteApiController@getLensColors');
+    Route::get('frameColors', 'SiteApiController@getFrameColors');
+    Route::get('gradients', 'SiteApiController@getGradients');
+    Route::get('frameMaterials', 'SiteApiController@getFrameMaterials');
+    Route::get('features', 'SiteApiController@getFeatures');
+});
+
+Route::get('getMaxValPrice', 'SiteApiController@getMaxValPrice');
+
 
 Route::group(['prefix' => 'statistics'], function() {
     Route::post('getStatistics', [

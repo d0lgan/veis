@@ -6,6 +6,7 @@
             {{ $store.state.cartCount }}
             </span>
         </a>
+
     </li>
 </template>
 

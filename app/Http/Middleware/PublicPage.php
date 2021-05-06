@@ -19,7 +19,7 @@ class PublicPage
     public function handle($request, Closure $next)
     {
         $name = Request::route()->getName();
-//        dd($name);
+        // dd($name);
         $page = Page::where('type', $name)->first();
 
         if($page){
