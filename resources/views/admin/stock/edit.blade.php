@@ -15,7 +15,7 @@
                     {!! Form::open(['method' => 'put','route' => ['admin-stocks.update', $stock->id],'files' => true,
                             'multiple' => 'multiple'])!!}
                         <div class="mb-3 d-flex align-items-center justify-content-between">
-                            <strong>Редактирование {{ $stock->title }}</strong>
+                            <strong>Редактирование {{ $stock->title_ru }}</strong>
                             <div class="m-0 p-0 d-flex align-items-center">
                                 <button class="btn mr-3 save" type="submit"><i class="far fa-save"></i></button>
                                 <a href="{{ route('admin-stocks-index') }}" class="btn back"><i class="fas fa-reply-all"></i></a>

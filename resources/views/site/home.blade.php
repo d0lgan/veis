@@ -122,20 +122,16 @@
         <div class="brands__name">
             <div class="brands__slide">
                 <div class="brands__block1">
-                    <a href="#/">AIRTON</a>
-                    <a href="#/">CHANTAL THOMASS</a>
-                    <a href="#/">DOPPLER</a>
-                    <a href="#/">ESPRIT</a>
-                    <a href="#/">AUTOENJOY</a>
-                    <a href="#/">BOLON</a>
-                    <a href="#/">CALVIN KLEIN</a>
-                    <a href="#/">DIOR</a>
-                    <a href="#/">RAY BAN</a>
-                    <a href="#/">R2</a>
-                    <a href="#/">PALAROID</a>
-                    <a href="#/">CRATONI</a>
-                    <a href="#/">BONIS</a>
-                    <a href="#/">WANLIMA</a>
+                    {{--Верстка корректно работает только при 14 элементах поэтому вот блять ещё костыль...--}}
+                    @for ($i = 0; $i < 7; $i++)
+                        @foreach($brands as $brand)
+                            @if($locale == 'ru')
+                                <a href="{{ route('catalog', ['filter' => $idOfBrandsGroup . '_' . $brand->id]) }}">{{ $brand->name_ru }}</a>
+                            @elseif($locale == 'uk')
+                                <a href="{{ route('catalog', ['filter' => $idOfBrandsGroup . '_' . $brand->id]) }}">{{ $brand->name_uk }}</a>
+                            @endif
+                        @endforeach
+                    @endfor
                 </div>
             </div>
         </div>

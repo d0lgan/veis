@@ -36,8 +36,8 @@
                             <tbody class="border-0">
                                 @foreach($tags as $tag)
                                     <tr>
-                                        <td class="align-middle py-1 pr-3">{{$tag->name_ru}}</td>
-                                        <td class="align-middle py-1 pr-3">{{$tag->name_uk}}</td>
+                                        <td class="align-middle py-1 pr-3">{{$tag->title_ru}}</td>
+                                        <td class="align-middle py-1 pr-3">{{$tag->title_uk}}</td>
                                         <td class="align-middle py-1 pr-3 d-flex justify-content-center">
 
 

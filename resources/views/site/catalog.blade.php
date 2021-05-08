@@ -4,7 +4,7 @@
 
 @section('content')
 {{--{{dd(json_encode($filters, JSON_PRETTY_PRINT))}}--}}
-    <site-catalog-component :translate="{{json_encode($translate)}}" :locale="{{json_encode($locale)}}" :filters="{{json_encode($filters)}}"></site-catalog-component>
+    <site-catalog-component :translate="{{json_encode($translate)}}" :instant-filter="{{json_encode($instantFilter)}}" :instant-tag="{{json_encode($instantTag)}}" :locale="{{json_encode($locale)}}" :filters="{{json_encode($filters)}}"></site-catalog-component>
 
     <section class="consul">
         <img src="{{ asset("assets/front/img/consul.png") }}" class="consul__foto">

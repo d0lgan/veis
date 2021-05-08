@@ -107,8 +107,7 @@
                                 </div>
                                 <div class="row my-4">
                                     <div class="col-md-3 form-group">
-                                        {!! Form::label('manufacturer_id', 'Производитель',['class' => 'control-label'])
-                                         !!}
+                                        {!! Form::label('manufacturer_id', 'Производитель',['class' => 'control-label']) !!}
                                         {!! Form::select('manufacturer_id', $manufacturers, old('manufacturer_id'), ['class'=>'form-control'])!!}
                                     </div>
                                     
@@ -119,14 +118,8 @@
                                     </div>
 
                                     <div class=" col-md-2 form-group">
-                                        <label for="type">Тип</label>
-                                        <select name="type" id="type" class="form-control">
-                                            <option value="null">Обычный</option>
-                                            <option @if($product->type == 'recommended') selected @endif value="recommended">Рекомендуемый</option>
-                                            <option @if($product->type == 'hit') selected @endif value="hit">Хит продаж</option>
-                                            <option @if($product->type == 'new') selected @endif value="new">{{$settings->new}}</option>
-                                            <option @if($product->type == 'sell') selected @endif value="sell">{{$settings->sell}}</option>
-                                        </select>
+                                        {!! Form::label('stock_id', 'Акция',['class' => 'control-label']) !!}
+                                        {!! Form::select('stock_id', $stocks, old('stock_id'), ['class'=>'form-control'])!!}
                                     </div>
 
                                     <div class="form-group col-md-2">
@@ -232,7 +225,7 @@
                                 @foreach($tags as $tag)
                                     <div class="col-md-2 form-group border-light">
                                         <input type="checkbox" class="mr-3" @if(in_array($tag->id, $selected_tags)) checked @endif name="tag_id[]" value="{{ $tag->id }}" id="{{'tag_' . $tag->id}}">
-                                        <label for="{{'tag_' . $tag->id}}">{{ $tag->name_ru }}</label>
+                                        <label for="{{'tag_' . $tag->id}}">{{ $tag->title_ru }}</label>
                                     </div>
                                 @endforeach
                             </div>

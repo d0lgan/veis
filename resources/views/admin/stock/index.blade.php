@@ -23,7 +23,8 @@
                                 <thead>
                                     <tr>
                                         <th style="vertical-align: middle; padding: 5px !important" class="align-middle stick">№</th>
-                                        <th style="vertical-align: middle; padding: 5px !important" class="align-middle stick">Название</th>
+                                        <th style="vertical-align: middle; padding: 5px !important" class="align-middle stick">Название RU</th>
+                                        <th style="vertical-align: middle; padding: 5px !important" class="align-middle stick">Название UK</th>
                                         <th style="vertical-align: middle; padding: 5px !important" class="align-middle stick">Ярлык</th>
                                         <th style="vertical-align: middle; padding: 5px !important" class="align-middle stick">Статус</th>
                                         <th style="vertical-align: middle; padding: 5px !important" class="align-middle stick">Отображение</th>
@@ -34,7 +35,8 @@
                                     @foreach($stocks as $stock)
                                         <tr>
                                             <td style="vertical-align: middle; padding: 5px !important">{{ $stock->id }}</td>
-                                            <td style="vertical-align: middle; padding: 5px !important">{{ $stock->title }}</td>
+                                            <td style="vertical-align: middle; padding: 5px !important">{{ $stock->title_ru }}</td>
+                                            <td style="vertical-align: middle; padding: 5px !important">{{ $stock->title_uk }}</td>
                                             <td style="vertical-align: middle; padding: 5px !important">{{ $stock->label }}</td>
                                             <td style="vertical-align: middle; padding: 5px !important">
                                                 @if($stock->public == 0)

@@ -19,7 +19,7 @@
                             'multiple' => 'multiple'])!!}
 
                         <div class="mb-2 d-flex align-items-center justify-content-between">
-                            <strong>Редактирование - {{ $tag->name_ru }}</strong>
+                            <strong>Редактирование - {{ $tag->title_ru }}</strong>
 
                             <div class="m-0 p-0 d-flex align-items-center">
                                 <button class="btn mr-3 save" type="submit"><i class="far fa-save"></i></button>

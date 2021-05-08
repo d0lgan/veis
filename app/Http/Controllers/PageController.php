@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Attribute;
 use App\Blog;
 use App\BlogCategory;
 use App\Contact;
@@ -199,26 +200,15 @@ class PageController extends Controller {
             $latestGlasses[$i] = $item->toArray();
         }
 
+        $brands = GroupAttribute::where('title_ru', 'Бренд')->first()->attributes;
+        $idOfBrandsGroup = GroupAttribute::where('title_ru', 'Бренд')->first()->id;
+
         $locale = App::getLocale();
-	    return view('site.home', compact('latestGlasses', 'locale', 'translate'));
+	    return view('site.home', compact('latestGlasses', 'locale', 'translate', 'brands', 'idOfBrandsGroup'));
     }
 
-    public function catalog() {
-	    /*$ps = Product::where('id', '>', 100)->take(10)->get();
-	    foreach ($ps as $p) {
-	        foreach($p->attributes()->get() as $atr) {
-	            if ($atr->id == 61) {
-	                dump($p, $p->attributes()->get());
-                }
-            };
-        }
-	    dd();*/
+    public function catalog(Request $request) {
 
-	    /*$genders = [60];
-        $ps = Product::whereHas('attributes', function($q) use ($genders) {
-                $q->whereIn('attributes.id', $genders);
-            })->get();
-        dd($ps);*/
         $translate = [
             'catalog' => Lang::trans('site.footer.catalog'),
             'store' => Lang::trans('product.store'),
@@ -319,7 +309,10 @@ class PageController extends Controller {
         })->toArray());
 
 
-        return view('site.catalog', compact('translate', 'locale', 'filters'));
+        $instantFilter = $request->filter;
+        $instantTag = $request->tag;
+
+        return view('site.catalog', compact('translate', 'locale', 'filters', 'instantFilter', 'instantTag'));
     }
 
     public function info() {

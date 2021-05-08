@@ -12,6 +12,7 @@ use App\Option;
 use App\Product;
 use App\ProductOption;
 use App\ProductValue;
+use App\Stock;
 use App\Supplier;
 use App\ValueOption;
 use Carbon\Carbon;
@@ -251,6 +252,7 @@ class ProductController extends Controller
         $tags = Tag::all();
 
         $manufacturers = Manufacturer::get()->pluck('title_ru', 'id');
+        $stocks = Stock::get()->pluck('title_ru', 'id');
         $suppliers = Supplier::get()->pluck('title', 'id');
 //        $tags = Tag::get()->pluck('name', 'id');
         $group_attributes = GroupAttribute::all();
@@ -268,7 +270,7 @@ class ProductController extends Controller
         $order_count = $orders->count();
 //dd($tags);
 
-        return view('admin.product.create', compact('categories', 'langs', 'product', 'categories_json', 'tags', 'manufacturers', 'suppliers', 'group_attributes', 'currencies', 'tags', 'options', 'settings', 'order_count', 'contacts_count'));
+        return view('admin.product.create', compact('categories', 'langs', 'product', 'categories_json', 'tags', 'stocks', 'manufacturers', 'suppliers', 'group_attributes', 'currencies', 'tags', 'options', 'settings', 'order_count', 'contacts_count'));
     }
 
     /**
@@ -347,6 +349,7 @@ class ProductController extends Controller
 
         $product->seo = $request->seo_ru;
         $product->price = $request->price;
+        $product->stock_id = $request->stock_id;
         $product->how_size_ru = $request->how_size_ru;
         $product->how_size_uk = $request->how_size_uk;
         $product->category_id = $request->category_id;
@@ -874,6 +877,7 @@ class ProductController extends Controller
 //        dd($product->start_stock);
 
         $manufacturers = Manufacturer::get()->pluck('title_ru', 'id');
+        $stocks = Stock::get()->pluck('title_ru', 'id');
         $suppliers = Supplier::get()->pluck('title', 'id');
 
         $images = [];
@@ -994,7 +998,7 @@ class ProductController extends Controller
         // ? 'categories'
         // ?? 'prod_tags'
 
-        return view('admin.product.edit', compact('product', 'langs', 'categories_json', 'categories', 'tags', 'manufacturers', 'suppliers', 'group_attributes', 'currencies', 'options', 'selected', 'selected_attr', 'selected_tags', 'images', 'settings', 'contacts_count', 'order_count'));
+        return view('admin.product.edit', compact('product', 'langs', 'categories_json', 'categories', 'tags', 'manufacturers', 'stocks', 'suppliers', 'group_attributes', 'currencies', 'options', 'selected', 'selected_attr', 'selected_tags', 'images', 'settings', 'contacts_count', 'order_count'));
     }
 
     /**
@@ -1071,6 +1075,7 @@ class ProductController extends Controller
         $product->title_uk = $request->title_uk;
         $product->seo = $request->seo_ru;
         $product->price = $request->price;
+        $product->stock_id = $request->stock_id;
         $product->how_size_ru = $request->how_size_ru;
         $product->how_size_uk = $request->how_size_uk;
         $product->category_id = $request->category_id;

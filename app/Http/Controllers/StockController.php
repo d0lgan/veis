@@ -62,7 +62,8 @@ class StockController extends Controller
     public function store(Request $request)
     {
         $stock = new Stock();
-        $stock->title = $request->title_ru;
+        $stock->title_ru = $request->title_ru;
+        $stock->title_uk = $request->title_uk;
         $stock->label = $request->label;
         $stock->public = $request->public;
         $stock->save();
@@ -120,7 +121,8 @@ class StockController extends Controller
     {
         $stock = Stock::find($id);
 
-        $stock->title = $request->title_ru;
+        $stock->title_ru = $request->title_ru;
+        $stock->title_uk = $request->title_uk;
         $stock->label = $request->label;
         $stock->public = $request->public;
 

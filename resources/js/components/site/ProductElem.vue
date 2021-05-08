@@ -4,7 +4,7 @@
 
         <img :src="'/house/uploads/' + product.image" style="width: 94%;">
 
-        <p class="product__text">{{ firstThreeLetterInProduct(product) }}</p>
+        <p class="product__text">{{ firstTwoLetterInProduct(product) }}</p>
         <!--<p class="product__number">{{ translate.color }} <span v-for="attr in product.attributes">
                 <span v-if="attr.group_attribute_id == 18">{{ getLang ? attr.name_ru : attr.name_uk}} </span>
             </span></p>-->
@@ -68,19 +68,19 @@
         ],
 
         methods: {
-            firstThreeLetterInProduct(product) {
+            firstTwoLetterInProduct(product) {
                 if (this.locale == 'ru') {
-                    return product.title_ru.split(" ").slice(0, 3).join(' ');
+                    return product.title_ru.split(" ").slice(0, 2).join(' ');
                 } else {
-                    return product.title_uk.split(" ").slice(0, 3).join(' ');
+                    return product.title_uk.split(" ").slice(0, 2).join(' ');
                 }
             },
 
             restLetterInProduct(product) {
                 if (this.locale == 'ru') {
-                    return product.title_ru.split(" ").slice(3).join(' ');
+                    return product.title_ru.split(" ").slice(2).join(' ');
                 } else {
-                    return product.title_uk.split(" ").slice(3).join(' ');
+                    return product.title_uk.split(" ").slice(2).join(' ');
                 }
             }
         },

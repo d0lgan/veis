@@ -72,8 +72,8 @@ class TagController extends Controller {
 
 		$tag = new Tag;
 
-		$tag->name_ru = $request->title_ru;
-		$tag->name_uk = $request->title_uk;
+		$tag->title_ru = $request->title_ru;
+		$tag->title_uk = $request->title_uk;
 
         if ($request->slug_ru) {
             $tag->slug_ru = $request->slug_ru;
@@ -157,8 +157,8 @@ class TagController extends Controller {
 	 */
 	public function update( Request $request, $id ) {
 		$tag = Tag::find( $id );
-		$tag->name_ru = $request->title_ru;
-		$tag->name_uk = $request->title_uk;
+		$tag->title_ru = $request->title_ru;
+		$tag->title_uk = $request->title_uk;
 		$tag->save();
 
         $langs = Language::all();

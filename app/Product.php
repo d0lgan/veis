@@ -102,10 +102,12 @@ class Product extends Model
 	}
 
 	public function attributes() {
-
 		return $this->belongsToMany('App\Attribute','product_attribute');
-
 	}
+
+	public function stock() {
+	    return $this->belongsTo('App\Stock');
+    }
 
     public function productValues() {
 

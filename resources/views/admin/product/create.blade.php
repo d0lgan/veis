@@ -161,12 +161,9 @@
                                     </div>
 
                                     <div class="col-md-2 form-group">
-                                        <label for="type">Тип</label>
-                                        <select name="type" id="type" class="form-control">
-                                            <option value="null">Обычный</option>
-                                            <option value="recommended">Рекомендуемый</option>
-                                            <option value="hit">Хит продаж</option>
-                                        </select>
+                                        {!! Form::label('stock_id', 'Тип',['class' => 'control-label'])
+                                         !!}
+                                        {!! Form::select('stock_id', $stocks, old('stock_id'), ['class'=>'form-control'])!!}
 
 
                                         <!-- <label for="model">Модель</label>
@@ -317,7 +314,7 @@
                                     <div class="col-md-2 form-group border-dark">
 
                                         <input type="checkbox" class="mr-3" name="tag_id[]" value="{{ $tag->id }}" id="{{'tag_' . $tag->id}}">
-                                        <label for="{{'tag_' . $tag->id}}">{{ $tag->name_ru }}</label>
+                                        <label for="{{'tag_' . $tag->id}}">{{ $tag->title_ru }}</label>
                                     </div>
                                 @endforeach
                             </div>

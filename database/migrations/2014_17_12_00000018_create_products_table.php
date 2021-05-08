@@ -29,6 +29,9 @@ class CreateProductsTable extends Migration {
 			$table->integer('manufacturer_id')->index()->unsigned()->nullable();
 			$table->foreign('manufacturer_id')->references('id')->on('manufacturers');
 
+			$table->integer('stock_id')->index()->unsigned()->nullable();
+			$table->foreign('stock_id')->references('id')->on('stocks');
+
             $table->string('manufacturer_title');
 
             $table->integer('price');

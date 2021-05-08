@@ -184,7 +184,7 @@
                             <div class="catalog-filters__block-body" style="display: none;">
                                 <label class="catalog-filters__item" v-for="tag in tags" :key="tag.id" v-if="tag.products_count">
                                     <input name="type" type="checkbox" :value="tag.id" v-model="selected.tags">
-                                    <span class="catalog-filters__item-name">{{ getLang ? tag.name_ru : tag.name_uk }}  </span> /
+                                    <span class="catalog-filters__item-name">{{ getLang ? tag.title_ru : tag.title_uk }}  </span> /
                                     <span class="catalog-filters__item-num">{{ tag.products_count }}</span>
                                 </label>
                             </div>
@@ -217,7 +217,7 @@
                                     <!-- А тут я сравниваю выбранный айди с айдишниками из абсолютно всех фильтров пришедших с бека (props "filters") -->
                                     <div v-for="valFil in filters" class="catalog__tag__img" @click="pageNumber = 0">
                                         <div v-for="attr in valFil.attributes" v-if="attr.id == filterId" @click="deleteParam(filterId)" class="catalog__tag">
-                                            <span class="catalog__tag-text">{{ attr.name_ru }}</span>
+                                            <span class="catalog__tag-text">{{ getLang ? attr.name_ru : attr.name_uk }}</span>
                                             <img :src="'/assets/front/img/close-tag.png'" alt="сlose">
                                         </div>
                                     </div>
@@ -226,7 +226,7 @@
 
                             <div class="catalog__tag" v-for="selTags in selected.tags">
                                 <div class="catalog__tag catalog__tag__img" v-for="tag in tags" @click="deleteTag(selected.tags, selTags)" v-if="selTags == tag.id">
-                                    <span class="catalog__tag-text">{{ getLang ? tag.name_ru : tag.name_uk }}</span>
+                                    <span class="catalog__tag-text">{{ getLang ? tag.title_ru : tag.title_uk }}</span>
                                     <img :src="'/assets/front/img/close-tag.png'" alt="">
                                 </div>
                             </div>
@@ -348,16 +348,16 @@
                                 <a class="pagination__num" href="">72</a>
                             </li>-->
                             <li class="pagination__item" v-if="pageNumber >= 5" :class="{ active: pageNumber == 0 }">
-                                <a class="pagination__num" href="#" @click="pageNumber = 0">1</a>
+                                <span class="pagination__num" href="#" @click="pageNumber = 0">1</span>
                             </li>
 
                             <li class="pagination__item" v-for="index in pageCount" :class="{ active: pageNumber == index - 1 }" v-if="(Math.abs(pageNumber + 1 - index) <= 4)">
-                                <a class="pagination__num" href="#" @click="pageNumber = index - 1" v-if="(Math.abs(pageNumber + 1 - index) <= 3)">{{ index }}</a>
+                                <span class="pagination__num" href="#" @click="pageNumber = index - 1" v-if="(Math.abs(pageNumber + 1 - index) <= 3)">{{ index }}</span>
                                 <span class="pagination__item__separator" v-if="Math.abs(pageNumber + 1 - index) == 4">...</span>
                             </li>
 
                             <li class="pagination__item" v-if="pageCount - pageNumber > 5" :class="{ active: pageNumber == pageCount - 1 }">
-                                <a class="pagination__num" href="#" @click="pageNumber = pageCount - 1">{{ pageCount }}</a>
+                                <span class="pagination__num" href="#" @click="pageNumber = pageCount - 1">{{ pageCount }}</span>
                             </li>
                         </ul>
                         <a href="#" class="pagination__view pagination__view--next" @click="nextPage()" v-if="!(pageNumber + 1 == pageCount)">
@@ -387,7 +387,7 @@
                 // Свойства товаров
                 tags: [],
                 sale: false,
-                maxValPrice: 9999,
+                maxValPrice: 2290,
                 // Все товары
                 products: [],
                 countProducts: 0,
@@ -424,6 +424,15 @@
             filters: {
                 required: true
             },
+
+            instantFilter: {
+                type: String,
+                required: false,
+            },
+            instantTag: {
+                type: String,
+                required: false,
+            },
             // Локальный язык
             locale: {
                 type: String,
@@ -433,13 +442,19 @@
         },
 
         mounted() {
+
+            if (this.instantFilter) {
+                let instantFilter = this.instantFilter.split('_');
+                this.selected.sel_filters[Number(instantFilter[0])].push(Number(instantFilter[1]));
+            }
+
+            if (this.instantTag) {
+                let instantTag = this.instantTag;
+                this.selected.tags.push(Number(instantTag));
+            }
+
             this.loadProducts();
             this.loadTags();
-
-
-            window.history.pushState(null, null, 'catalog?page=' + (this.pageNumber + 1));
-
-            console.log(1);
 
             var cd = new Date();
             this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
@@ -644,7 +659,11 @@
                 this.selected.fakePageForMoreProducts = newPageNumber;
                 this.loadProducts();
 
-                window.history.pushState(null, null, 'catalog?page=' + (this.pageNumber + 1));
+                $("body,html").animate({
+                    scrollTop: 100
+                }, 400);
+
+
             },
 
 

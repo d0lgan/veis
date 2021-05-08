@@ -39,7 +39,7 @@
             @if(isset($tag_url))
                 <div class="form-group">
                     <label for="slug">Url</label>
-                    <input type="text" value="{{ $lang->locate_code == 'ru' ? $item->slug_ru : $item->slug_uk }}" name="slug_{{ $lang->locate_code }}" class="form-control">
+                    <input type="text" @if($item) value="{{ $lang->locate_code == 'ru' ? $item->slug_ru : $item->slug_uk }}" @endif name="slug_{{ $lang->locate_code }}" class="form-control">
                 </div>
             @endif
 

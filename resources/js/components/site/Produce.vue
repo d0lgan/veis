@@ -278,7 +278,7 @@
                         <div class="product-card__description mobile-hidden" v-if="product.tags">
                             <div class="product-card__description-head">
                                 <div class="hashtags">
-                                    <a href="#" v-for="tag in product.tags">{{ locale == 'ru' ? tag.name_ru : tag.name_uk }}</a>
+                                    <a v-for="tag in product.tags" :href="'/catalog' + '?tag=' + tag.id">{{ locale == 'ru' ? tag.title_ru : tag.title_uk }}</a>
                                 </div>
                             </div>
                         </div>
@@ -886,6 +886,7 @@
         },
         computed: {
             console: () => console,
+            window: () => window,
 
             getLang: function() {
                 if (this.locale == 'ru') {
