@@ -373,7 +373,7 @@
                                         <span style="color: #808080; font-size: 15px; font-weight: bold">D</span>
                                     </a>
 
-                                    <a :href="'/product/' + product.slug_ru" style="width: 25px; height: 25px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Посмотреть"><i style="font-size: 12px" class="far fa-eye"></i></a>
+                                    <a :href="'/produce/' + product.slug_ru" style="width: 25px; height: 25px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Посмотреть"><i style="font-size: 12px" class="far fa-eye"></i></a>
 
                                     <a :href="`/admin-products/`+ product.id + `/edit`" style="width: 25px; height: 25px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Редактировать">
                                         <i style="font-size: 12px; text-decoration: none;" class="fas fa-pencil-alt"></i>

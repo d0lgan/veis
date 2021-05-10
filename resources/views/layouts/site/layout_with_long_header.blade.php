@@ -82,7 +82,7 @@
 
                 <site-basket-element-component :locale="{{ json_encode(App::getLocale()) }}"></site-basket-element-component>
 
-                <a href="index.html" class="logo media__head_logo">VEIS<br><span>COLLECTION</span></a>
+                <a href="{{ route('home') }}" class="logo media__head_logo">VEIS<br><span>COLLECTION</span></a>
 
                 <div class="media__head_burger">
                     <span class="top"></span>
@@ -168,7 +168,7 @@
                         <div class="head__btn">посмотреть все результаты 987</div>
                     </div>
                 </div>
-                <a href="index.html" class="logo media__logo_hide">VEIS<br><span>COLLECTION</span></a>
+                <a href="{{ route('home') }}" class="logo media__logo_hide">VEIS<br><span>COLLECTION</span></a>
                 <div class="block__number">
                     <div class="head__box">
                         <img class="vodafone__icon" id='foto' src="/assets/front/img/kievstar.svg" alt="vodafone">
@@ -385,7 +385,7 @@
     </div>
     <div class="media__foot_info">
         <div class="media__info_iteam">
-            <a href="index.html" class="logo media__logo">VEIS<br><span>COLLECTION</span></a>
+            <a href="{{ route('home') }}" class="logo media__logo">VEIS<br><span>COLLECTION</span></a>
         </div>
         <div class="media__info_iteam"><a href="#">г. Днепро 49000 ул. Солидарная 2</a></div>
 

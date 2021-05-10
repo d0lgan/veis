@@ -46,7 +46,7 @@
                                         </ul>
 
                                         <div class="tab-content">
-                                            @include('admin.partials.title', ['item' => $attribute, 'title' => true, 'title_name' => 'Значение (для фильтра)', 'long_title' => true, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                            @include('admin.partials.title', ['item' => $attribute, 'title_name' => 'Значение (для фильтра)', 'title' => false, 'name' => true, 'long_title' => true, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                         </div>
                                     </div>
 

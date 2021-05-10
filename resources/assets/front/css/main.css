@@ -1656,7 +1656,7 @@ img[src="img/blog__main_foto3.jpg"] + p {
   transition: 0.3s; }
 
 .map__head_input input[type="text"] {
-  width: 288px;
+  width: 300px;
   background-color: transparent;
   border: none;
   font-size: 13px;

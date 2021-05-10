@@ -7,11 +7,20 @@
                 <label for="title_{{ $lang->locate_code }}">{{ isset($title_name) ? $title_name . ':' : 'Название:' }}</label>
                 <input required name="title_{{ $lang->locate_code }}"
                        id="title_{{ $lang->locate_code }}"
-                       value="{{
-    /*json_encode(@optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code)) == 'null'
-     ? @optional($item)->title ?: @optional($item)->name
-     : @optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code)*/
-                        @optional($item)->$method }}"
+                       value="{{ @optional($item)->$method }}"
+                       placeholder="Title {{ strtoupper($lang->locate_code) }}"
+                       type="text"
+                       class="form-control"/>
+            </div>
+        @endif
+
+        @if(isset($name))
+            @php $method = "name_" . $lang->locate_code @endphp
+            <div class="form-group">
+                <label for="title_{{ $lang->locate_code }}">{{ isset($title_name) ? $title_name . ':' : 'Название:' }}</label>
+                <input required name="title_{{ $lang->locate_code }}"
+                       id="title_{{ $lang->locate_code }}"
+                       value="{{ @optional($item)->$method }}"
                        placeholder="Title {{ strtoupper($lang->locate_code) }}"
                        type="text"
                        class="form-control"/>

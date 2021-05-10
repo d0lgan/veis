@@ -811,11 +811,11 @@ class ProductController extends Controller
 
 
         $product->load(['attributes.group_attribute' => function ($items) use (&$group_attributes) {
-            $group_attributes = $items->get();
+            $group_attributes = $items->orderBy('sort')->get();
         }]);
 
         $product->load(['attributes' => function ($items) use (&$select_attributes) {
-            $select_attributes = $items->get();
+            $select_attributes = $items->orderBy('sort')->get();
         }]);
 
         $selected_attr = [];
