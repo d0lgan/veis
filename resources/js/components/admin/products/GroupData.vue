@@ -86,10 +86,7 @@
                 <label for="type_stock">Тип</label>
                 <select v-model="data.type" name="type" id="type" class="form-control">
                     <option value="null">Обычный</option>
-                    <option value="recommended">Рекомендуемый</option>
-                    <option value="hit">Хит продаж</option>
-                    <option value="new">Новинка</option>
-                    <option value="sell">Обмен</option>
+                    <option v-for="stock in stocks" :value="stock.id">{{ stock.title_ru }}</option>
                 </select>
             </div>
 
@@ -336,6 +333,7 @@
         props: [
             'categories_json',
             'manufacturers',
+            'stocks',
             'suppliers',
             'settings',
             'selected_products'
@@ -356,7 +354,7 @@
         },
         data(){
             return{
-                data: {ude: null, course: null,price: null, percent: null, undiscounted: null, stock: null, start_stock: null, end_stock: null, type_stock: 'percent', category_id: 0, manufacturer_id: 0, supplier_id: 0, vendor_code: null, model: null,public: null, availability: null, type: ''},
+                data: {ude: null, course: null,price: null, percent: null, undiscounted: null, stock: null, start_stock: null, end_stock: null, type_stock: 'percent', category_id: 0, manufacturer_id: 0, supplier_id: 0, vendor_code: null, model: null,public: null, availability: null, type: null},
                 categories: [],
                 notification: false,
                 error: false,

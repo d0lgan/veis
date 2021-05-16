@@ -19,7 +19,7 @@
                     'multiple' => 'multiple'])!!}
 
                         <div class="mb-3 d-flex align-items-center justify-content-between">
-                            <strong>Редактирование {{ $brand->title }}</strong>
+                            <strong>Редактирование {{ $brand->title_ru }}</strong>
                             <div class="m-0 p-0 d-flex align-items-center">
                                 <button class="btn mr-3 save" type="submit"><i class="far fa-save"></i></button>
                                 <a href="{{ route('admin-brands-index') }}" class="btn back"><i class="fas fa-reply-all"></i></a>
@@ -43,17 +43,12 @@
                             </ul>
 
                             <div class="tab-content">
-                                @include('admin.partials.title', ['item' => $brand, 'title' => true, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                @include('admin.partials.title', ['item' => $brand, 'title' => true, 'link' => true, 'link_name' => 'Ссылка', 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                             </div>
 
                             <div class="form-group">
-                                <label for="link" class="mb-3">Ссылка</label>
-                                <input value="{{ $brand->link }}" type="text" required id="link" name="link" class="form-control">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">Сортировка</label>
-                                <input type="text" class="form-control">
+                                <label for="sort">Сортировка</label>
+                                <input type="text" name="sort" class="form-control">
                             </div>
 
                         </div>

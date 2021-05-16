@@ -425,14 +425,6 @@
                 required: true
             },
 
-            instantFilter: {
-                type: String,
-                required: false,
-            },
-            instantTag: {
-                type: String,
-                required: false,
-            },
             // Локальный язык
             locale: {
                 type: String,
@@ -443,15 +435,6 @@
 
         mounted() {
 
-            if (this.instantFilter) {
-                let instantFilter = this.instantFilter.split('_');
-                this.selected.sel_filters[Number(instantFilter[0])].push(Number(instantFilter[1]));
-            }
-
-            if (this.instantTag) {
-                let instantTag = this.instantTag;
-                this.selected.tags.push(Number(instantTag));
-            }
 
             this.loadProducts();
             this.loadTags();
@@ -482,17 +465,6 @@
                         }
                     }
                 }
-
-                /*this.selected.sel_filters.forEach((filter) => {
-                    if (filter.length) {
-                        filter.forEach((id) => {
-                            if (filterId == id) {
-                                filter.splice(filter.indexOf(id), 1);
-                            }
-                        });
-                    }
-                });*/
-
                 this.loadProducts();
             },
 
@@ -651,6 +623,27 @@
                 this.selected.tags = [];
                 this.selected.sale = false;
             },
+
+            generateUrlWithFilters: function () {
+                let url = new URL(window.location.origin + window.location.pathname);
+                console.log(url);
+                for (let filter of this.filters) {
+                    if (this.selected.sel_filters[filter.id].length != 0) {
+                        let values = []
+                        for (let sel_fil of this.selected.sel_filters[filter.id]) {
+                            for (let attr of filter.attributes) {
+                                if (sel_fil == attr.id) {
+                                    values.push(this.getLang ? attr.slug_ru : attr.slug_uk)
+                                }
+                            }
+                        }
+                        values = values.join('_');
+                        url.searchParams.append(this.getLang ? filter.slug_ru : filter.slug_uk, values);
+
+                    }
+                }
+                history.pushState(null, null, url);
+            }
         },
 
         watch: {
@@ -665,8 +658,12 @@
 
 
             },
-
-
+            'selected.sel_filters': {
+                handler: function (oldVal, newVal) {
+                    this.generateUrlWithFilters();
+                },
+                deep: true,
+            }
         },
 
         computed: {
@@ -709,6 +706,19 @@
         },
 
         created () {
+            let url = new URL(window.location.href);
+            for (let filter of this.filters) {
+                if (url.searchParams.has(filter.slug_ru)) {
+                    for (let selectedParam of url.searchParams.get(filter.slug_ru).split('_')) {
+                        for (let attr of filter.attributes) {
+                            if (attr.slug_ru == selectedParam) {
+                                this.selected.sel_filters[filter.id].push(attr.id);
+                            }
+                        }
+                    }
+                }
+            }
+
             this.loadMaxValPrice();
             this.copyFiltersToSelected(this.filters);
             this.watchPrice();

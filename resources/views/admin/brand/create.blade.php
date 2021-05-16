@@ -37,18 +37,13 @@
                                 @endforeach
                             </ul>
 
-                            <div class="tab-content mt-3">
-                                @include('admin.partials.title', ['item' => $brand, 'title' => true, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                            <div class="tab-content">
+                                @include('admin.partials.title', ['item' => $brand, 'title' => true, 'link' => true, 'link_name' => 'Ссылка', 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                             </div>
 
                             <div class="form-group">
-                                <label for="link" class="mb-3">Ссылка</label>
-                                <input type="text" id="link" name="link" required class="form-control">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">Сортировка</label>
-                                <input type="text" class="form-control">
+                                <label for="sort">Сортировка</label>
+                                <input type="text" name="sort" class="form-control">
                             </div>
                         </div>
 

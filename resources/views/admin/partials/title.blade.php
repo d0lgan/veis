@@ -27,6 +27,19 @@
             </div>
         @endif
 
+        @if(isset($link))
+            @php $method = "link_" . $lang->locate_code @endphp
+            <div class="form-group">
+                <label for="title_{{ $lang->locate_code }}">{{ isset($link_name) ? $link_name . ':' : 'Название:' }}</label>
+                <input required name="link_{{ $lang->locate_code }}"
+                       id="title_{{ $lang->locate_code }}"
+                       value="{{ @optional($item)->$method }}"
+                       placeholder="Link {{ strtoupper($lang->locate_code) }}"
+                       type="text"
+                       class="form-control"/>
+            </div>
+        @endif
+
         @if($meta)
             <div class="form-group">
                 <label for="meta_{{ $lang->locate_code }}">Meta Заголовок:</label>

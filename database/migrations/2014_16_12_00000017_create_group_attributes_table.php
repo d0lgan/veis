@@ -18,6 +18,8 @@ class CreateGroupAttributesTable extends Migration {
 			$table->increments('id');
 			$table->string('title_ru')->nullable();
 			$table->string('title_uk')->nullable();
+            $table->string('slug_ru')->nullable();
+            $table->string('slug_uk')->nullable();
 			$table->integer('public')->nullable();
 			$table->integer('sort')->nullable();
 

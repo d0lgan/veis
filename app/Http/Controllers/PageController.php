@@ -18,6 +18,7 @@ use App\Option;
 use App\Setting;
 use App\Slider;
 use Carbon\Carbon;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use App\Page;
 use DB;
@@ -200,11 +201,10 @@ class PageController extends Controller {
             $latestGlasses[$i] = $item->toArray();
         }
 
-        $brands = GroupAttribute::where('title_ru', 'Бренд')->first()->attributes;
-        $idOfBrandsGroup = GroupAttribute::where('title_ru', 'Бренд')->first()->id;
+        $brands = Brand::orderBy('sort')->get();
 
         $locale = App::getLocale();
-	    return view('site.home', compact('latestGlasses', 'locale', 'translate', 'brands', 'idOfBrandsGroup'));
+	    return view('site.home', compact('latestGlasses', 'locale', 'translate', 'brands'));
     }
 
     public function catalog(Request $request) {
@@ -309,10 +309,24 @@ class PageController extends Controller {
         })->toArray());
 
 
-        $instantFilter = $request->filter;
-        $instantTag = $request->tag;
 
-        return view('site.catalog', compact('translate', 'locale', 'filters', 'instantFilter', 'instantTag'));
+        /*$gg = GroupAttribute::all();
+        foreach ($gg as $g) {
+            $g->slug_ru = SlugService::createSlug(GroupAttribute::class, 'slug_ru', $g->title_ru);
+            $g->slug_uk = SlugService::createSlug(GroupAttribute::class, 'slug_uk', $g->title_uk);
+            $g->save();
+        }*/
+
+        /*$aa = Attribute::all();
+        foreach ($aa as $a) {
+            $a->slug_ru = SlugService::createSlug(Attribute::class, 'slug_ru', $a->name_ru);
+            $a->slug_uk = SlugService::createSlug(Attribute::class, 'slug_uk', $a->name_uk);
+            $a->save();
+        }*/
+
+
+
+        return view('site.catalog', compact('translate', 'locale', 'filters'));
     }
 
     public function info() {

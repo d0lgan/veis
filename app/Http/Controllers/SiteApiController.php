@@ -17,7 +17,7 @@ class SiteApiController extends Controller
             request()->input('prices', []),
             request()->input('tags', []),
             request()->input('sale', [])
-        )->with('galleries', 'attributes', 'tags')->where('image', '<>', null);
+        )->with('galleries', 'attributes', 'tags', 'stock')->where('image', '<>', null);
 
         $countProducts = $query->count();
 

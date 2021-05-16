@@ -18,6 +18,7 @@ class CreateStocksTable extends Migration
             $table->string('title_ru');
             $table->string('title_uk');
             $table->string('label');
+            $table->string('side');
             $table->integer('public');
             $table->timestamps();
         });

@@ -61,10 +61,11 @@ class ProductController extends Controller
         //разрешаем админу
         $request->user()->authorizeRoles(['admin']);
         $settings = Setting::first();
-        $products = Product::with(['category', 'manufacturer'])->take(10)->get();
+        $products = Product::with(['category', 'manufacturer', 'stock'])->take(10)->get();
         $count_p = Product::all()->count();
         $categories = Category::all();
         $manufacturers = Manufacturer::all();
+        $stocks = Stock::all();
 
         $contacts = Contact::all();
         $contacts_count = $contacts->count();
@@ -73,7 +74,7 @@ class ProductController extends Controller
 
 
 
-        return view('admin.product.index', compact('products', 'categories', 'manufacturers', 'settings', 'count_p', 'order_count', 'contacts_count'));
+        return view('admin.product.index', compact('products', 'categories', 'manufacturers', 'stocks', 'settings', 'count_p', 'order_count', 'contacts_count'));
     }
 
 
@@ -997,7 +998,6 @@ class ProductController extends Controller
 
         // ? 'categories'
         // ?? 'prod_tags'
-
         return view('admin.product.edit', compact('product', 'langs', 'categories_json', 'categories', 'tags', 'manufacturers', 'stocks', 'suppliers', 'group_attributes', 'currencies', 'options', 'selected', 'selected_attr', 'selected_tags', 'images', 'settings', 'contacts_count', 'order_count'));
     }
 

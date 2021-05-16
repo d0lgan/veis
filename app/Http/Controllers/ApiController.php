@@ -994,7 +994,7 @@ class ApiController extends Controller
                 $product->availability = $request->data['availability'];
             }
             if(!empty($request->data['type'])){
-                $product->type = $request->data['type'];
+                $product->stock_id = $request->data['type'];
             }
 
             $product->public = $request->public;

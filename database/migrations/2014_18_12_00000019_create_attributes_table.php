@@ -20,6 +20,8 @@ class CreateAttributesTable extends Migration {
 			$table->string('name_uk')->nullable();
 			$table->string('item_name_ru')->nullable();
 			$table->string('item_name_uk')->nullable();
+            $table->string('slug_ru')->nullable();
+            $table->string('slug_uk')->nullable();
 
 			$table->integer('group_attribute_id')->index()->unsigned()->nullable();
 			$table->foreign('group_attribute_id')->references('id')->on('group_attributes')->onDelete('cascade');

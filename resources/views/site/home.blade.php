@@ -126,9 +126,9 @@
                     @for ($i = 0; $i < 7; $i++)
                         @foreach($brands as $brand)
                             @if($locale == 'ru')
-                                <a href="{{ route('catalog', ['filter' => $idOfBrandsGroup . '_' . $brand->id]) }}">{{ $brand->name_ru }}</a>
+                                <a href="{{ $brand->link_ru }}">{{ $brand->title_ru }}</a>
                             @elseif($locale == 'uk')
-                                <a href="{{ route('catalog', ['filter' => $idOfBrandsGroup . '_' . $brand->id]) }}">{{ $brand->name_uk }}</a>
+                                <a href="{{ $brand->link_uk }}">{{ $brand->title_uk }}</a>
                             @endif
                         @endforeach
                     @endfor

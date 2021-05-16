@@ -26,7 +26,7 @@ class Tag extends Model
 	}
 
 	protected $table = 'tags';
-	protected $fillable = ['title','slug','created_at','updated_at'];
+	protected $fillable = ['title_ru', 'title_uk', 'slug_ru', 'slug_uk', 'created_at','updated_at'];
 
 	public function products() {
 		return $this->belongsToMany('App\Product','product_tag');

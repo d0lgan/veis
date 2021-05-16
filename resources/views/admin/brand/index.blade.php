@@ -37,8 +37,8 @@
                         <table class="table table-data2 datatable border-0" >
                                 <thead class="border-0">
                                     <tr class="border-0">
-                                        <th class="align-middle py-1 pr-3">Название</th>
-                                        <th class="align-middle py-1 pr-3">Ссылка</th>
+                                        <th class="align-middle py-1 pr-3">Название RU</th>
+                                        <th class="align-middle py-1 pr-3">Ссылка RU</th>
                                         <th class="align-middle py-1 pr-3">Сортировка</th>
                                         <th class="align-middle py-1 pr-3 bg-none">
                                         </th>
@@ -48,9 +48,9 @@
                                 <tbody class="border-0">
                                     @foreach($brands as $brand)
                                         <tr>
-                                            <td class="align-middle py-1 pr-3">{{  $brand->title }}</td>
-                                            <td class="align-middle py-1 pr-3">{{$brand->link}}</td>
-                                            <td class="align-middle py-1 pr-3"></td>
+                                            <td class="align-middle py-1 pr-3">{{  $brand->title_ru }}</td>
+                                            <td class="align-middle py-1 pr-3">{{ $brand->link_ru }}</td>
+                                            <td class="align-middle py-1 pr-3">{{ $brand->sort }}</td>
                                             <td class="align-middle py-1 pr-3">
 
                                                 <div class="table-data-feature d-flex justify-content-center">

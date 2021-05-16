@@ -121,7 +121,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <group-data-component :categories_json="categories_json" :manufacturers="manufacturers" :suppliers="suppliers" :settings="settings" :selected_products="selectedProduct()"></group-data-component>
+                            <group-data-component :categories_json="categories_json" :manufacturers="manufacturers" :stocks="stocks" :suppliers="suppliers" :settings="settings" :selected_products="selectedProduct()"></group-data-component>
                         </div>
                     </div>
                 </div>
@@ -344,6 +344,7 @@
                                 </span>
 
                                 <span :style="{'width': header.w + 'px', 'font-size': '10px'}" v-else-if="header.key === 'type'" >{{ type(product[header.key]) }}</span>
+                                <span :style="{'width': header.w + 'px'}" v-else-if="header.key === 'stock'" >{{ product.stock ? product.stock.title_ru : '' }}</span>
                                 <span v-else-if="header.key === 'title'" style="text-align: left !important;">{{ product[header.key]}}</span>
                                 <span class="text-left" v-else :style="{'width': header.w + 'px','font-size': '10px'}">{{ product[header.key]}}</span>
                             </td>
@@ -652,7 +653,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <group-data-component :categories_json="categories_json" :manufacturers="manufacturers" :suppliers="suppliers" :settings="settings" :selected_products="selectedProduct()"></group-data-component>
+                                        <group-data-component :categories_json="categories_json" :manufacturers="manufacturers" :stocks="stocks" :suppliers="suppliers" :settings="settings" :selected_products="selectedProduct()"></group-data-component>
                                         <!--<div class="col-md-12">
                                             <div class="jumbotron">
                                                 <div class="row">
@@ -733,6 +734,7 @@
                                             <span :style="{'width': header.w + 'px'}" v-else-if="header.key === 'availability'">{{ availability(product[header.key]) }}</span>
                                             <span :style="{'width': header.w + 'px'}" v-else-if="header.key === 'public'" :class="{'text-success': product[header.key] === 1, 'text-danger': product[header.key] === 0}">{{ public(product[header.key]) }}</span>
                                             <span :style="{'width': header.w + 'px'}" v-else-if="header.key === 'type'" >{{ type(product[header.key]) }}</span>
+                                            <span :style="{'width': header.w + 'px'}" v-else-if="header.key === 'stock'" >{{ product.stock ? product.stock.title_ru : '' }}</span>
                                             <span v-else :style="{'width': header.w + 'px'}">{{ product[header.key]}}</span>
                                         </td>
                                         <td>
@@ -1172,7 +1174,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <group-data-component :categories_json="categories_json" :manufacturers="manufacturers" :suppliers="suppliers" :settings="settings" :selected_products="selectedProduct()"></group-data-component>
+                            <group-data-component :categories_json="categories_json" :manufacturers="manufacturers" :stocks="stocks" :suppliers="suppliers" :settings="settings" :selected_products="selectedProduct()"></group-data-component>
                             <!--<div class="col-md-12">
                                 <div class="jumbotron">
                                     <div class="row">
@@ -1244,6 +1246,7 @@
                             <span :style="{'width': header.w + 'px'}" v-else-if="header.key === 'availability'">{{ availability(product[header.key]) }}</span>
                             <span :style="{'width': header.w + 'px'}" v-else-if="header.key === 'public'" :class="{'text-success': product[header.key] === 1, 'text-danger': product[header.key] === 0}">{{ public(product[header.key]) }}</span>
                             <span :style="{'width': header.w + 'px'}" v-else-if="header.key === 'type'" >{{ type(product[header.key]) }}</span>
+                            <span :style="{'width': header.w + 'px'}" v-else-if="header.key === 'stock'" >{{ product.stock ? product.stock.title_ru : '' }}</span>
                             <span v-else :style="{'width': header.w + 'px'}">{{ product[header.key]}}</span>
                         </td>
                         <td>
@@ -1305,7 +1308,8 @@
             'settings',
             'count_p',
             'categories',
-            'manufacturers'
+            'manufacturers',
+            'stocks',
         ],
         data() {
             return {
@@ -1331,7 +1335,7 @@
                     {key: 'bridge_width', name: "Ш.моста", public: false, value: '', w: 50},
                     {key: 'long_arms', name: "Д.дужки", public: false, value: '', w: 50},
                     {key: 'frame_width', name: "Ш.оправы", public: false, value: '', w: 50},
-                    {key: 'type', name: "Тип", public: true, value: '', w: 90},
+                    {key: 'type', name: "Тип", public: false, value: '', w: 90},
                     {key: 'public', name: "Отображение", public: false, value: '', w: 70},
                 ],
                 dragging: false,
@@ -1587,17 +1591,7 @@
                 this.allChecked = false;
             },
             type: function (data) {
-                if(data === null || data === 'null'){
-                    return 'Обычный';
-                }else if(data === 'recommended'){
-                    return 'Рекомендуемый';
-                }else if(data === 'hit'){
-                    return 'Хит продаж';
-                }else if(data === 'new'){
-                    return 'Новинка';
-                }else if(data === 'sell'){
-                    return 'Обмен';
-                }
+                return
             }
 
         },

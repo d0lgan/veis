@@ -65,8 +65,11 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $brand = new Brand;
-        $brand->title = $request->title_ru;
-        $brand->link = $request->link;
+        $brand->title_ru = $request->title_ru;
+        $brand->title_uk = $request->title_uk;
+        $brand->link_ru = $request->link_ru;
+        $brand->link_uk = $request->link_uk;
+        $brand->sort = $request->sort;
         $brand->save();
 
         $langs = Language::all();
@@ -143,8 +146,11 @@ class BrandController extends Controller
     {
         $brand = Brand::find($id);
         $langs = Language::all();
-        $brand->title = $request->title_ru;
-        $brand->link = $request->link;
+        $brand->title_ru = $request->title_ru;
+        $brand->title_uk = $request->title_uk;
+        $brand->link_ru = $request->link_ru;
+        $brand->link_uk = $request->link_uk;
+        $brand->sort = $request->sort;
         $brand->save();
 
         foreach ($langs as $lang) {

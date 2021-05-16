@@ -119,7 +119,12 @@
 
                                     <div class=" col-md-2 form-group">
                                         {!! Form::label('stock_id', 'Акция',['class' => 'control-label']) !!}
-                                        {!! Form::select('stock_id', $stocks, old('stock_id'), ['class'=>'form-control'])!!}
+                                        <select id="stock_id" name="stock_id" class="form-control">
+                                            <option value="">Без акции</option>
+                                            @foreach($stocks as $id => $title)
+                                                <option value="{{ $id }}" @if($product->stock_id == $id) selected @endif>{{ $title }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="form-group col-md-2">

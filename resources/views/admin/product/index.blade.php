@@ -29,7 +29,7 @@
     </div>
 
     <div id="app">
-        <table-products-component :manufacturers="{{ json_encode($manufacturers) }}" :categories="{{ json_encode($categories) }}" :prod="{{json_encode($products)}}" :settings="{{ json_encode($settings) }}" :count_p="{{ json_encode($count_p) }}"></table-products-component>
+        <table-products-component :manufacturers="{{ json_encode($manufacturers) }}" :stocks="{{ json_encode($stocks) }}" :categories="{{ json_encode($categories) }}" :prod="{{json_encode($products)}}" :settings="{{ json_encode($settings) }}" :count_p="{{ json_encode($count_p) }}"></table-products-component>
     </div>
 
 

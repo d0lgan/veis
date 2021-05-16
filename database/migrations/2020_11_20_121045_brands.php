@@ -16,8 +16,11 @@ class Brands extends Migration
         Schema::create('brands', function(Blueprint $table) {
 
             $table->increments('id');
-            $table->string('title');
-            $table->string('link');
+            $table->string('title_ru');
+            $table->string('title_uk');
+            $table->string('link_ru');
+            $table->string('link_uk');
+            $table->integer('sort')->nullable()->default(0);
             $table->timestamps();
 
         });
