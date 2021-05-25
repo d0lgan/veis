@@ -65,6 +65,7 @@ class StockController extends Controller
         $stock->title_ru = $request->title_ru;
         $stock->title_uk = $request->title_uk;
         $stock->label = $request->label;
+        $stock->side = $request->side;
         $stock->public = $request->public;
         $stock->save();
 
@@ -124,6 +125,7 @@ class StockController extends Controller
         $stock->title_ru = $request->title_ru;
         $stock->title_uk = $request->title_uk;
         $stock->label = $request->label;
+        $stock->side = $request->side;
         $stock->public = $request->public;
 
         $stock->save();

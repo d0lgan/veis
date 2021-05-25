@@ -62,12 +62,12 @@
                     <div class="product-card__demo sticky-box">
                         <div class="product-card__slider">
                             <div class="product-card__slider-item">
-                                <a data-fancybox="prod_gallery" href="/img/product__foto4.png">
+                                <a data-fancybox="prod_gallery" :href="`/house/uploads/` + product.image">
                                     <img :src="`/house/uploads/` + product.image" alt="">
                                 </a>
                             </div>
                             <div class="product-card__slider-item" v-for="image in product.galleries">
-                                <a data-fancybox="prod_gallery" href="/img/product__foto4.png">
+                                <a data-fancybox="prod_gallery" :href="`/house/uploads/` + image.name">
                                     <img :src="'/house/uploads/' + image.name" alt="">
                                 </a>
                             </div>

@@ -27,8 +27,12 @@
                             </div>
                         </div>
 
-
-                        <div style="background-color: #fff" class="w-100 p-3">
+                        <ul class="nav nav-tabs px-3" id="myTab">
+                            <li class="nav-item"><a class="nav-link active" href="#main" data-toggle="tab">Основное</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#seo" data-toggle="tab">SEO</a></li>
+                        </ul>
+                        <div style="background-color: #fff" class="p-3 tab-content">
+                            <div style="background-color: #fff" class="w-100 p-3 tab-pane active" id="main">
                                 <div class="row">
                                     <div class="col-md-12 form-group">
                                         <ul class="nav nav-tabs" id="language">
@@ -49,7 +53,6 @@
                                             @include('admin.partials.title', ['item' => $attribute, 'title_name' => 'Значение (для фильтра)', 'title' => false, 'name' => true, 'long_title' => true, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                         </div>
                                     </div>
-
                                     <div class="form-group w-100 d-flex align-items-center justify-content-between">
                                         <div class="form-group col-6">
                                             <label class="control-label" for="group_attribute_id">Группа аттрибутов:</label>
@@ -68,9 +71,36 @@
                                             <input class="form-control" type="text" name="sort" value="{{ $attribute->sort ?? '' }}">
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div style="background-color: #fff" class="tab-pane p-3 fade show" id="seo" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                    <ul class="nav nav-tabs" id="language">
+                                        @foreach($langs as $key => $lang)
+                                            <li class="nav-item {{ $key == 0 ? 'active' : null }}"><a
+                                                        href="#language_seo_{{ $lang->locate_code }}" class="nav-link {{ $key == 0 ? 'active' : null }}"
+                                                        data-toggle="tab"
+                                                >
+                                                    @if($lang->locate_code == 'ru')
+                                                        <img style="height: 25px;" src="{{ asset('/images/russia.svg') }}" alt="">
+                                                    @elseif($lang->locate_code == 'uk')
+                                                        <img style="height: 25px;" src="{{ asset('/images/ukraine.svg') }}" alt="">
+                                                    @endif
+                                                </a></li>
+                                        @endforeach
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        @include('admin.partials.url', ['item' => $attribute, 'slug_t' => $attribute->slug, 'title' => false, 'description' => false, 'slug' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'seo'])
+                                    </div>
 
                                 </div>
-                            </form>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
                         </div>
 
                     </div>

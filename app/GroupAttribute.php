@@ -26,7 +26,7 @@ class GroupAttribute extends Model
     }
 
 	protected $table = 'group_attributes';
-	protected $fillable = ['name','category_id', 'public', 'sort'];
+	protected $fillable = ['title_ru', 'title_uk', 'slug_uk', 'slug_ru', 'category_id', 'public', 'sort'];
 
 	public function attributes()
 	{

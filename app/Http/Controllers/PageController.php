@@ -17,6 +17,7 @@ use App\Manufacturer;
 use App\Option;
 use App\Setting;
 use App\Slider;
+use App\Stock;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
@@ -192,19 +193,29 @@ class PageController extends Controller {
             'color' => Lang::trans('site.productCard.color'),
             'show_all' => Lang::trans('site.productCard.show_all'),
         ];
-        $latestGlasses = Product::orderBy('created_at', 'desc')
+	    $leftStock = Stock::where('side', 'left')->orderBy('created_at', 'desc')->first();
+	    $rightStock = Stock::where('side', 'right')->orderBy('created_at', 'desc')->first();
+
+        $leftGlasses = Product::orderBy('created_at', 'desc')
             ->where('title_ru', 'like', '%очки%')
+            ->where('stock_id', $leftStock->id)
             ->take(8)
-            ->with('galleries', 'attributes', 'tags')
-            ->get();
-        foreach ($latestGlasses as $i => $item) {
-            $latestGlasses[$i] = $item->toArray();
-        }
+            ->with('galleries', 'attributes', 'tags', 'stock')
+            ->get()
+            ->toArray();
+
+        $rightGlasses = Product::orderBy('created_at', 'desc')
+            ->where('title_ru', 'like', '%очки%')
+            ->where('stock_id', $rightStock->id)
+            ->take(8)
+            ->with('galleries', 'attributes', 'tags', 'stock')
+            ->get()
+            ->toArray();
 
         $brands = Brand::orderBy('sort')->get();
 
         $locale = App::getLocale();
-	    return view('site.home', compact('latestGlasses', 'locale', 'translate', 'brands'));
+	    return view('site.home', compact('leftGlasses', 'rightGlasses', 'leftStock', 'rightStock', 'locale', 'translate', 'brands'));
     }
 
     public function catalog(Request $request) {
@@ -324,12 +335,53 @@ class PageController extends Controller {
             $a->save();
         }*/
 
+        $instantCategory = null;
+        if ($request->c) {
+            $instantCategory = Category::where('slug_ru', $request->c)->orWhere('slug_uk', $request->c)->first();
+            if ($instantCategory) {
+                $instantCategory = $instantCategory->toArray();
+            }
+        }
 
-
-        return view('site.catalog', compact('translate', 'locale', 'filters'));
+        return view('site.catalog', compact('translate', 'locale', 'filters', 'instantCategory'));
     }
 
     public function info() {
 	    return view('site.info');
+    }
+
+    public function map() {
+        $translate = [
+            'store' => Lang::trans('product.store'),
+            'sale' => Lang::trans('product.sale'),
+            'back' => Lang::trans('product.back'),
+            'map' => Lang::trans('site.footer.map'),
+
+            'main' => Lang::trans('site.map.main'),
+            'catalog' => Lang::trans('site.map.catalog'),
+            'info' => Lang::trans('site.map.info'),
+            'blog' => Lang::trans('site.map.blog'),
+        ];
+
+        $locale = App::getLocale();
+
+        $mainCats = Category::where('parent_id', 0)->get();
+        foreach ($mainCats as $mainCat) {
+            $subCats = Category::where('parent_id', $mainCat->id)->get();
+            foreach ($subCats as $subCat) {
+                $subSubCats = Category::where('parent_id', $subCat->id)->get();
+                $subCat->thirdLayer = $subSubCats;
+            }
+            $mainCat->secondLayer = $subCats;
+        }
+
+        /*foreach ($mainCats->first()->secondLayer as $cat) {
+            if ($cat->thirdLayer->count() != 0) {
+                dd($cat);
+            }
+        }
+        dd($mainCats->first()->secondLayer);*/
+
+	    return view('site.map', compact('translate', 'locale', 'mainCats'));
     }
 }

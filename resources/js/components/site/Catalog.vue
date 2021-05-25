@@ -28,12 +28,14 @@
             <div class="conteiner">
                 <ul class="breadcrumbs__list">
                     <li class="breadcrumbs__item">
-                        <a :href="getLang ? '/ru' : '/uk'" class="breadcrumbs__link">{{ translate.store }}</a>
+                        <a :href="getLang ? '/ru' : '/'" class="breadcrumbs__link">{{ translate.store }}</a>
                     </li>
                     <li class="breadcrumbs__item">
-                        <a :href="getLang ? '/ru/catalog' : '/uk/catalog'" class="breadcrumbs__link">{{ translate.catalog }} </a>
+                        <a :href="window.location.origin + window.location.pathname" class="breadcrumbs__link">{{ translate.catalog }} </a>
                     </li>
-
+                    <li class="breadcrumbs__item" v-if="instantCategory">
+                        <a :href="window.location.href" class="breadcrumbs__link">{{ getLang ? instantCategory.title_ru.toUpperCase() : instantCategory.title_uk.toUpperCase() }} </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -145,7 +147,7 @@
                         </p>
                         <div class="catalog-filters__slider-box">
                             <input type="text" hidden :value="maxValPrice" id="maxValPrice">
-                            <span class="catalog-filters__slider-val catalog-filters__slider-val--min" ref="start">0</span>
+                            <span class="catalog-filters__slider-val catalog-filters__slider-val--min" ref="start">700</span>
                             <div id="slider-range" class="catalog-filters__slider-slider"></div>
                             <span class="catalog-filters__slider-val catalog-filters__slider-val--max" ref="end">{{ maxValPrice }}</span>
                         </div>
@@ -399,6 +401,7 @@
                 date: '',
                 selected: {
                     sel_filters: [],
+                    IdOfInstantCategory: 0,
                     prices: [0, 9999], // [start, end]
                     tags: [],
                     sale: false,
@@ -431,13 +434,20 @@
                 required: false,
                 default: 'ru'
             },
+            // Предопределённая категория
+            instantCategory: {
+                required: false,
+                default: null,
+            },
         },
 
         mounted() {
-
-
             this.loadProducts();
             this.loadTags();
+
+            if (this.instantCategory) {
+                this.selected.IdOfInstantCategory = this.instantCategory.id;
+            }
 
             var cd = new Date();
             this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
@@ -626,6 +636,7 @@
 
             generateUrlWithFilters: function () {
                 let url = new URL(window.location.origin + window.location.pathname);
+
                 console.log(url);
                 for (let filter of this.filters) {
                     if (this.selected.sel_filters[filter.id].length != 0) {
@@ -668,6 +679,7 @@
 
         computed: {
             console: () => console,
+            window: () => window,
 
             getLang: function() {
                 if (this.locale == 'ru') {
@@ -718,6 +730,7 @@
                     }
                 }
             }
+
 
             this.loadMaxValPrice();
             this.copyFiltersToSelected(this.filters);

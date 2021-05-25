@@ -19,6 +19,10 @@ class SiteApiController extends Controller
             request()->input('sale', [])
         )->with('galleries', 'attributes', 'tags', 'stock')->where('image', '<>', null);
 
+        if (request()->input('IdOfInstantCategory')) {
+            $query->where('category_id', request()->input('IdOfInstantCategory'));
+        }
+
         $countProducts = $query->count();
 
         if (request()->input('fakePageForMoreProducts') - request()->input('page') == 1) {
@@ -44,7 +48,7 @@ class SiteApiController extends Controller
 
     public function getMaxValPrice()
     {
-        return intval(round(Product::max('undiscounted'), -1));
+        return round(round(Product::max('undiscounted'), -1));
     }
 
     public function getManufacturers()

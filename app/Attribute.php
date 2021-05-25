@@ -17,16 +17,16 @@ class Attribute extends Model
     {
         return [
             'slug_ru' => [
-                'source' => 'title_ru'
+                'source' => 'name_ru'
             ],
             'slug_uk' => [
-                'source' => 'title_uk'
+                'source' => 'name_uk'
             ]
         ];
     }
 
 	protected $table = 'attributes';
-	protected $fillable = ['title', 'item_name', 'group_attribute_id','sort', 'created_at','updated_at'];
+	protected $fillable = ['name_ru', 'name_uk', 'item_name_ru', 'item_name_uk', 'group_attribute_id','sort', 'created_at','updated_at'];
 
 	public function group_attribute()
 	{

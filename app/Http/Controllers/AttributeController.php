@@ -84,6 +84,7 @@ class AttributeController extends Controller
         $attribute->name_uk = $request->title_uk;
         $attribute->item_name_ru = $request->long_title_ru;
         $attribute->item_name_uk = $request->long_title_uk;
+
         $attribute->group_attribute_id = $request->group_attribute_id;
         $attribute->sort = $request->sort;
         $attribute->save();
@@ -172,6 +173,9 @@ class AttributeController extends Controller
         $attribute->name_uk = $request->title_uk;
         $attribute->item_name_ru = $request->long_title_ru;
         $attribute->item_name_uk = $request->long_title_uk;
+
+        $attribute->slug_ru = $request->slug_ru;
+        $attribute->slug_uk = $request->slug_uk;
 
         $attribute->group_attribute_id = $request->group_attribute_id;
         $attribute->sort = $request->sort;

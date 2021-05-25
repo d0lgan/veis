@@ -522,9 +522,9 @@ window.addEventListener('load',function(){
 	setTimeout(() => {
 		$("#slider-range").slider({
 			range: true,
-			min: 0,
+			min: 700,
 			max: $("#maxValPrice").val(),
-			values: [ 0, $("#maxValPrice").val() ],
+			values: [ 700, $("#maxValPrice").val() ],
 			slide: function( event, ui ) {
 				$(this).parent().find('.catalog-filters__slider-val--min').text(ui.values[0]);
 				$(this).parent().find('.catalog-filters__slider-val--max').text(ui.values[1]);

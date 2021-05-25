@@ -53,6 +53,7 @@ Vue.component('site-contact-component', require('./components/site/Contact').def
 
 // Пользовательский сайт:
 Vue.component('site-catalog-component', require('./components/site/Catalog').default);
+Vue.component('site-map-component', require('./components/site/Map').default);
 Vue.component('site-products-card-component', require('./components/site/ProductsCard').default);
 Vue.component('site-product-elem-component', require('./components/site/ProductElem').default);
 Vue.component('site-produce-component', require('./components/site/Produce').default);

@@ -52,11 +52,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="" class="form-label">Отображение</label>
+                                    <label for="side" class="form-label">Отображение</label>
 
-                                    <select name="" class="form-control">
-                                        <option value="1">Левая сторона</option>
-                                        <option value="0">Правая сторона</option>
+                                    <select name="side" class="form-control">
+                                        <option value="">Отсутствует</option>
+                                        <option value="left">Левая сторона</option>
+                                        <option value="right">Правая сторона</option>
                                     </select>
                                 </div>
                             </div>

@@ -25,6 +25,8 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
 
     Route::get('/info', 'PageController@info')->name('info');
 
+    Route::get('/map', 'PageController@map')->name('map');
+
     Route::get('/product/{slug?}', 'ProductController@show')
         ->name('product')->middleware('pagePublic');
 

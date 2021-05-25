@@ -122,7 +122,8 @@
         <div class="brands__name">
             <div class="brands__slide">
                 <div class="brands__block1">
-                    {{--Верстка корректно работает только при 14 элементах поэтому вот блять ещё костыль...--}}
+                    {{--Верстка корректно работает только при 14 элементах, поэтому вот блять ещё костыль...
+                    (сколько элементов не поставь крутиться будет нормально)--}}
                     @for ($i = 0; $i < 7; $i++)
                         @foreach($brands as $brand)
                             @if($locale == 'ru')
@@ -172,7 +173,7 @@
     </div>
 </section>
 
-<site-products-card-component :latest-glasses="{{json_encode($latestGlasses)}}" :translate="{{json_encode($translate)}}" :locale="{{json_encode($locale)}}"></site-products-card-component>
+<site-products-card-component :left-glasses="{{json_encode($leftGlasses)}}" :right-glasses="{{json_encode($rightGlasses)}}" :left-stock="{{json_encode($leftStock)}}" :right-stock="{{json_encode($rightStock)}}" :translate="{{json_encode($translate)}}" :locale="{{json_encode($locale)}}"></site-products-card-component>
 
 <section class="work">
     <h2 class="work__title">{{ __('site.howWeDoing.how') }}</h2>

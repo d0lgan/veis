@@ -55,17 +55,18 @@
                                     @endif
 
                                     <select name="public" class="form-control">
-                                        <option value="1">Активная</option>
-                                        <option value="0">Не активная</option>
+                                        <option value="1" @if ($stock->public == 1) selected @endif>Активная</option>
+                                        <option value="0" @if ($stock->public == 0) selected @endif>Не активная</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="" class="form-label">Отображение</label>
+                                    <label for="side" class="form-label">Отображение</label>
 
-                                    <select name="" class="form-control">
-                                        <option value="1">Левая сторона</option>
-                                        <option value="0">Правая сторона</option>
+                                    <select name="side" class="form-control">
+                                        <option value="" @if ($stock->side == null) selected @endif>Отсутствует</option>
+                                        <option value="left" @if ($stock->side == 'left') selected @endif>Левая сторона</option>
+                                        <option value="right" @if ($stock->side == 'right') selected @endif>Правая сторона</option>
                                     </select>
                                 </div>
                             </div>

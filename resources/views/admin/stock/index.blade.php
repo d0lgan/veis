@@ -45,7 +45,7 @@
                                                     <p style="color: #3cc000;">Активная</p>
                                                 @endif
                                             </td>
-                                            <td style="vertical-align: middle; padding: 5px !important"></td>
+                                            <td style="vertical-align: middle; padding: 5px !important">{{ $stock->side ? ($stock->side == 'left' ? 'Слево' : 'Справо') : 'Отстутствует' }}</td>
                                             <td style="vertical-align: middle; padding: 5px !important">
                                                 <div class="table-data-feature d-flex justify-content-center">
                                                     <a href="{{route('admin-stocks.edit',$stock->id)}}" style="width: 35px; height: 35px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Редактировать">

@@ -1,6 +1,6 @@
 <template>
     <div class="product__iteam">
-        <a :href="getLang ? '/produce/' + product.slug_ru : '/uk/produce/' + product.slug_uk" style="display: flex; align-items: center; flex-direction: column; text-decoration: none; margin: 15px 15px 0 0">
+        <a :href="getLang ? '/ru/produce/' + product.slug_ru : '/produce/' + product.slug_uk" style="display: flex; align-items: center; flex-direction: column; text-decoration: none; margin: 15px 15px 0 0">
 
         <img :src="'/house/uploads/' + product.image" style="width: 94%;">
 
@@ -19,7 +19,7 @@
         </div>
 
 
-        <!--<div class="product__foto_btn">New</div>-->
+        <div class="product__foto_btn" v-if="product.stock">{{ product.stock.label }}</div>
 
         <div class="product__hide">
             <div class="product__hide_inner">
