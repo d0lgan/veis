@@ -83,9 +83,9 @@
             </div>
 
             <div class="form-group col-md-2">
-                <label for="type_stock">Тип</label>
+                <label for="type_stock">Ярлык</label>
                 <select v-model="data.type" name="type" id="type" class="form-control">
-                    <option value="null">Обычный</option>
+                    <option value="null">Без ярлыка</option>
                     <option v-for="stock in stocks" :value="stock.id">{{ stock.title_ru }}</option>
                 </select>
             </div>

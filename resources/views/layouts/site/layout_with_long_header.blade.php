@@ -265,7 +265,7 @@
             <a href="#/">{{ __('site.footer.about_us') }}</a>
             <a href="#/">{{ __('site.footer.articles') }}</a>
             <a href="#/">{{ __('site.footer.replies') }}</a>
-            <a href="#/">{{ __('site.footer.map') }}</a>
+            <a href="/map">{{ __('site.footer.map') }}</a>
 
             <div class="foot__subtitle">{{ __('site.menu.geo') }}</div>
             <a href="#">г. Днепро 49000 ул. Солидарная 2</a>

@@ -20,6 +20,7 @@ class TagController extends Controller {
 		$tag  = Tag::whereSlug( $slug )->firstOrFail();
 		pagetitle( $tag->meta_h1 );
 
+
 		return view( 'site.tag', compact( 'tag', 'page' ) );
 	}
 
@@ -33,6 +34,13 @@ class TagController extends Controller {
 		$request->user()->authorizeRoles( [ 'admin' ] );
 
 		$tags = Tag::all();
+
+		foreach ($tags as $tag) {
+		    $tag->link_ru = url("/catalog?t={$tag->slug_ru}");
+		    $tag->link_uk = url("/catalog?t={$tag->slug_uk}");
+		    $tag->save();
+        }
+
 
 		$contacts      = Contact::all();
 		$contacts_count   = $contacts->count();
@@ -69,11 +77,23 @@ class TagController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store( Request $request ) {
-
 		$tag = new Tag;
+
 
 		$tag->title_ru = $request->title_ru;
 		$tag->title_uk = $request->title_uk;
+
+        if ($request->meta_h1_ru) {
+            $tag->meta_h1_ru = $tag->title_ru;
+        } else {
+            $tag->meta_h1_ru = $request->meta_ru;
+        }
+
+        if ($request->meta_h1_uk) {
+            $tag->meta_h1_uk = $tag->title_uk;
+        } else {
+            $tag->meta_h1_uk = $request->meta_uk;
+        }
 
         if ($request->slug_ru) {
             $tag->slug_ru = $request->slug_ru;
@@ -81,6 +101,15 @@ class TagController extends Controller {
         if ($request->slug_uk) {
             $tag->slug_uk = $request->slug_uk;
         }
+
+        $tag->link_ru = url("/catalog?t={$tag->slug_ru}");
+        $tag->link_uk = url("/catalog?t={$tag->slug_uk}");
+
+        $tag->sort = $request->sort;
+        $tag->description_ru = $request->description_ru;
+        $tag->description_uk = $request->description_uk;
+        $tag->seo_ru = $request->seo_ru;
+        $tag->seo_uk = $request->seo_uk;
 
 		$tag->save();
 
@@ -156,9 +185,19 @@ class TagController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update( Request $request, $id ) {
+
 		$tag = Tag::find( $id );
 		$tag->title_ru = $request->title_ru;
 		$tag->title_uk = $request->title_uk;
+        $tag->link_ru = $request->link_ru;
+        $tag->link_uk = $request->link_uk;
+        $tag->meta_h1_ru = $request->meta_ru;
+        $tag->meta_h1_uk = $request->meta_uk;
+        $tag->sort = $request->sort;
+        $tag->description_ru = $request->description_ru;
+        $tag->description_uk = $request->description_uk;
+        $tag->seo_ru = $request->seo_ru;
+        $tag->seo_uk = $request->seo_uk;
 		$tag->save();
 
         $langs = Language::all();

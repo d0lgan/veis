@@ -45,7 +45,7 @@
                         <div class="product-card__head-text">
                             <h2 class="product-card__head-title">{{ firstThreeLetterInProduct(product) }}</h2>
                             <p class="product-card__head-textwrap">{{ restLetterInProduct(product) }}</p>
-                            <p class="product-card__head-textwrap">{{ product.manufacturer_title }}</p>
+                            <a :href="getLang ? product.manufacturer.link_ru : product.manufacturer.link_uk" class="product-card__head-textwrap">{{ getLang ? product.manufacturer.title_ru : product.manufacturer.title_uk }}</a>
                         </div>
                         <div v-if="(!product.end_stock && product.percent) || (product.end_stock && (product.end_stock > dateForDiscount))">
                             <div class="mobile-hidden" id="prod-timer-mob"></div>

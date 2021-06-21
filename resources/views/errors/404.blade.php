@@ -18,28 +18,9 @@
 
 <body>
 
-<section class="notfound">
-    <div class="holder notfound__holder">
-        {{--<a href="/" class="notfound__logo">
-            <img src="{{ asset("assets/front/img/VEIS_COLLECTION.png") }}" alt="">
-        </a>
-        <img class="notfound__img" src="{{ asset("assets/front/img/404.png") }}" alt="">--}}
-        <div class="searchbox">
-            <input type="text" placeholder="Введите ваш запрос">
-            {{--<button class="search">
-                <img src="{{ asset("assets/front/img/search.svg") }}" alt="">
-            </button>
-            <button class="closer">
-                <img src="{{ asset("assets/front/img/close.svg") }}" alt="">
-            </button>--}}
-        </div>
-        <div class="notfound__wrap">
-            <h3 class="notfound__title">К сожалению запрашиваемая Вами страница не найдена</h3>
-            <p class="notfound__text">через 5 секунд мы перенесем Вас на главную.</p>
-        </div>
-    </div>
-</section>
-
+<div id="app">
+    <site-not-found-component></site-not-found-component>
+</div>
 
 <script src="{{ asset('js/app.js') }}"></script>
 <!-- <script type="text/javascript" src="js/jquery.js" defer></script>

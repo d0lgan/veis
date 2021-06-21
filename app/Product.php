@@ -144,10 +144,23 @@ class Product extends Model
 
   //Скоуп для фильтров товаров в каталоге
 
-    public function scopeWithFilters($query, $filters, $prices, $tags, $sale)
+    public function scopeWithFilters($query, $filters, $prices, $tags, $sale, $childCategories, $IdOfInstantCategory)
     {
 //        dd($filters);
+
         return $query
+            ->when($IdOfInstantCategory, function ($query) use ($childCategories, $IdOfInstantCategory) {
+                // Под childCategories подразумеваются все категории.
+                $allCats = $childCategories;
+
+                if ($IdOfInstantCategory) {
+                    $query->whereIn('category_id', $allCats)->orWhere(function ($que) use ($allCats) {
+                        $que->whereHas('categories', function ($q) use ($allCats) {
+                            $q->whereIn('categories.id', $allCats);
+                        });
+                    });
+                }
+            })
             ->when(count($filters), function ($query) use ($filters) {
                 foreach ($filters as $index => $filter) {
                     // $filters это всегда массив со строками

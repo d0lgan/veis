@@ -52,7 +52,7 @@
                                             </ul>
 
                                             <div class="tab-content">
-                                                @include('admin.partials.title', ['item' => $manufacturer, 'title' => true,  'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                                @include('admin.partials.title', ['item' => $manufacturer, 'title' => true,  'description' => true, 'link' => '', 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                             </div>
                                         </div>
 
@@ -72,10 +72,10 @@
                                             {!! Form::label('image', 'Изображение',['class' => 'control-label']) !!}
                                             {!! Form::file('image', array_merge(['class' => 'form-control'])) !!}
                                         </div>
-                                        <div class="col-md-4 form-group">
+                                        {{--<div class="col-md-4 form-group">
                                             {!! Form::label('link', 'Ссылка',['class' => 'control-label']) !!}
                                             {!! Form::text('link',$manufacturer->link, array_merge(['class' => 'form-control', 'required' => 'required'])) !!}
-                                        </div>
+                                        </div>--}}
                                         <div class="col-md-4 form-group">
                                             {!! Form::label('sort', 'Сортировать',['class' => 'control-label']) !!}
                                             {!! Form::text('sort',$manufacturer->sort, array_merge(['class' => 'form-control', 'required' => 'required'])) !!}

@@ -21,7 +21,8 @@ class CreateManufacturersTable extends Migration {
 			$table->string('image')->nullable();
 			$table->string('meta_h1_ru')->nullable();
 			$table->string('meta_h1_uk')->nullable();
-			$table->string('link')->nullable();
+			$table->string('link_ru')->nullable();
+			$table->string('link_uk')->nullable();
 			$table->text('seo')->nullable();
 			$table->string('slug_ru')->nullable();
 			$table->string('slug_uk')->nullable();

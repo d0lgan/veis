@@ -18,6 +18,7 @@ use App\Option;
 use App\Setting;
 use App\Slider;
 use App\Stock;
+use App\Tag;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
@@ -192,7 +193,10 @@ class PageController extends Controller {
             'price' => Lang::trans('site.productCard.price'),
             'color' => Lang::trans('site.productCard.color'),
             'show_all' => Lang::trans('site.productCard.show_all'),
+            'no_availability' => Lang::trans('product.no_availability'),
+            'to_cart' => Lang::trans('product.to_cart'),
         ];
+
 	    $leftStock = Stock::where('side', 'left')->orderBy('created_at', 'desc')->first();
 	    $rightStock = Stock::where('side', 'right')->orderBy('created_at', 'desc')->first();
 
@@ -218,7 +222,7 @@ class PageController extends Controller {
 	    return view('site.home', compact('leftGlasses', 'rightGlasses', 'leftStock', 'rightStock', 'locale', 'translate', 'brands'));
     }
 
-    public function catalog(Request $request) {
+    public function catalog(Request $request, $categorySlug = null) {
 
         $translate = [
             'catalog' => Lang::trans('site.footer.catalog'),
@@ -235,7 +239,8 @@ class PageController extends Controller {
             'price' => Lang::trans('site.productCard.price'),
             'color' => Lang::trans('site.productCard.color'),
             'show_all' => Lang::trans('site.productCard.show_all'),
-
+            'to_cart' => Lang::trans('product.to_cart'),
+            'no_availability' => Lang::trans('product.no_availability'),
             'filter' => Lang::trans('site.catalog.filter'),
             'sort' => Lang::trans('site.catalog.sort'),
             'newest' => Lang::trans('site.catalog.newest'),
@@ -264,10 +269,62 @@ class PageController extends Controller {
         ];
         $locale = App::getLocale();
 
-        $filters = GroupAttribute::where('public', 1)->with(['attributes' => function ($query) {
-            $query->withCount('products');
-        }])->get()->map->toArray()->sortBy('sort')->toArray();
+        if ($categorySlug) {
+            if ($locale == 'ru') {
+                // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
+                $category = Category::where('slug_uk', $categorySlug)->first();
+                if ($category) {
+                    return redirect('/ru/catalog/' . $category->slug_ru);
+                }
 
+                $category = Category::where('slug_ru', $categorySlug)->firstOrFail();
+            } else if ($locale == 'uk') {
+                //
+                $category = Category::where('slug_ru', $categorySlug)->first();
+                if ($category) {
+                    return redirect('/catalog/' . $category->slug_uk);
+                }
+
+                $category = Category::where('slug_uk', $categorySlug)->firstOrFail();
+            }
+        }
+
+
+        // Проверка на категорию
+        $instantCategory = null;
+        if ($categorySlug) {
+            $instantCategory = Category::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->firstOrFail();
+        }
+
+        // Дочерние категории
+        $childCategories = null;
+        if ($instantCategory) {
+            $childCategories = Category::where('parent_id', $instantCategory->id)->get();
+            foreach ($childCategories as $childCategory) {
+                $cats = Category::where('parent_id', $childCategory->id)->get();
+                if ($cats->count()) {
+                    $childCategories = $childCategories->merge($cats);
+                }
+            }
+            $childCategories = $childCategories->pluck('id');
+        }
+
+        $filters = GroupAttribute::where('public', 1)->with(['attributes' => function ($query) use ($instantCategory, $childCategories) {
+            $query->withCount(['products' => function ($q) use ($instantCategory, $childCategories) {
+                if ($instantCategory) {
+                    $allCats = $childCategories->push($instantCategory->id);
+
+                    $q->where(function ($query) use ($allCats) {
+                        $query->whereIn('category_id', $allCats)->orWhere(function ($que) use ($allCats) {
+                            $que->whereHas('categories', function ($q) use ($allCats) {
+                                $q->whereIn('categories.id', $allCats);
+                            });
+                        });
+                    })->where('price', '<>', 0);
+                }
+            }]);
+        }])->get()->map->toArray()->sortBy('sort')->toArray();
+//        dd($filters, $instantCategory);
 
 
 
@@ -335,15 +392,7 @@ class PageController extends Controller {
             $a->save();
         }*/
 
-        $instantCategory = null;
-        if ($request->c) {
-            $instantCategory = Category::where('slug_ru', $request->c)->orWhere('slug_uk', $request->c)->first();
-            if ($instantCategory) {
-                $instantCategory = $instantCategory->toArray();
-            }
-        }
-
-        return view('site.catalog', compact('translate', 'locale', 'filters', 'instantCategory'));
+        return view('site.catalog', compact('translate', 'locale', 'filters', 'instantCategory', 'childCategories'));
     }
 
     public function info() {
@@ -361,6 +410,8 @@ class PageController extends Controller {
             'catalog' => Lang::trans('site.map.catalog'),
             'info' => Lang::trans('site.map.info'),
             'blog' => Lang::trans('site.map.blog'),
+            'manufacturers' => Lang::trans('site.map.manufacturers'),
+            'tags' => Lang::trans('site.map.tags'),
         ];
 
         $locale = App::getLocale();
@@ -375,6 +426,10 @@ class PageController extends Controller {
             $mainCat->secondLayer = $subCats;
         }
 
+        $manufacturers = Manufacturer::all();
+
+        $tags = Tag::all();
+
         /*foreach ($mainCats->first()->secondLayer as $cat) {
             if ($cat->thirdLayer->count() != 0) {
                 dd($cat);
@@ -382,6 +437,6 @@ class PageController extends Controller {
         }
         dd($mainCats->first()->secondLayer);*/
 
-	    return view('site.map', compact('translate', 'locale', 'mainCats'));
+	    return view('site.map', compact('translate', 'locale', 'mainCats', 'manufacturers', 'tags'));
     }
 }

@@ -288,7 +288,7 @@
                             <div style="height: 35px" v-model="headers" v-for="header in headers" v-if="header.key === 'title_ru'" class="d-flex">
                                 <div class="rs-select2--light rs-select2--md srw" style="height: 35px">
                                     <div class="sr" style="height: 35px" v-model="headers" v-for="header in headers" v-if="header.key === 'title_ru'">
-                                        <input type="text" placeholder="Поиск" v-model="header.value" style="background-color: #9ea3a7; color: #fff; border-radius: 3px" class="inp form-control w-100 h-100"> 
+                                        <input type="text" placeholder="Поиск" v-model="header.value" v-on:keyup.enter="searchProducts()" style="background-color: #9ea3a7; color: #fff; border-radius: 3px; font-size: 13px !important;" class="inp form-control w-100 h-100">
                                         <i class="fas fa-search sr_icon" style="color: #fff; cursor: pointer;" @click="searchProducts()"></i>
                                     </div>
                                 </div>
@@ -1326,9 +1326,9 @@
                     {key: 'price', name: "Цена", public: true, value: '', w: 80},
                     {key: 'percent', name: "%", public: true, value: '', w: 30},
                     {key: 'undiscounted', name: "Без скидки", public: true, value: '', w: 80},
-                    {key: 'stock', name: "Акция", public: true, value: '', w: 50},
+                    {key: 'stock', name: "Ярлык", public: true, value: '', w: 50},
                     {key: 'availability', name: "Наличие", public: true, value: '', w: 90},
-                    {key: 'tags', name: "Теги", public: true, value: '', w: 90},
+                    {key: 'tags', name: "Теги", public: false, value: '', w: 90},
                     {key: 'sort', name: "Сортировка", public: true, value: '', w: 90},
                     {key: 'lens_height', name: "В.линзы", public: false, value: '', w: 50},
                     {key: 'lens_width', name: "Ш.линзы", public: false, value: '', w: 50},

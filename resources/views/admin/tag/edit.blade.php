@@ -52,11 +52,16 @@
                                     </ul>
 
                                     <div class="tab-content">
-                                        @include('admin.partials.title', ['item' => $tag, 'title' => true, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                        @include('admin.partials.title', ['item' => $tag, 'title' => true, 'link' => true, 'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
 
                                         <!-- <label for="description">Описание</label>
                                         <editor-component :name="'description'" :v="{{ json_encode($tag->description) }}"></editor-component> -->
                                     </div>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    {!! Form::label('sort', 'Сортировать',['class' => 'control-label']) !!}
+                                    {!! Form::text('sort', $tag->sort, array_merge(['class' => 'form-control'])) !!}
                                 </div>
                             </div>
 
@@ -77,7 +82,7 @@
                                     </ul>
 
                                     <div class="tab-content">
-                                        @include('admin.partials.url', ['item' => $tag, 'title' => false, 'tag_url' => '1','description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'seo'])
+                                        @include('admin.partials.url', ['item' => $tag, 'title' => false, 'tag_url' => '1','description' => false, 'meta' => true, 'seo' => true, 'id' => 'language', 'type' => 'seo'])
                                     </div>
                                 </div>
                             </div>

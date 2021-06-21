@@ -160,10 +160,10 @@
         @yield('nav')
     </nav>--}}
     <div style="z-index:1;" class="bg-secondary w-100 p-2">
-        <div class="container">
+        {{--<div class="container">
             <div class="row">
                 <div class="col-lg-3">
-                    asdg
+
                 </div>
 
                 <div class="col-lg-9">
@@ -171,7 +171,7 @@
                 </div>
             </div>
 
-        </div>
+        </div>--}}
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">

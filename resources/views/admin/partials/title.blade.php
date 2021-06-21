@@ -30,7 +30,7 @@
         @if(isset($link))
             @php $method = "link_" . $lang->locate_code @endphp
             <div class="form-group">
-                <label for="title_{{ $lang->locate_code }}">{{ isset($link_name) ? $link_name . ':' : 'Название:' }}</label>
+                <label for="title_{{ $lang->locate_code }}">{{ isset($link_name) ? $link_name . ':' : 'Ссылка:' }}</label>
                 <input required name="link_{{ $lang->locate_code }}"
                        id="title_{{ $lang->locate_code }}"
                        value="{{ @optional($item)->$method }}"

@@ -161,10 +161,10 @@
                                         </div>
 
                                         <div class="col-md-2 form-group">
-                                        {!! Form::label('stock_id', 'Тип',['class' => 'control-label'])
+                                        {!! Form::label('stock_id', 'Ярлык',['class' => 'control-label'])
                                          !!}
                                         <select id="stock_id" name="stock_id" class="form-control">
-                                            <option value="" selected>Без акции</option>
+                                            <option value="" selected>Без ярлыка</option>
                                             @foreach($stocks as $id => $title)
                                                 <option value="{{ $id }}">{{ $title }}</option>
                                             @endforeach

@@ -310,10 +310,11 @@ class CategoryController extends Controller
         }
         $category->meta_h1_ru = $request->meta_ru;
         $category->meta_h1_uk = $request->meta_uk;
-        $category->seo = $request->seo_ru;
+        $category->seo_ru = $request->seo_ru;
+        $category->seo_uk = $request->seo_uk;
         $category->sort = $request->sort;
-        $category->description_ru = trim($request->description_ru, '<p></p>');
-        $category->description_uk = trim($request->description_uk, '<p></p>');
+        $category->description_ru = $request->description_ru;
+        $category->description_uk = $request->description_uk;
         $category->parent_id   = $request->parent_id;
         $category->at_home = $request->at_home;
 
@@ -415,7 +416,7 @@ class CategoryController extends Controller
         $category->title_ru = $request->title_ru;
         $category->title_uk = $request->title_uk;
         $category->meta_h1_ru = $request->meta_ru;
-        $category->meta_h1_uk = $request->meta_ru;
+        $category->meta_h1_uk = $request->meta_uk;
         if ($request->slug_ru) {
             $category->slug_ru = $request->slug_ru;
         }
@@ -423,9 +424,10 @@ class CategoryController extends Controller
             $category->slug_uk = $request->slug_uk;
         }
         $category->sort = $request->sort;
-        $category->seo = $request->seo_ru;
-        $category->description_ru = trim($request->description_ru, '<p></p>');
-        $category->description_uk = trim($request->description_uk, '<p></p>');
+        $category->seo_ru = $request->seo_ru;
+        $category->seo_uk = $request->seo_uk;
+        $category->description_ru = $request->description_ru;
+        $category->description_uk = $request->description_uk;
         $category->parent_id   = $request->parent_id;
         $category->at_home = $request->at_home;
 

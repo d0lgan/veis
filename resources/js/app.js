@@ -54,6 +54,7 @@ Vue.component('site-contact-component', require('./components/site/Contact').def
 // Пользовательский сайт:
 Vue.component('site-catalog-component', require('./components/site/Catalog').default);
 Vue.component('site-map-component', require('./components/site/Map').default);
+Vue.component('site-not-found-component', require('./components/site/NotFound').default);
 Vue.component('site-products-card-component', require('./components/site/ProductsCard').default);
 Vue.component('site-product-elem-component', require('./components/site/ProductElem').default);
 Vue.component('site-produce-component', require('./components/site/Produce').default);
@@ -62,9 +63,14 @@ Vue.component('site-basket-component', require('./components/site/Basket').defau
 
 
 import store from '../assets/js/store.js';
+/*import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);*/
 const app = new Vue({
     el: '#app',
-    store: new Vuex.Store(store)
+    store: new Vuex.Store(store),/*
+    router: new VueRouter()*/
 });
 
 

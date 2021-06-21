@@ -60,12 +60,32 @@
 
             <div class="cats" v-if="mainCats.length" v-for="mainCat in mainCats">
                 <div class="cat">
-                    <span class="category_title">» <a :href="getLang ? '/ru/catalog?c=' + mainCat.slug_ru : '/catalog?c=' + mainCat.slug_uk">{{ getLang ? mainCat.title_ru : mainCat.title_uk }}</a></span>
+                    <span class="category_title">» <a :href="getLang ? '/ru/catalog/' + mainCat.slug_ru : '/catalog/' + mainCat.slug_uk">{{ getLang ? mainCat.title_ru : mainCat.title_uk }}</a></span>
                     <div class="second_layer" v-if="mainCat.secondLayer.length" v-for="subCat in mainCat.secondLayer">
-                        <span>-<a :href="getLang ? '/ru/catalog?c=' + subCat.slug_ru : '/catalog?c=' + subCat.slug_uk" class="second">{{ getLang ? subCat.title_ru : subCat.title_uk }}</a></span>
+                        <span>-<a :href="getLang ? '/ru/catalog/' + subCat.slug_ru : '/catalog/' + subCat.slug_uk" class="second">{{ getLang ? subCat.title_ru : subCat.title_uk }}</a></span>
                         <div class="third_layer" v-if="subCat.thirdLayer.length" v-for="subSubCat in subCat.thirdLayer">
-                            <span>- <a :href="getLang ? '/ru/catalog?c=' + subSubCat.slug_ru : '/catalog?c=' + subSubCat.slug_uk" class="third">{{ getLang ? subSubCat.title_ru : subSubCat.title_uk }}</a></span>
+                            <span>- <a :href="getLang ? '/ru/catalog/' + subSubCat.slug_ru : '/catalog/' + subSubCat.slug_uk" class="third">{{ getLang ? subSubCat.title_ru : subSubCat.title_uk }}</a></span>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cats">
+                <div class="cat">
+                    <span class="category_title">» {{ translate.manufacturers }}</span>
+                    <div class="second_layer" v-for="manufacturer in manufacturers">
+                        <span>-<a :href="getLang ? manufacturer.link_ru : manufacturer.link_uk" class="second">{{ getLang ? manufacturer.title_ru : manufacturer.title_uk }}</a></span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="cats">
+                <div class="cat">
+                    <span class="category_title">» {{ translate.tags }}</span>
+                    <div class="second_layer" v-for="tag in tags">
+                        <span>-<a :href="getLang ? tag.link_ru : tag.link_uk" class="second">{{ getLang ? tag.title_ru : tag.title_uk }}</a></span>
+
                     </div>
                 </div>
             </div>
@@ -81,6 +101,8 @@
             'translate',
             'mainCats',
             'back',
+            'manufacturers',
+            'tags'
         ],
         data(){
             return{
@@ -109,5 +131,7 @@
 </script>
 
 <style>
-
+    .container {
+        padding-bottom: 35px;
+    }
 </style>

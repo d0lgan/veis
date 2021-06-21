@@ -31,7 +31,7 @@
                         <a :href="getLang ? '/ru' : '/'" class="breadcrumbs__link">{{ translate.store }}</a>
                     </li>
                     <li class="breadcrumbs__item">
-                        <a :href="window.location.origin + window.location.pathname" class="breadcrumbs__link">{{ translate.catalog }} </a>
+                        <a :href="getLang ? '/ru/catalog' : '/catalog'" class="breadcrumbs__link">{{ translate.catalog }} </a>
                     </li>
                     <li class="breadcrumbs__item" v-if="instantCategory">
                         <a :href="window.location.href" class="breadcrumbs__link">{{ getLang ? instantCategory.title_ru.toUpperCase() : instantCategory.title_uk.toUpperCase() }} </a>
@@ -145,9 +145,9 @@
                         <p class="catalog-filters__slider-title">
                             {{ translate.priceUp }}
                         </p>
-                        <div class="catalog-filters__slider-box">
-                            <input type="text" hidden :value="maxValPrice" id="maxValPrice">
-                            <span class="catalog-filters__slider-val catalog-filters__slider-val--min" ref="start">700</span>
+                        <div class="catalog-filters__slider-box"><!--
+                            <input type="text" hidden :value="maxValPrice" id="maxValPrice">-->
+                            <span class="catalog-filters__slider-val catalog-filters__slider-val--min" ref="start">{{ minValPrice }}</span>
                             <div id="slider-range" class="catalog-filters__slider-slider"></div>
                             <span class="catalog-filters__slider-val catalog-filters__slider-val--max" ref="end">{{ maxValPrice }}</span>
                         </div>
@@ -194,9 +194,9 @@
                     </div>
 
                     <div style="padding: 22px 18px 22px 40px;" @click="pageNumber = 0">
-                        <a href="#" class="product-card__btn product-card__btn--default" @click="loadProducts">
+                        <span class="product-card__btn product-card__btn--default" @click="loadProducts(); scrollToTop();">
                             <span class="product-card__btn-inner">{{ translate.use_filter }}</span>
-                        </a>
+                        </span>
                     </div>
 
                     <button class="catalog__clear" @click="clear">{{ translate.reset }}
@@ -207,9 +207,9 @@
                 <div class="catalog__box" style="width: 100%;">
                     <div class="catalog__head">
                         <div class="catalog__tags">
-                            <div class="catalog__tag">
+                            <!--<div class="catalog__tag">
                                 <span class="catalog__tag-text">Кол-во продуктов: {{ countProducts }}</span>
-                            </div>
+                            </div>-->
                             <!-- Тут я прохожусь по свойству selected.sel_filters
                             и не пускаю дальшк если в элементе свойства пусто или пустой массив. -->
                             <div class="catalog__tag" v-for="(filter, index) in selected.sel_filters" v-if="!(filter == undefined || ((typeof filter !== 'undefined') ? (filter.length == 0) : false))">
@@ -317,7 +317,7 @@
                     <a href="" class="btn__more" @click="loadMoreProducts()">ПОКАЗАТЬ ЕЩЕ  {{ getMoreProductsNumber }}</a>
 
                     <div class="pagination">
-                        <a href="#" class="pagination__view pagination__view--prev" @click="prevPage()" v-if="!(pageNumber == 0)">
+                        <span class="pagination__view pagination__view--prev" @click="prevPage()" v-if="!(pageNumber == 0)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="8" height="20" viewBox="0 0 8 20">
                                 <g>
                                     <g>
@@ -326,29 +326,8 @@
                                 </g>
                             </svg>
                             {{ translate.prev }}
-                        </a>
+                        </span>
                         <ul class="pagination__list">
-                            <!--<li class="pagination__item">
-                                <a class="pagination__num" href="">1</a>
-                            </li>
-                            <li class="pagination__item">
-                                <a class="pagination__num" href="">2</a>
-                            </li>
-                            <li class="pagination__item active">
-                                <a class="pagination__num" href="">3</a>
-                            </li>
-                            <li class="pagination__item">
-                                <a class="pagination__num" href="">4</a>
-                            </li>
-                            <li class="pagination__item">
-                                <a class="pagination__num" href="">5</a>
-                            </li>
-                            <li class="pagination__item pagination__item&#45;&#45;separator">
-                                ...
-                            </li>
-                            <li class="pagination__item">
-                                <a class="pagination__num" href="">72</a>
-                            </li>-->
                             <li class="pagination__item" v-if="pageNumber >= 5" :class="{ active: pageNumber == 0 }">
                                 <span class="pagination__num" href="#" @click="pageNumber = 0">1</span>
                             </li>
@@ -362,7 +341,7 @@
                                 <span class="pagination__num" href="#" @click="pageNumber = pageCount - 1">{{ pageCount }}</span>
                             </li>
                         </ul>
-                        <a href="#" class="pagination__view pagination__view--next" @click="nextPage()" v-if="!(pageNumber + 1 == pageCount)">
+                        <span class="pagination__view pagination__view--next" @click="nextPage()" v-if="!(pageNumber + 1 == pageCount)">
                             {{ translate.next }}
                             <svg xmlns="http://www.w3.org/2000/svg" width="8" height="20" viewBox="0 0 8 20">
                                 <g>
@@ -371,7 +350,7 @@
                                     </g>
                                 </g>
                             </svg>
-                        </a>
+                        </span>
                     </div>
                 </div>
 
@@ -381,15 +360,20 @@
 </template>
 
 <script>
+    import $ from 'jquery';
+    import 'jquery-ui-dist/jquery-ui'
+    import 'jquery-ui-dist/jquery-ui.css'
+    window.jQuery = $;
+
     export default {
         name: "Catalog",
         data: function () {
-
             return {
                 // Свойства товаров
                 tags: [],
                 sale: false,
-                maxValPrice: 2290,
+                minValPrice: 2,
+                maxValPrice: 10,
                 // Все товары
                 products: [],
                 countProducts: 0,
@@ -402,6 +386,7 @@
                 selected: {
                     sel_filters: [],
                     IdOfInstantCategory: 0,
+                    childCategories: [],
                     prices: [0, 9999], // [start, end]
                     tags: [],
                     sale: false,
@@ -439,19 +424,51 @@
                 required: false,
                 default: null,
             },
+            // Дочерние категории
+            childCategories: {
+                required: false,
+                default: [],
+            }
         },
 
+
         mounted() {
-            this.loadProducts();
-            this.loadTags();
+            let url = new URL(window.location.href);
+
+            if (url.searchParams.has('page')) {
+                if (!isNaN(url.searchParams.get('page'))) {
+                    this.pageNumber = +url.searchParams.get('page') - 1;
+                }
+            }
+
+            if (url.searchParams.has('f')) {
+                let params = url.searchParams.get('f').split('_');
+                for (let param of params) {
+                    for (let filter of this.filters) {
+                        for (let attr of filter.attributes) {
+                            if (attr.slug_ru == param || attr.slug_uk == param) {
+                                this.selected.sel_filters[filter.id].push(attr.id);
+                            }
+                        }
+                    }
+                }
+            }
+
+
 
             if (this.instantCategory) {
                 this.selected.IdOfInstantCategory = this.instantCategory.id;
             }
+            this.selected.childCategories = this.childCategories;
 
             var cd = new Date();
             this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
+
+
+            this.loadTags();
+            this.loadProducts();
         },
+
 
         methods: {
             copyFiltersToSelected: function (filters) {
@@ -523,18 +540,48 @@
                 axios.get('/api/getForCatalogGlasses/tags')
                     .then((response) => {
                         this.tags = response.data;
+
+                        let url = new URL(window.location.href);
+
+                        if (url.searchParams.has('t')) {
+                            let tags = url.searchParams.get('t').split('_');
+
+                            for (let sel_tag of tags) {
+                                for (let tag of this.tags) {
+                                    if (tag.slug_ru == sel_tag || tag.slug_uk == sel_tag) {
+                                        this.selected.tags.push(tag.id);
+                                    }
+                                }
+                            }
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
             },
 
-            // Получить со стороннего АПИ максимально возможную цену
-            loadMaxValPrice: function () {
-                axios.get('/api/getMaxValPrice')
+            // Получить со стороннего АПИ возможные цены
+            loadValPrice: function () {
+                axios.get('/api/getValPrice', {
+                    params: {
+                        instantCategories: this.childCategories
+                    },
+                })
                     .then((response) => {
                         console.log(response.data);
-                        this.maxValPrice = response.data;
+                        this.maxValPrice = response.data.max;
+                        this.minValPrice = response.data.min;
+
+                        $("#slider-range").slider({
+                            range: true,
+                            min: this.minValPrice,
+                            max: this.maxValPrice,
+                            values: [ this.minValPrice, this.maxValPrice],
+                            slide: function( event, ui ) {
+                                $(this).parent().find('.catalog-filters__slider-val--min').text(ui.values[0]);
+                                $(this).parent().find('.catalog-filters__slider-val--max').text(ui.values[1]);
+                            }
+                        });
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -635,25 +682,58 @@
             },
 
             generateUrlWithFilters: function () {
-                let url = new URL(window.location.origin + window.location.pathname);
+                let url = new URL(window.location.href);
 
-                console.log(url);
+                let attrs = [];
                 for (let filter of this.filters) {
                     if (this.selected.sel_filters[filter.id].length != 0) {
-                        let values = []
+
                         for (let sel_fil of this.selected.sel_filters[filter.id]) {
                             for (let attr of filter.attributes) {
                                 if (sel_fil == attr.id) {
-                                    values.push(this.getLang ? attr.slug_ru : attr.slug_uk)
+                                    attrs.push(this.getLang ? attr.slug_ru : attr.slug_uk)
                                 }
                             }
                         }
-                        values = values.join('_');
-                        url.searchParams.append(this.getLang ? filter.slug_ru : filter.slug_uk, values);
+
 
                     }
                 }
+                attrs = attrs.join('_');
+                if (url.searchParams.has('f')) {
+                    url.searchParams.set('f', attrs);
+                } else {
+                    url.searchParams.append('f', attrs);
+                }
+
                 history.pushState(null, null, url);
+            },
+
+            generateUrlWithTags: function () {
+                let url = new URL(window.location.href);
+                // Обработчик для тегов (отдельно)
+                let tags = [];
+                for (let sel_tag of this.selected.tags) {
+                    for (let tag of this.tags) {
+                        console.log(sel_tag);
+                        if (tag.id == sel_tag) {
+                            tags.push(this.getLang ? tag.slug_ru : tag.slug_uk)
+                        }
+                    }
+                }
+                tags = tags.join('_');
+                if (url.searchParams.has('t')) {
+                    url.searchParams.set('t', tags);
+                } else {
+                    url.searchParams.append('t', tags);
+                }
+                history.pushState(null, null, url);
+            },
+
+            scrollToTop: function () {
+                $("body,html").animate({
+                    scrollTop: 100
+                }, 400);
             }
         },
 
@@ -661,17 +741,28 @@
             pageNumber: function (newPageNumber, oldPageNumber) {
                 this.selected.page = newPageNumber;
                 this.selected.fakePageForMoreProducts = newPageNumber;
+
+                let url = new URL(window.location.href);
+                if (url.searchParams.has('page')) {
+                    url.searchParams.set('page', newPageNumber + 1);
+                } else {
+                    url.searchParams.append('page', newPageNumber + 1);
+                }
+                history.pushState(null, null, url);
+
+
                 this.loadProducts();
-
-                $("body,html").animate({
-                    scrollTop: 100
-                }, 400);
-
-
+                this.scrollToTop();
             },
             'selected.sel_filters': {
                 handler: function (oldVal, newVal) {
                     this.generateUrlWithFilters();
+                },
+                deep: true,
+            },
+            'selected.tags': {
+                handler: function (oldVal, newVal) {
+                    this.generateUrlWithTags();
                 },
                 deep: true,
             }
@@ -700,6 +791,7 @@
             sortKey: function() {
                 return this.selectSort.split(':')[0];
             },
+
             sortDir: function() {
                 return this.selectSort.split(':')[1];
             },
@@ -718,7 +810,7 @@
         },
 
         created () {
-            let url = new URL(window.location.href);
+            /*let url = new URL(window.location.href);
             for (let filter of this.filters) {
                 if (url.searchParams.has(filter.slug_ru)) {
                     for (let selectedParam of url.searchParams.get(filter.slug_ru).split('_')) {
@@ -729,12 +821,14 @@
                         }
                     }
                 }
-            }
+            }*/
 
 
-            this.loadMaxValPrice();
+            this.loadValPrice();
             this.copyFiltersToSelected(this.filters);
             this.watchPrice();
+
+
         }
     }
 </script>

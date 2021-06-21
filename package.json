@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@chenfengyuan/vue-carousel": "^1.0.5",
+    "jquery-ui-dist": "^1.12.1",
     "or": "^0.2.0",
     "verte": "^0.0.12",
     "vue-carousel": "^0.18.0",
@@ -35,6 +36,7 @@
     "vue-ctk-date-time-picker": "^2.5.0",
     "vue-multiselect": "^2.1.6",
     "vue-range-component": "^1.0.3",
+    "vue-router": "^3.5.1",
     "vue-select": "^3.10.8",
     "vue-slick-carousel": "^1.0.6",
     "vue-tabs-component": "^1.5.0",

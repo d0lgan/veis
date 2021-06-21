@@ -3,7 +3,7 @@
 @section('title', 'Карта сайта - Veis')
 
 @section('content')
-    <site-map-component :translate="{{ json_encode($translate) }}" :locale="{{ json_encode($locale) }}" :main-cats="{{json_encode($mainCats)}}" :back="{{ json_encode(url()->previous()) }}"></site-map-component>
+    <site-map-component :translate="{{ json_encode($translate) }}" :locale="{{ json_encode($locale) }}" :main-cats="{{json_encode($mainCats)}}" :manufacturers="{{ json_encode($manufacturers) }}" :tags="{{ json_encode($tags) }}" :back="{{ json_encode(url()->previous()) }}"></site-map-component>
 @endsection
 
 @section('css')

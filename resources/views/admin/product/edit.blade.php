@@ -118,9 +118,9 @@
                                     </div>
 
                                     <div class=" col-md-2 form-group">
-                                        {!! Form::label('stock_id', 'Акция',['class' => 'control-label']) !!}
+                                        {!! Form::label('stock_id', 'Ярлык',['class' => 'control-label']) !!}
                                         <select id="stock_id" name="stock_id" class="form-control">
-                                            <option value="">Без акции</option>
+                                            <option value="">Без ярлыка</option>
                                             @foreach($stocks as $id => $title)
                                                 <option value="{{ $id }}" @if($product->stock_id == $id) selected @endif>{{ $title }}</option>
                                             @endforeach

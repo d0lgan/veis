@@ -43,11 +43,11 @@ class CreateProductsTable extends Migration {
 			$table->string('selected_options')->nullable(); //mark
 			$table->integer('price_stock')->nullable(); //mark
 			$table->integer('sort')->default(0);
-			$table->integer('lens_height')->nullable();
-			$table->integer('lens_width')->nullable();
-			$table->integer('bridge_width')->nullable();
-			$table->integer('long_arms')->nullable();
-			$table->integer('frame_width')->nullable();
+			$table->string('lens_height')->nullable();
+			$table->string('lens_width')->nullable();
+			$table->string('bridge_width')->nullable();
+			$table->string('long_arms')->nullable();
+			$table->string('frame_width')->nullable();
 			$table->string('type_stock')->nullable();
 			$table->integer('status_stock')->nullable()->default(0); //mark
 			$table->date('start_stock')->nullable()->default(now()); //mark

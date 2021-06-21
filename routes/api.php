@@ -30,7 +30,8 @@ Route::group(['prefix' => 'getForCatalogGlasses'], function() {
     Route::get('features', 'SiteApiController@getFeatures');
 });
 
-Route::get('getMaxValPrice', 'SiteApiController@getMaxValPrice');
+Route::get('getValPrice', 'SiteApiController@getValPrice');
+Route::get('getProductWithOptions', 'SiteApiController@getProductWithOptions');
 
 
 Route::group(['prefix' => 'statistics'], function() {

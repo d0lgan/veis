@@ -18,20 +18,9 @@
 
 <body>
 
-<section class="notfound">
-    <div class="holder notfound__holder">
-        
-        <div class="searchbox">
-            <input type="text" placeholder="Введите ваш запрос">
-            
-        </div>
-        <div class="notfound__wrap">
-            <h3 class="notfound__title">К сожалению запрашиваемая Вами страница не найдена</h3>
-            <p class="notfound__text">через 5 секунд мы перенесем Вас на главную.</p>
-        </div>
-    </div>
-</section>
-
+<div id="app">
+    <site-not-found-component></site-not-found-component>
+</div>
 
 <script src="<?php echo e(asset('js/app.js')); ?>"></script>
 <!-- <script type="text/javascript" src="js/jquery.js" defer></script>

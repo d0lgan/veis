@@ -67,7 +67,7 @@
             @if(isset($manufacturer_url))
                 <div class="form-group">
                     <label for="slug">Url</label>
-                    <input type="text" name="slug" value="{{ $manufacturer->slug }}" class="form-control">
+                    <input type="text" name="slug_{{ $lang->locate_code }}" value="{{ $lang->locate_code == 'ru' ? $item->slug_ru : $item->slug_uk }}" class="form-control">
                 </div>
             @endif
 
@@ -184,7 +184,8 @@
         @if($seo)
             <div class="form-group">
                 <label for="seo_{{ $lang->locate_code }}">SEO описание:</label>
-                <editor-component :name="{{json_encode('seo_' . $lang->locate_code)}}" :v="{{ json_encode(@optional($item)->data[$lang->locate_code]['seo'] ?: old('seo_' . $lang->locate_code)) == 'null' ? json_encode(@optional($item)->seo) : json_encode(@optional($item)->data[$lang->locate_code]['seo'] ?: old('seo_' . $lang->locate_code)) }}"></editor-component>
+{{--                <editor-component :name="{{json_encode('seo_' . $lang->locate_code)}}" :v="{{ json_encode(@optional($item)->data[$lang->locate_code]['seo'] ?: old('seo_' . $lang->locate_code)) == 'null' ? json_encode(@optional($item)->seo) : json_encode(@optional($item)->data[$lang->locate_code]['seo'] ?: old('seo_' . $lang->locate_code)) }}"></editor-component>--}}
+                <editor-component :name="{{json_encode('seo_' . $lang->locate_code)}}" :v="{{ $item ? json_encode($lang->locate_code == 'ru' ? $item->seo_ru : $item->seo_uk) : 'seo'}}"></editor-component>
                 {{--<textarea name="seo_{{ $lang->locate_code }}"
                           id="seo_{{ $lang->locate_code }}"
                           placeholder="Seo {{ strtoupper($lang->locate_code) }}"

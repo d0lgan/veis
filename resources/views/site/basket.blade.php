@@ -4,7 +4,7 @@
 
 @section('content')
 
-<site-basket-component :locale="{{ json_encode($locale) }}"></site-basket-component>
+<site-basket-component :locale="{{ json_encode($locale) }}" :translate="{{ json_encode($translate) }}"></site-basket-component>
 
 <section class="work">
     <h2 class="work__title">{{ __('site.howWeDoing.how') }}</h2>

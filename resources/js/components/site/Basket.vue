@@ -5,24 +5,24 @@
                 <div class="cart__block">
                     <div class="cart__head mobile-hidden">
                         <h3 class="cart__title">
-                            ФОРМА ЗАКАЗА
+                            {{ translate.basket.form }}
                         </h3>
                         <p class="cart__subtitle">
-                            Заполните форму, чтоб мы могли связаться с вами для уточнения заказа.
+                            {{ translate.basket.fill }}
                         </p>
                     </div>
                     <div class="cart__head cart__head--mob desktop-hidden">
                         <div>
                             <h3 class="cart__title">
-                                БЫСТРАЯ ФОРМА ЗАКАЗА
+                                {{ translate.basket.fastForm }}
 
                             </h3>
                             <p class="cart__subtitle">
-                                Заполните форму, чтоб мы могли связаться с вами для уточнения заказа.
+                                {{ translate.basket.fill }}
                             </p>
                         </div>
                         <p class="form-open" data-form-opener>
-                            Полная форма
+                            {{ translate.basket.fullForm }}
                             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9"><g><g><path fill="#2a2a2f" d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/></g></g></svg>
                         </p>
                     </div>
@@ -30,22 +30,22 @@
                         <div class="cart__form cart__form--mob desktop-hidden">
                             <div class="cart__form-col">
                                 <div class="cart__form-title">
-                                    ИНФОРМАЦИЯ
+                                    {{ translate.basket.data }}
                                 </div>
                                 <div class="inputbox">
                                     <label for="">
-                                        Имя*
+                                        {{ translate.basket.name }}
                                     </label>
                                     <input required type="text" class="input">
                                 </div>
                             </div>
                             <div class="cart__form-col">
                                 <div class="cart__form-title">
-                                    СПОСОБ СВЯЗИ
+                                    {{ translate.basket.connection }}
                                 </div>
                                 <div class="inputbox">
                                     <label for="">
-                                        Телефон*
+                                        {{ translate.basket.phone }}
                                     </label>
                                     <input required type="text" class="input phone">
                                 </div>
@@ -54,30 +54,30 @@
                         <div class="cart__form cart__form--full">
                             <div class="cart__form-col">
                                 <div class="cart__form-title">
-                                    ДАННЫЕ ПОКУПАТЕЛЯ
+                                    {{ translate.basket.userData }}
                                 </div>
                                 <form action="">
                                     <div class="inputbox">
                                         <label for="">
-                                            Фамилия
+                                            {{ translate.basket.surname }}
                                         </label>
                                         <input type="text" class="input">
                                     </div>
                                     <div class="inputbox">
                                         <label for="">
-                                            Имя*
+                                            {{ translate.basket.name }}
                                         </label>
                                         <input required type="text" class="input">
                                     </div>
                                     <div class="inputbox">
                                         <label for="">
-                                            Отчество
+                                            {{ translate.basket.fatherland }}
                                         </label>
                                         <input type="text" class="input">
                                     </div>
                                     <div class="inputbox">
                                         <label for="">
-                                            Телефон*
+                                            {{ translate.basket.phone }}
                                         </label>
                                         <input required type="text" class="input phone">
                                     </div>
@@ -92,12 +92,12 @@
                             </div>
                             <div class="cart__form-col">
                                 <div class="cart__form-title">
-                                    СПОСОБ ОТПРАВКИ
+                                    {{ translate.basket.wayToDel }}
                                 </div>
                                 <form action="">
                                     <div class="inputbox">
                                         <label for="">
-                                            Вариант доставки
+                                            {{ translate.basket.option }}
                                         </label>
                                         <div class="select select-custom">
                                             <div class="select-inner"></div>
@@ -110,7 +110,7 @@
                                     </div>
                                     <div class="inputbox">
                                         <label for="">
-                                            Город
+                                            {{ translate.basket.city }}
                                         </label>
                                         <div class="select select-custom">
                                             <div class="select-inner"></div>
@@ -123,7 +123,7 @@
                                     </div>
                                     <div class="inputbox">
                                         <label for="">
-                                            Отделение Новой Почты
+                                            {{ translate.basket.department }}
                                         </label>
                                         <div class="select select-custom">
                                             <div class="select-inner"></div>
@@ -136,7 +136,7 @@
                                     </div>
                                     <div class="inputbox">
                                         <label for="">
-                                            Ваш комментарий
+                                            {{ translate.basket.comment }}
                                         </label>
                                         <textarea class="textarea"></textarea>
                                     </div>
@@ -146,12 +146,12 @@
 
                             <div class="cart__form-col">
                                 <div class="cart__form-title">
-                                    СПОСОБ ОПЛАТЫ
+                                    {{ translate.basket.wayToPay }}
                                 </div>
                                 <form action="">
                                     <div class="inputbox">
                                         <label for="">
-                                            Выберите подходящий для Вас вариант
+                                            {{ translate.basket.choose }}
                                         </label>
                                         <div class="select select-custom">
                                             <div class="select-inner"></div>
@@ -174,14 +174,14 @@
                         <div class="cart__itoges cart__itoges--mob desktop-hidden">
                             <a href="#" class="product-card__btn product-card__btn--buy">
                                 <img src="img/cart__white.png" alt="">
-                                <span class="product-card__btn-inner">СДЕЛАТЬ ПОКУПКУ</span>
+                                <span class="product-card__btn-inner">{{ translate.basket.pay }}</span>
                             </a>
                             <div class="cart__itoges-text">
                                 <p class="cart__itoges-textwrap">
-                                    Стоимость доставки: <span>бесплатно</span>
+                                    {{ translate.basket.delCost }} <span>{{ translate.basket.free }}</span>
                                 </p>
                                 <p class="cart__itoges-pricewrap">
-                                    К ОПЛАТЕ:   <span>8478</span> грн
+                                    {{ translate.basket.price }}   <span>{{ totalPrice }}</span> грн
                                 </p>
                             </div>
                         </div>
@@ -191,10 +191,10 @@
                 <div class="cart__block">
                     <div class="cart__head">
                         <h3 class="cart__title">
-                            ВАШИ ОТОБРАННЫЕ ТОВАРЫ
+                            {{ translate.basket.yourProducts }}
                         </h3>
                         <p class="cart__subtitle">
-                            Полный список отобранных товаров, отредактируйте и нажмите заказать
+                            {{ translate.basket.fullList }}
                         </p>
                     </div>
                     <div class="cart__body">
@@ -237,14 +237,14 @@
                             <div class="cart__itoges mobile-hidden">
                                 <a href="#" class="product-card__btn product-card__btn--buy">
                                     <img src="img/cart__white.png" alt="">
-                                    <span class="product-card__btn-inner">СДЕЛАТЬ ПОКУПКУ</span>
+                                    <span class="product-card__btn-inner">{{ translate.basket.pay }}</span>
                                 </a>
                                 <div class="cart__itoges-text">
                                     <p class="cart__itoges-textwrap">
-                                        Стоимость доставки: <span>бесплатно</span>
+                                        {{ translate.basket.delCost }} <span>{{ translate.basket.free }}</span>
                                     </p>
                                     <p class="cart__itoges-pricewrap">
-                                        К ОПЛАТЕ:   <span>{{ totalPrice }}</span> грн
+                                        {{ translate.basket.price }}   <span>{{ totalPrice }}</span> грн
                                     </p>
                                 </div>
                             </div>
@@ -256,7 +256,7 @@
                                         </g>
                                     </g>
                                 </svg>
-                                Вернуться обратно в магазин
+                                {{ translate.basket.back }}
                             </a>
                         </form>
                     </div>
@@ -268,9 +268,10 @@
 
 <script>
     export default {
-        name: "Busket",
+        name: "Basket",
         props: [
-            'locale'
+            'locale',
+            'translate',
         ],
         data(){
             return{

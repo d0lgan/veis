@@ -48,11 +48,17 @@
 
                 <div class="product__cart_box">
                     <img src="/assets/front/img/cart.svg" alt="">
-                    <a href="#">{{ translate.buy }}</a>
+                    <object v-if="product.availability == 1" @click="addToCart()">
+                        <!--<a :href="getLang ? 'ru/basket' : '/basket'">-->
+                        <a href="#">
+                            <span>{{ translate.to_cart }}</span>
+                        </a>
+                    </object>
+                    <span v-if="!(product.availability == 1)">{{ translate.no_availability }}</span>
                 </div>
             </div>
         </div>
-    </a>
+        </a>
     </div>
 </template>
 
@@ -61,6 +67,11 @@
 
         name: "ProductElem",
 
+        data() {
+            return {
+                fullProduct: [],
+            }
+        },
         props: [
             'translate',
             'product',
@@ -82,7 +93,55 @@
                 } else {
                     return product.title_uk.split(" ").slice(2).join(' ');
                 }
-            }
+            },
+
+
+            addToCart: function () {
+                axios.get('/api/getProductWithOptions', {
+                    params: {
+                        'slug': this.product.slug_ru,
+                        'locale': this.locale,
+                    }
+                })
+                    .then((response) => {
+                        this.fullProduct = response.data;
+
+                        if(true){
+                            let sel = true;
+
+                            for(let i = 0;i < this.fullProduct.options.length;i++){
+                                if(this.fullProduct.options[i].option.need === '1'){
+                                    if(this.fullProduct.options[i].select === null){
+                                        sel = false;
+                                    }
+                                }
+                            }
+                            let self = this;
+                            if(sel){
+                                this.$store.commit('addToCart', this.fullProduct);
+                                this.error = false;
+                                this.confirm = true;
+
+                                setTimeout(function(){
+                                    self.confirm = false;
+                                }, 2000);
+                            }else{
+                                this.confirm = false;
+                                this.error = true;
+                                setTimeout(function(){
+                                    self.error = false;
+                                }, 2000);
+                            }
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                // if(this.fullProduct.availability){
+
+
+            },
         },
 
         computed: {
@@ -94,7 +153,6 @@
                 }
             },
         },
-
 
     }
 </script>

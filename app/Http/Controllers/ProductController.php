@@ -727,7 +727,7 @@ class ProductController extends Controller
             //
             $product = Product::where('slug_ru', $slug)->first();
             if ($product) {
-                return redirect('uk/produce/' . $product->slug_uk);
+                return redirect('/produce/' . $product->slug_uk);
             }
 
             $product = Product::where('slug_uk', $slug)->firstOrFail();
@@ -843,6 +843,7 @@ class ProductController extends Controller
 
 
         $product->tags;
+        $product->manufacturer;
 
         // Проверяем есть ли действительно картинка записанная в поле how_size
         $file = public_path() . '/house/uploads/' . $product->how_size;

@@ -209,13 +209,16 @@ class OrderController extends Controller {
 	}
 
     public function getBasket() {
+        $translate = [
+            'basket' => Lang::trans('site.basket'),
+        ];
         $page = Page::where( 'type', 'shopping-cart' )->first();
         pagetitle( $page->meta_h1 );
         $settings = Setting::first();
         $locale = App::getLocale();
 
         if ( ! Session::has( 'cart' ) ) {
-            return view( 'site.basket', compact( 'page', 'settings', 'locale' ) );
+            return view( 'site.basket', compact( 'page', 'settings', 'locale', 'translate' ) );
         }
         $oldCart = Session::get( 'cart' );
         $cart    = new Cart( $oldCart );
@@ -227,6 +230,7 @@ class OrderController extends Controller {
             'page'       => $page,
             'settings' => $settings,
             'locale' => $locale,
+            'translate' => $translate,
         ] );
     }
 

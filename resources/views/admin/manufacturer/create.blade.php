@@ -51,17 +51,17 @@
                                         </ul>
 
                                         <div class="tab-content">
-                                            @include('admin.partials.title', ['item' => $manufacturer, 'title' => true, 'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                            @include('admin.partials.title', ['item' => $manufacturer, 'title' => true, 'description' => true, 'link' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                         </div>
                                         </div>
                                         <div class="col-md-4 form-group">
                                             {!! Form::label('image', 'Изображение',['class' => 'control-label']) !!}
                                             {!! Form::file('image', array_merge(['class' => 'form-control'])) !!}
                                         </div>
-                                        <div class="col-md-4 form-group">
+                                        {{--<div class="col-md-4 form-group">
                                             {!! Form::label('link', 'Ссылка на их сайт',['class' => 'control-label']) !!}
                                             {!! Form::text('link','', array_merge(['class' => 'form-control', 'required' => 'required'])) !!}
-                                        </div>
+                                        </div>--}}
                                         <div class="col-md-4 form-group">
                                             {!! Form::label('sort', 'Сортировка',['class' => 'control-label']) !!}
                                             {!! Form::text('sort','', array_merge(['class' => 'form-control', 'required' => 'required'])) !!}
@@ -85,7 +85,7 @@
                                         </ul>
 
                                         <div class="tab-content">
-                                            @include('admin.partials.url', ['item' => $manufacturer, 'title' => false, 'manufacturer_create_url' => '1','description' => false, 'meta' => true, 'seo' => true, 'id' => 'language', 'type' => 'seo'])
+                                            @include('admin.partials.url', ['item' => '', 'title' => false, 'manufacturer_create_url' => '1','description' => false, 'meta' => true, 'seo' => true, 'id' => 'language', 'type' => 'seo'])
                                         </div>
                                         </div>
                                     </div>

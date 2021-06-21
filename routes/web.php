@@ -21,7 +21,7 @@ if(env('APP_DEBUG'))
 /*страницы*/
 Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], function(){
     Route::get('/', 'PageController@home')->name('home');
-    Route::get('/catalog', 'PageController@catalog')->name('catalog');
+    Route::get('/catalog/{categorySlug?}', 'PageController@catalog')->name('catalog');
 
     Route::get('/info', 'PageController@info')->name('info');
 

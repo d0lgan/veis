@@ -115,18 +115,18 @@ window.addEventListener('load',function(){
 	$(".phone").mask("+38(999) 999-9999");
 
 
-	setTimeout(() => {
+	/*setTimeout(() => {
 		$("#slider-range").slider({
 			range: true,
-			min: 700,
+			min: 715,
 			max: $("#maxValPrice").val(),
-			values: [ 700, $("#maxValPrice").val() ],
+			values: [ 715, $("#maxValPrice").val() ],
 			slide: function( event, ui ) {
 				$(this).parent().find('.catalog-filters__slider-val--min').text(ui.values[0]);
 				$(this).parent().find('.catalog-filters__slider-val--max').text(ui.values[1]);
 			}
 		});
-	}, 1000);
+	}, 1000);*/
 
 
 			var newYear = new Date(); 

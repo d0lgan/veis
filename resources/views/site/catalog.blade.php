@@ -4,7 +4,7 @@
 
 @section('content')
 {{--{{dd(json_encode($filters, JSON_PRETTY_PRINT))}}--}}
-    <site-catalog-component :translate="{{json_encode($translate)}}" :locale="{{json_encode($locale)}}" :filters="{{json_encode($filters)}}" :instant-category="{{json_encode($instantCategory)}}"></site-catalog-component>
+    <site-catalog-component :translate="{{json_encode($translate)}}" :locale="{{json_encode($locale)}}" :filters="{{json_encode($filters)}}" :instant-category="{{json_encode($instantCategory)}}" :child-categories="{{json_encode($childCategories)}}"></site-catalog-component>
 
     <section class="consul">
         <img src="{{ asset("assets/front/img/consul.png") }}" class="consul__foto">
@@ -19,8 +19,13 @@
     </section>
     <section class="about">
         <div class="conteiner">
-            <h2 class="about__title">{{ __('site.pre-footer.veis') }}</h2>
-            <p class="about__text">{{ __('site.pre-footer.desc') }}</p>
+
+            @if($instantCategory) <p class="about__text">{!! $locale == 'ru' ? $instantCategory->description_ru : $instantCategory->description_uk !!}</p>
+
+            @else <h2 class="about__title">{{ __('site.pre-footer.veis') }}</h2>
+                <p>{{ __('site.pre-footer.desc') }}</p>
+            @endif
+
             <div class="about__view_more">
                 <span>Читать далее</span>
                 <img src="{{ asset("assets/front/img/down.svg") }}">

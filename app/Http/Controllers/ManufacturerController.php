@@ -104,23 +104,34 @@ class ManufacturerController extends Controller
 
         $manufacturer = new Manufacturer;
         $manufacturer->title_ru = $request->title_ru;
-        $manufacturer->title_uk = $request->title_ru;
+        $manufacturer->title_uk = $request->title_uk;
         if (empty($manufacturer->meta_h1_ru)) {
             $manufacturer->meta_h1_ru = $manufacturer->title_ru;
         } else {
-            $manufacturer->meta_h1_ru = $request->meta_h1_ru;
+            $manufacturer->meta_h1_ru = $request->meta_ru;
         }
 
         if (empty($manufacturer->meta_h1_uk)) {
             $manufacturer->meta_h1_uk = $manufacturer->title_uk;
         } else {
-            $manufacturer->meta_h1_uk = $request->meta_h1_uk;
+            $manufacturer->meta_h1_uk = $request->meta_uk;
         }
-        $manufacturer->link = $request->link;
+
+        if ($request->slug_ru) {
+            $manufacturer->slug_ru = $request->slug_ru;
+        }
+
+        if ($request->slug_uk) {
+            $manufacturer->slug_uk = $request->slug_uk;
+        }
+
+        $manufacturer->link_ru = $request->link_ru;
+        $manufacturer->link_uk = $request->link_uk;
         $manufacturer->sort = $request->sort;
-        $manufacturer->description_ru = trim($request->description_ru, '<p></p>');
-        $manufacturer->description_uk = trim($request->description_uk, '<p></p>');
-        $manufacturer->seo = $request->seo_ru;
+        $manufacturer->description_ru = $request->description_ru;
+        $manufacturer->description_uk = $request->description_uk;
+        $manufacturer->seo_ru = $request->seo_ru;
+        $manufacturer->seo_uk = $request->seo_uk;
 
 
         //создаем изображение
@@ -217,18 +228,27 @@ class ManufacturerController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $langs = Language::all();
         $manufacturer = Manufacturer::find($id);
         $manufacturer->title_ru = $request->title_ru;
         $manufacturer->title_uk = $request->title_uk;
-        $manufacturer->meta_h1_ru = $request->meta_h1_ru;
-        $manufacturer->meta_h1_uk = $request->meta_h1_uk;
-        $manufacturer->link = $request->link;
+        $manufacturer->meta_h1_ru = $request->meta_ru;
+        $manufacturer->meta_h1_uk = $request->meta_uk;
+        $manufacturer->link_ru = $request->link_ru;
+        $manufacturer->link_uk = $request->link_uk;
         $manufacturer->sort = $request->sort;
         $manufacturer->description_ru = $request->description_ru;
         $manufacturer->description_uk = $request->description_uk;
-        $manufacturer->seo = $request->seo_ru;
+        $manufacturer->seo_ru = $request->seo_ru;
+        $manufacturer->seo_uk = $request->seo_uk;
+
+        if ($request->slug_ru) {
+            $manufacturer->slug_ru = $request->slug_ru;
+        }
+
+        if ($request->slug_uk) {
+            $manufacturer->slug_uk = $request->slug_uk;
+        }
 
         if($request->del){
             if($manufacturer->image){
