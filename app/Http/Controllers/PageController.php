@@ -15,15 +15,16 @@ use App\Document;
 use App\Language;
 use App\Manufacturer;
 use App\Option;
+use App\Redirect;
 use App\Setting;
 use App\Slider;
 use App\Stock;
 use App\Tag;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Http\Request;
 use App\Page;
 use DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Session;
@@ -97,12 +98,16 @@ class PageController extends Controller {
 	public function update( Request $request, $id ) {
 //	    dd($request);
 		$page              = Page::find( $id );
-		$page->title       = $request->title_ru;
-		$page->meta_h1     = $request->meta_ru;
+		$page->title_ru    = $request->title_ru;
+		$page->title_uk    = $request->title_uk;
+		$page->meta_h1_ru  = $request->meta_ru;
+		$page->meta_h1_uk  = $request->meta_uk;
 		$page->type        = $request->type;
         $page->slug        = $request->slug;
-		$page->seo         = $request->seo_ru;
-		$page->description = $request->description_ru;
+		$page->seo_ru      = $request->seo_ru;
+		$page->seo_uk      = $request->seo_uk;
+		$page->description_ru = $request->description_ru;
+		$page->description_uk = $request->description_uk;
 		$page->public      = $request->public;
 		//создаем изображение
 		if ( $request->image ) {
@@ -181,6 +186,12 @@ class PageController extends Controller {
 	}
 
     public function home() {
+        $page = Page::where( 'type', 'home' )->first();
+        $desctran = [
+            'desc' => Lang::trans('site.pre-footer.desc'),
+            'veis' => Lang::trans('site.pre-footer.veis'),
+        ];
+
 	    $translate = [
             'new' => Lang::trans('site.productCard.new'),
             'sale' => Lang::trans('site.productCard.sale'),
@@ -219,10 +230,32 @@ class PageController extends Controller {
         $brands = Brand::orderBy('sort')->get();
 
         $locale = App::getLocale();
-	    return view('site.home', compact('leftGlasses', 'rightGlasses', 'leftStock', 'rightStock', 'locale', 'translate', 'brands'));
+
+        $desc = [
+            'ru' => $page->description_ru,
+            'uk' => $page->description_uk,
+        ];
+	    return view('site.home', compact('leftGlasses', 'rightGlasses', 'leftStock', 'rightStock', 'locale', 'translate', 'brands', 'page', 'desctran', 'desc'));
     }
 
     public function catalog(Request $request, $categorySlug = null) {
+        switch (\Request::route()->getName()) {
+            case 'catalog':
+                $page = Page::where('type', 'catalog' )->first();
+                break;
+            case 'category':
+                $page = Page::where('type', 'category' )->first();
+                break;
+            case 'manufacturer':
+                $page = Page::where('type', 'manufacturer')->first();
+                break;
+            case 'tag':
+                $page = Page::where('type', 'tag')->first();
+                break;
+            case 'city':
+                $page = Page::where('type', 'city')->first();
+                break;
+        }
 
         $translate = [
             'catalog' => Lang::trans('site.footer.catalog'),
@@ -267,50 +300,138 @@ class PageController extends Controller {
             'is_sale' => Lang::trans('site.catalog.is_sale'),
             'category' => Lang::trans('site.catalog.category'),
         ];
+
+        $desctran = [
+            'desc' => Lang::trans('site.pre-footer.desc'),
+            'veis' => Lang::trans('site.pre-footer.veis'),
+        ];
+
         $locale = App::getLocale();
 
-        if ($categorySlug) {
-            if ($locale == 'ru') {
-                // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
-                $category = Category::where('slug_uk', $categorySlug)->first();
-                if ($category) {
-                    return redirect('/ru/catalog/' . $category->slug_ru);
-                }
+        // Если это Страница Категории
 
-                $category = Category::where('slug_ru', $categorySlug)->firstOrFail();
-            } else if ($locale == 'uk') {
-                //
-                $category = Category::where('slug_ru', $categorySlug)->first();
-                if ($category) {
-                    return redirect('/catalog/' . $category->slug_uk);
-                }
-
-                $category = Category::where('slug_uk', $categorySlug)->firstOrFail();
-            }
-        }
-
-
-        // Проверка на категорию
         $instantCategory = null;
-        if ($categorySlug) {
-            $instantCategory = Category::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->firstOrFail();
-        }
-
-        // Дочерние категории
         $childCategories = null;
-        if ($instantCategory) {
-            $childCategories = Category::where('parent_id', $instantCategory->id)->get();
-            foreach ($childCategories as $childCategory) {
-                $cats = Category::where('parent_id', $childCategory->id)->get();
-                if ($cats->count()) {
-                    $childCategories = $childCategories->merge($cats);
+        if (\Request::route()->getName() == 'category') {
+            if ($categorySlug) {
+                if ($locale == 'ru') {
+                    // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
+                    $category = Category::where('slug_uk', $categorySlug)->first();
+                    if ($category) {
+                        return redirect('/ru/category/' . $category->slug_ru);
+                    }
+                } else if ($locale == 'uk') {
+                    //
+                    $category = Category::where('slug_ru', $categorySlug)->first();
+                    if ($category) {
+                        return redirect('/category/' . $category->slug_uk);
+                    }
                 }
             }
-            $childCategories = $childCategories->pluck('id');
+            // Проверка на категорию
+            if ($categorySlug) {
+                $instantCategory = Category::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->with('attributes')->firstOrFail();
+            }
+            // Дочерние категории
+            if ($instantCategory) {
+                $childCategories = Category::where('parent_id', $instantCategory->id)->get();
+                foreach ($childCategories as $childCategory) {
+                    $cats = Category::where('parent_id', $childCategory->id)->get();
+                    if ($cats->count()) {
+                        $childCategories = $childCategories->merge($cats);
+                    }
+                }
+                $childCategories = $childCategories->pluck('id');
+            }
         }
 
-        $filters = GroupAttribute::where('public', 1)->with(['attributes' => function ($query) use ($instantCategory, $childCategories) {
-            $query->withCount(['products' => function ($q) use ($instantCategory, $childCategories) {
+        // Если это Страница Производителя
+        $instantManufacturer = null;
+        if (\Request::route()->getName() == 'manufacturer') {
+            /*if ($categorySlug) {
+                if ($locale == 'ru') {
+                    // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
+                    $manufacturer = Manufacturer::where('slug_uk', $categorySlug)->first();
+                    if ($manufacturer) {
+                        return redirect('/ru/manufacturer/' . $manufacturer->slug_ru);
+                    }
+                } else if ($locale == 'uk') {
+                    //
+                    $manufacturer = Manufacturer::where('slug_ru', $categorySlug)->first();
+                    if ($manufacturer) {
+                        return redirect('/manufacturer/' . $manufacturer->slug_uk);
+                    }
+                }
+            }*/
+            if ($categorySlug) {
+                $instantManufacturer = Manufacturer::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->firstOrFail();
+            }
+        }
+
+        // Eсли это страница тега
+        $instantTag = null;
+        if (\Request::route()->getName() == 'tag') {
+            /*if ($categorySlug) {
+                if ($locale == 'ru') {
+                    // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
+                    $tag = Tag::where('slug_uk', $categorySlug)->first();
+                    if ($tag) {
+                        return redirect('/ru/tag/' . $tag->slug_ru);
+                    }
+                } else if ($locale == 'uk') {
+                    //
+                    $tag = Tag::where('slug_ru', $categorySlug)->first();
+                    if ($tag) {
+                        return redirect('/tag/' . $tag->slug_uk);
+                    }
+                }
+            }*/
+            if ($categorySlug) {
+                $instantTag = Tag::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->firstOrFail();
+            }
+        }
+
+        // Страница Редиректа
+        $instantRedirect = null;
+        if (\Request::route()->getName() == 'city') {
+            if ($categorySlug) {
+                if ($locale == 'ru') {
+                    // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
+                    $tag = Redirect::where('slug_uk', $categorySlug)->first();
+                    if ($tag) {
+                        return redirect('/ru/city/' . $tag->slug_ru);
+                    }
+                } else if ($locale == 'uk') {
+                    //
+                    $tag = Redirect::where('slug_ru', $categorySlug)->first();
+                    if ($tag) {
+                        return redirect('/city/' . $tag->slug_uk);
+                    }
+                }
+            }
+            if ($categorySlug) {
+                $instantRedirect = Redirect::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->firstOrFail();
+                // Проверка на категорию
+                if ($instantRedirect->category_id) {
+                    $instantCategory = Category::where('id', $instantRedirect->category_id)->with('attributes')->firstOrFail();
+                }
+                // Дочерние категории
+                if ($instantCategory) {
+                    $childCategories = Category::where('parent_id', $instantCategory->id)->get();
+                    foreach ($childCategories as $childCategory) {
+                        $cats = Category::where('parent_id', $childCategory->id)->get();
+                        if ($cats->count()) {
+                            $childCategories = $childCategories->merge($cats);
+                        }
+                    }
+                    $childCategories = $childCategories->pluck('id');
+                }
+            }
+        }
+
+
+        $filters = GroupAttribute::where('public', 1)->with(['attributes' => function ($query) use ($instantCategory, $childCategories, $instantManufacturer) {
+            $query->withCount(['products' => function ($q) use ($instantCategory, $childCategories, $instantManufacturer) {
                 if ($instantCategory) {
                     $allCats = $childCategories->push($instantCategory->id);
 
@@ -320,13 +441,14 @@ class PageController extends Controller {
                                 $q->whereIn('categories.id', $allCats);
                             });
                         });
-                    })->where('price', '<>', 0);
+                    });
+                } else if ($instantManufacturer) {
+                    $q->where('manufacturer_id', $instantManufacturer->id);
                 }
+
+                $q->where('price', '<>', 0);
             }]);
         }])->get()->map->toArray()->sortBy('sort')->toArray();
-//        dd($filters, $instantCategory);
-
-
 
         foreach ($filters as $key => $group) {
             // Добавление продуктов с атрибута Унисекс в атрибуты Мужские и Женские (костыль)
@@ -334,6 +456,35 @@ class PageController extends Controller {
                 $filters[$key]['attributes'][0]['products_count'] += $filters[$key]['attributes'][2]['products_count'];
                 $filters[$key]['attributes'][1]['products_count'] += $filters[$key]['attributes'][2]['products_count'];
                 unset($filters[$key]['attributes'][2]);
+            }
+        }
+
+        // Если заранее выбран атрибут женские то в поле "Для кого" не отображается select "мужские" и наоборот
+        if ($instantCategory) {
+            if (!$instantCategory->attributes->where('id', 61)->isEmpty()) {
+                foreach ($filters as $key => $filter) {
+                    if ($filter['id'] == 14) {
+                        if ($filter['attributes']) {
+                            foreach ($filter['attributes'] as $k => $attribute) {
+                                if ($attribute['id'] == 60) {
+                                    unset($filters[$key]['attributes'][$k]);
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (!$instantCategory->attributes->where('id', 60)->isEmpty()) {
+                foreach ($filters as $key => $filter) {
+                    if ($filter['id'] == 14) {
+                        if ($filter['attributes']) {
+                            foreach ($filter['attributes'] as $k => $attribute) {
+                                if ($attribute['id'] == 61) {
+                                    unset($filters[$key]['attributes'][$k]);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -378,6 +529,49 @@ class PageController extends Controller {
 
 
 
+        // Описание:
+        $desc = [
+            'ru' => '',
+            'uk' => '',
+        ];
+
+        if ($instantRedirect) {
+            if ($instantRedirect->description_ru || $instantRedirect->description_uk) {
+                $desc['ru'] = $instantRedirect->description_ru;
+                $desc['uk'] = $instantRedirect->description_uk;
+                $page->title_ru = $instantRedirect->title_ru;
+                $page->title_uk = $instantRedirect->title_uk;
+            }
+        } else if ($instantCategory) {
+            if ($instantCategory->description_ru || $instantCategory->description_uk) {
+                $desc['ru'] = $instantCategory->description_ru;
+                $desc['uk'] = $instantCategory->description_uk;
+
+                $page->title_ru = $instantCategory->title_ru;
+                $page->title_uk = $instantCategory->title_uk;
+            }
+        } else if ($instantManufacturer) {
+            if ($instantManufacturer->description_ru || $instantManufacturer->description_uk) {
+                $desc['ru'] = $instantManufacturer->description_ru;
+                $desc['uk'] = $instantManufacturer->description_uk;
+
+                $page->title_ru = $instantManufacturer->title_ru;
+                $page->title_uk = $instantManufacturer->title_uk;
+            }
+        } else if ($instantTag) {
+            if ($instantTag->description_ru || $instantTag->description_uk) {
+                $desc['ru'] = $instantTag->description_ru;
+                $desc['uk'] = $instantTag->description_uk;
+
+                $page->title_ru = $instantTag->title_ru;
+                $page->title_uk = $instantTag->title_uk;
+            }
+        } else {
+            $desc['ru'] = $page->description_ru;
+            $desc['uk'] = $page->description_uk;
+        }
+
+
         /*$gg = GroupAttribute::all();
         foreach ($gg as $g) {
             $g->slug_ru = SlugService::createSlug(GroupAttribute::class, 'slug_ru', $g->title_ru);
@@ -392,14 +586,36 @@ class PageController extends Controller {
             $a->save();
         }*/
 
-        return view('site.catalog', compact('translate', 'locale', 'filters', 'instantCategory', 'childCategories'));
+        return view('site.catalog', compact('translate', 'desctran', 'locale', 'filters', 'instantCategory', 'childCategories', 'instantManufacturer', 'instantTag', 'instantRedirect', 'desc', 'page'));
     }
 
     public function info() {
-	    return view('site.info');
+	    $locale = App::getLocale();
+        $page = Page::where( 'type', 'info')->first();
+
+        $translate = [
+            'store' => Lang::trans('product.store'),
+            'useful' => Lang::trans('site.info.useful'),
+            'info' => Lang::trans('site.map.info'),
+        ];
+
+        $tabs = [
+            'delivery' => Page::where('type', 'delivery')->first(),
+            'pay' => Page::where('type', 'pay')->first(),
+            'guarantee' => Page::where('type', 'guarantee')->first(),
+            'return' => Page::where('type', 'return')->first(),
+        ];
+
+        $desc = [
+            'ru' => $page->description_ru,
+            'uk' => $page->description_uk,
+        ];
+
+	    return view('site.info', compact('page', 'locale', 'translate', 'desc', 'tabs'));
     }
 
     public function map() {
+        $page = Page::where( 'type', 'map' )->first();
         $translate = [
             'store' => Lang::trans('product.store'),
             'sale' => Lang::trans('product.sale'),
@@ -437,6 +653,70 @@ class PageController extends Controller {
         }
         dd($mainCats->first()->secondLayer);*/
 
-	    return view('site.map', compact('translate', 'locale', 'mainCats', 'manufacturers', 'tags'));
+	    return view('site.map', compact('translate', 'locale', 'mainCats', 'manufacturers', 'tags', 'page'));
+    }
+
+    public function search(Request $request) {
+	    if (!$request->q) {
+	        abort(404);
+        }
+        $page = Page::where( 'type', 'search' )->first();
+
+        $translate = [
+            'catalog' => Lang::trans('site.footer.catalog'),
+            'store' => Lang::trans('product.store'),
+
+            'new' => Lang::trans('site.productCard.new'),
+            'sale' => Lang::trans('site.productCard.sale'),
+            'gloves' => Lang::trans('site.productCard.gloves'),
+            'sunglasses' => Lang::trans('site.productCard.sunglasses'),
+            'umbrellas' => Lang::trans('site.productCard.umbrellas'),
+            'bags' => Lang::trans('site.productCard.bags'),
+            'watch' => Lang::trans('site.productCard.watch'),
+            'buy' => Lang::trans('site.productCard.buy'),
+            'price' => Lang::trans('site.productCard.price'),
+            'color' => Lang::trans('site.productCard.color'),
+            'show_all' => Lang::trans('site.productCard.show_all'),
+            'to_cart' => Lang::trans('product.to_cart'),
+            'no_availability' => Lang::trans('product.no_availability'),
+            'filter' => Lang::trans('site.catalog.filter'),
+            'sort' => Lang::trans('site.catalog.sort'),
+            'newest' => Lang::trans('site.catalog.newest'),
+            'price_asc' => Lang::trans('site.catalog.price_asc'),
+            'price_desc' => Lang::trans('site.catalog.price_desc'),
+            'for' => Lang::trans('site.catalog.for'),
+            'manuf' => Lang::trans('site.catalog.manuf'),
+            'shape' => Lang::trans('site.catalog.shape'),
+            'uv_filter' => Lang::trans('site.catalog.uv_filter'),
+            'lensColor' => Lang::trans('site.catalog.lensColor'),
+            'frameColor' => Lang::trans('site.catalog.frameColor'),
+            'gradient' => Lang::trans('site.catalog.gradient'),
+            'frameMaterial' => Lang::trans('site.catalog.frameMaterial'),
+            'features' => Lang::trans('site.catalog.features'),
+            'tags' => Lang::trans('site.catalog.tags'),
+            'priceUp' => Lang::trans('site.catalog.priceUp'),
+            'use_filter' => Lang::trans('site.catalog.use_filter'),
+            'reset' => Lang::trans('site.catalog.reset'),
+            'next' => Lang::trans('site.catalog.next'),
+            'prev' => Lang::trans('site.catalog.prev'),
+            'glasses' => Lang::trans('site.products.glasses'),
+            'portfolios' => Lang::trans('site.products.portfolios'),
+            'wallets' => Lang::trans('site.products.wallets'),
+            'is_sale' => Lang::trans('site.catalog.is_sale'),
+            'category' => Lang::trans('site.catalog.category'),
+        ];
+
+	    $query = $request->q;
+	    $locale = App::getLocale();
+
+	    return view('site.search', compact('translate', 'locale', 'query', 'page'));
+    }
+
+    public function takeOrder() {
+	    if (App::getLocale() == 'ru') {
+            return redirect('/ru')->with('order', 'success');
+        } else {
+            return redirect('/')->with('order', 'success');
+        }
     }
 }

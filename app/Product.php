@@ -144,22 +144,32 @@ class Product extends Model
 
   //Скоуп для фильтров товаров в каталоге
 
-    public function scopeWithFilters($query, $filters, $prices, $tags, $sale, $childCategories, $IdOfInstantCategory)
+    public function scopeWithFilters($query, $filters, $prices, $tags, $sale, $childCategories, $IdOfInstantCategory, $IdOfInstantManufacturer, $IdOfInstantTag)
     {
-//        dd($filters);
-
         return $query
             ->when($IdOfInstantCategory, function ($query) use ($childCategories, $IdOfInstantCategory) {
                 // Под childCategories подразумеваются все категории.
                 $allCats = $childCategories;
 
                 if ($IdOfInstantCategory) {
-                    $query->whereIn('category_id', $allCats)->orWhere(function ($que) use ($allCats) {
-                        $que->whereHas('categories', function ($q) use ($allCats) {
-                            $q->whereIn('categories.id', $allCats);
+                    $query->where(function ($subQuery) use ($allCats) {
+                        $subQuery->whereIn('category_id', $allCats)->orWhere(function ($que) use ($allCats) {
+                            $que->whereHas('categories', function ($q) use ($allCats) {
+                                $q->whereIn('categories.id', $allCats);
+                            });
                         });
                     });
                 }
+            })
+
+            ->when($IdOfInstantTag, function ($query) use ($IdOfInstantTag) {
+                $query->whereHas('tags', function($q) use ($IdOfInstantTag) {
+                    $q->whereIn('tags.id', [$IdOfInstantTag]);
+                });
+            })
+
+            ->when($IdOfInstantManufacturer, function ($query) use ($IdOfInstantManufacturer) {
+                $query->where('manufacturer_id', $IdOfInstantManufacturer);
             })
             ->when(count($filters), function ($query) use ($filters) {
                 foreach ($filters as $index => $filter) {
@@ -193,6 +203,52 @@ class Product extends Model
                 });
             });
 
+    }
+
+    // Scope по поиску товаров в компоненте поиск
+
+    public function scopeSearchProducts($query, $request) {
+        return $query
+            ->when($request, function ($query) use ($request) {
+                $words = explode(' ', $request);
+                foreach ($words as $word) {
+                    // Работаем только со словами от трех букв
+                    if (strlen($word) < 4) continue;
+
+                    $query->orWhere(function ($q) use ($word) {
+                        $q->where('title_ru', 'like', "%$word%")->orWhere('title_uk', 'like', "%$word%");
+                    });
+
+                    $attr = Attribute::where('name_ru', 'like', "%$word%")->orWhere('name_uk', 'like', "%$word%")->first();
+                    $man = Manufacturer::where('title_ru', 'like', "%$word%")->orWhere('title_ru', 'like', "%$word%")->first();
+                    $cat = Category::where('title_ru', 'like', "%$word%")->orWhere('title_ru', 'like', "%$word%")->first();
+                    if ($man) {
+                        $query->orWhere(function ($query) use ($man) {
+                            $query->whereHas('manufacturer', function ($q) use ($man) {
+                                $q->where('id', $man->id);
+                            });
+                        });
+                    }
+                    if ($cat) {
+                        $query->orWhere(function ($subQuery) use ($cat) {
+                            $subQuery->whereIn('category_id', $cat)->orWhere(function ($que) use ($cat) {
+                                $que->whereHas('categories', function ($q) use ($cat) {
+                                    $q->whereIn('categories.id', [$cat->id]);
+                                });
+                            });
+                        });
+
+                    }
+                    if ($attr) {
+                        $query->orWhere(function ($query) use ($attr) {
+                            $query->whereHas('attributes', function ($q) use ($attr) {
+                                $q->whereIn('attributes.id', [$attr->id]);
+                            });
+                        });
+
+                    }
+                }
+            });
     }
 
     /**

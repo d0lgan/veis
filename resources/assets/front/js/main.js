@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
         headInput.parentElement.querySelector('.close__icon').addEventListener('click', closeInput);
-        headInput.addEventListener('blur', closeInput);
+        // headInput.addEventListener('blur', closeInput);
 
     };
     function closeInput() {
@@ -223,25 +223,5 @@ window.addEventListener('DOMContentLoaded', function () {
     //         footShow('.tab', '.tab__hide');
     //     }
     // });
-    const viewMore = (iteam, iteam2, btn = false) => {
-        const pressBtn = document.querySelector(iteam),
-              textBox = document.querySelector(iteam2);
 
-        pressBtn.addEventListener('click', open);
-
-        function open() {
-            textBox.classList.toggle('open');
-            if (btn === false) {
-                if (pressBtn.querySelector('span').textContent === "Читать далее") {
-                    pressBtn.querySelector('span').textContent = "Скрыть";
-                    pressBtn.querySelector('img').style.transform = 'rotate(-180deg)';
-                } else {
-                    pressBtn.querySelector('span').textContent = "Читать далее";
-                    pressBtn.querySelector('img').style.transform = 'rotate(0)';
-                }
-            }
-        }
-    };
-
-    viewMore('.about__view_more', '.about__text');
 });

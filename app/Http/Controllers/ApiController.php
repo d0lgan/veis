@@ -1086,6 +1086,8 @@ class ApiController extends Controller
 
     public function updateOrder(Request $request){
 
+        $request['order'] = json_decode($request['order'], true);
+
         $now = date('Y-m-d');
 
         $order = Order::find($request['order']['id']);
@@ -1144,7 +1146,7 @@ class ApiController extends Controller
             $order->region = $request['order']['region'];
             $order->save();
 
-            if($request->conf && $change_status && $order->email !== null){
+            /*if($request->conf && $change_status && $order->email !== null){
 
                 Mail::to($order->email)->send(new Mailing('', 'change_status', 'Статус заказа изменен', $order->status));
             }
@@ -1168,7 +1170,7 @@ class ApiController extends Controller
                     }
                 }
                 Mail::to($emails)->send(new Mailing('', 'admin_create_order', 'test'));
-            }
+            }*/
             return response()->json($order);
         }else{
 
@@ -1224,7 +1226,6 @@ class ApiController extends Controller
             $order->total = $request['order']['total'];
             $order->region = $request['order']['region'];
             $order->save();
-
 
 
             return response()->json($order);

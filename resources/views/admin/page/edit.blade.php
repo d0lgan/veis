@@ -14,7 +14,7 @@
                             {!! Form::model($page,['method' => 'PUT', 'class' => 'form_submitting','files' => true, 'route' =>['admin-pages.update',$page->id]]) !!}
 
                             <div class="d-flex w-100 justify-content-between align-items-center">
-                                <strong>Редактирование - {{$page->title}}</strong>
+                                <strong>Редактирование - {{$page->title_ru}}</strong>
 
                                 <div class="d-flex">
                                     <button class="btn mr-3 save" type="submit"><i class="far fa-save"></i></button>
@@ -50,7 +50,7 @@
                                     </ul>
 
                                     <div class="tab-content mt-2">
-                                        @include('admin.partials.url', ['item' => $page, 'title' => true, 'page_type' => '1', 'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                        @include('admin.partials.url', ['item' => $page, 'title' => true, 'page_type' => false, 'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                     </div>
                                 </div>
                                 <div class="form-group">

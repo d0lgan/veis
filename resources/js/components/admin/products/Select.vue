@@ -1,8 +1,8 @@
 <template>
     <div>
-        <label class="typo__label">Дополнительные категории:</label>
-        <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Выберите категорию"
-                     label="title_ru" track-by="id" :options="options" :multiple="true" :taggable="false"
+        <label class="typo__label">{{ title }}</label>
+        <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Выберите"
+                     :label="titleOrName + '_ru'" track-by="id" :options="options" :multiple="true" :taggable="false"
         ></multiselect>
 
         <input type="hidden" name="categories" :value="JSON.stringify(value)" />
@@ -26,13 +26,13 @@
         watch:{
             default(val){
                 val.forEach((elem) => {
-                    elem['title'] = elem['title_ru'];
+                    elem['title'] = elem[this.titleOrName + '_ru'];
                 });
                 this.value = val;
             },
             categories(val){
                 val.forEach((elem) => {
-                    elem['title'] = elem['title_ru'];
+                    elem['title'] = elem[this.titleOrName + '_ru'];
                 });
                 this.options = val;
             },
@@ -42,7 +42,9 @@
         },
         props: {
             categories: Array,
-            default: Array
+            default: Array,
+            title: String,
+            titleOrName: String
         }
     }
 </script>

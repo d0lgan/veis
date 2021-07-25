@@ -32,10 +32,10 @@
                                 <tbody >
                                 @foreach($pages as $page)
                                     <tr>
-                                        <td class="align-middle py-1 pr-3">{{$page->title}}</td>
+                                        <td class="align-middle py-1 pr-3">{{$page->title_ru}}</td>
                                         <td class="align-middle py-1 pr-3">{{$page->type}}</td>
                                         <td class="align-middle py-1 pr-3">{{$page->slug}}</td>
-                                        <td class="align-middle py-1 pr-3">{{$page->meta_h1}}</td>
+                                        <td class="align-middle py-1 pr-3">{{$page->meta_h1_ru}}</td>
                                         <td class="align-middle py-1 pr-3">
                                             @if($page->public == 0)
                                                 <p style="color: red;">Не активно</p>

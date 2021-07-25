@@ -52,7 +52,7 @@
                                     </ul>
 
                                     <div class="tab-content">
-                                        @include('admin.partials.title', ['item' => $tag, 'title' => true, 'link' => true, 'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                        @include('admin.partials.title', ['item' => $tag, 'title' => true, 'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
 
                                         <!-- <label for="description">Описание</label>
                                         <editor-component :name="'description'" :v="{{ json_encode($tag->description) }}"></editor-component> -->

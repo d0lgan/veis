@@ -19,7 +19,24 @@
 <body>
 
 <div id="app">
-    <site-not-found-component></site-not-found-component>
+    <?php
+        use Illuminate\Support\Facades\App;
+        use Illuminate\Support\Facades\Lang;
+        if (request()->segment(1) == 'ru') {
+            App::setLocale('ru');
+        } else {
+            App::setLocale('uk');
+        }
+        $locale = App::getLocale();
+        $translate = [
+            'notFound' => Lang::trans('site.notFound.notFound'),
+            'onMain' => Lang::trans('site.notFound.onMain'),
+            'after' => Lang::trans('site.notFound.after'),
+            'seconds' => Lang::trans('site.notFound.seconds'),
+            'input' => Lang::trans('site.notFound.input'),
+        ];
+    ?>
+    <site-not-found-component :translate="<?php echo e(json_encode($translate)); ?>" :locale="<?php echo e(json_encode($locale)); ?>"></site-not-found-component>
 </div>
 
 <script src="<?php echo e(asset('js/app.js')); ?>"></script>

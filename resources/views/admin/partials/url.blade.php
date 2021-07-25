@@ -2,11 +2,21 @@
     <div class="tab-pane {{ $key == 0 ? 'active' : null }}"
          id="{{$id}}_{{$type}}_{{ $lang->locate_code }}">
         @if($title)
-            <div class="form-group">
+            {{--<div class="form-group">
                 <label for="title_{{ $lang->locate_code }}">{{ isset($title_name) ? $title_name . ':' : 'Название:' }}</label>
                 <input required name="title_{{ $lang->locate_code }}"
                        id="title_{{ $lang->locate_code }}"
                        value="{{ json_encode(@optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code)) == 'null' ? @optional($item)->title ?: @optional($item)->name : @optional($item)->data[$lang->locate_code]['title'] ?: old('title_' . $lang->locate_code) }}"
+                       placeholder="Title {{ strtoupper($lang->locate_code) }}"
+                       type="text"
+                       class="form-control"/>
+            </div>--}}
+            @php $method = "title_" . $lang->locate_code @endphp
+            <div class="form-group">
+                <label for="title_{{ $lang->locate_code }}">{{ isset($title_name) ? $title_name . ':' : 'Название:' }}</label>
+                <input required name="title_{{ $lang->locate_code }}"
+                       id="title_{{ $lang->locate_code }}"
+                       value="{{ @optional($item)->$method }}"
                        placeholder="Title {{ strtoupper($lang->locate_code) }}"
                        type="text"
                        class="form-control"/>
@@ -107,16 +117,17 @@
             @endif
         @if($description)
             <div class="form-group">
-                <label for="desc">Описание:</label>
+                {{--<label for="desc">Описание:</label>
                 <!-- <span>{{ json_encode(@optional($item)->data[$lang->locate_code]['description'] ?: old('description_' . $lang->locate_code)) ? 'true' : 'false' }}</span> -->
                 <div class="w-100">
                   <editor-component :name="{{json_encode('description_' . $lang->locate_code)}}" :v="{{ json_encode(@optional($item)->data[$lang->locate_code]['description'] ?: old('description_' . $lang->locate_code)) == 'null' ? json_encode(@optional($item)->description) : json_encode(@optional($item)->data[$lang->locate_code]['description'] ?: old('description_' . $lang->locate_code)) }}"></editor-component>
+                </div>--}}
+
+                <label for="desc">Описание:</label>
+                <div class="w-100">
+                    <editor-component :name="{{ json_encode('description_' . $lang->locate_code)}}" :v="{{ $lang->locate_code == 'ru' ? json_encode(@optional($item)->description_ru) : json_encode(@optional($item)->description_uk) }}"></editor-component>
+
                 </div>
-                    {{--<textarea id="editor1" name="description_{{ $lang->locate_code }}"
-                              --}}{{--id="editor_{{ $key }}"--}}{{--
-                              class="form-control">
-                    {{ @optional($item)->data[$lang->locate_code]['desc'] ?: old('description_' . $lang->locate_code) }}
-                </textarea>--}}
 
             </div>
         @endif

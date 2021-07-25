@@ -801,16 +801,13 @@ window.addEventListener('load',function(){
 	  				array.push(e.clientX);
 
 		  			if(counter > (-200)){
-		  				console.log('dfgdfg')
 		  				brandIteam2.style.transform = 'translateX(' + 0  + 'px)';
 		  			}
 	  				if(counter <=  (brandIteam.clientWidth * -1) * a){
-		  				console.log('asd')
 		  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2) * (b / 2) + 'px)';
 		  				a += 2
 		  			}
 		  			if(counter <=  (brandIteam2.clientWidth * -1) * b){
-		  				console.log('cvbcvb')
 		  				brandIteam2.style.transform = 'translateX(' + brandIteam.clientWidth * 2 * (b / 2)   + 'px)';
 		  				b += 2
 		  			}
@@ -818,12 +815,10 @@ window.addEventListener('load',function(){
   						brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
 
 		  				if(counter >=  (brandIteam.clientWidth) * a2){
-			  				console.log('asd')
 			  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2) + 'px)';
 			  				a2 += 2
 			  			}
 			  			if(counter >=  (brandIteam2.clientWidth) * b2){
-			  				console.log('cvbcvb')
 			  				brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
 			  				b2 += 2
 			  			}
@@ -854,12 +849,10 @@ window.addEventListener('load',function(){
 		  				brandIteam2.style.transform = 'translateX(' + 0  + 'px)';
 		  			}
 		  			if(counter <=  (brandIteam.clientWidth * -1) * a){
-		  				console.log('asd')
 		  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2) * (b / 2) + 'px)';
 		  				a += 2
 		  			}
 		  			if(counter <=  (brandIteam2.clientWidth * -1) * b){
-		  				console.log('cvbcvb')
 		  				brandIteam2.style.transform = 'translateX(' + brandIteam.clientWidth * 2 * (b / 2)   + 'px)';
 		  				b += 2
 		  			}
@@ -867,12 +860,10 @@ window.addEventListener('load',function(){
   						brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
 
 		  				if(counter >=  (brandIteam.clientWidth) * a2){
-			  				console.log('asd')
 			  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2) + 'px)';
 			  				a2 += 2
 			  			}
 			  			if(counter >=  (brandIteam2.clientWidth) * b2){
-			  				console.log('cvbcvb')
 			  				brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
 			  				b2 += 2
 			  			}

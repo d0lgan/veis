@@ -1,6 +1,6 @@
 @extends('layouts.site.layout_with_long_header')
 
-@section('title', 'Главная страница - Veis')
+@section('title', $locale == 'ru' ? $page->title_ru : $page->title_uk)
 
 @section('content')
 <div class="intro">
@@ -501,13 +501,6 @@
     <img src="/assets/front/img/consul2.png" class="consul__foto2">
 </section>
 <section class="about">
-    <div class="conteiner">
-        <h2 class="about__title">{{ __('site.pre-footer.veis') }}</h2>
-        <p class="about__text">{{ __('site.pre-footer.desc') }}</p>
-        <div class="about__view_more">
-            <span>Читать далее</span>
-            <img src="/assets/front/img/down.svg">
-        </div>
-    </div>
+    <site-catalog-description-component :desctran="{{ json_encode($desctran) }}" :desc="{{ json_encode($desc) }}" :locale="{{ json_encode($locale) }}"></site-catalog-description-component>
 </section>
 @endsection

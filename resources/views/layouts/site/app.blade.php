@@ -182,8 +182,8 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <div class="navbar-nav">
 
-                    <a class="nav-item nav-link" href="{{ route('about') }}">@lang('navbar.about')</a>
-                    <a class="nav-item nav-link" href="{{ route('contact') }}">@lang('navbar.contacts')</a>
+                    {{--<a class="nav-item nav-link" href="{{ route('about') }}">@lang('navbar.about')</a>
+                    <a class="nav-item nav-link" href="{{ route('contact') }}">@lang('navbar.contacts')</a>--}}
 
                     @include('layouts.site.language')
 

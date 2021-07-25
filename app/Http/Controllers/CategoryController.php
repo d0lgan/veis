@@ -372,6 +372,12 @@ class CategoryController extends Controller
         $categories = Category::get()
             ->pluck('title_ru', 'id')
             ->prepend('Выбрать', 0);
+        
+        $attributes = Attribute::get()->toArray();
+        foreach ($attributes as $key => $attribute) {
+            $attribute += ['title' => $attribute['name_ru']];
+            $attributes[$key] = $attribute;
+        }
 
         $langs = Language::all();
         $contacts      = Contact::all();
@@ -394,7 +400,7 @@ class CategoryController extends Controller
         //dd($category);
 
 
-        return view('admin.category.edit', compact('category', 'langs', 'categories', 'order_count', 'contacts_count'));
+        return view('admin.category.edit', compact('category', 'langs', 'categories', 'order_count', 'contacts_count', 'attributes'));
     }
 
     /**
@@ -430,6 +436,10 @@ class CategoryController extends Controller
         $category->description_uk = $request->description_uk;
         $category->parent_id   = $request->parent_id;
         $category->at_home = $request->at_home;
+
+        foreach (json_decode($request->categories) as $attr) {
+            $category->attributes()->syncWithoutDetaching($attr->id);
+        }
 
         if($request->del){
             if($category->image){

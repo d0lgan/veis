@@ -47,7 +47,7 @@
                                     </ul>
 
                                     <div class="tab-content">
-                                        @include('admin.partials.title', ['item' => $tag, 'title' => true, 'description' => true, 'link' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                        @include('admin.partials.title', ['item' => $tag, 'title' => true, 'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                     </div>
                                     <div class="col-md-4 form-group">
                                         {!! Form::label('sort', 'Сортировка',['class' => 'control-label']) !!}

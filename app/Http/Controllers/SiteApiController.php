@@ -11,24 +11,53 @@ use App\Setting;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use LisDev\Delivery\NovaPoshtaApi2;
+use function foo\func;
 
 class SiteApiController extends Controller
 {
     public function getProducts()
     {
-
-
         $query = Product::withFilters(
             request()->input('sel_filters', []),
             request()->input('prices', []),
             request()->input('tags', []),
             request()->input('sale', []),
             request()->input('childCategories', []),
-            request()->input('IdOfInstantCategory', null)
+            request()->input('IdOfInstantCategory', null),
+            request()->input('IdOfInstantManufacturer', null),
+            request()->input('IdOfInstantTag', null),
         )->with('galleries', 'attributes', 'tags', 'stock')->where('image', '<>', null)->where('price', '<>', 0);
 
 
 
+        $countProducts = $query->count();
+
+        if (request()->input('fakePageForMoreProducts') - request()->input('page') == 1) {
+
+            $offset = request()->input('fakePageForMoreProducts', 0) * 11;
+            $products = $query->offset($offset)->limit(12)->get();
+        } else if (request()->input('fakePageForMoreProducts') - request()->input('page') > 1) {
+            $offset = ((request()->input('page', 0)) * 11) + ((request()->input('fakePageForMoreProducts') - request()->input('page')) * 12);
+            $products = $query->offset($offset)->limit(12)->get();
+        } else {
+            $offset = request()->input('page', 0) * 11;
+            $products = $query->offset($offset)->limit(request()->input('limit', 11))->get();
+        }
+
+
+
+
+        return response()->json([
+            'products' => $products,
+            'countProducts' => $countProducts
+        ]);
+    }
+
+    public function searchProducts() {
+        $query = Product::searchProducts(
+            request()->input('query', '')
+        )->with('galleries', 'attributes', 'tags', 'stock')->where('image', '<>', null)->where('price', '<>', 0);
 
         $countProducts = $query->count();
 
@@ -56,6 +85,8 @@ class SiteApiController extends Controller
     public function getValPrice()
     {
         $instantCategories = request()->input('instantCategories', null);
+        $instantManufacturer = request()->input('idOfInstantManufacturer', null);
+        $instantTag = request()->input('idOfInstantTag', null);
         if ($instantCategories) {
             $products = Product::where(function ($query) use ($instantCategories) {
                 $query->whereIn('category_id', $instantCategories)->orWhere(function ($que) use ($instantCategories) {
@@ -63,6 +94,12 @@ class SiteApiController extends Controller
                         $q->whereIn('categories.id', $instantCategories);
                     });
                 });
+            })->where('price', '<>', 0);
+        } else if ($instantManufacturer) {
+            $products = Product::where('manufacturer_id', $instantManufacturer)->where('price', '<>', 0);
+        } else if ($instantTag) {
+            $products = Product::whereHas('tags', function($q) use ($instantTag) {
+                $q->whereIn('tags.id', [$instantTag]);
             })->where('price', '<>', 0);
         } else {
             $products = Product::where('price', '<>', 0);
@@ -75,124 +112,26 @@ class SiteApiController extends Controller
         return json_encode($vals);
     }
 
-    public function getManufacturers()
-    {
-        $manufacturers = Manufacturer::withCount('products')->get()
-            ->map->toArray()->sortByDesc('products_count');
-
-        return response()->json(array_values($manufacturers->toArray()));
-        //return ManufacturerResource::collection($manufacturers);
-    }
-
-    public function getGenders()
-    {
-        $genders = GroupAttribute::where('id', 14)
-            ->first()
-            ->attributes()
-            ->withCount('products')
-            ->get()
-            // Сортировка по количеству продуктов (map - метод коллекций)
-            ->map->toArray()->sortByDesc('products_count');
-
-        return response()->json(array_values($genders->toArray()));
-    }
-
-    public function getShapes()
-    {
-        // 21 - Форма оправы
-        $shapes = GroupAttribute::where('id', 21)
-            ->first()
-            ->attributes()
-            ->withCount('products')
-            ->get()
-            ->map->toArray()->sortByDesc('products_count');
-
-
-        return response()->json(array_values($shapes->toArray()));
-    }
-
-    public function getUvFilters()
-    {
-        $uvFilters = GroupAttribute::where('id', 15)
-            ->first()
-            ->attributes()
-            ->withCount('products')
-            ->get()
-            ->map->toArray()->sortByDesc('products_count');
-
-
-        return response()->json(array_values($uvFilters->toArray()));
-    }
-
-    public function getLensColors()
-    {
-        $lensColors = GroupAttribute::where('id', 18)
-            ->first()
-            ->attributes()
-            ->withCount('products')
-            ->get()
-            ->map->toArray()->sortByDesc('products_count');
-
-
-        return response()->json(array_values($lensColors->toArray()));
-    }
-
-    public function getFrameColors()
-    {
-        $frameColors = GroupAttribute::where('id', 19)
-            ->first()
-            ->attributes()
-            ->withCount('products')
-            ->get()
-            ->map->toArray()->sortByDesc('products_count');
-
-
-        return response()->json(array_values($frameColors->toArray()));
-    }
-
-    public function getGradients()
-    {
-        $gradients = GroupAttribute::where('id', 20)
-            ->first()
-            ->attributes()
-            ->withCount('products')
-            ->get()
-            ->map->toArray()->sortByDesc('products_count');
-
-
-        return response()->json(array_values($gradients->toArray()));
-    }
-
-    public function getFrameMaterials()
-    {
-        $frameMaterials = GroupAttribute::where('id', 22)
-            ->first()
-            ->attributes()
-            ->withCount('products')
-            ->get()
-            ->map->toArray()->sortByDesc('products_count');
-
-
-        return response()->json(array_values($frameMaterials->toArray()));
-    }
-
-    public function getFeatures()
-    {
-        $features = GroupAttribute::where('id', 23)
-            ->first()
-            ->attributes()
-            ->withCount('products')
-            ->get()
-            ->map->toArray()->sortByDesc('products_count');
-
-
-        return response()->json(array_values($features->toArray()));
-    }
-
     public function getTags()
     {
+        $instantCategories = request()->input('instantCategories', null);
+        $instantManufacturer = request()->input('idOfInstantManufacturer', null);
         // Получение тегов
-        $tags = Tag::withCount('products')->get()->map->toArray()->sortByDesc('products_count');;
+        if ($instantCategories) {
+            $tags = Tag::withCount(['products' => function ($query) use ($instantCategories) {
+                $query->whereIn('category_id', $instantCategories)->orWhere(function ($que) use ($instantCategories) {
+                    $que->whereHas('categories', function ($q) use ($instantCategories) {
+                        $q->whereIn('categories.id', $instantCategories);
+                    });
+                });
+            }])->get()->map->toArray()->sortByDesc('products_count');
+        } else if ($instantManufacturer) {
+            $tags = Tag::withCount(['products' => function ($query) use ($instantManufacturer) {
+                $query->where('manufacturer_id', $instantManufacturer);
+            }])->get()->map->toArray()->sortByDesc('products_count');
+        } else {
+            $tags = Tag::withCount('products')->get()->map->toArray()->sortByDesc('products_count');
+        }
 
         return response()->json(array_values($tags->toArray()));
     }
@@ -306,5 +245,43 @@ class SiteApiController extends Controller
             $product->how_size = null;
         }
         return response()->json($product);
+    }
+
+    public function getCities() {
+        $keyword = request()->input('keyword', '');
+        $locale = request()->input('locale', 'ua');
+
+        $nova = new NovaPoshtaApi2('da4853a09c9093039c2354f700a661e1', 'ua');
+
+        $cities = $nova->getCities(0, $keyword);
+
+        return response()->json([
+            'cities' => $cities['data'],
+        ]);
+    }
+
+    public function getPoints() {
+        $nova = new NovaPoshtaApi2('da4853a09c9093039c2354f700a661e1', 'ua');
+
+        $locale = request()->input('locale', 'uk');
+        $string = request()->input('keyword', '');
+        $ref = request()->input('ref', '');
+
+        if ($string) {
+            $refs = $nova->getWarehouse($ref, $string);
+        } else {
+            $refs = $nova->getWarehouses($ref);
+        }
+
+
+        if ($locale == 'uk') {
+            $refs = collect($refs['data'])->pluck('Description')->toArray();
+        } else if ($locale == 'ru') {
+            $refs = collect($refs['data'])->pluck('DescriptionRu')->toArray();
+        }
+
+        return response()->json([
+            'points' => $refs,
+        ]);
     }
 }

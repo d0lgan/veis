@@ -90,7 +90,7 @@
                                                         <label for="description">Описание</label>
                                                         <editor-component :name="'description'"></editor-component>
                                                     </div>--}}
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-6">
                                                         <label for="image">Изображение</label>
                                                         <input type="file" id="image" name="image" class="form-control">
                                                     </div>

@@ -656,6 +656,11 @@ class ProductController extends Controller
 
     public function shownew($slug)
     {
+        $page = Page::where( 'type', 'produce' )->first();
+        $desc = [
+            'ru' => $page->description_ru,
+            'uk' => $page->description_uk,
+        ];
         $translate = [
             'catalog' => Lang::trans('site.footer.catalog'),
 
@@ -713,7 +718,6 @@ class ProductController extends Controller
             'watched' => Lang::trans('watched.watched')
         ];
         $pages = Page::all();
-        $page = DB::table('pages')->where('type', 'product')->first();
         $locale = App::getLocale();
         if ($locale == 'ru') {
             // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
@@ -751,6 +755,7 @@ class ProductController extends Controller
         //$product->category_title = Document::get('category', 'title', $product->category_id, $locale);
         $product->data = $arr;
         $product->galleries;
+        $product->category;
         $product->description = trim($product->description_ru, '<p></p>');
 
 
@@ -851,7 +856,7 @@ class ProductController extends Controller
             $product->how_size = null;
         }
 
-        return view('site.produce', compact('product', 'pages', 'page', 'locale', 'selected_attr', 'settings', 'translate', 'translate_watch'));
+        return view('site.produce', compact('product', 'pages', 'page', 'locale', 'selected_attr', 'settings', 'translate', 'translate_watch', 'desc'));
 
     }
     /**
@@ -870,6 +875,7 @@ class ProductController extends Controller
         $settings = Setting::first();
         $categories_json = Category::get();
         $categories = Category::get()->pluck('title', 'id');
+
 
         $contacts = Contact::all();
         $contacts_count = $contacts->count();
@@ -1095,8 +1101,8 @@ class ProductController extends Controller
         $product->type = $request->type;
         $product->model = $request->model;
         $product->supplier = $request->supplier;
-        $product->description_ru = trim($request->description_ru, '<p></p>');
-        $product->description_uk = trim($request->description_uk, '<p></p>');
+        $product->description_ru = $request->description_ru;
+        $product->description_uk = $request->description_uk;
         $product->public = $request->public;
         $product->alt = $image->alt;
         $product->manufacturer_id = $request->manufacturer_id;

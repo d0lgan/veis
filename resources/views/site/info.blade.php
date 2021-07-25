@@ -1,102 +1,9 @@
 @extends('layouts.site.layout_with_long_header')
 
-@section('title', 'Информация о магазине - Veis')
+@section('title', $locale == 'ru' ? $page->title_ru : $page->title_uk)
 
 @section('content')
-    <div class="breadcrumbs">
-        <div class="holder">
-            <ul class="breadcrumbs__list">
-                <li class="breadcrumbs__item">
-                    <a href="" class="breadcrumbs__link">ИНТЕРНЕТ МАГАЗИН</a>
-                </li>
-                <li class="breadcrumbs__item">
-                    <a href="" class="breadcrumbs__link">ПЕРЧАТКИ </a>
-                </li>
-                <li class="breadcrumbs__item">
-                    <a href="" class="breadcrumbs__link">АВТОМОБИЛЬНЫЕ </a>
-                </li>
-                <li class="breadcrumbs__item">
-                    <a href="" class="breadcrumbs__link">МУЖСКИЕ</a>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-    <section class="product product-more">
-        <div class="conteiner">
-            <h2 class="section-title product-more__title">{{ __('site.info.useful') }}</h2>
-            <div class="product__name info__changer">
-                <pre><span class="product__name_active">{{ __('site.info.del') }}</span>/<span>{{ __('site.info.pay') }}</span>/<span>{{ __('site.info.back') }}</span>/<span>{{ __('site.info.guarantee') }}</span></pre>
-            </div>
-
-            <div class="information">
-                <div class="information__item active">
-                    <img src="/img/box.png" alt="" class="information__item-img">
-
-                    <div class="information__item-body">
-                        <h4 class="information__item-title">
-                            {{ __('site.info.del') }}
-                        </h4>
-                        <p class="information__item-text">
-                            adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                        </p>
-                        <p class="information__item-text">
-                            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="information__item">
-                    <img src="/img/money-check-alt.png" alt="" class="information__item-img">
-
-                    <div class="information__item-body">
-                        <h4 class="information__item-title">
-                            {{ __('site.info.pay') }}
-                        </h4>
-                        <p class="information__item-text">
-                            adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                        </p>
-                        <p class="information__item-text">
-                            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="information__item">
-                    <img src="/img/map-signs.png" alt="" class="information__item-img">
-
-                    <div class="information__item-body">
-                        <h4 class="information__item-title">
-                            {{ __('site.info.back_prod') }}
-                        </h4>
-                        <p class="information__item-text">
-                            adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                        </p>
-                        <p class="information__item-text">
-                            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="information__item">
-                    <img src="/img/medal.png" alt="" class="information__item-img">
-
-                    <div class="information__item-body">
-                        <h4 class="information__item-title">
-                            {{ __('site.info.useful') }}
-                        </h4>
-                        <p class="information__item-text">
-                            adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                        </p>
-                        <p class="information__item-text">
-                            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
+    <site-info-component :locale="{{json_encode($locale)}}" :translate="{{json_encode($translate)}}" :tabs="{{json_encode($tabs)}}"></site-info-component>
     <section class="work">
         <h2 class="work__title">{{ __('site.howWeDoing.how') }}</h2>
         <p class="work__subtitle">{{ __('site.howWeDoing.schema') }}</p>
@@ -423,13 +330,6 @@
         <img src="/assets/front/img/consul2.png" class="consul__foto2">
     </section>
     <section class="about">
-        <div class="conteiner">
-            <h2 class="about__title">{{ __('site.pre-footer.veis') }}</h2>
-            <p class="about__text">{{ __('site.pre-footer.desc') }}</p>
-            <div class="about__view_more">
-                <span>Читать далее</span>
-                <img src="/assets/front/img/down.svg">
-            </div>
-        </div>
+        <site-catalog-description-component :desc="{{ json_encode($desc) }}" :locale="{{ json_encode($locale) }}"></site-catalog-description-component>
     </section>
 @endsection

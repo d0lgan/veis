@@ -59,7 +59,10 @@ Vue.component('site-products-card-component', require('./components/site/Product
 Vue.component('site-product-elem-component', require('./components/site/ProductElem').default);
 Vue.component('site-produce-component', require('./components/site/Produce').default);
 Vue.component('site-basket-element-component', require('./components/site/BasketElement').default);
+Vue.component('site-catalog-description-component', require('./components/site/CatalogDescription').default);
 Vue.component('site-basket-component', require('./components/site/Basket').default);
+Vue.component('site-info-component', require('./components/site/Info').default);
+Vue.component('site-search-page-component', require('./components/site/SearchPage').default);
 
 
 import store from '../assets/js/store.js';

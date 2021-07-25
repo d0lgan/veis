@@ -18,8 +18,8 @@ class CreateAttributesTable extends Migration {
 			$table->increments('id');
 			$table->string('name_ru')->nullable();
 			$table->string('name_uk')->nullable();
-			$table->string('item_name_ru')->nullable();
-			$table->string('item_name_uk')->nullable();
+			$table->text('item_name_ru')->nullable();
+			$table->text('item_name_uk')->nullable();
             $table->string('slug_ru')->nullable();
             $table->string('slug_uk')->nullable();
 

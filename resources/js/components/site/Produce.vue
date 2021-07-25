@@ -4,13 +4,13 @@
             <div class="holder">
                 <ul class="breadcrumbs__list">
                     <li class="breadcrumbs__item">
-                        <a :href="getLang ? '/ru' : '/uk'" class="breadcrumbs__link">{{ translate.store }}</a>
+                        <a :href="getLang ? '/ru' : '/'" class="breadcrumbs__link">{{ translate.store }}</a>
                     </li>
                     <li class="breadcrumbs__item">
-                        <a :href="getLang ? '/ru/catalog' : '/uk/catalog'" class="breadcrumbs__link">{{ translate.catalog }} </a>
+                        <a :href="getLang ? '/ru/catalog' : '/catalog'" class="breadcrumbs__link">{{ translate.catalog }} </a>
                     </li>
                     <li class="breadcrumbs__item">
-                        <a :href="getLang ? '/ru/catalog' : '/uk/catalog'" class="breadcrumbs__link">{{ firstThreeLetterInProduct(product).toUpperCase() }}</a>
+                        <a :href="getLang ? '/ru/category/' + product.category.slug_ru : '/category/' + product.category.slug_uk" class="breadcrumbs__link">{{ firstThreeLetterInProduct(product).toUpperCase() }}</a>
                     </li>
                     <li class="breadcrumbs__item">
                         <a href="" class="breadcrumbs__link">{{ restLetterInProduct(product).toUpperCase() }}</a>
@@ -45,7 +45,7 @@
                         <div class="product-card__head-text">
                             <h2 class="product-card__head-title">{{ firstThreeLetterInProduct(product) }}</h2>
                             <p class="product-card__head-textwrap">{{ restLetterInProduct(product) }}</p>
-                            <a :href="getLang ? product.manufacturer.link_ru : product.manufacturer.link_uk" class="product-card__head-textwrap">{{ getLang ? product.manufacturer.title_ru : product.manufacturer.title_uk }}</a>
+                            <a :href="getLang ? '/ru/manufacturer/' + product.manufacturer.slug_ru : '/manufacturer/' + product.manufacturer.slug_uk" class="product-card__head-textwrap">{{ getLang ? product.manufacturer.title_ru : product.manufacturer.title_uk }}</a>
                         </div>
                         <div v-if="(!product.end_stock && product.percent) || (product.end_stock && (product.end_stock > dateForDiscount))">
                             <div class="mobile-hidden" id="prod-timer-mob"></div>
@@ -62,6 +62,7 @@
                     <div class="product-card__demo sticky-box">
                         <div class="product-card__slider">
                             <div class="product-card__slider-item">
+
                                 <a data-fancybox="prod_gallery" :href="`/house/uploads/` + product.image">
                                     <img :src="`/house/uploads/` + product.image" alt="">
                                 </a>
@@ -278,7 +279,7 @@
                         <div class="product-card__description mobile-hidden" v-if="product.tags">
                             <div class="product-card__description-head">
                                 <div class="hashtags">
-                                    <a v-for="tag in product.tags" :href="'/catalog' + '?tag=' + tag.id">{{ locale == 'ru' ? tag.title_ru : tag.title_uk }}</a>
+                                    <a v-for="tag in product.tags" :href="getLang ? '/ru/tag/'+tag.slug_ru : '/tag/'+tag.slug_uk">{{ locale == 'ru' ? tag.title_ru : tag.title_uk }}</a>
                                 </div>
                             </div>
                         </div>

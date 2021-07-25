@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 });*/
 Route::group(['prefix' => 'getForCatalogGlasses'], function() {
     Route::get('products', 'SiteApiController@getProducts');
+    Route::get('search', 'SiteApiController@searchProducts');
     Route::get('genders', 'SiteApiController@getGenders');
     Route::get('manufacturers', 'SiteApiController@getManufacturers');
     Route::get('shapes', 'SiteApiController@getShapes');
@@ -28,6 +29,11 @@ Route::group(['prefix' => 'getForCatalogGlasses'], function() {
     Route::get('gradients', 'SiteApiController@getGradients');
     Route::get('frameMaterials', 'SiteApiController@getFrameMaterials');
     Route::get('features', 'SiteApiController@getFeatures');
+});
+
+Route::group(['prefix' => 'novaPoshta'], function() {
+    Route::get('cities', 'SiteApiController@getCities');
+    Route::get('refs', 'SiteApiController@getPoints');
 });
 
 Route::get('getValPrice', 'SiteApiController@getValPrice');
@@ -108,7 +114,7 @@ Route::group(['prefix' => 'order'], function() {
         'uses' => 'ApiController@createOrder',
         'as' => 'api.createOrder'
     ]);
-    Route::post('updateOrder', [
+    Route::get('updateOrder', [
         'uses' => 'ApiController@updateOrder',
         'as' => 'api.updateOrder'
     ]);

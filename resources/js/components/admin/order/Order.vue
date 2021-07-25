@@ -159,7 +159,7 @@
                                 <div class="border p-4 position-relative mb-3">
                                     <div class="row">
                                         <div class="d-flex w-100 align-items-center">
-                                            <div class="col-md-8"><strong class="form-label">{{ product.title }}</strong> <br> <input class="form-control d-inline col-2" type="number" @change="changeQuantity($event, key_p)" :value="product.quantity"> шт</div>
+                                            <div class="col-md-8"><strong class="form-label">{{ product.title_ru }}</strong> <br> <input class="form-control d-inline col-2" type="number" @change="changeQuantity($event, key_p)" :value="product.quantity"> шт</div>
                                             <div class="form-label">{{ getPrice(key_p) }} грн</div>
     <!--                                        <div class="col-md-3">{{ product.totalPrice }} грн</div>-->
 

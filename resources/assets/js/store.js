@@ -6,7 +6,7 @@ let store = {
     state:{
         cart: cart ? JSON.parse(cart) : [],
         cartCount: cartCount ? JSON.parse(cartCount) : 0,
-        totalPrice: totalPrice ? JSON.parse(totalPrice) : 0
+        totalPrice: totalPrice ? JSON.parse(totalPrice) : 0,
     },
     mutations: {
         addToCart(state, item){
@@ -48,6 +48,7 @@ let store = {
                         }
                     }
                 });
+
                 if(add){
                     let date = new Date();
                     let now = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
@@ -70,9 +71,13 @@ let store = {
                     Vue.set(item, 'currentPrice', price);
                     Vue.set(item, 'quantity', 1);
                     Vue.set(item, 'totalPrice', price);
+
+                    this.commit('saveTotalPrice', price + state.totalPrice);
                     state.cart.push(item);
 
                 }
+
+
 
                 state.cartCount++;
                 this.commit('saveCart');
@@ -84,7 +89,7 @@ let store = {
         removeFromCart(state, id){
 
             let index = state.cart.findIndex(i => i.id === id);
-
+console.log(state.cart);
             if(index !== -1){
                 state.cartCount -= state.cart[index].quantity;
 

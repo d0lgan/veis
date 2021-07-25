@@ -85,7 +85,7 @@
                                             <div class="d-flex">
                                                 @if($category->image)
 
-                                                    <div class="form-check col-md-4">
+                                                    <div class="form-check col-md-6">
                                                         <img class="col-md-10" src="{{ asset('/house/uploads/' . $category->image) }}" alt="">
                                                         <div class="d-flex align-items-center">
                                                             <label for="del" class="d-flex align-items-center m-0">
@@ -95,11 +95,23 @@
                                                         </div>
                                                     </div>
                                                 @endif
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
                                                     <label for="image">Изображение</label>
                                                     <input type="file" id="image" name="image" class="form-control">
                                                 </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <div id="app">
+                                                        <select-component :default="{{ json_encode($category->attributes) }}"
+                                                                          :categories="{{ json_encode($attributes) }}"
+                                                                          :title="{{ json_encode('Aтрибуты') }}"
+                                                                          :title-or-name="{{ json_encode('name') }}"
+                                                                          id="category"></select-component>
+                                                    </div>
+                                                </div>
                                             </div>
+
+
 
 
 

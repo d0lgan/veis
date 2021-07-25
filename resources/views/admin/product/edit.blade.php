@@ -96,6 +96,8 @@
                                         <div id="app">
                                             <select-component :default="{{ json_encode($product->categories) }}"
                                                               :categories="{{ json_encode($categories_json) }}"
+                                                              :title="{{ json_encode('Дополнительные категории') }}"
+                                                              :title-or-name="{{ json_encode('title') }}"
                                                               id="category"></select-component>
                                         </div>
                                     </div> 

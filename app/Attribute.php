@@ -33,6 +33,10 @@ class Attribute extends Model
 		return $this->belongsTo('App\GroupAttribute');
 	}
 
+	public function categories() {
+	    return $this->belongsToMany('App\Category', 'category_attribute');
+    }
+
 	public function products()
 	{
 		return $this->belongsToMany('App\Product','product_attribute');

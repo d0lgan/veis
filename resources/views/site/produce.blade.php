@@ -1,20 +1,13 @@
 @extends('layouts.site.layout_with_short_header')
 
-@section('title', 'Товар - Veis')
+@section('title', $locale == 'ru' ? $product->title_ru : $product->title_uk)
 
 @section('content')
 
 <site-produce-component :page="{{ json_encode($page) }}" :translate_watch="{{ json_encode($translate_watch) }}" :translate="{{ json_encode($translate) }}" :product="{{ json_encode($product) }}" :locale="{{ json_encode($locale) }}" :attributes="{{ json_encode($selected_attr) }}" :back="{{ json_encode(url()->previous()) }}" :settings="{{ json_encode($settings) }}"></site-produce-component>
 
 <section class="about">
-    <div class="conteiner">
-        <h2 class="about__title">{{ __('site.pre-footer.veis') }}</h2>
-        <p class="about__text">{{ __('site.pre-footer.desc') }}</p>
-        <div class="about__view_more">
-            <span>Читать далее</span>
-            <img src="/assets/front/img/down.svg">
-        </div>
-    </div>
+    <site-catalog-description-component :desc="{{ json_encode($desc) }}" :locale="{{ json_encode($locale) }}"></site-catalog-description-component>
 </section>
 @endsection
 

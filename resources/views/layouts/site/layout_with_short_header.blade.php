@@ -154,7 +154,7 @@
         <div class="conteiner">
             <div class="bottom__block">
 
-                <search-component></search-component>
+                <search-component :locale="{{ json_encode(App::getLocale()) }}"></search-component>
 
                 <a href="{{ route('home') }}" class="logo logo--min media__logo_hide">VEIS<br><span>COLLECTION</span></a>
                 <div class="block__number">
@@ -204,10 +204,10 @@
             </div>
             <div class="foot__iteam2">
                 <div class="foot__title">{{ __('site.footer.about_magazine') }}</div>
-                <a href="#/">{{ __('site.footer.about_us') }}</a>
+                <a href="{{ route('info') }}">{{ __('site.footer.about_us') }}</a>
                 <a href="#/">{{ __('site.footer.articles') }}</a>
                 <a href="#/">{{ __('site.footer.replies') }}</a>
-                <a href="/map">{{ __('site.footer.map') }}</a>
+                <a href="{{ route('map') }}">{{ __('site.footer.map') }}</a>
 
                 <div class="foot__subtitle">{{ __('site.menu.geo') }}</div>
                 <a href="#">г. Днепро 49000 ул. Солидарная 2</a>

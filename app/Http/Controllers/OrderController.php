@@ -19,6 +19,7 @@ use App\Cart;
 use Cache;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use LisDev\Delivery\NovaPoshtaApi2;
 use Session;
 use App\Page;
 use App\Setting;
@@ -190,7 +191,6 @@ class OrderController extends Controller {
 
 	public function getCart() {
 		$page = Page::where( 'type', 'shopping-cart' )->first();
-		pagetitle( $page->meta_h1 );
         $settings = Setting::first();
 
 		if ( ! Session::has( 'cart' ) ) {
@@ -209,19 +209,24 @@ class OrderController extends Controller {
 	}
 
     public function getBasket() {
+
+        $page = Page::where( 'type', 'basket' )->first();
+
         $translate = [
             'basket' => Lang::trans('site.basket'),
         ];
-        $page = Page::where( 'type', 'shopping-cart' )->first();
         pagetitle( $page->meta_h1 );
         $settings = Setting::first();
         $locale = App::getLocale();
+
+
 
         if ( ! Session::has( 'cart' ) ) {
             return view( 'site.basket', compact( 'page', 'settings', 'locale', 'translate' ) );
         }
         $oldCart = Session::get( 'cart' );
         $cart    = new Cart( $oldCart );
+
 
 
         return view( 'site.basket', [
@@ -484,6 +489,7 @@ class OrderController extends Controller {
 		$prod = json_decode($order->products, true);
 		$products = [];
 
+        dd($order);
 		for($i = 0;$i < count($prod);$i++){
 		    $product = Product::find($prod[$i]['product']);
 

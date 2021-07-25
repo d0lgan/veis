@@ -52,7 +52,7 @@
                                             </ul>
 
                                             <div class="tab-content">
-                                                @include('admin.partials.title', ['item' => $manufacturer, 'title' => true,  'description' => true, 'link' => '', 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                                @include('admin.partials.title', ['item' => $manufacturer, 'title' => true,  'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                             </div>
                                         </div>
 

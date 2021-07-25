@@ -23,7 +23,14 @@
                         </div>
                         <p class="form-open" data-form-opener>
                             {{ translate.basket.fullForm }}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9"><g><g><path fill="#2a2a2f" d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/></g></g></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9">
+                                <g>
+                                    <g>
+                                        <path fill="#2a2a2f"
+                                              d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/>
+                                    </g>
+                                </g>
+                            </svg>
                         </p>
                     </div>
                     <div class="cart__body">
@@ -36,7 +43,8 @@
                                     <label for="">
                                         {{ translate.basket.name }}
                                     </label>
-                                    <input required type="text" class="input">
+                                    <input required type="text" v-model="order.name" @focusout="updateOrder()"
+                                           class="input">
                                 </div>
                             </div>
                             <div class="cart__form-col">
@@ -47,7 +55,8 @@
                                     <label for="">
                                         {{ translate.basket.phone }}
                                     </label>
-                                    <input required type="text" class="input phone">
+                                    <input v-model="order.phone" @focusout="updateOrder()" required type="text"
+                                           class="input phone">
                                 </div>
                             </div>
                         </div>
@@ -61,13 +70,15 @@
                                         <label for="">
                                             {{ translate.basket.surname }}
                                         </label>
-                                        <input type="text" class="input">
+                                        <input type="text" @focusout="updateOrder()" v-model="order.surname"
+                                               class="input">
                                     </div>
                                     <div class="inputbox">
                                         <label for="">
                                             {{ translate.basket.name }}
                                         </label>
-                                        <input required type="text" class="input">
+                                        <input required v-model="order.name" @focusout="updateOrder()" type="text"
+                                               class="input">
                                     </div>
                                     <div class="inputbox">
                                         <label for="">
@@ -79,13 +90,15 @@
                                         <label for="">
                                             {{ translate.basket.phone }}
                                         </label>
-                                        <input required type="text" class="input phone">
+                                        <input v-model="order.phone" @focusout="updateOrder(false, true)" required type="text"
+                                               class="input <!--phone-->">
                                     </div>
                                     <div class="inputbox">
                                         <label for="">
                                             E-mail
                                         </label>
-                                        <input type="text" class="input">
+                                        <input v-model="order.email" @focusout="updateOrder(false, true)" type="text"
+                                               class="input">
                                     </div>
                                 </form>
 
@@ -108,30 +121,64 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="inputbox">
                                         <label for="">
                                             {{ translate.basket.city }}
+                                            <img src="/assets/front/img/uploading.gif" alt="loading..." class="upload-gif" v-show="loadingCities">
                                         </label>
                                         <div class="select select-custom">
-                                            <div class="select-inner"></div>
-                                            <select>
-                                                <option value="1">Одесса</option>
-                                                <option value="2">Киев</option>
-                                                <option value="3">Львов</option>
-                                            </select>
+                                            <div class="select-inner">
+                                                <input v-model="keywordCity"
+                                                       @keydown="debouncedGetAnswerCity()"
+                                                       @focusout="updateOrder(); closeCitiesWithDelay();"
+                                                       @focusin="openCities = true; openPoints = false;"
+                                                       required type="text"
+                                                       class="input-search"
+                                                       placeholder="Введите Ваш город"
+                                                >
+                                            </div>
+                                            <div class="select-wrapper" data-select="2" v-show="openCities"
+                                                 style="">
+                                                <div class="select-content">
+                                                    <ul class="select-options">
+                                                        <li class="select-option-item"
+                                                            v-for="wareCity in cities"
+                                                            @click="city = wareCity; keywordCity = wareCity.Description;">
+                                                            {{ wareCity.Description }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="inputbox">
                                         <label for="">
                                             {{ translate.basket.department }}
+                                            <img src="/assets/front/img/uploading.gif" alt="loading..." class="upload-gif" v-show="loadingPoints">
                                         </label>
                                         <div class="select select-custom">
-                                            <div class="select-inner"></div>
-                                            <select>
-                                                <option value="1">10</option>
-                                                <option value="2">11</option>
-                                                <option value="3">15</option>
-                                            </select>
+                                            <div class="select-inner">
+                                                <input v-model="keywordPoint"
+                                                       @keydown="debouncedGetAnswerPoint()"
+                                                       @focusout="updateOrder(); closePointsWithDelay();"
+                                                       @focusin="openPoints = true; openCities = false;"
+                                                       required type="text" class="input-search"
+                                                       placeholder="Введите Ваш пункт выдачи"
+                                                >
+                                            </div>
+
+                                            <div class="select-wrapper" data-select="2" v-show="openPoints"
+                                                 style="">
+                                                <div class="select-content">
+                                                    <ul class="select-options">
+                                                        <li class="select-option-item" v-for="avPoint in points" @click="point = avPoint; keywordPoint = avPoint; openPoints = false;">
+                                                            {{ avPoint }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="inputbox">
@@ -163,7 +210,9 @@
                                         </div>
                                     </div>
                                     <p class="small-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                                     </p>
 
                                 </form>
@@ -173,7 +222,7 @@
                         </div>
                         <div class="cart__itoges cart__itoges--mob desktop-hidden">
                             <a href="#" class="product-card__btn product-card__btn--buy">
-                                <img src="img/cart__white.png" alt="">
+                                <img src="/assets/front/img/cart__white.png" alt="">
                                 <span class="product-card__btn-inner">{{ translate.basket.pay }}</span>
                             </a>
                             <div class="cart__itoges-text">
@@ -181,7 +230,7 @@
                                     {{ translate.basket.delCost }} <span>{{ translate.basket.free }}</span>
                                 </p>
                                 <p class="cart__itoges-pricewrap">
-                                    {{ translate.basket.price }}   <span>{{ totalPrice }}</span> грн
+                                    {{ translate.basket.price }} <span>{{ totalPrice }}</span> грн
                                 </p>
                             </div>
                         </div>
@@ -203,10 +252,12 @@
                                 <div v-for="(product, key_p) in products">
                                     <div class="cart__item" v-for="example in product.quantity">
                                         <div class="cart__item-info">
-                                            <a :href="'/' + locale + '/produce/' + product.slug_ru" class="cart__item-title" v-if="locale == 'ru'">
+                                            <a :href="'/' + locale + '/produce/' + product.slug_ru"
+                                               class="cart__item-title" v-if="locale == 'ru'">
                                                 {{ product.title_ru}}
                                             </a>
-                                            <a :href="'/' + locale + '/produce/' + product.slug_uk" class="cart__item-title" v-if="locale == 'uk'">
+                                            <a :href="'/' + locale + '/produce/' + product.slug_uk"
+                                               class="cart__item-title" v-if="locale == 'uk'">
                                                 {{ product.title_uk }}
                                             </a>
                                             <p class="cart__item-subtitle">
@@ -227,7 +278,8 @@
                                             {{ product.price }} грн
                                         </p>
 
-                                        <div class="cart__item-remove" @click="removeProduct(product, key_p)" title="Убрать товар из корзины">
+                                        <div class="cart__item-remove" @click="removeProduct(product.id)"
+                                             title="Убрать товар из корзины">
                                             <img src="/assets/front/img/buy_close.svg" alt="">
                                         </div>
                                     </div>
@@ -235,16 +287,16 @@
                             </div>
 
                             <div class="cart__itoges mobile-hidden">
-                                <a href="#" class="product-card__btn product-card__btn--buy">
-                                    <img src="img/cart__white.png" alt="">
-                                    <span class="product-card__btn-inner">{{ translate.basket.pay }}</span>
+                                <a href="#openModal" class="product-card__btn product-card__btn--buy">
+                                    <img src="/assets/front/img/cart__white.png" alt="">
+                                    <span class="product-card__btn-inner" @click="confirmOrder()">{{ translate.basket.pay }}</span>
                                 </a>
                                 <div class="cart__itoges-text">
                                     <p class="cart__itoges-textwrap">
                                         {{ translate.basket.delCost }} <span>{{ translate.basket.free }}</span>
                                     </p>
                                     <p class="cart__itoges-pricewrap">
-                                        {{ translate.basket.price }}   <span>{{ totalPrice }}</span> грн
+                                        {{ translate.basket.price }} <span>{{ totalPrice }}</span> грн
                                     </p>
                                 </div>
                             </div>
@@ -263,45 +315,244 @@
                 </div>
             </div>
         </section>
+
+        <div id="openModal" class="modal-pay">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">ДЯКУЄМО</h3>
+                        <a :href="getLang ? '/' : '/ru'" title="Close" class="close-pay">×</a>
+                    </div>
+                    <div class="modal-body">
+                        <p>Ваше замовлення оформлено</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
+
 <script>
+    import axios from "axios";
+
     export default {
         name: "Basket",
         props: [
-            'locale',
             'translate',
+            'locale'
         ],
-        data(){
-            return{
-                products : this.$store.state.cart,
+        data() {
+            return {
+                products: this.$store.state.cart,
                 totalPrice: 0,
-                date: new Date(),
-                now: null,
+                /*delivery: this.settings.point_deliveries !== '0' ? 'carrier' : 'pickup',
+                region: '',
+                warehouse: '',*/
+                comment: '',
+                id: 0,
+                city: '',
+                point: '',
+                keywordCity: '',
+                keywordPoint: '',
+                cities: [],
+                points: [],
+                loadingCities: false,
+                loadingPoints: false,
+                openPoints: false,
+                openCities: false,
+                /*regions: this.regi,
+                warehouses: [],*/
+                confirm: false,
+                orderCreated: false,
+                error: false,
+                order: {
+                    id: 0,
+                    name: '',
+                    surname: '',
+                    phone: '',
+                    email: '',
+                    delivery: 'noun',
+                    region: 'noun',
+                    city: 'noun',
+                    warehouse: 'noun',
+                    status: 'Ожидает',
+                    comment: '',
+                    confirm: false,
+                    total: ''
+                }
             }
         },
-        methods:{
-            changeQuantity: function (key, act){
+        watch: {
+            /*region(val){
+                axios.post('/api/order/selectCities', {ref: val}).then((res) => {
+                    this.cities = res.data;
+                    this.warehouses = [];
+                });
+            },
+            city(val){
+                axios.post('/api/order/selectWarehouses', {ref: val}).then((res) => {
+                    this.warehouses = res.data;
+                });
+            }*/
+            keywordCity() {
+                this.keywordPoint = "";
+            },
 
-                if(act === 'minus'){
-                    if(this.products[key].quantity > 1){
-                        this.products[key].quantity -= 1;
+            city() {
+                this.debouncedGetAnswerPoint();
+            },
+        },
+
+        methods: {
+            createOrder: function () {
+
+                axios.post('/api/order/createOrder', {products: this.$store.state.cart}).then((res) => {
+                    this.order.id = res.data;
+                });
+
+            },
+            updateOrder: function (confirm = false, usefulData = false) {
+                /*this.order.delivery = this.delivery;
+                this.order.city = this.city;
+                this.order.warehouse = this.warehouse;
+                this.order.region = this.region;*/
+                if (usefulData == true && this.orderCreated == false) {
+                    this.createOrder();
+                    this.orderCreated = true;
+                }
+
+
+
+                if (this.orderCreated == true) {
+                    this.order.total = this.totalPrice;
+                    this.order.comment = this.comment;
+
+                    if (this.order.name.length === 0 || this.order.phone.length === 0) {
+                        this.error = false;
+                        let self = this;
+                        setTimeout(function () {
+                            self.error = false;
+                        }, 2000);
                     }
-                }else{
-                    this.products[key].quantity++;
+
+                    if (this.error === false) {
+                        axios.get('/api/order/updateOrder', {
+                            params: {
+                                order: this.order,
+                                confirm: confirm,
+                            }
+                        }).then((res) => {
+                            this.id = res.data.id;
+                        });
+                    }
                 }
-                this.updateCart();
-                this.updatePrice(key);
+            },
+            getLang: function () {
+                if (this.locale == 'ru') {
+                    return true;
+                } else if (this.locale == 'uk') {
+                    return false;
+                }
+            },
+            confirmOrder: function () {
+
+                if (this.order.name && this.order.surname && this.order.phone) {
+                    if (this.order.delivery === 'carrier') {
+                        if (this.order.city && this.order.warehouse) {
+                            this.confirm = true;
+                        } else {
+                            this.error = true;
+                        }
+                    } else {
+                        this.confirm = true;
+                    }
+                } else {
+                    this.error = true;
+                }
+
+                if (this.confirm && !this.error) {
+                    this.order.confirm = this.confirm;
+                    this.updateOrder(true);
+                    this.$store.commit('clearCart');
+
+                    setTimeout(function () {
+                        window.location.href = '/'
+                    }, 2000);
+
+                }
+
 
             },
-            checkQuantity: function (key) {
-                if(this.products[key].quantity < 1){
-                    this.products[key].quantity = 1;
-                }
 
-                this.updatePrice(key);
+            removeProduct: function (id) {
+                this.$store.commit('removeFromCart', id);
+                this.updateTotalPrice();
             },
+
+            updateTotalPrice: function () {
+
+                this.totalPrice = 0;
+
+                this.products.forEach(product => {
+                    this.totalPrice += parseInt(product.totalPrice);
+                });
+
+            },
+
+            closeError() {
+                this.error = false;
+            },
+
+            loadCities() {
+                if (this.keywordCity != '') {
+                    this.loadingCities = true;
+
+                    axios.get('/api/novaPoshta/cities', {
+                        params: {
+                            locale: this.locale,
+                            keyword: this.keywordCity,
+                        },
+                    })
+                    .then((response) => {
+                        this.cities = response.data.cities;
+                        this.loadingCities = false;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                }
+            },
+
+            loadPoints() {
+                if (this.city) {
+                    this.loadingPoints = true;
+                    axios.get('/api/novaPoshta/refs', {
+                        params: {
+                            locale: this.locale,
+                            ref: this.city.Ref,
+                            keyword: this.keywordPoint,
+                        },
+                    })
+                    .then((response) => {
+                        this.points = response.data.points;
+                        this.loadingPoints = false;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            },
+
+            closeCitiesWithDelay() {
+                setTimeout(() => this.openCities = false, 300);
+            },
+
+            closePointsWithDelay() {
+                setTimeout(() => this.openPoints = false, 300);
+            },
+
             updatePrice: function (key = null) {
                 if(key){
                     this.products[key].totalPrice = this.products[key].quantity * this.products[key].currentPrice;
@@ -326,31 +577,7 @@
                 this.updateTotalPrice();
 
             },
-            selectValue: function(e, id, key){
-                if(e.target.checked){
-                    this.products[key].selected_options.push(id);
-                }else{
-                    this.products[key].selected_options.splice(this.products[key].selected_options.findIndex(item => item === id), 1);
-                }
-                this.updateCart();
-                this.updatePrice(key);
 
-            },
-            getValues: function (id, values) {
-
-                let name = values.find(value => value.id === parseInt(id));
-
-                return name.value;
-            },
-            updateTotalPrice: function () {
-
-                this.totalPrice = 0;
-
-                this.products.forEach(product => {
-                    this.totalPrice += parseInt(product.totalPrice);
-                });
-
-            },
             getValuePrice: function (id, key) {
 
                 let item;
@@ -368,49 +595,144 @@
                 }
 
             },
-            removeProduct: function (product, key_p) {
-                if (product.quantity > 1) {
-                    this.changeQuantity(key_p, 'minus')
-                } else if (product.quantity == 1) {
-                    this.$store.commit('removeFromCart', product.id);
-                }
-                this.updateTotalPrice();
-            },
-            checkSelectedOptions: function (id, key) {
-
-                if(this.products[key].selected_options.findIndex(i => i === id) !== -1){
-                    return true;
-                }
-
-            },
-            updateCart: function () {
-                this.$store.commit('updateCart', this.products);
-            },
-            saveTotalPrice: function () {
-                this.$store.commit('saveTotalPrice', this.totalPrice);
-                this.updateCart();
-                this.createOrder();
-            },
-            comparison: function(date){
-
-                if(new Date(date) > new Date(this.now)){
-                    return true;
-                }else{
-                    return false;
-                }
-
-            }
         },
         mounted() {
-            console.log(this.products);
-            this.now = this.date.getFullYear() + '-' + (this.date.getMonth()+1) + '-' + this.date.getDate();
             this.updatePrice();
+            console.log(this.$store.state.totalPrice);
+        },
 
+        created() {
+            // _.debounce — это функция lodash, позволяющая ограничить то,
+            // насколько часто может выполняться определённая операция.
+            // В данном случае мы ограничиваем частоту обращений к yesno.wtf/api,
+            // дожидаясь завершения печати вопроса перед отправкой ajax-запроса.
+            // Узнать больше о функции _.debounce (и её родственнице _.throttle),
+            // можно в документации: https://lodash.com/docs#debounce
+            this.debouncedGetAnswerCity = _.debounce(this.loadCities, 1000);
+            this.debouncedGetAnswerPoint = _.debounce(this.loadPoints, 1000);
         }
     }
-
 </script>
 
 <style scoped>
+    /* свойства модального окна по умолчанию */
+    .modal-pay {
+        position: fixed; /* фиксированное положение */
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0,0,0,0.5); /* цвет фона */
+        z-index: 99999;
+        opacity: 0; /* по умолчанию модальное окно прозрачно */
+        -webkit-transition: opacity 200ms ease-in;
+        -moz-transition: opacity 200ms ease-in;
+        transition: opacity 200ms ease-in; /* анимация перехода */
+        pointer-events: none; /* элемент невидим для событий мыши */
+        margin: 0;
+        padding: 0;
+    }
+    /* при отображении модального окно */
+    .modal-pay:target {
+        opacity: 1; /* делаем окно видимым */
+        pointer-events: auto; /* элемент видим для событий мыши */
+        overflow-y: auto; /* добавляем прокрутку по y, когда элемент не помещается на страницу */
+    }
+    /* ширина модального окна и его отступы от экрана */
+    .modal-dialog {
+        position: relative;
+        width: auto;
+        margin: 10px;
+    }
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 500px;
+            margin: 30px auto; /* для отображения модального окна по центру */
+        }
+    }
+    /* свойства для блока, содержащего контент модального окна */
+    .modal-content {
+        position: relative;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        background-color: #fff;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: .3rem;
+        outline: 0;
+    }
+    @media (min-width: 768px) {
+        .modal-content {
+            -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,.5);
+        }
+    }
+    /* свойства для заголовка модального окна */
+    .modal-header {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 15px;
+        border-bottom: 1px solid #eceeef;
+    }
+    .modal-title {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 1.5;
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+    /* свойства для кнопки "Закрыть" */
+    .close-pay {
+        float: right;
+        font-family: sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: .5;
+        text-decoration: none;
+    }
+    /* свойства для кнопки "Закрыть" при нахождении её в фокусе или наведении */
+    .close:focus, .close:hover {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        opacity: .75;
+    }
+    /* свойства для блока, содержащего основное содержимое окна */
+    .modal-body {
+        position: relative;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 auto;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        padding: 15px;
+        overflow: auto;
+    }
 
+    .upload-gif {
+        height: 17px;
+        width: 26px;
+        display: inline;
+        margin: 4px 0px -4px 0px;
+    }
 </style>

@@ -33,8 +33,17 @@
                     <li class="breadcrumbs__item">
                         <a :href="getLang ? '/ru/catalog' : '/catalog'" class="breadcrumbs__link">{{ translate.catalog }} </a>
                     </li>
-                    <li class="breadcrumbs__item" v-if="instantCategory">
+                    <li class="breadcrumbs__item" v-if="instantCategory && !instantRedirect">
                         <a :href="window.location.href" class="breadcrumbs__link">{{ getLang ? instantCategory.title_ru.toUpperCase() : instantCategory.title_uk.toUpperCase() }} </a>
+                    </li>
+                    <li class="breadcrumbs__item" v-if="instantManufacturer">
+                        <a :href="window.location.href" class="breadcrumbs__link">{{ getLang ? instantManufacturer.title_ru.toUpperCase() : instantManufacturer.title_uk.toUpperCase() }} </a>
+                    </li>
+                    <li class="breadcrumbs__item" v-if="instantTag">
+                        <a :href="window.location.href" class="breadcrumbs__link">{{ getLang ? instantTag.title_ru.toUpperCase() : instantTag.title_uk.toUpperCase() }} </a>
+                    </li>
+                    <li class="breadcrumbs__item" v-if="instantRedirect">
+                        <a :href="window.location.href" class="breadcrumbs__link">{{ getLang ? instantRedirect.title_ru.toUpperCase() : instantRedirect.title_uk.toUpperCase() }} </a>
                     </li>
                 </ul>
             </div>
@@ -178,7 +187,7 @@
                         </div>
 
 
-                        <div class="catalog-filters__block">
+                        <div class="catalog-filters__block" v-if="!instantTag">
                             <div class="catalog-filters__block-head activee">
                                 <span>{{ translate.tags }}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="8" viewBox="0 0 20 8"><g><g><path fill="#5c5c5c" d="M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"/></g></g></svg>
@@ -193,7 +202,7 @@
                         </div>
                     </div>
 
-                    <div style="padding: 22px 18px 22px 40px;" @click="pageNumber = 0">
+                    <div style="padding: 22px 18px 22px 40px;" @fck="pageNumber = 0">
                         <span class="product-card__btn product-card__btn--default" @click="loadProducts(); scrollToTop();">
                             <span class="product-card__btn-inner">{{ translate.use_filter }}</span>
                         </span>
@@ -210,6 +219,43 @@
                             <!--<div class="catalog__tag">
                                 <span class="catalog__tag-text">Кол-во продуктов: {{ countProducts }}</span>
                             </div>-->
+
+                            <div class="catalog__tag" v-if="instantCategory && !instantRedirect">
+                                <a :href="getLang ? '/ru/catalog' : '/catalog'" style="text-decoration: none">
+                                    <div class="catalog__tag catalog__tag__img">
+                                        <span class="catalog__tag-text">{{ getLang ? instantCategory.title_ru.toUpperCase() : instantCategory.title_uk.toUpperCase() }}</span>
+                                        <img :src="'/assets/front/img/close-tag.png'" alt="">
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="catalog__tag" v-if="instantTag">
+                                <a :href="getLang ? '/ru/catalog' : '/catalog'" style="text-decoration: none">
+                                    <div class="catalog__tag catalog__tag__img">
+                                        <span class="catalog__tag-text">{{ getLang ? instantTag.title_ru.toUpperCase() : instantTag.title_uk.toUpperCase() }}</span>
+                                        <img :src="'/assets/front/img/close-tag.png'" alt="">
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="catalog__tag" v-if="instantManufacturer">
+                                <a :href="getLang ? '/ru/catalog' : '/catalog'" style="text-decoration: none">
+                                    <div class="catalog__tag catalog__tag__img">
+                                        <span class="catalog__tag-text">{{ getLang ? instantManufacturer.title_ru.toUpperCase() : instantManufacturer.title_uk.toUpperCase() }}</span>
+                                        <img :src="'/assets/front/img/close-tag.png'" alt="">
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="catalog__tag" v-if="instantRedirect">
+                                <a :href="getLang ? '/ru/catalog' : '/catalog'" style="text-decoration: none">
+                                    <div class="catalog__tag catalog__tag__img">
+                                        <span class="catalog__tag-text">{{ getLang ? instantRedirect.title_ru.toUpperCase() : instantRedirect.title_uk.toUpperCase() }}</span>
+                                        <img :src="'/assets/front/img/close-tag.png'" alt="">
+                                    </div>
+                                </a>
+                            </div>
+
                             <!-- Тут я прохожусь по свойству selected.sel_filters
                             и не пускаю дальшк если в элементе свойства пусто или пустой массив. -->
                             <div class="catalog__tag" v-for="(filter, index) in selected.sel_filters" v-if="!(filter == undefined || ((typeof filter !== 'undefined') ? (filter.length == 0) : false))">
@@ -218,7 +264,7 @@
                                 <div v-for="filterId in filter">
                                     <!-- А тут я сравниваю выбранный айди с айдишниками из абсолютно всех фильтров пришедших с бека (props "filters") -->
                                     <div v-for="valFil in filters" class="catalog__tag__img" @click="pageNumber = 0">
-                                        <div v-for="attr in valFil.attributes" v-if="attr.id == filterId" @click="deleteParam(filterId)" class="catalog__tag">
+                                        <div v-for="attr in valFil.attributes" v-if="(attr.id == filterId)" v-show="!isThisInstantAttr(attr.id)" @click="deleteParam(filterId)" class="catalog__tag">
                                             <span class="catalog__tag-text">{{ getLang ? attr.name_ru : attr.name_uk }}</span>
                                             <img :src="'/assets/front/img/close-tag.png'" alt="сlose">
                                         </div>
@@ -252,55 +298,6 @@
                         </div>
                     </div>
                     <div class="catalog__products">
-
-                        <!--<a :href="getLang ? '/produce/' + product.slug_ru : '/uk/produce/' + product.slug_uk" style="display: flex; align-items: center; flex-direction: column; text-decoration: none; margin: 15px 15px 0 0">
-
-                        <img :src="'/house/uploads/' + product.image" style="width: 94%;">
-
-                        <p class="product__text">{{ firstThreeLetterInProduct(product) }}</p>
-                        &lt;!&ndash;<p class="product__number">{{ translate.color }} <span v-for="attr in product.attributes">
-                                <span v-if="attr.group_attribute_id == 18">{{ getLang ? attr.name_ru : attr.name_uk}} </span>
-                            </span></p>&ndash;&gt;
-                        <p class="product__number">{{ restLetterInProduct(product) }}</p>
-
-                        <div v-if="(!product.end_stock && product.percent) || (product.end_stock && (product.end_stock > date))">
-                            <p class="product__prise lowprise">{{ product.undiscounted }} грн</p>
-                            <p class="lowprise__number">{{ translate.price }} {{ product.price }} грн</p>
-                        </div>
-                        <p class="product__prise" v-else>{{ translate.price }} {{ product.price }} грн</p>
-
-                        &lt;!&ndash;<div class="product__foto_btn">New</div>&ndash;&gt;
-
-                        <div class="product__hide">
-                            <div class="product__hide_inner">
-                                <div class="product__hide_colors">
-                                    <img class="product__hide_iteam" :src="'/house/uploads/' + img.name" alt="" v-for="img in product.galleries" v-if="!(img.name.substr(0, 7) == 'futlyar')">
-                                    &lt;!&ndash;<div class="product__icon_box">
-                                        <img class="product__hide_icon" src="/assets/front/img/next.svg" alt="">
-                                    </div>&ndash;&gt;
-                                </div>
-                            </div>
-
-                            <div v-if="(!product.end_stock && product.percent) || (product.end_stock && (product.end_stock > date))">
-                                <p class="product__hide_prise lowprise">{{ product.undiscounted }} грн</p>
-                                <div class="product__hide_prise lowprise__number">
-                                    {{ translate.price }} {{ product.price }} грн
-                                </div>
-                            </div>
-                            <div class="product__hide_prise" v-else>
-                                {{ translate.price }} {{ product.price }} грн
-                            </div>
-                            <div class="product__hide_box">
-                                <span>{{ translate.watch }}</span>
-
-                                <div class="product__cart_box">
-                                    <img src="/assets/front/img/cart.svg" alt="">
-                                    <a href="#">{{ translate.buy }}</a>
-                                </div>
-                            </div>
-                        </div>
-                        </a>
-                    -->
                         <site-product-elem-component v-for="product in products" :key="product.id" :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
 
                         <div class="catalog__more" @click="loadMoreProducts()" v-if="pageCount - selected.fakePageForMoreProducts > 1">
@@ -372,8 +369,8 @@
                 // Свойства товаров
                 tags: [],
                 sale: false,
-                minValPrice: 2,
-                maxValPrice: 10,
+                minValPrice: 0,
+                maxValPrice: 99999,
                 // Все товары
                 products: [],
                 countProducts: 0,
@@ -385,7 +382,9 @@
                 date: '',
                 selected: {
                     sel_filters: [],
-                    IdOfInstantCategory: 0,
+                    IdOfInstantCategory: null,
+                    IdOfInstantManufacturer: null,
+                    IdOfInstantTag: null,
                     childCategories: [],
                     prices: [0, 9999], // [start, end]
                     tags: [],
@@ -428,6 +427,21 @@
             childCategories: {
                 required: false,
                 default: [],
+            },
+            // Предопределенный производитель
+            instantManufacturer: {
+                required: false,
+                default: [],
+            },
+            // Предопределенный тег
+            instantTag: {
+                required: false,
+                default: [],
+            },
+            // Предопределенный редирект
+            instantRedirect: {
+                required: false,
+                default: [],
             }
         },
 
@@ -454,19 +468,52 @@
                 }
             }
 
+            // Автовыбранные атрибуты для категории
+            if (this.instantCategory) {
+                for (let instAttr of this.instantCategory.attributes) {
+                    for (let filter of this.filters) {
+                        for (let attr of filter.attributes) {
+                            if (attr.id == instAttr.id) {
+                                this.selected.sel_filters[filter.id].push(attr.id);
+                            }
+                        }
+                    }
+                }
+            }
 
+
+            if (url.searchParams.has('min')) {
+                this.$refs.start.innerText = url.searchParams.get('min');
+                this.selected.prices[0] = url.searchParams.get('min');
+            }
+            if (url.searchParams.has('max')) {
+                this.$refs.end.innerText = url.searchParams.get('max');
+                this.selected.prices[1] = url.searchParams.get('max');
+            }
+            if (url.searchParams.has('sale')) {
+                if (url.searchParams.get('sale') == '1') {
+                    this.selected.sale = true;
+                }
+            }
 
             if (this.instantCategory) {
                 this.selected.IdOfInstantCategory = this.instantCategory.id;
             }
             this.selected.childCategories = this.childCategories;
 
+            if (this.instantManufacturer) {
+                this.selected.IdOfInstantManufacturer = this.instantManufacturer.id;
+            }
+
+            if (this.instantTag) {
+                this.selected.IdOfInstantTag = this.instantTag.id;
+            }
+
             var cd = new Date();
             this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
 
 
             this.loadTags();
-            this.loadProducts();
         },
 
 
@@ -537,7 +584,12 @@
             },
 
             loadTags: function () {
-                axios.get('/api/getForCatalogGlasses/tags')
+                axios.get('/api/getForCatalogGlasses/tags', {
+                    params: {
+                        instantCategories: this.childCategories,
+                        idOfInstantManufacturer: this.instantManufacturer ? this.instantManufacturer.id : null
+                    },
+                })
                     .then((response) => {
                         this.tags = response.data;
 
@@ -554,6 +606,10 @@
                                 }
                             }
                         }
+
+                        // Загружаю продукты в инстансе тегов.
+                        this.loadProducts();
+
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -564,11 +620,14 @@
             loadValPrice: function () {
                 axios.get('/api/getValPrice', {
                     params: {
-                        instantCategories: this.childCategories
+                        instantCategories: this.childCategories,
+                        idOfInstantManufacturer: this.instantManufacturer ? this.instantManufacturer.id : null,
+                        idOfInstantTag: this.instantTag ? this.instantTag.id : null,
                     },
                 })
                     .then((response) => {
-                        console.log(response.data);
+                        let url = new URL(window.location.href);
+
                         this.maxValPrice = response.data.max;
                         this.minValPrice = response.data.min;
 
@@ -576,7 +635,10 @@
                             range: true,
                             min: this.minValPrice,
                             max: this.maxValPrice,
-                            values: [ this.minValPrice, this.maxValPrice],
+                            values: [
+                                url.searchParams.has('min') ? url.searchParams.get('min') : this.minValPrice,
+                                url.searchParams.has('max') ? url.searchParams.get('max') : this.maxValPrice
+                            ],
                             slide: function( event, ui ) {
                                 $(this).parent().find('.catalog-filters__slider-val--min').text(ui.values[0]);
                                 $(this).parent().find('.catalog-filters__slider-val--max').text(ui.values[1]);
@@ -591,8 +653,29 @@
             // Слежение за изменениями ползунка цены
             watchPrice: function () {
                 this.prices = setInterval(() => {
+                    let isItNewData = false;
+                    if (this.selected.prices[0] != Number(this.$refs.start.innerText) || this.selected.prices[1] != Number(this.$refs.end.innerText)) {
+                        isItNewData = true;
+                    }
                     this.selected.prices[0] = Number(this.$refs.start.innerText);
                     this.selected.prices[1] = Number(this.$refs.end.innerText);
+
+                    let url = new URL(window.location.href);
+
+                    if (this.minValPrice != this.selected.prices[0]) {
+                        url.searchParams.set('min', this.selected.prices[0]);
+                    } else if (this.minValPrice == this.selected.prices[0]) {
+                        url.searchParams.delete('min');
+                    }
+                    if (this.maxValPrice != this.selected.prices[1]) {
+                        url.searchParams.set('max', this.selected.prices[1]);
+                    } else if (this.maxValPrice == this.selected.prices[1]) {
+                        url.searchParams.delete('max');
+                    }
+
+                    if (isItNewData) {
+                        history.pushState(null, null, url);
+                    }
                 }, 1000)
             },
 
@@ -660,11 +743,28 @@
                 }
             },
 
+            isThisInstantAttr: function (attrId) {
+                if (this.instantCategory) {
+                    if (this.instantCategory.attributes) {
+                        for (let attr of this.instantCategory.attributes) {
+                            if (attr.id == attrId) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+
+                console.log(3);
+                return false;
+            },
+
+            /*
             paginatedData() {
                 const start = this.pageNumber * this.size,
                     end = start + this.size;
                 return this.products.slice(start, end);
-            },
+            },*/
 
             zeroPadding: function (num, digit) {
                 var zero = '';
@@ -701,7 +801,11 @@
                 }
                 attrs = attrs.join('_');
                 if (url.searchParams.has('f')) {
-                    url.searchParams.set('f', attrs);
+                    if (attrs == '') {
+                        url.searchParams.delete('f');
+                    } else {
+                        url.searchParams.set('f', attrs);
+                    }
                 } else {
                     url.searchParams.append('f', attrs);
                 }
@@ -715,7 +819,6 @@
                 let tags = [];
                 for (let sel_tag of this.selected.tags) {
                     for (let tag of this.tags) {
-                        console.log(sel_tag);
                         if (tag.id == sel_tag) {
                             tags.push(this.getLang ? tag.slug_ru : tag.slug_uk)
                         }
@@ -723,7 +826,11 @@
                 }
                 tags = tags.join('_');
                 if (url.searchParams.has('t')) {
-                    url.searchParams.set('t', tags);
+                    if (tags == '') {
+                        url.searchParams.delete('t');
+                    } else {
+                        url.searchParams.set('t', tags);
+                    }
                 } else {
                     url.searchParams.append('t', tags);
                 }
@@ -744,7 +851,11 @@
 
                 let url = new URL(window.location.href);
                 if (url.searchParams.has('page')) {
-                    url.searchParams.set('page', newPageNumber + 1);
+                    if (newPageNumber == 0) {
+                        url.searchParams.delete('page');
+                    } else {
+                        url.searchParams.set('page', newPageNumber + 1);
+                    }
                 } else {
                     url.searchParams.append('page', newPageNumber + 1);
                 }
@@ -765,7 +876,22 @@
                     this.generateUrlWithTags();
                 },
                 deep: true,
-            }
+            },
+            'selected.sale': {
+                handler: function (oldVal, newVal) {
+                    let url = new URL(window.location.href);
+
+
+                    if (this.selected.sale == true) {
+                        url.searchParams.set('sale', '1');
+                    } else if (this.selected.sale == false) {
+                        url.searchParams.delete('sale');
+                    }
+
+                    history.pushState(null, null, url);
+                },
+            },
+
         },
 
         computed: {
@@ -827,8 +953,6 @@
             this.loadValPrice();
             this.copyFiltersToSelected(this.filters);
             this.watchPrice();
-
-
         }
     }
 </script>

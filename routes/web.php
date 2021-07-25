@@ -20,12 +20,19 @@ if(env('APP_DEBUG'))
 
 /*страницы*/
 Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], function(){
-    Route::get('/', 'PageController@home')->name('home');
-    Route::get('/catalog/{categorySlug?}', 'PageController@catalog')->name('catalog');
+    Route::get('/', 'PageController@home')->name('home')->middleware('pagePublic');
 
-    Route::get('/info', 'PageController@info')->name('info');
+    Route::get('/catalog', 'PageController@catalog')->name('catalog')->middleware('pagePublic');
+    Route::get('/category/{categorySlug?}', 'PageController@catalog')->name('category')->middleware('pagePublic');
+    Route::get('/manufacturer/{manufacturerSlug?}', 'PageController@catalog')->name('manufacturer')->middleware('pagePublic');
+    Route::get('/tag/{tagSlug?}', 'PageController@catalog')->name('tag')->middleware('pagePublic');
+    Route::get('/city/{redirectSlug?}', 'PageController@catalog')->name('city')->middleware('pagePublic');
 
-    Route::get('/map', 'PageController@map')->name('map');
+    Route::get('/info', 'PageController@info')->name('info')->middleware('pagePublic');
+
+    Route::get('/map', 'PageController@map')->name('map')->middleware('pagePublic');
+
+    Route::get('/search', 'PageController@search')->name('search')->middleware('pagePublic');
 
     Route::get('/product/{slug?}', 'ProductController@show')
         ->name('product')->middleware('pagePublic');
@@ -34,9 +41,12 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         ->name('produce')->middleware('pagePublic');
 
 
-    Route::get('/basket', 'OrderController@getBasket')->name('basket');
+    Route::get('/basket', 'OrderController@getBasket')->name('basket')->middleware('pagePublic');
+
+    Route::get('/city/{redirect?}', 'PageController@redirect')->name('redirect')->middleware('pagePublic');
 });
 
+Route::get('/takeOrder', 'PageController@takeOrder')->middleware('pagePublic');
 
 //Переключение языков
 Route::get('setlocale/{lang}', function ($lang) {
@@ -70,7 +80,7 @@ Route::get('setlocale/{lang}', function ($lang) {
 })->name('setlocale');
 
 
-
+/*
 Route::get('/about', 'PageController@about')->name('about')->middleware('pagePublic');
 
 Route::resource('contact-form', 'ContactController');
@@ -95,7 +105,7 @@ Route::post('/comment-product/{id}', 'ProductController@postProductComment')
 Route::get('/blog/{id}', 'BlogController@index')
     ->name('blog-index');
 Route::get('/blog-category/{id}', 'BlogCategoryController@show')
-    ->name('blog-category');
+    ->name('blog-category');*/
 
 
 Route::group(['middleware' => ['auth', 'blocked']], function () {
@@ -175,6 +185,10 @@ Route::group(['middleware' => 'AdminPanel'], function () {
     Route::resource('admin-pages', 'PageController');
     Route::get('/admin/pages', 'PageController@indexAdmin')
         ->name('admin-pages-index');
+
+    Route::resource('admin-redirects', 'RedirectController');
+    Route::get('/admin/redirects', 'RedirectController@indexAdmin')
+        ->name('admin-redirects-index');
 
     Route::resource('admin-stocks', 'StockController');
     Route::get('/admin/stocks', 'StockController@indexAdmin')

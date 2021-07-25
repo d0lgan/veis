@@ -19,7 +19,7 @@
                            !!}
                                 
                                 <div class="my-3 d-flex align-items-center">
-                                    <h2 class="title-3 col-7 m-0 p-0">Новый производитеть</h2>
+                                    <h2 class="title-3 col-7 m-0 p-0">Новый производитель</h2>
 
                                     <div class="d-flex w-100 justify-content-end">
                                         <button class="btn mr-3 save" type="submit"><i class="far fa-save"></i></button>
@@ -51,7 +51,7 @@
                                         </ul>
 
                                         <div class="tab-content">
-                                            @include('admin.partials.title', ['item' => $manufacturer, 'title' => true, 'description' => true, 'link' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                            @include('admin.partials.title', ['item' => $manufacturer, 'title' => true, 'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                         </div>
                                         </div>
                                         <div class="col-md-4 form-group">

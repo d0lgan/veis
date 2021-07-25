@@ -1,6 +1,6 @@
 @extends('layouts.site.layout_with_short_header')
 
-@section('title', 'Карта сайта - Veis')
+@section('title', $locale == 'ru' ? $page->title_ru : $page->title_uk)
 
 @section('content')
     <site-map-component :translate="{{ json_encode($translate) }}" :locale="{{ json_encode($locale) }}" :main-cats="{{json_encode($mainCats)}}" :manufacturers="{{ json_encode($manufacturers) }}" :tags="{{ json_encode($tags) }}" :back="{{ json_encode(url()->previous()) }}"></site-map-component>

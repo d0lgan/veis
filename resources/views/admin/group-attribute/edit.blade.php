@@ -50,7 +50,10 @@
 
                                 <div class="form-group">
                                     <div id="app">
-                                        <select-component :default="{{ json_encode($group_attribute->categories) }}" :categories="{{ json_encode($categories) }}"></select-component>
+                                        <select-component :default="{{ json_encode($group_attribute->categories) }}"
+                                                          :categories="{{ json_encode($categories) }}"
+                                                          :title="{{ json_encode('Категории') }}"
+                                                          :title-or-name="{{ json_encode('title') }}"></select-component>
                                     </div>
                                 </div>
                                 <div class="form-group">
