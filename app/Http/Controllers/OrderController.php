@@ -71,10 +71,9 @@ class OrderController extends Controller {
 
 		// $orders = Order::where('confirm', 1)->orderBy( 'created_at', 'desc' )->get();
 
-		$orders = Order::all();
 		$contacts      = Contact::all();
 		$contacts_count   = $contacts->count();
-		$orders        = Order::all();
+		$orders        = Order::where('confirm', 1)->get();
 		$order_count   = $orders->count();
 
 		return view( 'admin.order.index', compact( 'orders', 'order_count', 'contacts_count' ));
@@ -489,8 +488,7 @@ class OrderController extends Controller {
 		$prod = json_decode($order->products, true);
 		$products = [];
 
-        dd($order);
-		for($i = 0;$i < count($prod);$i++){
+		for($i = 0; $i < count($prod);$i++){
 		    $product = Product::find($prod[$i]['product']);
 
             $options = Option::with('values')->get();

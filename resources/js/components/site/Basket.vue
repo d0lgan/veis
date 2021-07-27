@@ -1,6 +1,7 @@
 <template>
     <div class="root">
         <section class="cart">
+            <form @submit.prevent="confirmOrder()">
             <div class="holder cart__holder">
                 <div class="cart__block">
                     <div class="cart__head mobile-hidden">
@@ -40,11 +41,11 @@
                                     {{ translate.basket.data }}
                                 </div>
                                 <div class="inputbox">
-                                    <label for="">
+                                    <label for="name">
                                         {{ translate.basket.name }}
                                     </label>
-                                    <input required type="text" v-model="order.name" @focusout="updateOrder()"
-                                           class="input">
+                                    <input type="text" v-model="order.name" @focusout="updateOrder()"
+                                           class="input" name="name">
                                 </div>
                             </div>
                             <div class="cart__form-col">
@@ -55,7 +56,7 @@
                                     <label for="">
                                         {{ translate.basket.phone }}
                                     </label>
-                                    <input v-model="order.phone" @focusout="updateOrder()" required type="text"
+                                    <input v-model="order.phone" @focusout="updateOrder()" type="text"
                                            class="input phone">
                                 </div>
                             </div>
@@ -65,7 +66,6 @@
                                 <div class="cart__form-title">
                                     {{ translate.basket.userData }}
                                 </div>
-                                <form action="">
                                     <div class="inputbox">
                                         <label for="">
                                             {{ translate.basket.surname }}
@@ -74,23 +74,23 @@
                                                class="input">
                                     </div>
                                     <div class="inputbox">
-                                        <label for="">
+                                        <label for="name">
                                             {{ translate.basket.name }}
                                         </label>
-                                        <input required v-model="order.name" @focusout="updateOrder()" type="text"
+                                        <input  v-model="order.name" required name="name" @focusout="updateOrder()" type="text"
                                                class="input">
                                     </div>
                                     <div class="inputbox">
                                         <label for="">
                                             {{ translate.basket.fatherland }}
                                         </label>
-                                        <input type="text" class="input">
+                                        <input type="text" class="input" @focusout="updateOrder()" v-model="order.fatherland">
                                     </div>
                                     <div class="inputbox">
-                                        <label for="">
+                                        <label for="phone">
                                             {{ translate.basket.phone }}
                                         </label>
-                                        <input v-model="order.phone" @focusout="updateOrder(false, true)" required type="text"
+                                        <input v-model="order.phone" required name="phone" @focusout="updateOrder(false, true)" type="text"
                                                class="input <!--phone-->">
                                     </div>
                                     <div class="inputbox">
@@ -100,14 +100,12 @@
                                         <input v-model="order.email" @focusout="updateOrder(false, true)" type="text"
                                                class="input">
                                     </div>
-                                </form>
 
                             </div>
                             <div class="cart__form-col">
                                 <div class="cart__form-title">
                                     {{ translate.basket.wayToDel }}
                                 </div>
-                                <form action="">
                                     <div class="inputbox">
                                         <label for="">
                                             {{ translate.basket.option }}
@@ -133,9 +131,9 @@
                                                        @keydown="debouncedGetAnswerCity()"
                                                        @focusout="updateOrder(); closeCitiesWithDelay();"
                                                        @focusin="openCities = true; openPoints = false;"
-                                                       required type="text"
+                                                       type="text"
                                                        class="input-search"
-                                                       placeholder="Введите Ваш город"
+                                                       :placeholder="translate.basket.chooseCity"
                                                 >
                                             </div>
                                             <div class="select-wrapper" data-select="2" v-show="openCities"
@@ -164,8 +162,8 @@
                                                        @keydown="debouncedGetAnswerPoint()"
                                                        @focusout="updateOrder(); closePointsWithDelay();"
                                                        @focusin="openPoints = true; openCities = false;"
-                                                       required type="text" class="input-search"
-                                                       placeholder="Введите Ваш пункт выдачи"
+                                                       type="text" class="input-search"
+                                                       :placeholder="translate.basket.choosePoint"
                                                 >
                                             </div>
 
@@ -185,17 +183,15 @@
                                         <label for="">
                                             {{ translate.basket.comment }}
                                         </label>
-                                        <textarea class="textarea"></textarea>
+                                        <textarea class="textarea" @focusout="updateOrder();" v-model="order.comment"></textarea>
                                     </div>
 
-                                </form>
                             </div>
 
                             <div class="cart__form-col">
                                 <div class="cart__form-title">
                                     {{ translate.basket.wayToPay }}
                                 </div>
-                                <form action="">
                                     <div class="inputbox">
                                         <label for="">
                                             {{ translate.basket.choose }}
@@ -215,7 +211,7 @@
                                         nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                                     </p>
 
-                                </form>
+
                             </div>
 
 
@@ -247,7 +243,6 @@
                         </p>
                     </div>
                     <div class="cart__body">
-                        <form action="">
                             <div class="cart__products">
                                 <div v-for="(product, key_p) in products">
                                     <div class="cart__item" v-for="example in product.quantity">
@@ -287,12 +282,12 @@
                             </div>
 
                             <div class="cart__itoges mobile-hidden">
-                                <a href="#openModal" class="product-card__btn product-card__btn--buy">
+                                <button type="submit" class="product-card__btn product-card__btn--buy">
                                     <img src="/assets/front/img/cart__white.png" alt="">
-                                    <span class="product-card__btn-inner" @click="confirmOrder()">{{ translate.basket.pay }}</span>
-                                </a>
+                                    <span class="product-card__btn-inner">{{ translate.basket.pay }}</span>
+                                </button>
                                 <div class="cart__itoges-text">
-                                    <p class="cart__itoges-textwrap">
+                                    <p class="cart__itoges-textwrap" v-if="totalPrice >= settings.free_shipping">
                                         {{ translate.basket.delCost }} <span>{{ translate.basket.free }}</span>
                                     </p>
                                     <p class="cart__itoges-pricewrap">
@@ -310,21 +305,21 @@
                                 </svg>
                                 {{ translate.basket.back }}
                             </a>
-                        </form>
                     </div>
                 </div>
             </div>
+            </form>
         </section>
 
-        <div id="openModal" class="modal-pay">
+        <div id="confirm" class="modal-pay">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title">ДЯКУЄМО</h3>
+                        <h3 class="modal-title">{{ translate.basket.thanks }}</h3>
                         <a :href="getLang ? '/' : '/ru'" title="Close" class="close-pay">×</a>
                     </div>
                     <div class="modal-body">
-                        <p>Ваше замовлення оформлено</p>
+                        <p>{{ translate.basket.confirm }}</p>
                     </div>
                 </div>
             </div>
@@ -340,12 +335,13 @@
         name: "Basket",
         props: [
             'translate',
-            'locale'
+            'locale',
+            'settings',
         ],
         data() {
             return {
                 products: this.$store.state.cart,
-                totalPrice: 0,
+                totalPrice: this.$store.state.totalPrice,
                 /*delivery: this.settings.point_deliveries !== '0' ? 'carrier' : 'pickup',
                 region: '',
                 warehouse: '',*/
@@ -370,13 +366,14 @@
                     id: 0,
                     name: '',
                     surname: '',
+                    fatherland: '',
                     phone: '',
                     email: '',
                     delivery: 'noun',
                     region: 'noun',
                     city: 'noun',
                     warehouse: 'noun',
-                    status: 'Ожидает',
+                    status: 'Новый',
                     comment: '',
                     confirm: false,
                     total: ''
@@ -395,8 +392,13 @@
                     this.warehouses = res.data;
                 });
             }*/
-            keywordCity() {
+            keywordCity(newVal) {
                 this.keywordPoint = "";
+                this.order.city = newVal;
+            },
+
+            keywordPoint(newVal) {
+                this.order.warehouse = newVal;
             },
 
             city() {
@@ -406,9 +408,20 @@
 
         methods: {
             createOrder: function () {
+                this.order.total = this.totalPrice;
+                this.order.comment = this.comment;
 
-                axios.post('/api/order/createOrder', {products: this.$store.state.cart}).then((res) => {
+                axios.post('/api/order/createOrder', {
+                    products: this.$store.state.cart,
+                }).then((res) => {
                     this.order.id = res.data;
+                    axios.get('/api/order/updateOrder', {
+                        params: {
+                            order: this.order,
+                        }
+                    }).then((res) => {
+                        this.id = res.data.id;
+                    });
                 });
 
             },
@@ -417,34 +430,28 @@
                 this.order.city = this.city;
                 this.order.warehouse = this.warehouse;
                 this.order.region = this.region;*/
-                if (usefulData == true && this.orderCreated == false) {
-                    this.createOrder();
-                    this.orderCreated = true;
-                }
+                if (this.products.length) {
+                    if (usefulData == true && this.orderCreated == false) {
+                        this.createOrder();
+                        this.orderCreated = true;
+                    } else if (this.orderCreated == true) {
+                        this.order.total = this.totalPrice;
 
-
-
-                if (this.orderCreated == true) {
-                    this.order.total = this.totalPrice;
-                    this.order.comment = this.comment;
-
-                    if (this.order.name.length === 0 || this.order.phone.length === 0) {
-                        this.error = false;
-                        let self = this;
-                        setTimeout(function () {
-                            self.error = false;
-                        }, 2000);
+                        if (this.error === false) {
+                            axios.get('/api/order/updateOrder', {
+                                params: {
+                                    order: this.order,
+                                }
+                            }).then((res) => {
+                                this.id = res.data.id;
+                            });
+                        }
                     }
+                    if (confirm) {
+                        setTimeout(function () {
+                            window.location.href = '/basket#confirm'
+                        }, 1000);
 
-                    if (this.error === false) {
-                        axios.get('/api/order/updateOrder', {
-                            params: {
-                                order: this.order,
-                                confirm: confirm,
-                            }
-                        }).then((res) => {
-                            this.id = res.data.id;
-                        });
                     }
                 }
             },
@@ -456,31 +463,11 @@
                 }
             },
             confirmOrder: function () {
+                this.order.confirm = 1;
 
-                if (this.order.name && this.order.surname && this.order.phone) {
-                    if (this.order.delivery === 'carrier') {
-                        if (this.order.city && this.order.warehouse) {
-                            this.confirm = true;
-                        } else {
-                            this.error = true;
-                        }
-                    } else {
-                        this.confirm = true;
-                    }
-                } else {
-                    this.error = true;
-                }
+                this.updateOrder(true);
 
-                if (this.confirm && !this.error) {
-                    this.order.confirm = this.confirm;
-                    this.updateOrder(true);
-                    this.$store.commit('clearCart');
-
-                    setTimeout(function () {
-                        window.location.href = '/'
-                    }, 2000);
-
-                }
+                this.$store.commit('clearCart');
 
 
             },
@@ -595,10 +582,34 @@
                 }
 
             },
+
+            /*confirmOrder: function () {
+
+                console.log(1);
+                if(this.order.name && this.order.surname && this.order.phone){
+                    if(this.order.delivery === 'carrier'){
+                        if(this.order.city && this.order.warehouse){
+                            this.confirm = true;
+                        }else{
+                            this.error = true;
+                        }
+                    }else{
+                        this.confirm = true;
+                    }
+                }else{
+                    this.error = true;
+                }
+
+                if(this.confirm && !this.error){
+                    console.log(2);
+                }
+
+                this.order.confirm = this.confirm;
+                this.$store.commit('clearCart');
+            },*/
         },
         mounted() {
-            this.updatePrice();
-            console.log(this.$store.state.totalPrice);
+
         },
 
         created() {

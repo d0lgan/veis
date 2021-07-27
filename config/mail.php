@@ -16,8 +16,8 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'sendmail'),
-    'sendmail' => '/ usr / sbin / sendmail -t',
+    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'sendmail' => '/usr/sbin/sendmail -bs',
 
     /*
     |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'veisproject3@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'andievdolgan08@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Veis'),
     ],
 

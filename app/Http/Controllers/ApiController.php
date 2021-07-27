@@ -1087,14 +1087,12 @@ class ApiController extends Controller
     public function updateOrder(Request $request){
 
         $request['order'] = json_decode($request['order'], true);
-
+//dd($request['order']);
         $now = date('Y-m-d');
 
         $order = Order::find($request['order']['id']);
 
         if($order){
-
-
             $change_status = $request['order']['status'] !== $order->status ? true : false;
 
             if($request->products){
@@ -1121,6 +1119,7 @@ class ApiController extends Controller
 
             $order->name = $request['order']['name'];
             $order->surname = $request['order']['surname'];
+            $order->fatherland = $request['order']['fatherland'];
             $order->phone = $request['order']['phone'];
             $order->email = $request['order']['email'];
             $order->type = 'Заказ';
@@ -1171,8 +1170,32 @@ class ApiController extends Controller
                 }
                 Mail::to($emails)->send(new Mailing('', 'admin_create_order', 'test'));
             }*/
+
+            /*if($request['order']['confirm'] == 1) {
+                if ($request['order']['email']) {
+                    //отправка письма Клиенту
+                    $mail_order = $request['order']['email'];;
+                    Mail::send('emails.user.create_order', ['order' => $order],
+                        function ($message) use ($mail_order) {
+                            $setting = Setting::find(1);
+                            $message->from($setting->email_site_ru, 'Магазин SHOP!');
+                            $message->to($mail_order)
+                                ->subject('Спасибо за покупку в нашем магазине!');
+                        });
+                }
+                //отправка письма Админу
+                Mail::send('emails.admin.create_order', ['order' => $order],
+                    function ($message) {
+                        $setting = Setting::find(1);
+                        $message->from($setting->email_site_ru, 'Магазин SHOP!');
+                        $message->to($setting->email_site_ru)
+                            ->subject('Новый заказ с сайта!');
+                    });
+            }*/
+
             return response()->json($order);
-        }else{
+        }
+        /*else{
 
             $order = new Order;
 
@@ -1190,11 +1213,7 @@ class ApiController extends Controller
                         $prod[$i]['currentPrice'] = $request->products[$i]['price'];
                     }
 
-                    /*if($request->products[$i]['end_stock'] > $now){
-                        $prod[$i]['currentPrice'] = $request->products[$i]['price'];
-                    }else{
-                        $prod[$i]['currentPrice'] = $request->products[$i]['undiscounted'];
-                    }*/
+
                     foreach ($request->products[$i]['options'] as $option){
                         if($option['select'] != null){
                             $prod[$i]['selected_options'][$option['option']['id']] = $option['select'];
@@ -1227,10 +1246,11 @@ class ApiController extends Controller
             $order->region = $request['order']['region'];
             $order->save();
 
-
             return response()->json($order);
 
-        }
+        }*/
+        response()->json($order);
+
 
     }
 

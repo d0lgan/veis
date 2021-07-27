@@ -72,9 +72,11 @@ let store = {
                     Vue.set(item, 'quantity', 1);
                     Vue.set(item, 'totalPrice', price);
 
-                    this.commit('saveTotalPrice', price + state.totalPrice);
-                    state.cart.push(item);
+                    console.log(price, state.totalPrice);
 
+                    state.totalPrice += price;
+                    this.commit('saveTotalPrice', state.totalPrice);
+                    state.cart.push(item);
                 }
 
 
@@ -89,18 +91,33 @@ let store = {
         removeFromCart(state, id){
 
             let index = state.cart.findIndex(i => i.id === id);
-console.log(state.cart);
-            if(index !== -1){
-                state.cartCount -= state.cart[index].quantity;
 
-                state.cart.splice(index, 1);
+            if(index !== -1){
+                state.cartCount -= 1;
+                state.totalPrice -= state.cart[index].price;
+
+                if (state.cart[index].quantity > 1) {
+                    state.cart[index].quantity--;
+                    state.cart[index].totalPrice -= state.cart[index].price
+                } else {
+                    state.cart.splice(index, 1);
+                }
+
+                // Обнуление если в карте осталось 0
+                if (state.cart.length == 0) {
+                    state.cartCount = 0;
+                    state.totalPrice = 0;
+                }
+
                 this.commit('saveCart');
             }
+
 
         },
         saveCart(state) {
             window.localStorage.setItem('cart', JSON.stringify(state.cart));
             window.localStorage.setItem('cartCount', state.cartCount);
+            window.localStorage.setItem('totalPrice', state.totalPrice);
         },
         updateCart(state, products){
 

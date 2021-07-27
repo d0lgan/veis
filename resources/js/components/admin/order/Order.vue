@@ -58,7 +58,7 @@
 
                             <div class="form-group">
                                 <label class="form-label">Отчество:</label>
-                                <input class="form-control" type="text" value="" name="">
+                                <input class="form-control" type="text" v-model="order.fatherland" value="" name="">
                             </div>
 
                             <div class="form-group">
@@ -84,7 +84,7 @@
                         <div>
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                    <input type="radio" name="delivery" v-model="delivery" value="carrier" id="carrier">
+                                    <input type="radio" name="delivery" v-model="delivery" checked value="carrier" id="carrier">
                                     <label for="carrier">Перевозчик</label>
                                 </div>
                                 <div class="form-group col-md-4">
@@ -103,23 +103,14 @@
                                         <option value="">Новая почта</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <label for="region">Область</label>
-                                    <select v-model="region" name="trans" id="region" class="form-control">
-                                        <option v-for="reg in regions" :value="reg.ref">{{ reg.ref }}</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label class="form-label">Город</label>
+                                    <input class="form-control" type="text" v-model="order.city" name="city">
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <label for="city">Город</label>
-                                    <select v-model="city" name="trans" id="city" class="form-control">
-                                        <option v-for="c in cities" :value="c.ref">{{ c.ref }}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="sklad">Склад</label>
-                                    <select v-model="warehouse" name="trans" id="sklad" class="form-control">
-                                        <option v-for="war in warehouses" :value="war.ref">{{ war.ref }}</option>
-                                    </select>
+
+                                <div class="form-group">
+                                    <label class="form-label">Отделение</label>
+                                    <input class="form-control" type="text" v-model="order.warehouse" name="warehouse">
                                 </div>
                             </div>
                             <div v-if="delivery === 'pickup'" class="row">
@@ -224,7 +215,8 @@
                             	<label class="form-label" for="stat">Статус</label>
 
                                 <select v-model="order.status" name="stat" id="stat" class="form-control">
-                                    <option v-for="status in statuses" :value="status.title">{{ status.title }}</option>
+                                    <option value="Ожидает" selected>Ожидает</option><!--
+                                    <option v-for="status in statuses" :value="status.title">{{ status.title }}</option>-->
                                 </select>
                             </div>
                         </div>
@@ -255,7 +247,7 @@
         ],
         data(){
             return{
-                order: this.ord ? this.ord :  {id: 0, name: '', phone: '', email: '', delivery: '', region: '', city: '', warehouse: '', comment: '', confirm: false, total: '', status: 'Ожидает'},
+                order: this.ord ? this.ord :  {id: 0, name: '', fatherland: '', surname: '', phone: '', email: '', delivery: '', region: '', city: '', warehouse: '', comment: '', confirm: false, total: '', status: 'Ожидает'},
                 products : this.prod ? this.prod : [],
                 totalPrice : 0,
                 delivery: this.ord ? this.ord.delivery : 'carrier',
@@ -457,11 +449,13 @@
             updateOrder: function (confirm = false) {
                 this.order.total = this.totalPrice;
                 this.order.delivery = this.delivery;
-                this.order.city = this.city;
-                this.order.warehouse = this.order.warehouse;
-                this.order.comment = this.comment;
                 this.order.region = this.region;
-                axios.post('/api/order/updateOrder', {order: this.order, products: this.products, conf: confirm}).then((res) => {
+                axios.get('/api/order/updateOrder', {
+                    params: {
+                        order: this.order,
+                    }
+                }).then((res) => {
+
                 });
             },
             searchProduct: function (e) {

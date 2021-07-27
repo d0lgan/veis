@@ -8,10 +8,10 @@
 </head>
 <body>
 
-<h1>Заказ №{{$order->id}}</h1>
+<h1>Уважаемый (-ая) {{$order->name}}</h1>
 <hr>
-<h3>Уважаемый {{$order->name}}!</h3>
-<p>Ваш заказ приянт в обработку!</p>
+
+<p>Ваш заказ приянт в обработку! ожидайте звонка</p>
 
 <hr>
 <a href="{{route('profile')}}" class="btn btn-info btn-fill btn-wd">Перейти к заказам</a>

@@ -1,9 +1,9 @@
-@extends('layouts.site.layout_with_short_header')
+@extends('layouts.site.layout_without_anything')
 
 @section('title', $locale == 'ru' ? $page->title_ru : $page->title_uk)
 
 @section('content')
-<site-basket-component :locale="{{ json_encode($locale) }}" :translate="{{ json_encode($translate) }}"></site-basket-component>
+<site-basket-component :locale="{{ json_encode($locale) }}" :translate="{{ json_encode($translate) }}" :settings="{{ json_encode($settings) }}"></site-basket-component>
 
 <section class="work">
     <h2 class="work__title">{{ __('site.howWeDoing.how') }}</h2>
