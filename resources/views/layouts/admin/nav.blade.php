@@ -1,76 +1,73 @@
-
-        <aside class="menu-sidebar d-none d-lg-block" style="background: transparent; height: 65px; z-index: 999;">
-            <div style="width: 100%; height: 100%" class="logo">
-                <a href="#">
-                    <img src="{{ asset('layouts/logo.png') }}" />
-                </a>
-            </div>
-            
-           
-
-        </aside>
-        <!-- END MENU SIDEBAR-->
+<aside class="menu-sidebar d-none d-lg-block" style="background: transparent; height: 65px; z-index: 999;">
+    <div style="width: 100%; height: 100%" class="logo">
+        <a href="#">
+            <img src="{{ asset('layouts/logo.png') }}"/>
+        </a>
+    </div>
+</aside>
+<!-- END MENU SIDEBAR-->
 
 
-        <nav class="navigation-bar d-flex flex-column">
-            <div class="navigation-bar__submenu">
-                <a class="nav-text d-flex justify-content-center align-items-center" title="Панель" href="{{route('admin-home-index')}}"><i class="fas fa-table"></i></a>
-            </div>
+<nav class="navigation-bar d-flex flex-column">
+    <div class="navigation-bar__submenu">
+        <a class="nav-text d-flex justify-content-center align-items-center" title="Панель"
+           href="{{route('admin-home-index')}}"><i class="fas fa-table"></i></a>
+    </div>
+    <div class="navigation-bar__submenu">
+        <a class="nav-text d-flex justify-content-center align-items-center" title="Каталог" href=""><i
+                    class="fas fa-list"></i></a>
+
+        <ul class="list-unstyled">
+            <li><a href="{{route('admin-products-index')}}">Товары</a></li>
+            <li><a href="{{route('admin-categories-index')}}">Категории</a></li>
+            <li><a href="{{route('admin-tags-index')}}">Теги</a></li>
+            <li><a href="{{route('admin-group-attribute-index')}}">Группа Атрибутов</a></li>
+            <li><a href="{{route('admin-attribute-index')}}">Атрибуты</a></li>
+            <li><a href="{{route('admin-options-index')}}">Опции</a></li>
+            <li><a href="{{route('admin-manufacturers-index')}}">Производители</a></li>
+            <li><a href="{{route('admin-suppliers-index')}}">Поставщики</a></li>
+        </ul>
+    </div>
 
 
-            <div class="navigation-bar__submenu">
-                <a class="nav-text d-flex justify-content-center align-items-center" title="Каталог" href=""><i class="fas fa-list"></i></a>
+    <div class="navigation-bar__submenu">
+        <a class="nav-text d-flex justify-content-center align-items-center" title="Продажи" href=""><i
+                    class="fas fa-dollar-sign"></i></a>
+        <ul class="list-unstyled">
+            <li><a href="{{route('admin-orders-index')}}">Заказы</a></li>
+            <li><a href="{{route('admin-contacts-index')}}">Запросы с сайта</a></li>
+            <li><a href="{{route('admin-status-index')}}">Статусы заказа</a></li>
+        </ul>
+    </div>
 
-                <ul class="list-unstyled">
-                    <li><a href="{{route('admin-products-index')}}">Товары</a></li>
-                    <li><a href="{{route('admin-categories-index')}}">Категории</a></li>
-                    <li><a href="{{route('admin-tags-index')}}">Теги</a></li>
-                    <li><a href="{{route('admin-group-attribute-index')}}">Группа Атрибутов</a></li>
-                    <li><a href="{{route('admin-attribute-index')}}">Атрибуты</a></li>
-                    <li><a href="{{route('admin-options-index')}}">Опции</a></li>
-                    <li><a href="{{route('admin-manufacturers-index')}}">Производители</a></li>
-                    <li><a href="{{route('admin-suppliers-index')}}">Поставщики</a></li>
-                </ul>
-            </div>
-            
+    <div class="navigation-bar__submenu">
+        <a class="nav-text d-flex justify-content-center align-items-center" title="Общее" href=""><i
+                    class="fas fa-cogs"></i></a>
 
-            <div class="navigation-bar__submenu">
-                <a class="nav-text d-flex justify-content-center align-items-center" title="Продажи" href=""><i class="fas fa-dollar-sign"></i></a>
+        <ul class="list-unstyled">
+            <li><a class="nav-text" href="{{route('admin-pages-index')}}">Страницы</a></li>
+            <li><a class="nav-text" href="{{route('admin-redirects-index')}}">Редиректы</a></li>
+            <li><a class="nav-text" href="{{route('admin-settings-edit')}}">Настройки</a></li>
+            <li><a class="nav-text" href="{{route('admin-languages-index')}}">Языки</a></li>
+            <li><a class="nav-text" href="{{route('admin-currency-index')}}">Валюта</a></li>
+        </ul>
+    </div>
 
-                <ul class="list-unstyled">
-                    <li><a href="{{route('admin-orders-index')}}" >Заказы</a></li>
-                    <li><a href="{{route('admin-contacts-index')}}">Запросы с сайта</a></li>
-                    <li><a href="{{route('admin-status-index')}}">Статусы заказа</a></li>
-                    <li><a href="{{route('admin-way-to-pays-index')}}">Способы оплаты</a></li>
-                </ul>
-            </div>
 
-            <div class="navigation-bar__submenu">
-                <a class="nav-text d-flex justify-content-center align-items-center" title="Общее" href=""><i class="fas fa-cogs"></i></a>
+    <div class="navigation-bar__submenu">
+        <a class="nav-text d-flex justify-content-center align-items-center" title="Маркетинг" href=""><i
+                    class="fas fa-bullhorn"></i></a>
 
-                <ul class="list-unstyled">
-                    <li><a class="nav-text" href="{{route('admin-pages-index')}}">Страницы</a></li>
-                    <li><a class="nav-text" href="{{route('admin-redirects-index')}}">Редиректы</a></li>
-                    <li><a class="nav-text" href="{{route('admin-settings-edit')}}">Настройки</a></li>
-                    <li><a class="nav-text" href="{{route('admin-languages-index')}}">Языки</a></li>
-                    <li><a class="nav-text" href="{{route('admin-currency-index')}}">Валюта</a></li>
-                </ul>
-            </div>
-            
+        <ul class="list-unstyled">
+            <li><a href="{{route('admin-slider-index')}}">Слайдер</a></li>
+            <li><a href="{{route('admin-blog-index')}}">Блог</a></li>
+            <li><a href="{{route('admin-stocks-index')}}">Акции</a></li>
+            <li><a href="{{route('admin-orders-abandoned')}}">Корзины</a></li>
+            <li><a href="{{route('admin-brands-index')}}">Бренды</a></li>
+            <li><a href="{{route('admin-mailing-index')}}">Рассылка</a></li>
+        </ul>
+    </div>
 
-            <div class="navigation-bar__submenu">
-                <a class="nav-text d-flex justify-content-center align-items-center" title="Маркетинг" href=""><i class="fas fa-bullhorn"></i></a>
-
-                <ul class="list-unstyled">
-                    <li><a href="{{route('admin-slider-index')}}">Слайдер</a></li>
-                    <li><a href="{{route('admin-blog-index')}}">Блог</a></li>
-                    <li><a href="{{route('admin-stocks-index')}}">Акции</a></li>
-                    <li><a href="{{route('admin-orders-abandoned')}}">Корзины</a></li>
-                    <li><a href="{{route('admin-brands-index')}}">Бренды</a></li>
-                    <li><a href="{{route('admin-mailing-index')}}">Рассылка</a></li>
-                </ul>
-            </div>
-            
     <script type="text/javascript">
         function Copy(t) {
             // $(t).attr('href')
@@ -92,7 +89,8 @@
             <li>Русский:
                 <button id="CopyUserButton" onclick="Copy(this)">
                     <i id="copyid" class="fas fa-copy"></i>
-                    <textarea style="display: none;" id="textid">{{route('products-export')}}?lang=ru&display=xml</textarea>
+                    <textarea style="display: none;"
+                              id="textid">{{route('products-export')}}?lang=ru&display=xml</textarea>
                 </button>
                 <button><a href="{{route('admin-products-export')}}?lang=ru"><i class="fas fa-download"></i></a>
                 </button>
@@ -100,41 +98,27 @@
             <li>Украинский:
                 <button id="CopyUserButton" onclick="Copy(this)">
                     <i id="copyid" class="fas fa-copy"></i>
-                    <textarea style="display: none;" id="textid">{{route('products-export')}}?lang=uk&display=xml</textarea>
+                    <textarea style="display: none;"
+                              id="textid">{{route('products-export')}}?lang=uk&display=xml</textarea>
                 </button>
                 <button><a href="{{route('admin-products-export')}}?lang=uk"><i class="fas fa-download"></i></a>
                 </button>
             </li>
         </ul>
     </div>
-    
-            <hr>
 
+    <hr>
 
-            <div class="navigation-bar__submenu">
-                <a class="nav-text d-flex justify-content-center align-items-center" title="Пользователи" href="{{route('admin-users-index')}}"><i class="fas fa-users"></i></a>
-            </div>
+    <div class="navigation-bar__submenu">
+        <a class="nav-text d-flex justify-content-center align-items-center" title="Пользователи"
+           href="{{route('admin-users-index')}}"><i class="fas fa-users"></i></a>
+    </div>
 
-            <div class="navigation-bar__submenu">
-                <a class="nav-text d-flex justify-content-center align-items-center" title="Перейти на сайт" href="/"><i class="fas fa-desktop"></i></a>
-            </div>
-        </nav>
-
-
-
-
-
-         
-
-
-
-
-
-
-
-
-
-
+    <div class="navigation-bar__submenu">
+        <a class="nav-text d-flex justify-content-center align-items-center" title="Перейти на сайт" href="/"><i
+                    class="fas fa-desktop"></i></a>
+    </div>
+</nav>
 
 
 <header style="height: 65px;" class="header-desktop">
@@ -142,13 +126,14 @@
         <div class="container-fluid">
             <div class="header-wrap">
                 <form class="form-header" action="" method="POST">
-                    <input class="au-input au-input--xl" type="text" name="search" placeholder="Найти данные и отчеты...">
+                    <input class="au-input au-input--xl" type="text" name="search"
+                           placeholder="Найти данные и отчеты...">
                     <button class="au-btn--submit" type="submit">
                         <i class="zmdi zmdi-search"></i>
                     </button>
                 </form>
                 <div class="header-button">
-                	<div class="noti-wrap">
+                    <div class="noti-wrap">
                         <div class="noti__item js-item-menu">
                             <i class="zmdi zmdi-comment-more"></i>
                             <span class="quantity">1</span>
@@ -182,7 +167,44 @@
                             </div>
                         </div>
                         <div class="noti__item js-item-menu">
-                            <fa-shopping-cart-component></fa-shopping-cart-component>
+                            <i style="color: #a9b3c9; font-size: 25px; margin-bottom: 3px;"
+                               class="fas fa-shopping-cart"></i>
+                            <span class="quantity">{{ \App\Order::where('new', 2)->where('confirm', 1)->count() }}</span>
+                            <div class="email-dropdown js-dropdown">
+                                <div class="email__title">
+                                    <p>You have 3 New Emails</p>
+                                </div>
+                                <div class="email__item">
+                                    <div class="image img-cir img-40">
+                                        <img src="images/icon/avatar-06.jpg" alt="Cynthia Harvey">
+                                    </div>
+                                    <div class="content">
+                                        <p>Meeting about new dashboard...</p>
+                                        <span>Cynthia Harvey, 3 min ago</span>
+                                    </div>
+                                </div>
+                                <div class="email__item">
+                                    <div class="image img-cir img-40">
+                                        <img src="images/icon/avatar-05.jpg" alt="Cynthia Harvey">
+                                    </div>
+                                    <div class="content">
+                                        <p>Meeting about new dashboard...</p>
+                                        <span>Cynthia Harvey, Yesterday</span>
+                                    </div>
+                                </div>
+                                <div class="email__item">
+                                    <div class="image img-cir img-40">
+                                        <img src="images/icon/avatar-04.jpg" alt="Cynthia Harvey">
+                                    </div>
+                                    <div class="content">
+                                        <p>Meeting about new dashboard...</p>
+                                        <span>Cynthia Harvey, April 12,,2018</span>
+                                    </div>
+                                </div>
+                                <div class="email__footer">
+                                    <a href="#">See all emails</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="noti__item js-item-menu">
                             <i class="zmdi zmdi-notifications"></i>
@@ -255,14 +277,14 @@
                                 </div>
                                 <div class="account-dropdown__footer">
                                     <a href="{{ route('logout') }}"
-                               			onclick="event.preventDefault();
+                                       onclick="event.preventDefault();
                                      	document.getElementById('logout-form').submit();">
                                         <i class="zmdi zmdi-power"></i>Выход</a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
-		                                  style="display: none;">
-		                                {{ csrf_field() }}
-		                            </form>
+                                          style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -272,19 +294,6 @@
         </div>
     </div>
 </header>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- <header class="header-desktop">
     <div class="section__content section__content--p30">
@@ -300,16 +309,16 @@
                                onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
                                 @lang('navbar.logout')
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                   style="display: none;">
                                 {{ csrf_field() }}
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </header>
- -->
+-->

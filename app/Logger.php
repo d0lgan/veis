@@ -2,10 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Logger extends Model
+/**
+ * Class Logger
+ * @package App
+ */
+class Logger extends \Illuminate\Database\Eloquent\Model
 {
-	protected $table = 'loggers';
-	protected $fillable = ['user','data','updated_at','created_at'];
+    protected $table = 'loggers';
+    protected $fillable = ['user','data','updated_at','created_at'];
 }

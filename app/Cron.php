@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Cron extends Model
+/**
+ * Class Cron
+ * @package App
+ */
+class Cron extends \Illuminate\Database\Eloquent\Model
 {
     //
 }

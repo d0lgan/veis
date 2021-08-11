@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Slider extends Model
+/**
+ * Class Slider
+ * @package App
+ */
+class Slider extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'title',

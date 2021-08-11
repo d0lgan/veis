@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Currency extends Model
+/**
+ * Class Currency
+ * @package App
+ */
+class Currency extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = ['title', 'code', 'rate', 'default', 'public'];
 }

@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Relation extends Model
+/**
+ * Class Relation
+ * @package App
+ */
+class Relation extends \Illuminate\Database\Eloquent\Model
 {
     //
 }

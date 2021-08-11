@@ -2,13 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Setting extends Model
+/**
+ * Class Setting
+ * @package App
+ */
+class Setting extends \Illuminate\Database\Eloquent\Model
 {
-	protected $table = 'settings';
-	protected $fillable = [
-	    'site_on_of',
+    protected $table = 'settings';
+    protected $fillable = [
+        'site_on_of',
         'contact_form',
         'call_form',
         'slide_home',
@@ -30,5 +32,5 @@ class Setting extends Model
         'country',
     ];
 
-	public $timestamps = false;
+    public $timestamps = false;
 }

@@ -2,14 +2,16 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Option extends Model
+/**
+ * Class Option
+ * @package App
+ */
+class Option extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = ['title', 'type', 'sort', 'need'];
 
-
-    public function values(){
+    public function values()
+    {
 
         return $this->hasMany(ValueOption::class);
 

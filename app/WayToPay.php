@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class WayToPay extends Model
+/**
+ * Class WayToPay
+ * @package App
+ */
+class WayToPay extends \Illuminate\Database\Eloquent\Model
 {
     //
 }

@@ -3,12 +3,15 @@
 namespace App;
 
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Model;
 
-class Redirect extends Model
+/**
+ * Class Redirect
+ * @package App
+ */
+class Redirect extends \Illuminate\Database\Eloquent\Model
 {
-
     use Sluggable;
+
     /**
      * Return the sluggable configuration array for this model.
      *

@@ -2,12 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Brand extends Model
+/**
+ * Class Brand
+ * @package App
+ */
+class Brand extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'title',
         'link',
-        ];
+    ];
 }

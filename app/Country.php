@@ -2,15 +2,17 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Country extends Model
+/**
+ * Class Country
+ * @package App
+ */
+class Country extends \Illuminate\Database\Eloquent\Model
 {
-	protected $table = 'countries';
-	protected $fillable = ['title'];
+    protected $table = 'countries';
+    protected $fillable = ['title'];
 
-	public function cities()
-	{
-		return $this->hasMany('App\City');
-	}
+    public function cities()
+    {
+        return $this->hasMany('App\City');
+    }
 }

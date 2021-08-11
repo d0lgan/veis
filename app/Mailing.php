@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Mailing extends Model
+/**
+ * Class Mailing
+ * @package App
+ */
+class Mailing extends \Illuminate\Database\Eloquent\Model
 {
     //
 }

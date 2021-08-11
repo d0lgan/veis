@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Status extends Model
+/**
+ * Class Status
+ * @package App
+ */
+class Status extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'title',

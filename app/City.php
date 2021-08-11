@@ -2,13 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class City extends Model
+/**
+ * Class City
+ * @package App
+ */
+class City extends \Illuminate\Database\Eloquent\Model
 {
-	protected $table = 'cities';
-	public $timestamps = false;
-	protected $fillable = [
+    protected $table = 'cities';
+    public $timestamps = false;
+    protected $fillable = [
         'ref',
         'description_uk',
         'description_ru',
@@ -26,14 +28,13 @@ class City extends Model
         'settlement_type_description_ru',
     ];
 
-	public function country()
-	{
-		return $this->belongsTo('App\Country');
-	}
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
 
-	public function point_deliveries()
-	{
-		return $this->hasMany('App\PointDelivery');
-	}
-
+    public function point_deliveries()
+    {
+        return $this->hasMany('App\PointDelivery');
+    }
 }

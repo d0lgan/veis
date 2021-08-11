@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Region extends Model
+/**
+ * Class Region
+ * @package App
+ */
+class Region extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'ref',

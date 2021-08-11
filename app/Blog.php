@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Blog extends Model
+/**
+ * Class Blog
+ * @package App
+ */
+class Blog extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'title',
@@ -16,6 +18,6 @@ class Blog extends Model
 
     public function blog_categories()
     {
-        return $this->belongsTo('App\BlogCategory','category_id');
+        return $this->belongsTo('App\BlogCategory', 'category_id');
     }
 }

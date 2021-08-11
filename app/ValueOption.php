@@ -2,29 +2,26 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ValueOption extends Model
+/**
+ * Class ValueOption
+ * @package App
+ */
+class ValueOption extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'value',
         'type',
         'sort',
         'option_id',
+    ];
 
-        ];
-
-
-    public function option(){
-
+    public function option()
+    {
         return $this->belongsToMany(Option::class);
-
     }
 
-    public function select_options(){
-
+    public function select_options()
+    {
         return $this->belongsTo(Option::class, 'option_id');
-
     }
-
 }

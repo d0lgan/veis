@@ -18,7 +18,7 @@ if (env('APP_DEBUG')) {
 Route::get('/sendemail', 'PageController@mail');
 
 /*страницы*/
-Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], function(){
+Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], function () {
     Route::get('/', 'PageController@home')->name('home')->middleware('pagePublic');
 
     Route::get('/catalog', 'PageController@catalog')->name('catalog')->middleware('pagePublic');
@@ -63,16 +63,16 @@ Route::get('setlocale/{lang}', function ($lang) {
     }
 
     //Добавляем метку языка в URL (если выбран не язык по-умолчанию)
-    if ($lang != App\Http\Middleware\LocaleMiddleware::$mainLanguage){
+    if ($lang != App\Http\Middleware\LocaleMiddleware::$mainLanguage) {
         array_splice($segments, 1, 0, $lang);
     }
 
     //формируем полный URL
-    $url = Request::root().implode("/", $segments);
+    $url = Request::root() . implode("/", $segments);
 
     //если были еще GET-параметры - добавляем их
-    if(parse_url($referer, PHP_URL_QUERY)){
-        $url = $url.'?'. parse_url($referer, PHP_URL_QUERY);
+    if (parse_url($referer, PHP_URL_QUERY)) {
+        $url = $url . '?' . parse_url($referer, PHP_URL_QUERY);
     }
     return redirect($url); //Перенаправляем назад на ту же страницу
 
@@ -135,7 +135,6 @@ Route::group(['prefix' => 'design'], function () {
         ->name('design-blog');
 
 });
-
 
 
 Route::group(['prefix' => 'api'], function () {
@@ -302,7 +301,6 @@ Route::group(['middleware' => 'AdminPanel'], function () {
 
 });
 
-
 Route::group(['prefix' => '/admin/dashboard', 'namespace' => 'Dashboard'], function () {
     Route::get('/charts', "ChartController@index")->name('admin-dashboard-charts');
     Route::get('/tables', "TableController@index")->name('admin-dashboard-tables');
@@ -312,7 +310,6 @@ Route::group(['prefix' => '/admin/dashboard', 'namespace' => 'Dashboard'], funct
     Route::get('/pages', "PageController@index")->name('admin-dashboard-pages');
     Route::get('/ui-elements', "UiElementController@index")->name('admin-dashboard-ui-elements');
 });
-
 
 Route::group(
     [
@@ -362,8 +359,6 @@ Route::group(
             ->name('select2-cities-ajax');
         Route::post('/select2-np-delivery-points-ajax', 'CityController@NovaPoshtaPointDeliveryAjax')
             ->name('select2-np-delivery-points-ajax');
-
-
 
 
         /*админка*/
