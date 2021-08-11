@@ -1,3 +1,6 @@
+.ftpquota
+.htaccess
+.htaccess_bak
 /vendor/
 node_modules/
 npm-debug.log
@@ -28,4 +31,4 @@ public/assets
 public/house
 public/images
 public/vendor
-storage
+storage/*
