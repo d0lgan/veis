@@ -6,6 +6,7 @@ use App\Document;
 use App\GroupAttribute;
 use App\Manufacturer;
 use App\Option;
+use App\Order;
 use App\Product;
 use App\Setting;
 use App\Tag;
@@ -282,6 +283,17 @@ class SiteApiController extends Controller
 
         return response()->json([
             'points' => $refs,
+        ]);
+    }
+
+    // Admin - Get recent orders
+
+    public function getRecentOrders()
+    {
+        $orders = Order::where('status', 'Новый')->where('confirm', 1)->orderBy( 'created_at', 'desc')->get();
+
+        return response()->json([
+            'orders' => $orders,
         ]);
     }
 }

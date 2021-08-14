@@ -39,7 +39,20 @@ class AdminHomeController extends Controller {
 			$order_count   = $orders->count();
 			$comments      = Comment::all();
 			$manufacturers = Manufacturer::all();
-            $orders = Order::where('confirm', 0)->orderBy( 'created_at', 'desc' )->limit(5)->get();
+            $orders = Order::where('confirm', 0)->orderBy( 'created_at', 'desc' )->limit(8)->get();
+            foreach ($orders as $orderKey => $order) {
+                $order->products = json_decode($order->products);
+                $products = [];
+                foreach ($order->products as $key => $product) {
+                    $data = [
+                        'name' => Product::where('id', $product->product)->first()->title_ru,
+                        'count' => $product->count,
+                        'totalPrice' => $product->currentPrice
+                    ];
+                    array_push($products, $data);
+                }
+                $orders[$orderKey]->products = $products;
+            }
 
 			return view( 'admin.home', compact( 'users', 'products', 'categories', 'pages', 'tags', 'contacts', 'orders', 'comments', 'manufacturers', 'order_count', 'contacts_count' ) );
 		} else {

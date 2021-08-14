@@ -36,6 +36,7 @@
                                 <thead class="border-0">
                                     <tr class="border-0">
                                         <th class="align-middle py-1 pr-3">Название</th>
+                                        <th class="align-middle py-1 pr-3">Название кнопки</th>
                                         <th class="align-middle py-1 pr-3">Сортировка</th>
                                         <th class="align-middle py-1 pr-3 bg-none"></th>
                                     </tr>
@@ -44,7 +45,8 @@
                                 <tbody class="border-0">
                                     @foreach($slides as $slide)
                                         <tr>
-                                            <td class="align-middle py-1 pr-3">{{ $slide->title }}</td>
+                                            <td class="align-middle py-1 pr-3">{{ $slide->title_ru }}</td>
+                                            <td class="align-middle py-1 pr-3">{{ $slide->button_ru }}</td>
                                             <td class="align-middle py-1 pr-3">{{ $slide->sort }}</td>
                                             <td class="align-middle py-1 pr-3">
 

@@ -10,6 +10,7 @@ use App\Region;
 use App\Status;
 use App\User;
 use App\Warehouses;
+use App\WayToPay;
 use Illuminate\Http\Request;
 use App\Order;
 use DB;
@@ -73,7 +74,7 @@ class OrderController extends Controller {
 
 		$contacts      = Contact::all();
 		$contacts_count   = $contacts->count();
-		$orders        = Order::where('confirm', 1)->get();
+		$orders        = Order::where('confirm', 1)->orderBy( 'created_at', 'desc' )->get();
 		$order_count   = $orders->count();
 
 		return view( 'admin.order.index', compact( 'orders', 'order_count', 'contacts_count' ));
@@ -99,10 +100,22 @@ class OrderController extends Controller {
         $request->user()->authorizeRoles( [ 'admin' ] );
 
         // $orders = Order::where('confirm', 0)->orderBy( 'created_at', 'desc' )->get();
-        $orders = Order::all();
         $contacts      = Contact::all();
         $contacts_count   = $contacts->count();
-        $orders        = Order::all();
+        $orders        = Order::where('confirm', 0)->orderBy( 'created_at', 'desc')->get();
+        foreach ($orders as $orderKey => $order) {
+            $order->products = json_decode($order->products);
+            $products = [];
+            foreach ($order->products as $key => $product) {
+                $data = [
+                    'name' => Product::where('id', $product->product)->first()->title_ru,
+                    'count' => $product->count,
+                    'totalPrice' => $product->currentPrice
+                ];
+                array_push($products, $data);
+            }
+            $orders[$orderKey]->products = $products;
+        }
         $order_count   = $orders->count();
 
         return view('admin.order.abandoned', compact('orders', 'contacts_count', 'order_count'));
@@ -217,11 +230,11 @@ class OrderController extends Controller {
         pagetitle( $page->meta_h1 );
         $settings = Setting::first();
         $locale = App::getLocale();
-
+        $wayToPays = WayToPay::all();
 
 
         if ( ! Session::has( 'cart' ) ) {
-            return view( 'site.basket', compact( 'page', 'settings', 'locale', 'translate' ) );
+            return view( 'site.basket', compact( 'page', 'wayToPays', 'settings', 'locale', 'translate' ) );
         }
         $oldCart = Session::get( 'cart' );
         $cart    = new Cart( $oldCart );
@@ -349,26 +362,26 @@ class OrderController extends Controller {
 		//чистим сессию
 		Session::forget( 'cart' );
 
-		if ( $request->email ) {
-			//отправка письма Клиенту
-			$mail_order = $order->email;
-			Mail::send( 'emails.user.create_order', [ 'order' => $order ],
-				function ( $message ) use ( $mail_order ) {
-					$setting = Setting::find( 1 );
-					$message->from( $setting->email_site, 'Магазин SHOP!' );
-					$message->to( $mail_order )
-					        ->subject( 'Спасибо за покупку в нашем магазине!' );
-				} );
-		}
+        if ( $request->email ) {
+            //отправка письма Клиенту
+            $mail_order = $order->email;
+            Mail::send( 'emails.user.create_order', [ 'order' => $order ],
+                function ( $message ) use ( $mail_order ) {
+                    $setting = Setting::find( 1 );
+                    $message->from( $setting->send_eamil, 'Магазин Veis!' );
+                    $message->to( $mail_order )
+                        ->subject( 'Спасибо за покупку в нашем магазине!' );
+                } );
+        }
 
-		//отправка письма Админу
-		Mail::send( 'emails.admin.create_order', [ 'order' => $order ],
-			function ( $message ) {
-				$setting = Setting::find( 1 );
-				$message->from( $setting->email_site, 'Магазин SHOP!' );
-				$message->to( $setting->email_site )
-				        ->subject( 'Новый заказ с сайта!' );
-			} );
+        //отправка письма Админу
+        Mail::send( 'emails.admin.create_order', [ 'order' => $order ],
+            function ( $message ) {
+                $setting = Setting::find( 1 );
+                $message->from($setting->send_eamil, 'Магазин Veis!' );
+                $message->to($setting->receive_email)
+                    ->subject( 'Новый заказ с сайта!' );
+            } );
 
 		return redirect()
 			->route( 'checkout' )
@@ -437,7 +450,9 @@ class OrderController extends Controller {
 		$cities   = City::all();
 		$warehouses = Warehouses::all();
 
-		return view( 'admin.order.create', compact( 'warehouses', 'orders', 'users', 'products', 'regions', 'statuses', 'cities', 'order_count', 'contacts_count' ) );
+        $wayToPays = WayToPay::all();
+
+		return view( 'admin.order.create', compact( 'warehouses', 'orders', 'wayToPays', 'users', 'products', 'regions', 'statuses', 'cities', 'order_count', 'contacts_count' ) );
 	}
 
 	public function store( Request $request ) {
@@ -593,7 +608,8 @@ class OrderController extends Controller {
 		/*return back()
 			->withInput()
 			->withErrors( array( 'info_messages' => 'Обновлен!' ) );*/
-		return view('admin.order.edit', compact('order', 'products', 'regions', 'cities', 'warehouses', 'statuses', 'order_count', 'contacts_count'));
+		$wayToPays = WayToPay::all();
+		return view('admin.order.edit', compact('order', 'products', 'wayToPays', 'regions', 'cities', 'warehouses', 'statuses', 'order_count', 'contacts_count'));
 	}
 
 	public function destroy( $id ) {

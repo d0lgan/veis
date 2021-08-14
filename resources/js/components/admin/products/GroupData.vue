@@ -37,9 +37,11 @@
             </div>
             
             <div class="col-md-6 form-group">
-                <div id="app">
-                    <select-component :default="null"
+                <div id="app"><!--:default="product.categories"-->
+                    <select-component
                                       :categories="categories_json"
+                                      :title="'Выберите дополнительные категории'"
+                                      :titleOrName="'title'"
                                       id="category"></select-component>
                 </div>
             </div> 
@@ -73,7 +75,7 @@
             <div class="col-md-3 form-group">
                 <label for="manufacturers">Производитель</label>
                 <select v-model="data.manufacturer_id" name="manufacturer_id" id="manufacturers" class="form-control">
-                    <option v-for="manufacturer in manufacturers" :value="manufacturer.id">{{ manufacturer.title }}</option>
+                    <option v-for="manufacturer in manufacturers" :value="manufacturer.id">{{ manufacturer.title_ru }}</option>
                 </select>
             </div>
             <div class="col-md-3 form-group">
@@ -298,15 +300,12 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <strong class="form-label">Теги</strong>
-
-            <select name="" id="" class="form-control">
-                <option value="">Зима</option>
-                <option value="">Весна</option>
-                <option value="">Летний</option>
-                <option value="">Осень</option>
-            </select>
+        <div class="form-group"><!--:default="product.tags"-->
+            <select-component
+                              :categories="tags_json"
+                              :title="'Выберите теги'"
+                              :titleOrName="'title'"
+                              id="tag"></select-component>
         </div>
 
 
@@ -332,6 +331,7 @@
         name: "GroupData",
         props: [
             'categories_json',
+            'tags_json',
             'manufacturers',
             'stocks',
             'suppliers',
@@ -360,7 +360,7 @@
                 error: false,
                 error_text: '',
                 public: 1,
-                sort: 0
+                sort: null
             }
         },
         methods:{

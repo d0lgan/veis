@@ -27,6 +27,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Mail;
 use Session;
 use App\Product;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -34,6 +35,32 @@ use App\User;
 use function foo\func;
 
 class PageController extends Controller {
+
+    public function mail( Request $request ) {
+        $order = Order::first();
+
+        if ( $request->email ) {
+            //отправка письма Клиенту
+            $mail_order = $order->email;
+            Mail::send( 'emails.user.create_order', [ 'order' => $order ],
+                function ( $message ) use ( $mail_order ) {
+                    $setting = Setting::find( 1 );
+                    $message->from( $setting->send_eamil, 'Магазин Veis!' );
+                    $message->to( $mail_order )
+                        ->subject( 'Спасибо за покупку в нашем магазине!' );
+                } );
+        }
+
+        //отправка письма Админу
+        Mail::send( 'emails.admin.create_order', [ 'order' => $order ],
+            function ( $message ) {
+                $setting = Setting::find( 1 );
+                $message->from($setting->send_eamil, 'Магазин Veis!' );
+                $message->to($setting->receive_email)
+                    ->subject( 'Новый заказ с сайта!' );
+            } );
+        return ;
+    }
 
     /**
 	 * Display a listing of the resource.
@@ -214,6 +241,7 @@ class PageController extends Controller {
         $leftGlasses = Product::orderBy('created_at', 'desc')
             ->where('title_ru', 'like', '%очки%')
             ->where('stock_id', $leftStock->id)
+            ->where('image', '<>', null)->where('price', '<>', 0)
             ->take(8)
             ->with('galleries', 'attributes', 'tags', 'stock')
             ->get()
@@ -222,6 +250,7 @@ class PageController extends Controller {
         $rightGlasses = Product::orderBy('created_at', 'desc')
             ->where('title_ru', 'like', '%очки%')
             ->where('stock_id', $rightStock->id)
+            ->where('image', '<>', null)->where('price', '<>', 0)
             ->take(8)
             ->with('galleries', 'attributes', 'tags', 'stock')
             ->get()
@@ -235,6 +264,18 @@ class PageController extends Controller {
             'ru' => $page->description_ru,
             'uk' => $page->description_uk,
         ];
+
+        /*$settings = Setting::first()->toArray();
+        if ($locale == 'uk') {
+            $settings['address_site'] = $settings['address_site_uk'];
+            $settings['name_company'] = $settings['name_company_uk'];
+            $settings['country'] = $settings['country_uk'];
+        } else {
+            $settings['address_site'] = $settings['address_site_ru'];
+            $settings['name_company'] = $settings['name_company_ru'];
+            $settings['country'] = $settings['country_ru'];
+        }*/
+
 	    return view('site.home', compact('leftGlasses', 'rightGlasses', 'leftStock', 'rightStock', 'locale', 'translate', 'brands', 'page', 'desctran', 'desc'));
     }
 
@@ -276,6 +317,7 @@ class PageController extends Controller {
             'no_availability' => Lang::trans('product.no_availability'),
             'filter' => Lang::trans('site.catalog.filter'),
             'sort' => Lang::trans('site.catalog.sort'),
+            'cancel' => Lang::trans('site.catalog.cancel'),
             'newest' => Lang::trans('site.catalog.newest'),
             'price_asc' => Lang::trans('site.catalog.price_asc'),
             'price_desc' => Lang::trans('site.catalog.price_desc'),
@@ -299,6 +341,10 @@ class PageController extends Controller {
             'wallets' => Lang::trans('site.products.wallets'),
             'is_sale' => Lang::trans('site.catalog.is_sale'),
             'category' => Lang::trans('site.catalog.category'),
+            'show_more' => Lang::trans('site.catalog.show_more'),
+            'in_this_cat' => Lang::trans('site.catalog.in_this_cat'),
+            'all1' => Lang::trans('site.catalog.all1'),
+            'all2' => Lang::trans('site.catalog.all2'),
         ];
 
         $desctran = [
@@ -450,6 +496,8 @@ class PageController extends Controller {
             }]);
         }])->get()->map->toArray()->sortBy('sort')->toArray();
 
+
+//        dd($filters);
         foreach ($filters as $key => $group) {
             // Добавление продуктов с атрибута Унисекс в атрибуты Мужские и Женские (костыль)
             if ($group['id'] == 14) {
@@ -457,7 +505,47 @@ class PageController extends Controller {
                 $filters[$key]['attributes'][1]['products_count'] += $filters[$key]['attributes'][2]['products_count'];
                 unset($filters[$key]['attributes'][2]);
             }
+
+            if ($group['id'] == 19) {
+                $attrs = collect($group['attributes']);
+                $uniqueAttrs = $attrs->groupBy('item_name_ru')->flatMap(function ($values) use ($filters, $key) {
+                    if (count($values) > 1) {
+                        $q = $values->sum('products_count');
+
+//                        return $values->map(function ($value) use ($q) {
+//                            unset($value);
+//                        });
+                        /*foreach ($values as $key => $value) {
+                            if ($key == 0) {
+                                $values[0]['products_count'] = 11;
+                                dd($values[0]['products_count'], $q);
+                            } else {
+                                unset($values[$key]);
+                            }
+                        }*/
+
+                        $values = $values->map(function ($value, $key) use ($q) {
+                            if ($key == 0) {
+                                $value['products_count'] = $q;
+                                return $value;
+                            } else {
+                                return null;
+                            }
+                        });
+
+                        foreach ($values as $key => $value) {
+                            if ($value == null) {
+                                unset($values[$key]);
+                            }
+                        }
+                    }
+                    return $values;
+                });
+
+                $filters[$key]['attributes'] = $uniqueAttrs->toArray();
+            }
         }
+
 
         // Если заранее выбран атрибут женские то в поле "Для кого" не отображается select "мужские" и наоборот
         if ($instantCategory) {
@@ -704,6 +792,15 @@ class PageController extends Controller {
             'wallets' => Lang::trans('site.products.wallets'),
             'is_sale' => Lang::trans('site.catalog.is_sale'),
             'category' => Lang::trans('site.catalog.category'),
+            'show_more' => Lang::trans('site.catalog.show_more'),
+            'in_this_cat' => Lang::trans('site.catalog.in_this_cat'),
+            'all1' => Lang::trans('site.catalog.all1'),
+            'all2' => Lang::trans('site.catalog.all2'),
+
+            'back' => Lang::trans('site.basket.back'),
+            'crumb' => Lang::trans('site.search.crumb'),
+            'search' => Lang::trans('site.search.search'),
+            'founded' => Lang::trans('site.search.founded'),
         ];
 
 	    $query = $request->q;

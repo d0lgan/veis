@@ -19,9 +19,7 @@
                     </option>
                 </select>
                 <img src="/assets/front/img/sort.png" alt="">
-
             </div>
-
         </div>
 
         <div class="breadcrumbs">
@@ -57,7 +55,7 @@
                         <button class="catalog__btns-item" data-filters-closer>
                             {{ translate.cancel }}
                         </button>
-                        <button class="catalog__btns-item">
+                        <button class="catalog__btns-item" data-filters-closer @click="loadProducts()">
                             {{ translate.use_filter }}
                         </button>
                     </div>
@@ -154,6 +152,7 @@
                         <p class="catalog-filters__slider-title">
                             {{ translate.priceUp }}
                         </p>
+
                         <div class="catalog-filters__slider-box"><!--
                             <input type="text" hidden :value="maxValPrice" id="maxValPrice">-->
                             <span class="catalog-filters__slider-val catalog-filters__slider-val--min" ref="start">{{ minValPrice }}</span>
@@ -202,12 +201,11 @@
                         </div>
                     </div>
 
-                    <div style="padding: 22px 18px 22px 40px;" @fck="pageNumber = 0">
+                    <div style="padding: 22px 18px 22px 40px;" class="use-filters" @click="pageNumber = 0">
                         <span class="product-card__btn product-card__btn--default" @click="loadProducts(); scrollToTop();">
                             <span class="product-card__btn-inner">{{ translate.use_filter }}</span>
                         </span>
                     </div>
-
                     <button class="catalog__clear" @click="clear">{{ translate.reset }}
                         <img src="/assets/front/img/close-tag.png" alt="">
                     </button>
@@ -219,7 +217,6 @@
                             <!--<div class="catalog__tag">
                                 <span class="catalog__tag-text">Кол-во продуктов: {{ countProducts }}</span>
                             </div>-->
-
                             <div class="catalog__tag" v-if="instantCategory && !instantRedirect">
                                 <a :href="getLang ? '/ru/catalog' : '/catalog'" style="text-decoration: none">
                                     <div class="catalog__tag catalog__tag__img">
@@ -304,14 +301,14 @@
                             <span class="catalog__more-link"></span>
                             <div class="catalog__more-main">
                                 <span class="catalog__more-num">{{ getMoreProductsNumber }}</span>
-                                <span class="catalog__more-num catalog__more-num--small">ПОКАЗАТЬ ЕЩЕ</span>
+                                <span class="catalog__more-num catalog__more-num--small">{{ translate.show_more }}</span>
                             </div>
-                            <p class="product__text">В ЭТОЙ КАТЕГОРИИ</p>
-                            <p class="product__number">всего <span>{{ countProducts }}</span> товаров в категории</p>
+                            <p class="product__text">{{ translate.in_this_cat }}</p>
+                            <p class="product__number">{{ translate.all1 }} <span>{{ countProducts }}</span> {{ translate.all2 }}</p>
                         </div>
                     </div>
 
-                    <a href="" class="btn__more" @click="loadMoreProducts()">ПОКАЗАТЬ ЕЩЕ  {{ getMoreProductsNumber }}</a>
+                    <span class="btn__more" @click="loadMoreProducts()" v-if="getMoreProductsNumber > 0">{{ translate.show_more }}  {{ getMoreProductsNumber }}</span>
 
                     <div class="pagination">
                         <span class="pagination__view pagination__view--prev" @click="prevPage()" v-if="!(pageNumber == 0)">
@@ -418,7 +415,7 @@
                 required: false,
                 default: 'ru'
             },
-            // Предопределённая категория
+            // Предопределённая ксатегория
             instantCategory: {
                 required: false,
                 default: null,
@@ -739,10 +736,10 @@
                                 return title;
                             }
                         }
+
                         break;
                 }
             },
-
             isThisInstantAttr: function (attrId) {
                 if (this.instantCategory) {
                     if (this.instantCategory.attributes) {
@@ -755,7 +752,6 @@
                     return false;
                 }
 
-                console.log(3);
                 return false;
             },
 
@@ -776,6 +772,14 @@
 
 
             clear: function() {
+                if (this.instantCategory || this.childCategories || this.instantManufacturer || this.instantTag || this.instantRedirect) {
+                    if (this.locale == 'ru') {
+                        window.location.href = window.location.origin + '/ru/catalog';
+                    } else if (this.locale == 'uk') {
+                        window.location.href = window.location.origin + '/catalog';
+                    }
+                }
+
                 this.copyFiltersToSelected(this.filters);
                 this.selected.tags = [];
                 this.selected.sale = false;

@@ -27,8 +27,8 @@ class CreateManufacturersTable extends Migration {
 			$table->string('slug_ru')->nullable();
 			$table->string('slug_uk')->nullable();
 			$table->integer('sort')->nullable();
-			$table->text('description_ru')->nullable();
-			$table->text('description_uk')->nullable();
+			$table->mediumText('description_ru')->nullable();
+			$table->mediumText('description_uk')->nullable();
 			$table->timestamps();
 		});
 	}

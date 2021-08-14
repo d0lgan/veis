@@ -23,8 +23,8 @@ class CreateCategoriesTable extends Migration {
 			$table->string('meta_h1_uk')->nullable();
 			$table->string('slug_ru')->nullable();
 			$table->string('slug_uk')->nullable();
-			$table->text('description_ru')->nullable();
-			$table->text('description_uk')->nullable();
+			$table->mediumText('description_ru')->nullable();
+			$table->mediumText('description_uk')->nullable();
 			$table->text('seo')->nullable();
 			$table->text('sort')->nullable();
 			$table->integer('at_home')->default(0);

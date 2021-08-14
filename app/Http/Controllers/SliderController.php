@@ -63,18 +63,22 @@ class SliderController extends Controller
     public function store(Request $request)
     {
 
-        $validate = $request->validate([
+        /*$validate = $request->validate([
             'image' => 'mimes:png'
-        ]);
-//dd($request);
+        ]);*/
+        
         $slider = new Slider();
-        $slider->title = $request->title_ru;
-        $slider->button = $request->button_ru;
-        $slider->additional_button = $request->additional_button_ru;
+        $slider->title_ru = $request->title_ru;
+        $slider->title_uk = $request->title_uk;
+        $slider->button_ru = $request->button_ru;
+        $slider->button_uk = $request->button_uk;
+        $slider->additional_button_ru = $request->additional_button_ru;
+        $slider->additional_button_uk = $request->additional_button_uk;
         $slider->additional_link = $request->additional_link;
         $slider->link = $request->link;
         $slider->color = $request->color;
-        $slider->description = $request->description_ru;
+        $slider->description_ru = $request->description_ru;
+        $slider->description_uk = $request->description_uk;
         $slider->sort = $request->sort;
 
         if ($request->image) {
@@ -112,7 +116,7 @@ class SliderController extends Controller
 
         }
 
-        return redirect('/admin/slider');
+        return redirect()->route('admin-slider-index');
     }
 
     /**
@@ -168,13 +172,17 @@ class SliderController extends Controller
     {
         $slider = Slider::find($id);
 
-        $slider->title = $request->title_ru;
-        $slider->button = $request->button_ru;
+        $slider->title_ru = $request->title_ru;
+        $slider->title_uk = $request->title_uk;
+        $slider->button_ru = $request->button_ru;
+        $slider->button_uk = $request->button_uk;
         $slider->link = $request->link;
-        $slider->additional_button = $request->additional_button_ru;
+        $slider->additional_button_ru = $request->additional_button_ru;
+        $slider->additional_button_uk = $request->additional_button_uk;
         $slider->additional_link = $request->additional_link;
         $slider->color = $request->color;
-        $slider->description = $request->description_ru;
+        $slider->description_ru = $request->description_ru;
+        $slider->description_uk = $request->description_uk;
         $slider->sort = $request->sort;
 
         if($request->del){

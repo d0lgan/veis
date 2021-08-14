@@ -38,6 +38,7 @@ Route::group(['prefix' => 'novaPoshta'], function() {
 
 Route::get('getValPrice', 'SiteApiController@getValPrice');
 Route::get('getProductWithOptions', 'SiteApiController@getProductWithOptions');
+Route::get('getRecentOrders', 'SiteApiController@getRecentOrders');
 
 
 Route::group(['prefix' => 'statistics'], function() {

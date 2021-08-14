@@ -1,6 +1,7 @@
 @extends('layouts.site.layout_with_long_header')
 
 @section('title', $locale == 'ru' ? $page->title_ru : $page->title_uk)
+@section('locale', $locale)
 
 @section('content')
 <div class="intro">
@@ -247,10 +248,10 @@
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, atque autem dolorem magni neque non?
                     </div>
                     <div class="blog__bottom">
-                        <a href="#/" class="intro__btn">ПОДРОБНЕЕ</a>
+                        <a href="#/" class="intro__btn">{{ __('site.menu.more') }}</a>
 
                         <a href="blog.html" class="blog__view_all">
-                            <span>Смотреть все статьи </span>
+                            <span>{{ __('site.menu.watchAll') }}</span>
                             <img src="/assets/front/img/next.svg">
                         </a>
                     </div>

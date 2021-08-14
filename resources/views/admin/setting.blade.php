@@ -269,12 +269,20 @@
                         </div>
 
                         <div class="row form-group d-flex align-items-center">
+                            <div class="col-4">Email</div>
+
+                            <div class="col-8">
+                                <input type="text" value="{{ $setting->receive_email }}" name="receive_email" class="form-control">
+                            </div>
+                        </div>
+
+                        {{--<div class="row form-group d-flex align-items-center">
                             <div class="col-5">Телефон 4</div>
 
                             <div class="col-7">
                                 <input type="text" value="{{ $phone_site_4 }}" name="phone_site_4" class="form-control">
                             </div>
-                        </div>
+                        </div>--}}
 
                         <button name="contacts" value="1" type="submit" class="btn btn-info btn-block m-0 d-flex justify-content-center align-items-center">
                             <i style="font-size: 16px" class="fa fa-lock fa-lg mr-2"></i><span>Сохранить</span>
@@ -310,14 +318,6 @@
                             </div>
 
                             <div class="row form-group d-flex align-items-center">
-                                <div class="col-4">Email</div>
-
-                                <div class="col-8">
-                                    <input type="text" value="{{ $setting->email_site_ru }}" name="email_site_ru" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="row form-group d-flex align-items-center">
                                 <div class="col-4">Название</div>
 
                                 <div class="col-8">
@@ -341,14 +341,6 @@
 
                                 <div class="col-8">
                                     <input type="text" value="{{ $setting->address_site_uk }}" name="address_site_uk" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="row form-group d-flex align-items-center">
-                                <div class="col-4">Email</div>
-
-                                <div class="col-8">
-                                    <input type="text" value="{{ $setting->email_site_uk }}" name="email_site_uk" class="form-control">
                                 </div>
                             </div>
 
@@ -386,369 +378,7 @@
 
 
 
-    <!-- <div class="main-content">
 
-            <div class="section__content section__content--p30">
-                    <div class="row">
-
-                            <div class="card w-100">
-                                {!! Form::model($setting,['method' => 'post','files' => true, 'route'=>['admin-settings-update',$setting->id]]) !!}
-                                <div class="card-header d-flex align-items-center">
-                                    <h2 class="title-1">Настройки</h2>
-
-                                    <div class="d-flex m-l-40 w-100 justify-content-end">
-                                        <ul class="nav b-0" id="myTab">
-                                            <li class="active h5 m-0 p-r-20"><a href="#main" data-toggle="tab">Основное</a></li>
-                                            <li class="h5 m-0"><a href="#set" data-toggle="tab">Доп</a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-
-                                <div class="card-body tab-content">
-                                    <div class="tab-pane active" id="main">
-                                        <div class="d-flex">
-                                            <div class="form-group m-r-55">
-                                                {!!  Form::label('site_on_of', 'Техничесткий режим',['class'=>'control-label']) !!}
-                                                {!! Form::select('site_on_of', [1 => 'Да', 0 => 'Нет'], $setting->site_on_of,array_merge(['class'=>'form-control'])) !!}
-
-                                            </div>
-
-                                            <div class="form-group m-r-55">
-                                                {!!  Form::label('contact_form', 'Контактная форма',['class' =>'control-label']) !!}
-                                                {!! Form::select('contact_form', [1 => 'Да', 0 => 'Нет'], $setting->contact_form,array_merge(['class'=>'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group">
-                                                {!!  Form::label('call_form', 'Обратный звонок',['class' =>'control-label']) !!}
-                                                {!! Form::select('call_form', [1 => 'Да', 0 => 'Нет'], $setting->call_form,array_merge(['class'=>'form-control'])) !!}
-                                            </div>
-                                        </div>
-
-                                        <hr>
-
-                                        <div class="d-flex">
-                                            <div class="form-group m-r-55">
-                                                {!!  Form::label('point_deliveries', 'Новая Почта',['class' =>'control-label'])!!}
-                                                        {!! Form::select('point_deliveries', [1 => 'Да', 0 => 'Нет'], $setting->point_deliveries,array_merge(['class'=>'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group m-r-55">
-                                                {!!  Form::label('shop_buy', 'Разрешить покупку',['class' =>'control-label']) !!}
-                                                        {!! Form::select('shop_buy', [1 => 'Да', 0 => 'Нет'], $setting->shop_buy,array_merge(['class'=>'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group">
-                                                {!! Form::label('free_shipping', 'Бесплатная доставка',['class' => 'control-label']) !!}
-                                                        {!! Form::text('free_shipping', $free_shipping, array_merge(['class' =>'form-control'])) !!}
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex align-items-center pb-4 m-t-50">
-                                            <span class="m-0 h3">Модули</span>
-                                            <hr class="m-l-50 col border-grey">
-                                        </div>
-
-                                        <div class="d-flex">
-                                            <div class="form-group m-r-55">
-                                                {!!  Form::label('slide_home', 'Слайдер на главной',['class' =>'control-label']) !!}
-                                                {!! Form::select('slide_home', [1 => 'Да', 0 => 'Нет'], $slide_home,array_merge(['class'=>'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group m-r-55">
-                                                {!!  Form::label('universal', 'Универсальный',['class' =>'control-label']) !!}
-                                                {!! Form::select('universal', [1 => 'Да', 0 => 'Нет'], $universal,array_merge(['class'=>'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group m-r-55">
-                                                {!!  Form::label('categories', 'Категории',['class' =>'control-label']) !!}
-                                                {!! Form::select('categories', [1 => 'Да', 0 => 'Нет'], $categories,array_merge(['class'=>'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group m-r-55">
-                                                {!!  Form::label('brands', 'Бренды',['class' =>'control-label']) !!}
-                                                {!! Form::select('brands', [1 => 'Да', 0 => 'Нет'], $brands,array_merge(['class'=>'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group">
-                                                {!!  Form::label('viewed', 'Просмотренные',['class' =>'control-label']) !!}
-                                                {!! Form::select('viewed', [1 => 'Да', 0 => 'Нет'], $viewed,array_merge(['class'=>'form-control'])) !!}
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex align-items-center pb-4 m-t-50">
-                                            <span class="m-0 h3">Контакты</span>
-                                            <hr class="m-l-50 col border-grey">
-                                        </div>
-
-                                        <div class="d-flex">
-                                            <div class="form-group m-r-55">
-                                                {!! Form::label('phone_site_1', 'Телефон 1',['class' => 'control-label']) !!}
-                                                {!! Form::text('phone_site_1', $phone_site_1, array_merge(['class' => 'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group m-r-55">
-                                                {!! Form::label('phone_site_2', 'Телефон 2',['class' => 'control-label']) !!}
-                                                {!! Form::text('phone_site_2', $phone_site_2, array_merge(['class' => 'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group m-r-55">
-                                                {!! Form::label('phone_site_3', 'Телефон 3',['class' => 'control-label']) !!}
-                                                {!! Form::text('phone_site_3', $phone_site_3, array_merge(['class' => 'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group">
-                                                {!! Form::label('phone_site_4', 'Телефон 4',['class' => 'control-label']) !!}
-                                                {!! Form::text('phone_site_4', $phone_site_4, array_merge(['class' => 'form-control'])) !!}
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex">
-                                            <div class="form-group m-r-55">
-                                                {!! Form::label('address_site', 'Адрес магазина',['class' => 'control-label']) !!}
-                                                {!! Form::textarea('address_site', $address_site, array_merge(['class' => 'form-control', 'style' => 'min-height: 40px;', 'cols' => '19', 'rows' => '5'])) !!}
-                                            </div>
-
-                                            <div class="form-group m-r-55">
-                                                {!! Form::label('email_site', 'Email',['class' => 'control-label']) !!}
-                                                {!! Form::text('email_site', $email_site, array_merge(['class' =>'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group m-r-55">
-                                                {!! Form::label('name_company', 'Название компании',['class' => 'control-label']) !!}
-                                                {!! Form::text('name_company', $name_company, array_merge(['class' =>'form-control'])) !!}
-                                            </div>
-
-                                            <div class="form-group">
-                                                {!! Form::label('country', 'Страна',['class' => 'control-label']) !!}
-                                                {!! Form::text('country', $country, array_merge(['class' =>'form-control'])) !!}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane" id="set">
-                                        <div class="row">
-                                            <div class="col-md-12 form-group">
-                                                <ul class="nav nav-tabs" id="language">
-                                                    @foreach($langs as $key => $lang)
-                                                        <li class="nav-item {{ $key == 0 ? 'active' : null }}"><a
-                                                                    href="#language_add_{{ $lang->locate_code }}" data-toggle="tab"
-                                                                    >
-                                                                @if($lang->locate_code == 'ru')
-                                                                    <img style="height: 25px;" src="{{ asset('/images/russia.svg') }}" alt="">
-                                                                @elseif($lang->locate_code == 'uk')
-                                                                    <img style="height: 25px;" src="{{ asset('/images/ukraine.svg') }}" alt="">
-                                                                @endif
-                                                            </a></li>
-                                                    @endforeach
-                                                </ul>
-
-                                                <div class="tab-content">
-                                                    @include('admin.partials.title', ['item' => $setting, 'setting' => true, 'title' => false, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'add'])
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 d-flex justify-content-end">
-                                    <div class="form-group">
-                                        {!! Form::submit('Сохранить',array_merge(['class' => 'btn btn-outline-primary btn-lg'] )) !!}
-                                    </div>
-                                </div>
-                                {!! Form::close() !!}
-                            </div> -->
-
-
-
-
-
-
-
-
-
-                        <!-- <div class="table-responsive">
-                            <div class="table-responsive">
-                                {!! Form::model($setting,['method' => 'post','files' => true, 'route'=>['admin-settings-update',$setting->id]]) !!}
-                                <ul class="nav nav-tabs" id="myTab">
-                                    <li class="active"><a href="#main" data-toggle="tab">Основное</a></li>
-                                    <li><a href="#set" data-toggle="tab">Доп</a></li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="main">
-                                        <div class="row">
-                                            <div class="col-xs-4">
-                                                <div class="form-group">
-                                                    {!!  Form::label('site_on_of', 'Техничесткий режим',['class'=>'control-label']) !!}
-                                                    {!! Form::select('site_on_of', [1 => 'Да', 0 => 'Нет'], $setting->site_on_of,array_merge(['class'=>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <div class="form-group">
-                                                    {!!  Form::label('contact_form', 'Контактная форма',['class' =>'control-label']) !!}
-                                                    {!! Form::select('contact_form', [1 => 'Да', 0 => 'Нет'], $setting->contact_form,array_merge(['class'=>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <div class="form-group">
-                                                    {!!  Form::label('call_form', 'Обратный звонок',['class' =>'control-label']) !!}
-                                                    {!! Form::select('call_form', [1 => 'Да', 0 => 'Нет'], $setting->call_form,array_merge(['class'=>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-4">
-                                                <div class="form-group">
-                                                    {!!  Form::label('point_deliveries', 'Новая Почта',['class' =>'control-label'])!!}
-                                                    {!! Form::select('point_deliveries', [1 => 'Да', 0 => 'Нет'], $setting->point_deliveries,array_merge(['class'=>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <div class="form-group">
-                                                    {!!  Form::label('shop_buy', 'Разрешить покупку',['class' =>'control-label']) !!}
-                                                    {!! Form::select('shop_buy', [1 => 'Да', 0 => 'Нет'], $setting->shop_buy,array_merge(['class'=>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <div class="form-group">
-                                                    {!! Form::label('free_shipping', 'Бесплатная доставка',['class' => 'control-label']) !!}
-                                                    {!! Form::text('free_shipping', $free_shipping, array_merge(['class' =>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row d-flex align-items-center pb-4">
-                                            <span class="col-2 m-0 h3">Модули</span>
-                                            <hr class="col border-dark">
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!!  Form::label('slide_home', 'Слайдер на главной',['class' =>'control-label']) !!}
-                                                    {!! Form::select('slide_home', [1 => 'Да', 0 => 'Нет'], $slide_home,array_merge(['class'=>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!!  Form::label('universal', 'Универсальный',['class' =>'control-label']) !!}
-                                                    {!! Form::select('universal', [1 => 'Да', 0 => 'Нет'], $universal,array_merge(['class'=>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!!  Form::label('categories', 'Категории',['class' =>'control-label']) !!}
-                                                    {!! Form::select('categories', [1 => 'Да', 0 => 'Нет'], $categories,array_merge(['class'=>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!!  Form::label('brands', 'Бренды',['class' =>'control-label']) !!}
-                                                    {!! Form::select('brands', [1 => 'Да', 0 => 'Нет'], $brands,array_merge(['class'=>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!!  Form::label('viewed', 'Просмотренные',['class' =>'control-label']) !!}
-                                                    {!! Form::select('viewed', [1 => 'Да', 0 => 'Нет'], $viewed,array_merge(['class'=>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row d-flex align-items-center pb-4">
-                                            <span class="col-2 m-0 h3">Контакты</span>
-                                            <hr class="col border-dark">
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!! Form::label('phone_site_1', 'Телефон 1',['class' => 'control-label']) !!}
-                                                    {!! Form::text('phone_site_1', $phone_site_1, array_merge(['class' => 'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!! Form::label('phone_site_2', 'Телефон 2',['class' => 'control-label']) !!}
-                                                    {!! Form::text('phone_site_2', $phone_site_2, array_merge(['class' => 'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!! Form::label('phone_site_3', 'Телефон 3',['class' => 'control-label']) !!}
-                                                    {!! Form::text('phone_site_3', $phone_site_3, array_merge(['class' => 'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!! Form::label('phone_site_4', 'Телефон 4',['class' => 'control-label']) !!}
-                                                    {!! Form::text('phone_site_4', $phone_site_4, array_merge(['class' => 'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!! Form::label('address_site', 'Адрес магазина',['class' => 'control-label']) !!}
-                                                    {!! Form::textarea('address_site', $address_site, array_merge(['class' => 'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!! Form::label('email_site', 'Email',['class' => 'control-label']) !!}
-                                                    {!! Form::text('email_site', $email_site, array_merge(['class' =>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!! Form::label('name_company', 'Название компании',['class' => 'control-label']) !!}
-                                                    {!! Form::text('name_company', $name_company, array_merge(['class' =>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    {!! Form::label('country', 'Страна',['class' => 'control-label']) !!}
-                                                    {!! Form::text('country', $country, array_merge(['class' =>'form-control'])) !!}
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="tab-pane" id="set">
-                                        <div class="row">
-                                            <div class="col-md-12 form-group">
-                                                <ul class="nav nav-tabs" id="language">
-                                                    @foreach($langs as $key => $lang)
-                                                        <li class="nav-item {{ $key == 0 ? 'active' : null }}"><a
-                                                                    href="#language_add_{{ $lang->locate_code }}" data-toggle="tab"
-                                                                    >
-                                                                @if($lang->locate_code == 'ru')
-                                                                    <img style="height: 25px;" src="{{ asset('/images/russia.svg') }}" alt="">
-                                                                @elseif($lang->locate_code == 'uk')
-                                                                    <img style="height: 25px;" src="{{ asset('/images/ukraine.svg') }}" alt="">
-                                                                @endif
-                                                            </a></li>
-                                                    @endforeach
-                                                </ul>
-
-                                                <div class="tab-content">
-                                                    @include('admin.partials.title', ['item' => $setting, 'setting' => true, 'title' => false, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'add'])
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        {!! Form::submit('Сохранить',array_merge(['class' => 'btn btn-default'] )) !!}
-                                    </div>
-                                </div>
-                            </div>
-                            {!! Form::close() !!}
-                        </div> -->
-
-                    </div>
-
-            </div>
-
-    </div>
 
 @endsection
 

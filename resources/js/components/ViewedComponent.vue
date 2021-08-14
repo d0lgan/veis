@@ -50,7 +50,7 @@
     </div>-->
 
 
-    <section class="product product-more">
+    <section class="product product-more" v-if="products.length">
         <div class="mobile__product">
             <div class="media__foot_iteam">
                 <span>{{ translate.viewed }}</span>

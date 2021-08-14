@@ -1,9 +1,31 @@
 <?php
 
 namespace App;
+
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Category
+ * @property int id
+ * @property int parent_id
+ * @property string title_ru
+ * @property string title_uk
+ * @property string meta_h1_ru
+ * @property string meta_h1_uk
+ * @property string slug_ru
+ * @property string slug_uk
+ * @property string description_ru
+ * @property string description_uk
+ * @property string seo_ru
+ * @property string seo_uk
+ * @property string sort
+ * @property int at_home
+ * @property string image
+ * @property string created_at
+ * @property string updated_at
+ * @package App
+ */
 class Category extends Model
 {
 	use Sluggable;

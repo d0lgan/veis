@@ -1,5 +1,6 @@
 @extends('layouts.site.layout_with_long_header')
 @section('title', $locale == 'ru' ? $page->title_ru : $page->title_uk)
+@section('locale', $locale)
 
 @section('content')
 
@@ -8,10 +9,10 @@
 <section class="consul">
     <img src="/assets/front/img/consul.png" class="consul__foto">
     <div class="consul__block">
-        <h2>ХОЧЕШЬ ПОЛУЧИТЬ ПОЛНУЮ<br> КОНСУЛЬТАЦИЮ О ТОВАРЕ И НОВИНКАХ?</h2>
+        <h2>{{ __('site.consultation.want') }}</h2>
         <form action="" method="" class="consul__block_input">
             <input type="text" placeholder="Ваш E-Mail">
-            <input type="submit" value="Отправить" name="">
+            <input type="submit" value="{{ __('site.consultation.send') }}" name="">
         </form>
     </div>
     <img src="/assets/front/img/consul2.png" class="consul__foto2">

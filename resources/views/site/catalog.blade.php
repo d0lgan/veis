@@ -1,6 +1,7 @@
 @extends('layouts.site.layout_with_short_header')
 
 @section('title', $locale == 'ru' ? $page->title_ru : $page->title_uk)
+@section('locale', $locale)
 
 @section('content')
 {{--{{dd(json_encode($filters, JSON_PRETTY_PRINT))}}--}}

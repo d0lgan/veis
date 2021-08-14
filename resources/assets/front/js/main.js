@@ -167,14 +167,17 @@ window.addEventListener('DOMContentLoaded', function () {
     });
     document.querySelector('.down__icon').addEventListener('click', function() {
         hideModal(numberHide,headBox);
+        document.querySelector('.head__box img.rotate').style.transform = 'rotate(0)';
         showOverlay(false);
     })
 
     
     document.querySelector('.black__over').addEventListener('click',() => {
         closeInput();
-        hideModal(contactHide,contact)
-        hideModal(numberHide,headBox)
+        document.querySelector('.head__contact img').style.transform = 'rotate(0)';
+        document.querySelector('.head__box img.rotate').style.transform = 'rotate(0)';
+        hideModal(contactHide,contact);
+        hideModal(numberHide,headBox);
     });
 
     const footShow = (iteam, iteam2, clas = false) => {

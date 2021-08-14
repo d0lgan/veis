@@ -46,6 +46,7 @@ class ApiController extends Controller
                 foreach ($searchValues as $value) {
                     $q->where('title_ru', 'LIKE', "%{$value}%");
                     $q->where('public', 1);
+                    $q->where('price', '<>', 0);
                 }
             })->get();
 
@@ -108,6 +109,9 @@ class ApiController extends Controller
                 }
 
 
+            }
+            foreach ($selected_attr as $k => $sel) {
+                $selected_attr[$k]['params'] = array_values(collect($selected_attr[$k]['params'])->sortBy('name_ru')->toArray());
             }
         }
 
@@ -213,13 +217,15 @@ class ApiController extends Controller
 
         $manufacturers = Manufacturer::all();
         $suppliers = Supplier::all();
-        $categories_json = Category::select(['id', 'title'])->get();
+        $categories_json = Category::select(['id', 'title_ru'])->get();
+        $tags_json = Tag::select(['id', 'title_ru'])->get();
 
         $data['product'] = $product;
         $data['product_categories'] = $product->categories;
         $data['manufacturers'] = $manufacturers;
         $data['suppliers'] = $suppliers;
         $data['categories_json'] = $categories_json;
+        $data['tags_json'] = $tags_json;
 
 
         return response()->json($data);
@@ -229,7 +235,7 @@ class ApiController extends Controller
 
         $data['manufacturers'] = Manufacturer::all();
         $data['suppliers'] = Supplier::all();
-        $data['categories_json'] = Category::select(['id', 'title'])->get();
+        $data['categories_json'] = Category::select(['id', 'title_ru'])->get();
 
         return response()->json($data);
     }
@@ -256,7 +262,7 @@ class ApiController extends Controller
         $product->end_stock = $request->product['end_stock'];
         $product->price = $request->product['price'];
         $product->category_id = $request->product['category_id'];
-        $product->category_title = Category::find($request->product['category_id'])->title;
+        $product->category_title = Category::find($request->product['category_id'])->title_ru;
         $product->undiscounted = $request->product['undiscounted'];
         $product->vendor_code = $request->product['vendor_code'];
         $product->ude = $request->product['ude'];
@@ -271,7 +277,7 @@ class ApiController extends Controller
 
 
         $product->manufacturer_id = $request->product['manufacturer_id'];
-        $product->manufacturer_title = Manufacturer::find($request->product['manufacturer_id'])->title;
+        $product->manufacturer_title = Manufacturer::find($request->product['manufacturer_id'])->title_ru;
 
         $product->save();
 
@@ -1087,6 +1093,7 @@ class ApiController extends Controller
     public function updateOrder(Request $request){
 
         $request['order'] = json_decode($request['order'], true);
+
 //dd($request['order']);
         $now = date('Y-m-d');
 
@@ -1095,7 +1102,7 @@ class ApiController extends Controller
         if($order){
             $change_status = $request['order']['status'] !== $order->status ? true : false;
 
-            if($request->products){
+            /*if($request->products){
                 $prod = [];
 
                 for($i = 0;$i < count($request->products);$i++){
@@ -1115,6 +1122,9 @@ class ApiController extends Controller
 
                 $pro = json_encode($prod);
                 $order->products = $pro;
+            }*/
+            if ($request['products']) {
+                $order->products = $request['products'];
             }
 
             $order->name = $request['order']['name'];
@@ -1124,6 +1134,7 @@ class ApiController extends Controller
             $order->email = $request['order']['email'];
             $order->type = 'Заказ';
             $order->delivery = $request['order']['delivery'];
+            $order->way_to_pay = $request['order']['way_to_pay'];
             $order->city = $request['order']['city'];
             $order->warehouse = $request['order']['warehouse'];
             $order->comment = $request['order']['comment'];
@@ -1148,8 +1159,8 @@ class ApiController extends Controller
             /*if($request->conf && $change_status && $order->email !== null){
 
                 Mail::to($order->email)->send(new Mailing('', 'change_status', 'Статус заказа изменен', $order->status));
-            }
-            if($request->confirm == true){
+            }*/
+            /*if($request->confirm == true){
                 $order->new = true;
                 if($order->email !== null){
                     $m = Maili::where('email', $order->email)->first();
@@ -1171,27 +1182,30 @@ class ApiController extends Controller
                 Mail::to($emails)->send(new Mailing('', 'admin_create_order', 'test'));
             }*/
 
-            /*if($request['order']['confirm'] == 1) {
+
+            $confirm = json_decode($request['confirm'], true);
+            if($confirm == 1) {
                 if ($request['order']['email']) {
                     //отправка письма Клиенту
-                    $mail_order = $request['order']['email'];;
-                    Mail::send('emails.user.create_order', ['order' => $order],
-                        function ($message) use ($mail_order) {
-                            $setting = Setting::find(1);
-                            $message->from($setting->email_site_ru, 'Магазин SHOP!');
-                            $message->to($mail_order)
-                                ->subject('Спасибо за покупку в нашем магазине!');
-                        });
+                    $mail_order = $request['order']['email'];
+                    Mail::send( 'emails.user.create_order', [ 'order' => $order ],
+                        function ( $message ) use ( $mail_order ) {
+                            $setting = Setting::find( 1 );
+                            $message->from( $setting->send_email, 'Магазин Veis!' );
+                            $message->to( $mail_order )
+                                ->subject( 'Спасибо за покупку в нашем магазине!' );
+                        } );
                 }
+
                 //отправка письма Админу
-                Mail::send('emails.admin.create_order', ['order' => $order],
-                    function ($message) {
-                        $setting = Setting::find(1);
-                        $message->from($setting->email_site_ru, 'Магазин SHOP!');
-                        $message->to($setting->email_site_ru)
-                            ->subject('Новый заказ с сайта!');
+                Mail::send( 'emails.admin.create_order', [ 'order' => $order ],
+                    function ( $message ) {
+                        $setting = Setting::find( 1 );
+                        $message->from($setting->send_email, 'Магазин Veis!' );
+                        $message->to($setting->receive_email)
+                            ->subject( 'Новый заказ с сайта!' );
                     });
-            }*/
+            }
 
             return response()->json($order);
         }
@@ -1250,8 +1264,6 @@ class ApiController extends Controller
 
         }*/
         response()->json($order);
-
-
     }
 
     public function searchOrderProduct(Request $request){
@@ -1521,14 +1533,15 @@ class ApiController extends Controller
         $result['contacts'] = 0;
         if($request->from == null && $request->to == null){
 
-            $result['orders'] = Order::where('confirm', 1)->count();
-            $orders = Order::where([['confirm', 1], ['status', 'Выполнен']])->get();
+            $result['orders'] = Order::where('status', '<>', 'Новый')->count();
+            $result['sales'] = Order::where('status', 'Сделка завершена')->count();
+            /*$orders = Order::where([['confirm', 1], ['status', 'Выполнен']])->get();
 
             foreach ($orders as $order){
 
                 $result['sales'] += $order->total;
 
-            }
+            }*/
 
             $result['contacts'] = Contact::all()->count();
 

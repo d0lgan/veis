@@ -37,7 +37,7 @@
             }
         },
         mounted() {
-            const viewMore = (iteam, iteam2, btn = false) => {
+            const viewMore = (iteam, iteam2, locale, btn = false) => {
                 const pressBtn = document.querySelector(iteam),
                     textBox = document.querySelector(iteam2);
 
@@ -46,18 +46,18 @@
                 function open() {
                     textBox.classList.toggle('open');
                     if (btn === false) {
-                        if (pressBtn.querySelector('span').textContent === (this.locale == 'ru' ? "Читать далее" : "Читати далі")) {
-                            pressBtn.querySelector('span').textContent = (this.locale == 'ru' ? "Скрыть" : "Приховати");
+                        if (pressBtn.querySelector('span').textContent === (locale == 'ru' ? "Читать далее" : "Читати далі")) {
+                            pressBtn.querySelector('span').textContent = (locale == 'ru' ? "Скрыть" : "Приховати");
                             pressBtn.querySelector('img').style.transform = 'rotate(-180deg)';
                         } else {
-                            pressBtn.querySelector('span').textContent = (this.locale == 'ru' ? "Читать далее" : "Читати далі");
+                            pressBtn.querySelector('span').textContent = (locale == 'ru' ? "Читать далее" : "Читати далі");
                             pressBtn.querySelector('img').style.transform = 'rotate(0)';
                         }
                     }
                 }
             };
 
-            viewMore('.about__view_more', '.about__text');
+            viewMore('.about__view_more', '.about__text', this.locale);
         },
         data: function () {
             return {

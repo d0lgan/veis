@@ -10,12 +10,15 @@ use App\GroupAttribute;
 use App\Language;
 use App\Option;
 use App\Product;
+use App\ProductAttribute;
+use App\ProductCategory;
 use App\ProductOption;
 use App\ProductValue;
 use App\Stock;
 use App\Supplier;
 use App\ValueOption;
 use Carbon\Carbon;
+use function foo\func;
 use Illuminate\Http\Request;
 use App\Page;
 use DB;
@@ -71,27 +74,24 @@ class ProductController extends Controller
         $contacts_count = $contacts->count();
         $orders = Order::all();
         $order_count = $orders->count();
-
-
-
+        
         return view('admin.product.index', compact('products', 'categories', 'manufacturers', 'stocks', 'settings', 'count_p', 'order_count', 'contacts_count'));
     }
-
-
+    
     // Export
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function indexExport(Request $request)
-
     {
-        set_time_limit(120);
-        //Экспорт
+        set_time_limit(360);
+        // Экспорт
         // $request->user()->authorizeRoles(['admin']);
 
         // $products = Product::with(['category', 'manufacturer',])->take(10)->get();
         // $products = Product::(['price', 'manufacturer',])->take(10)->get();
 
-//    header('Content-Type: application/octet-stream');
-//    header('Content-Disposition: attachment; filename="export-' . date('Y-m-d H_i_s') . '.xml"');
-        $lang = 'uk';
         $lang = 'ru';
         // ?lang=ru ?lang=uk
         if (!empty($_GET['lang']) && in_array($_GET['lang'], ['ru', 'uk'])) $lang = $_GET['lang'];
@@ -99,7 +99,7 @@ class ProductController extends Controller
         ob_start();
         echo '<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2021-03-04 23:15">
+<yml_catalog date="'.date('Y-m-d H:i').'">
     <shop>
         <name>Магазин</name>
         <company>Магазин</company>
@@ -110,7 +110,7 @@ class ProductController extends Controller
         </currencies>
         <categories>
             ';
-        Category::chunk(20, function ($arr) use ($lang) {
+        Category::chunk(100, function ($arr) use ($lang) {
             foreach ($arr as $v) {
                 $t = htmlspecialchars($v->{"title_{$lang}"}/*,ENT_XML1*/);
                 echo "<category id=\"{$v->id}\">{$t}</category>\n";
@@ -121,42 +121,93 @@ class ProductController extends Controller
         </categories>
         <offers>
 ';
+
         $host = $_SERVER['HTTP_HOST'];
         $https = (!empty(@$_SERVER['HTTPS']) && @$_SERVER['HTTPS'] !== 'off') || @$_SERVER['SERVER_PORT'] == 443;
         $https = $https ? 'https' : 'http';
         $base_url = "{$https}://{$host}/product/";
         $image_base_url = "{$https}://{$host}/house/uploads/";
 
-        Product::with(['category', 'manufacturer', 'galleries', 'attributes',])->chunk(20, function ($arr) use ($lang, $base_url, $image_base_url) {
-            echo "\n";
-            foreach ($arr as $p) {
+        // Контрольная точка времени
+        $start = microtime(true);
+
+        // Определяем продукты которые будем обрабатывать
+        $products = [];
+        $productIDs = [];
+        $categories = [];
+        Product::chunk(1000, function ($arr) use ($start, &$products, &$productIDs, &$categories, $lang, $base_url, $image_base_url) {
+            foreach ($arr as $product) {
+                if (!empty($product->price)) { // не с нулевой ценой
+                    $products[] = $product;
+                    $productIDs[] = $product->id;
+                    if ($product->category) {
+                        $categories[$product->id] = $product->category;
+                    }
+                }
+            }
+
+            // Получаем активные изображения к продуктам
+            $galleriesByProductId = [];
+            Gallery::where('status', Gallery::ON_STATUS)
+                ->whereIn('product_id', $productIDs)
+                ->orderBy('sort')
+                ->chunk(1000, function ($arr) use (&$galleriesByProductId) {
+                    foreach ($arr as $gallery) {
+                        $galleriesByProductId[$gallery->product_id][] = $gallery;
+                    }
+                });
+
+            // Получаем линки аттрибутов к продуктам
+            $attributeIDs = [];
+            $attributeLinksByProductId = [];
+            ProductAttribute::whereIn('product_id', $productIDs)
+                ->chunk(1000, function ($arr) use (&$attributeIDs, &$attributeLinksByProductId) {
+                    foreach ($arr as $productLinkAttribute) {
+                        $attributeLinksByProductId[$productLinkAttribute->product_id][] = $productLinkAttribute->attribute_id;
+                        $attributeIDs[] = $productLinkAttribute->attribute_id;
+                    }
+                });
+
+            // Получаем активные аттрибуты продуктов
+            $attributes = [];
+            Attribute::whereIn('id', $attributeIDs)
+                ->orderBy('sort')
+                ->chunk(1000, function ($arr) use (&$attributes) {
+                    foreach ($arr as $attribute) {
+                        $attributes[$attribute->id] = $attribute;
+                    }
+                });
+
+            /** @var Product $product */
+            /** @var Category $categories */
+            foreach ($products as $product) {
                 $offer = new \SimpleXMLElement('<offer/>');
                 // https://support.prom.ua/hc/ru/articles/360004963578
-                $offer->addAttribute("id", $p->id);
-                $offer->addAttribute("available", ($p->availability == "1") ? "true" : "false");
+                $offer->addAttribute("id", $product->id);
+                $offer->addAttribute("available", ($product->availability == "1") ? "true" : "false");
                 $offer->addAttribute("selling_type", "r");
-                $offer->addChild("url", $base_url . $p->{"slug_{$lang}"});
-                $offer->addChild("price", $p->price);
-                if ($p->undiscounted) {
-                    $offer->addChild("oldprice", $p->undiscounted);
+                $offer->addChild("url", $base_url . $product->{"slug_{$lang}"});
+                $offer->addChild("price", $product->price);
+                if ($product->undiscounted) {
+                    $offer->addChild("oldprice", $product->undiscounted);
                 }
                 $offer->addChild("currencyId", "UAH");
                 // $offer->addChild("categoryId", "new");
-                if ($p->category) {
-                    $offer->addChild("categoryId", "" . $p->category->id);
+                if ($categories[$product->id]) {
+                    $offer->addChild("categoryId", "" . $categories[$product->id]->id);
                 } else {
                     $offer->addChild("categoryId", "cat");
                 }
-                $convertimage = function($image){
-                    // если оно не webp возврат
-                    if(!$image || !preg_match('#\\.webp$#i', $image) ) return $image;
-                    // если она webp, то конвертируем и выдаем
-                    $image_file_path = realpath(__DIR__.'/../../../public/house/uploads/' . $image);
-                    if(!$image_file_path)return null;
-                    // дальше только если картинка есть, её ведь может и не быть!
-                    $image_file_path_converted = $image_file_path.'.jpg'; // путь к картинке.webp.jpg
-                    if(false && file_exists($image_file_path_converted)){
 
+                $convertImage = function ($image) {
+                    // если оно не webp возврат
+                    if (!$image || !preg_match('#\\.webp$#i', $image)) return $image;
+                    // если она webp, то конвертируем и выдаем
+                    $image_file_path = realpath(__DIR__ . '/../../../public/house/uploads/' . $image);
+                    if (!$image_file_path) return null;
+                    // дальше только если картинка есть, её ведь может и не быть!
+                    $image_file_path_converted = $image_file_path . '.jpg'; // путь к картинке.webp.jpg
+                    if (false && file_exists($image_file_path_converted)) {
                         // ура, файл уже есть!
                         return $image . '.jpg';
                     }
@@ -165,38 +216,47 @@ class ProductController extends Controller
                     $im = imagecreatefromwebp($image_file_path);
                     imagejpeg($im, $image_file_path_converted, 90);
                     imagedestroy($im);
+
                     return $image . '.jpg';
                 };
-                if ($img=$convertimage($p->image)){
+
+                if ($img = $convertImage($product->image)) {
                     $offer->addChild("picture", $image_base_url . $img);
                 }
-                if($p->galleries){
-                    foreach ($p->galleries as $gallery) {
-                        if ($img=$convertimage($gallery->name)){
+
+                if ($galleriesByProductId[$product->id]) {
+                    foreach ($galleriesByProductId[$product->id] as $gallery) {
+                        if ($img = $convertImage($gallery->name)) {
                             $offer->addChild("picture", $image_base_url . $img);
                         }
                     }
                 }
+
                 // <param name="Выбрать цвет">Бежевый</param>
                 // <param name="Выбрать размер">42</param>
                 // <param name="Материал">шелк</param>
                 // <param name="Артикул">062_283913</param>
-                foreach ($p->attributes as $attribute) {
+                foreach ($attributeLinksByProductId[$product->id] as $attributeID) {
+                    $attribute = $attributes[$attributeID];
+
                     // $offer->addChild("picture", $image_base_url . $gallery->name);
                     $param = $offer->addChild("param", $attribute->{"name_{$lang}"});
                     $param->addAttribute("name",
                         $attribute->group_attribute->{"title_{$lang}"}
                     );
                 }
+
                 // with images??
-                if ($p->vendor_code) $offer->addChild("vendorCode", $p->vendor_code);
-                $offer->addChild("name", $p->{"title_{$lang}"});
-                $offer->addChild("description", html_entity_decode(strip_tags($p->{"description_{$lang}"})));
+                if ($product->vendor_code) $offer->addChild("vendorCode", $product->vendor_code);
+                $offer->addChild("name", $product->{"title_{$lang}"});
+                $offer->addChild("description", html_entity_decode(strip_tags($product->{"description_{$lang}"})));
                 $xmlText = html_entity_decode($offer->asXML(), ENT_NOQUOTES, 'UTF-8'); // asXML/saveXML
                 list(, $xmlText) = explode('?>', $xmlText, 2);
                 $xmlText = trim($xmlText);
                 echo $xmlText;
-                // $p->{"title_{$lang}"};
+                // $product->{"title_{$lang}"};
+
+                echo "\n";
             }
         });
         echo '
@@ -204,13 +264,34 @@ class ProductController extends Controller
     </shop>
 </yml_catalog>
 ';
+
         $c = ob_get_contents();
         ob_end_clean();
-        return response($c, 200)->header('Content-Type', 'application/octet-stream')->header('Content-Disposition', 'attachment; filename="export-' . date('Y-m-d H_i_s') . '.xml"');
+
+//        echo "<br/>\n";
+//        echo "<br/>\n";
+//        print_r(count($products));
+//        echo 'Время выполнения скрипта: ' . round(microtime(true) - $start, 4) . ' сек.';
+//        echo "<br/>\n";
+//        echo "<br/>\n";
+//        exit();
+
+        if (!empty($_GET['display']) && 'xml' == $_GET['display']) {
+            return response($c, 200)
+                ->header('Content-Type', 'text/xml');
+        }
+
+        return response($c, 200)
+            ->header('Content-Type', 'application/octet-stream')
+            ->header('Content-Disposition', 'attachment; filename="export-' . date('Y-m-d H_i_s'). '_' . $lang . '.xml"');
     }
-
-
-
+    
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function postProductComment(Request $request, $id)
     {
 
@@ -477,20 +558,7 @@ class ProductController extends Controller
         if (!$mainCat) {
             $product->categories()->syncWithoutDetaching($request->category_id);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
         return redirect()->route('admin-products-index')->with('success', 'Товар успешно сохранен!');
     }
 

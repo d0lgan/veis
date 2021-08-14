@@ -1,4 +1,4 @@
-<template>
+s<template>
     <div class="container">
         <div class="breadcrumbs">
             <div class="holder">
@@ -62,7 +62,6 @@
                     <div class="product-card__demo sticky-box">
                         <div class="product-card__slider">
                             <div class="product-card__slider-item">
-
                                 <a data-fancybox="prod_gallery" :href="`/house/uploads/` + product.image">
                                     <img :src="`/house/uploads/` + product.image" alt="">
                                 </a>
@@ -144,38 +143,22 @@
                                 </a>
                             </div>
                         </div>
-                        <!--<div class="product-card__wrapbox options">
-                            <p class="options__title">{{ translate.options }}</p>
+                        
+
+                        <div class="product-card__wrapbox options" v-if="product.options.length">
+                            <p class="options__title">{{ translate.select_options }}</p>
                             <div class="product-card__flexer">
-                                <div class="select select-custom" data-modal-open="colors">
-                                    <div class="select-inner"></div>
+                                <div class="select select-custom" v-for="option in product.options">
+                                    <div class="select-inner" style="padding-left: 10px;"></div>
                                     <select>
-                                        <option value="1">{{ translate.color }}</option>
-                                        <option value="2">Белый</option>
-                                        <option value="3">Черный</option>
-                                        <option value="4">Красный</option>
-                                    </select>
-                                </div>
-                                <div class="select select-custom">
-                                    <div class="select-inner"></div>
-                                    <select>
-                                        <option value="1">{{ translate.size }}</option>
-                                        <option value="2">12</option>
-                                        <option value="3">13</option>
-                                        <option value="4">44</option>
-                                    </select>
-                                </div>
-                                <div class="select select-custom">
-                                    <div class="select-inner"></div>
-                                    <select>
-                                        <option value="1">{{ translate.pod }}</option>
-                                        <option value="2">Толстая</option>
-                                        <option value="3">Тонкая</option>
-                                        <option value="4">Тканевая</option>
+                                        <option value="0">Выберите {{ option.option.title_ru }}</option>
+                                        <option value="2" v-for="value in option.product_values">{{ value.value_option.value_ru }}</option>
                                     </select>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
+
+
                         <div class="product-card__description">
                             <div v-if="glasses" class="product-card__description-body" style="display: block;">
                                 <div class="params">
@@ -292,8 +275,6 @@
                             {{ translate.free_consul_1 }}<span class="mobile-hidden">&nbsp;{{ translate.free_consul_2 }}</span>
                         </a>
                     </div>
-
-
                 </div>
             </div>
         </section>
@@ -924,6 +905,7 @@
             // Устанавливаем текущую дату для проверки акции
             var cd = new Date();
             this.dateForDiscount = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
+
 
         }
     }

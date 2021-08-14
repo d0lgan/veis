@@ -11,12 +11,11 @@
 |
 */
 
-
-if(env('APP_DEBUG'))
-{
-	Artisan::call('view:clear');
+if (env('APP_DEBUG')) {
+    Artisan::call('view:clear');
 }
 
+Route::get('/sendemail', 'PageController@mail');
 
 /*страницы*/
 Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], function(){
@@ -168,13 +167,15 @@ Route::group(['prefix' => 'cron'], function () {
 Route::get('cron-novaposhta-city', 'CityController@cronNovaPoshtaCity')
     ->name('cron-novaposhta-city');
 
+// Export XML
+Route::get('/products/export', 'ProductController@indexExport')
+    ->name('products-export')->middleware('pagePublic');
 
 Route::group(['middleware' => 'AdminPanel'], function () {
-
     Route::get('/admin', 'AdminHomeController@index')
         ->name('admin-home-index');
 
-    // Export
+    // Export XML
     Route::get('/admin/products/export', 'ProductController@indexExport')
         ->name('admin-products-export');
 
@@ -193,6 +194,10 @@ Route::group(['middleware' => 'AdminPanel'], function () {
     Route::resource('admin-stocks', 'StockController');
     Route::get('/admin/stocks', 'StockController@indexAdmin')
         ->name('admin-stocks-index');
+
+    Route::resource('admin-way-to-pays', 'WayToPayController');
+    Route::get('/admin/way-to-pays', 'WayToPayController@indexAdmin')
+        ->name('admin-way-to-pays-index');
 
     Route::post('/admin/products/st', 'ProductController@test')
         ->name('admin-products-st');

@@ -1,3 +1,5 @@
+SecRuleRemoveById 211030
+
 <IfModule mod_negotiation.c>
     Options -MultiViews
 </IfModule>

@@ -52,7 +52,7 @@
                                             <td class="align-middle py-1 pr-3">{{ $order->email }}</td>
                                             <td class="align-middle py-1 pr-3">{{ $order->status }}</td>
                                             <td class="align-middle py-1 pr-3">{{ $order->total }}</td>
-                                            <td class="align-middle py-1 pr-3">{{ $order->created_at }}</td>
+                                            <td class="align-middle py-1 pr-3">{{ date('d.m.Y', strtotime($order->created_at)) }}</td>
                                             <td class="align-middle py-1 pr-3">
                                                 <div class="d-flex">
                                                     <a href="/admin-orders/{{ $order->id }}/edit" style="width: 35px; height: 35px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Редактировать">

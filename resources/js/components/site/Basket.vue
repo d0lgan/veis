@@ -57,7 +57,7 @@
                                         {{ translate.basket.phone }}
                                     </label>
                                     <input v-model="order.phone" @focusout="updateOrder()" type="text"
-                                           class="input phone">
+                                           class="input <!--phone-->">
                                 </div>
                             </div>
                         </div>
@@ -111,12 +111,31 @@
                                             {{ translate.basket.option }}
                                         </label>
                                         <div class="select select-custom">
-                                            <div class="select-inner"></div>
+                                            <div class="select-inner" style="padding-left: 10px;"
+                                                 @click="openDels = !openDels;"
+                                            >{{ del }}</div>
                                             <select>
                                                 <option value="1">В отделении Новой Почты</option>
                                                 <option value="2">В отделении Укр Почты</option>
                                                 <option value="3">В отделении Meest Express</option>
                                             </select>
+
+                                            <div class="select-wrapper" data-select="2" v-show="openDels"
+                                                 style="width: 293px;">
+                                                <div class="select-content">
+                                                    <ul class="select-options">
+                                                        <li class="select-option-item" @click="openDels = false; order.delivery = 'nova'; del = translate.basket.novaDel;">
+                                                            {{ translate.basket.novaDel }}
+                                                        </li>
+                                                        <li class="select-option-item" @click="openDels = false; order.delivery = 'ukr'; del = translate.basket.ukrDel;">
+                                                            {{ translate.basket.ukrDel }}
+                                                        </li>
+                                                        <li class="select-option-item" @click="openDels = false; order.delivery = 'pickup'; del = translate.basket.pickupDel;">
+                                                            {{ translate.basket.pickupDel }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -142,8 +161,8 @@
                                                     <ul class="select-options">
                                                         <li class="select-option-item"
                                                             v-for="wareCity in cities"
-                                                            @click="city = wareCity; keywordCity = wareCity.Description;">
-                                                            {{ wareCity.Description }}
+                                                            @click="city = wareCity; keywordCity = (getLang ? wareCity.DescriptionRu : wareCity.Description);">
+                                                            {{ getLang ? wareCity.DescriptionRu : wareCity.Description }}
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -153,21 +172,29 @@
 
                                     <div class="inputbox">
                                         <label for="">
-                                            {{ translate.basket.department }}
-                                            <img src="/assets/front/img/uploading.gif" alt="loading..." class="upload-gif" v-show="loadingPoints">
+                                            {{ order.delivery == 'nova' ? translate.basket.department : translate.basket.address }}
+                                            <img v-if="order.delivery == 'nova'" src="/assets/front/img/uploading.gif" alt="loading..." class="upload-gif" v-show="loadingPoints">
                                         </label>
                                         <div class="select select-custom">
-                                            <div class="select-inner">
-                                                <input v-model="keywordPoint"
+                                            <div :class="'select-inner' + (order.delivery != 'nova' ? 'without-arrow' : '')">
+                                                <input v-if="order.delivery == 'nova'"
+                                                       v-model="keywordPoint"
                                                        @keydown="debouncedGetAnswerPoint()"
                                                        @focusout="updateOrder(); closePointsWithDelay();"
                                                        @focusin="openPoints = true; openCities = false;"
                                                        type="text" class="input-search"
                                                        :placeholder="translate.basket.choosePoint"
                                                 >
+                                                <input v-else
+                                                       v-model="keywordPoint"
+                                                       @focusout="updateOrder(); closePointsWithDelay();"
+                                                       @focusin="openPoints = true; openCities = false;"
+                                                       type="text" class="input-search"
+                                                       :placeholder="translate.basket.chooseAddress"
+                                                >
                                             </div>
 
-                                            <div class="select-wrapper" data-select="2" v-show="openPoints"
+                                            <div class="select-wrapper" data-select="2" v-show="openPoints && order.delivery == 'nova'"
                                                  style="">
                                                 <div class="select-content">
                                                     <ul class="select-options">
@@ -197,12 +224,23 @@
                                             {{ translate.basket.choose }}
                                         </label>
                                         <div class="select select-custom">
-                                            <div class="select-inner"></div>
-                                            <select>
-                                                <option value="1">Оплата картой VISA. MasterCard</option>
-                                                <option value="2">Оплата картой VISA. MasterCard</option>
-                                                <option value="3">Оплата картой VISA. MasterCard</option>
+                                            <div class="select-inner"
+                                                 @focusout="closeWaysWithDelay();"
+                                                 @click="openWays = !openWays;" style="padding-left: 10px;">{{ way }}</div>
+                                            <select v-model="order.way_to_pay">
+                                                <option v-for="wayToPay in wayToPays" :value="wayToPay.id">{{ wayToPay.title_ru }}</option>
                                             </select>
+
+                                            <div class="select-wrapper" data-select="2" v-show="openWays"
+                                                 style="width: 293px;">
+                                                <div class="select-content">
+                                                    <ul class="select-options">
+                                                        <li class="select-option-item" v-for="wayToPay in wayToPays" @click="order.way_to_pay = wayToPay.id; way = getLang ? wayToPay.title_ru : wayToPay.title_uk; openWays = false">
+                                                            {{ getLang ? wayToPay.title_ru : wayToPay.title_uk }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <p class="small-text">
@@ -217,12 +255,12 @@
 
                         </div>
                         <div class="cart__itoges cart__itoges--mob desktop-hidden">
-                            <a href="#" class="product-card__btn product-card__btn--buy">
+                            <button type="submit" class="product-card__btn product-card__btn--buy">
                                 <img src="/assets/front/img/cart__white.png" alt="">
                                 <span class="product-card__btn-inner">{{ translate.basket.pay }}</span>
-                            </a>
+                            </button>
                             <div class="cart__itoges-text">
-                                <p class="cart__itoges-textwrap">
+                                <p class="cart__itoges-textwrap" v-if="totalPrice >= settings.free_shipping">
                                     {{ translate.basket.delCost }} <span>{{ translate.basket.free }}</span>
                                 </p>
                                 <p class="cart__itoges-pricewrap">
@@ -251,7 +289,7 @@
                                                class="cart__item-title" v-if="locale == 'ru'">
                                                 {{ product.title_ru}}
                                             </a>
-                                            <a :href="'/' + locale + '/produce/' + product.slug_uk"
+                                            <a :href="'/' + '/produce/' + product.slug_uk"
                                                class="cart__item-title" v-if="locale == 'uk'">
                                                 {{ product.title_uk }}
                                             </a>
@@ -316,7 +354,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title">{{ translate.basket.thanks }}</h3>
-                        <a :href="getLang ? '/' : '/ru'" title="Close" class="close-pay">×</a>
+                        <a :href="getLang ? '/ru' : '/'" title="Close" class="close-pay">×</a>
                     </div>
                     <div class="modal-body">
                         <p>{{ translate.basket.confirm }}</p>
@@ -337,6 +375,7 @@
             'translate',
             'locale',
             'settings',
+            'wayToPays',
         ],
         data() {
             return {
@@ -357,6 +396,10 @@
                 loadingPoints: false,
                 openPoints: false,
                 openCities: false,
+                openWays: false,
+                openDels: false,
+                way: '',
+                del: '',
                 /*regions: this.regi,
                 warehouses: [],*/
                 confirm: false,
@@ -369,10 +412,11 @@
                     fatherland: '',
                     phone: '',
                     email: '',
-                    delivery: 'noun',
-                    region: 'noun',
-                    city: 'noun',
-                    warehouse: 'noun',
+                    delivery: '',
+                    way_to_pay: '',
+                    region: '',
+                    city: '',
+                    warehouse: '',
                     status: 'Новый',
                     comment: '',
                     confirm: false,
@@ -407,7 +451,7 @@
         },
 
         methods: {
-            createOrder: function () {
+            createOrder: function (confirm = false) {
                 this.order.total = this.totalPrice;
                 this.order.comment = this.comment;
 
@@ -418,6 +462,7 @@
                     axios.get('/api/order/updateOrder', {
                         params: {
                             order: this.order,
+                            confirm: this.order.confirm,
                         }
                     }).then((res) => {
                         this.id = res.data.id;
@@ -432,7 +477,7 @@
                 this.order.region = this.region;*/
                 if (this.products.length) {
                     if (usefulData == true && this.orderCreated == false) {
-                        this.createOrder();
+                        this.createOrder(confirm);
                         this.orderCreated = true;
                     } else if (this.orderCreated == true) {
                         this.order.total = this.totalPrice;
@@ -441,36 +486,28 @@
                             axios.get('/api/order/updateOrder', {
                                 params: {
                                     order: this.order,
+                                    confirm: confirm,
                                 }
                             }).then((res) => {
                                 this.id = res.data.id;
                             });
                         }
                     }
-                    if (confirm) {
-                        setTimeout(function () {
-                            window.location.href = '/basket#confirm'
-                        }, 1000);
-
-                    }
-                }
-            },
-            getLang: function () {
-                if (this.locale == 'ru') {
-                    return true;
-                } else if (this.locale == 'uk') {
-                    return false;
                 }
             },
             confirmOrder: function () {
                 this.order.confirm = 1;
-
                 this.updateOrder(true);
-
                 this.$store.commit('clearCart');
-
+                if (this.locale == 'ru') {
+                    window.location.href = '/ru/basket#confirm';
+                } else if (this.locale == 'uk') {
+                    window.location.href = '/basket#confirm';
+                }
 
             },
+
+
 
             removeProduct: function (id) {
                 this.$store.commit('removeFromCart', id);
@@ -478,18 +515,17 @@
             },
 
             updateTotalPrice: function () {
-
                 this.totalPrice = 0;
-
                 this.products.forEach(product => {
                     this.totalPrice += parseInt(product.totalPrice);
                 });
-
             },
 
             closeError() {
                 this.error = false;
             },
+
+
 
             loadCities() {
                 if (this.keywordCity != '') {
@@ -536,6 +572,10 @@
                 setTimeout(() => this.openCities = false, 300);
             },
 
+            closeWaysWithDelay() {
+                setTimeout(() => this.openWays = false, 300);
+            },
+
             closePointsWithDelay() {
                 setTimeout(() => this.openPoints = false, 300);
             },
@@ -569,7 +609,7 @@
 
                 let item;
 
-                for(let i = 0;i < this.products[key].options.length;i++){
+                for (let i = 0;i < this.products[key].options.length;i++){
                     if(this.products[key].options[i].product_values.find(op => op.id === id)){
                         item = this.products[key].options[i].product_values.find(op => op.id === id);
                     }
@@ -621,12 +661,27 @@
             // можно в документации: https://lodash.com/docs#debounce
             this.debouncedGetAnswerCity = _.debounce(this.loadCities, 1000);
             this.debouncedGetAnswerPoint = _.debounce(this.loadPoints, 1000);
+        },
+
+        computed: {
+            getLang: function () {
+                if (this.locale == 'ru') {
+                    return true;
+                } else if (this.locale == 'uk') {
+                    return false;
+                }
+            },
         }
     }
 </script>
 
 <style scoped>
     /* свойства модального окна по умолчанию */
+    @media screen and (max-width: 640px) {
+    body {
+        padding-top: 20px !important;
+    }
+    }
     .modal-pay {
         position: fixed; /* фиксированное положение */
         top: 0;

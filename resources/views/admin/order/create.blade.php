@@ -4,7 +4,7 @@
         <div class="section__content section__content--p30">
             <div id="app">
                 <div class="row">
-                    <order-component :warehouse="{{ json_encode($warehouses) }}" :cities="{{ json_encode($cities) }}" :statuses="{{ json_encode($statuses) }}" :regi="{{ json_encode($regions) }}" :create="{{ json_encode(true) }}"></order-component>
+                    <order-component :warehouse="{{ json_encode($warehouses) }}" :cities="{{ json_encode($cities) }}" :statuses="{{ json_encode($statuses) }}" :way-to-pays="{{ json_encode($wayToPays) }}" :regi="{{ json_encode($regions) }}" :create="{{ json_encode(true) }}"></order-component>
                 </div>
                 {{--<div class="row">
                     <div class="col-md-12">

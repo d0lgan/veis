@@ -13,8 +13,8 @@
 
 <p>Ваш заказ приянт в обработку! ожидайте звонка</p>
 
-<hr>
-<a href="{{route('profile')}}" class="btn btn-info btn-fill btn-wd">Перейти к заказам</a>
+<hr>{{--
+<a href="{{route('profile')}}" class="btn btn-info btn-fill btn-wd">Перейти к заказам</a>--}}
 </body>
 </html>
 

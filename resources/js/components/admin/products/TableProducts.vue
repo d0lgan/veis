@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <data-component ref="dataSave" :product="product" :categories_json="categories_json" :manufacturers="manufacturers" :suppliers="suppliers" :fastEdit="true" :product_categories="product_categories" :settings="settings"></data-component>
+                            <data-component ref="dataSave" :product="product" :tags_json="tags_json" :categories_json="categories_json" :manufacturers="manufacturers" :suppliers="suppliers" :fastEdit="true" :product_categories="product_categories" :settings="settings"></data-component>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header d-flex justify-content-between align-items-center">
-                            <h5 class="modal-title">Груповое изменение</h5>
+                            <h5 class="modal-title">Групповое изменение</h5>
                             
                             <div class="d-flex align-items-center">
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#successModal" class="btn save saveOptions mr-3"><i class="far fa-save"></i></a>
@@ -121,7 +121,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <group-data-component :categories_json="categories_json" :manufacturers="manufacturers" :stocks="stocks" :suppliers="suppliers" :settings="settings" :selected_products="selectedProduct()"></group-data-component>
+                            <group-data-component :categories_json="categories_json" :tags_json="tags_json" :manufacturers="manufacturers" :stocks="stocks" :suppliers="suppliers" :settings="settings" :selected_products="selectedProduct()"></group-data-component>
                         </div>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
                             <h5 class="modal-title">Настройки изображений</h5>
                             
                             <div class="d-flex align-items-center">
-                                <a href="javascript:void(0)" @click="saveImage()" class="btn save saveOptions mr-3"><i class="far fa-save"></i></a>
+                                <a href="javascript:void(0)" @click="saveImage()" data-dismiss="modal" class="btn save saveOptions mr-3"><i class="far fa-save"></i></a>
                                 
                                 <a href="javascript:void(0)" class="btn back mr-2" data-dismiss="modal"><i class="fas fa-reply-all"></i></a>
                             </div>
@@ -207,7 +207,7 @@
                             <h5 class="modal-title">Настройки атрибутов</h5>
                             
                             <div class="d-flex align-items-center">
-                                <a href="javascript:void(0)" @click="saveAttr()" class="btn save saveOptions mr-3"><i class="far fa-save"></i></a>
+                                <a href="javascript:void(0)" @click="saveAttr()" data-dismiss="modal" class="btn save saveOptions mr-3"><i class="far fa-save"></i></a>
                                 
                                 <a href="javascript:void(0)" class="btn back mr-2" data-dismiss="modal"><i class="fas fa-reply-all"></i></a>
                             </div>
@@ -1351,6 +1351,7 @@
                 options: [],
                 product: [],
                 categories_json: [],
+                tags_json: [],
                 manufacturers: [],
                 suppliers: [],
                 product_categories: [],
@@ -1443,6 +1444,7 @@
                 }
             },
             getAttribute: function (id, category_id) {
+
                 axios.post('/api/fastEdit/getAttributes', {product_id: id}).then((res) => {
                     if(res.data !== null){
                         this.selected_attr = res.data.selected_attr;
@@ -1478,6 +1480,7 @@
                 axios.post('/api/fastEdit/getData', {product_id: id}).then((res) => {
                     this.product = res.data.product;
                     this.categories_json = res.data.categories_json;
+                    this.tags_json = res.data.tags_json;
                     this.manufacturers = res.data.manufacturers;
                     this.suppliers = res.data.suppliers;
                     this.product_categories = res.data.product_categories;

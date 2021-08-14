@@ -6,9 +6,69 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Aginev\SearchFilters\Filterable;
 
+
+/**
+ * Class Product
+ * @property int id
+ * @property string title_ru
+ * @property string title_uk
+ * @property string slug_ru
+ * @property string slug_uk
+ * @property int category_id
+ * @property string category_title
+ * @property int manufacturer_id
+ * @property string manufacturer_title
+ * @property int price
+ * @property int stock_id
+ * @property int undiscounted
+ * @property int vendor_code
+ * @property int ude
+ * @property int course
+ * @property int percent
+ * @property string selected_options
+ * @property int price_stock
+ * @property int sort
+ * @property string lens_height
+ * @property string lens_width
+ * @property string bridge_width
+ * @property string long_arms
+ * @property string frame_width
+ * @property string type_stock
+ * @property int status_stock
+ * @property string start_stock
+ * @property string end_stock
+ * @property string stock
+ * @property int availability
+ * @property string type
+ * @property string model
+ * @property string supplier
+ * @property string how_size
+ * @property string how_size_ru
+ * @property string how_size_uk
+ * @property string meta_h1_ru
+ * @property string meta_h1_uk
+ * @property string alt
+ * @property string description_ru
+ * @property string description_uk
+ * @property string image
+ * @property string seo
+ * @property int public
+ * @property string created_at
+ * @property string updated_at
+ * @package App
+ */
 class Product extends Model
 {
 	use Sluggable;
+	
+    protected $table = 'products';
+
+	public CONST IS_PUBLIC = 1;
+    public CONST NOT_PUBLIC = 0;
+
+    public CONST IS_AVAILABILITY = 1;
+    public CONST NOT_AVAILABILITY = 0;
+	
 	/**
 	 * Return the sluggable configuration array for this model.
 	 *
@@ -25,9 +85,7 @@ class Product extends Model
             ]
 		];
 	}
-
-	protected $table = 'products';
-
+	
 	protected $fillable = [
 	    'title',
         'description',
@@ -182,6 +240,18 @@ class Product extends Model
                             array_push($filter, '62');
                         }
 
+                        if ($index == 19) {
+                            $colors = Attribute::whereIn('id', $filter)->get();
+                            $attrs = Attribute::where('group_attribute_id', 19)->get();
+                            foreach ($attrs as $attr) {
+                                foreach ($colors as $color) {
+                                    if ($attr->id != $color->id && $attr->item_name_ru == $color->item_name_ru) {
+                                        array_push($filter, $attr->id);
+                                    }
+                                }
+                            }
+                        }
+
                         if ($index == 18) {
                             $colors = Attribute::whereIn('id', $filter)->get()->pluck('name_ru');
                             $q->whereIn('attributes.name_ru', $colors);
@@ -213,7 +283,7 @@ class Product extends Model
                 $words = explode(' ', $request);
                 foreach ($words as $word) {
                     // Работаем только со словами от трех букв
-                    if (strlen($word) < 4) continue;
+                    if (strlen($word) < 2) continue;
 
                     $query->orWhere(function ($q) use ($word) {
                         $q->where('title_ru', 'like', "%$word%")->orWhere('title_uk', 'like', "%$word%");

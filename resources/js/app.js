@@ -39,6 +39,7 @@ Vue.component('order-component', require('./components/admin/order/Order').defau
 Vue.component('blog-component', require('./components/admin/blog/Blog').default);
 Vue.component('group-attributes-component', require('./components/admin/attribute/GroupAttributes').default);
 Vue.component('editor-component', require('./components/admin/Editor').default);
+Vue.component('fa-shopping-cart-component', require('./components/admin/FaShoppingCart').default);
 Vue.component('datetime-component', require('./components/admin/DateTime').default);
 Vue.component('color-component', require('./components/admin/Color').default);
 Vue.component('statistics-component', require('./components/admin/Statistics').default);

@@ -5,6 +5,21 @@ namespace App;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Attribute
+ * @property int id
+ * @property string name_ru
+ * @property string name_uk
+ * @property string item_name_ru
+ * @property string item_name_uk
+ * @property string slug_ru
+ * @property string slug_uk
+ * @property int group_attribute_id
+ * @property int sort
+ * @property string created_at
+ * @property string updated_at
+ * @package App
+ */
 class Attribute extends Model
 {
     use Sluggable;

@@ -72,11 +72,17 @@ let store = {
                     Vue.set(item, 'quantity', 1);
                     Vue.set(item, 'totalPrice', price);
 
-                    console.log(price, state.totalPrice);
-
                     state.totalPrice += price;
                     this.commit('saveTotalPrice', state.totalPrice);
                     state.cart.push(item);
+
+                    console.log(state.totalPrice, 1);
+
+                } else {
+                    state.totalPrice += item.price;
+                    this.commit('saveTotalPrice', state.totalPrice);
+
+                    console.log(state.totalPrice, 2);
                 }
 
 

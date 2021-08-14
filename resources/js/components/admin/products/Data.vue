@@ -16,6 +16,8 @@
                 <div id="app">
                     <select-component :default="product.categories"
                                       :categories="categories_json"
+                                      :title="'Выберите дополнительные категории'"
+                                      :titleOrName="'title'"
                                       id="category"></select-component>
                 </div>
             </div> 
@@ -170,14 +172,13 @@
         </div>
 
         <div class="form-group">
-            <strong class="form-label">Теги</strong>
-
-            <select name="" id="" class="form-control">
-                <option value="">Зима</option>
-                <option value="">Весна</option>
-                <option value="">Летний</option>
-                <option value="">Осень</option>
-            </select>
+            <div id="app">
+                <select-component :default="product.tags"
+                                  :categories="tags_json"
+                                  :title="'Выберите теги'"
+                                  :titleOrName="'title'"
+                                  id="tag"></select-component>
+            </div>
         </div>
 
         <!-- <div class="btn btn-primary" @click="saveData()">Сохранить</div> -->
@@ -192,6 +193,7 @@
         props:[
             'product',
             'categories_json',
+            'tags_json',
             'manufacturers',
             'suppliers',
             'product_categories',

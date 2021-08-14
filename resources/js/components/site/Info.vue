@@ -16,11 +16,11 @@
             <div class="conteiner">
                 <h2 class="section-title product-more__title">{{ translate.useful }}</h2>
                 <div class="product__name info__changer">
-                    <pre><span :class="{ 'product__name_active': tab == 'delivery' }" @click="tab = 'delivery'">{{ getLang ? tabs.delivery.title_ru.toUpperCase() : tabs.delivery.title_uk.toUpperCase() }}</span>/<span :class="{ 'product__name_active': tab == 'pay' }"  @click="tab = 'pay'">{{ getLang ? tabs.pay.title_ru.toUpperCase() : tabs.pay.title_uk.toUpperCase() }}</span>/<span :class="{ 'product__name_active': tab == 'return' }"  @click="tab = 'return'">{{ getLang ? tabs.return.title_ru.toUpperCase() : tabs.return.title_uk.toUpperCase() }}</span>/<span :class="{ 'product__name_active': tab == 'guarantee' }"  @click="tab = 'guarantee'">{{ getLang ? tabs.guarantee.title_ru.toUpperCase() : tabs.guarantee.title_uk.toUpperCase() }}</span></pre>
+                    <pre><span :class="{ 'product__name_active': tab == 'delivery' }" @click="tab = 'delivery'; openTab(1);">{{ getLang ? tabs.delivery.title_ru.toUpperCase() : tabs.delivery.title_uk.toUpperCase() }}</span>/<span :class="{ 'product__name_active': tab == 'pay' }"  @click="tab = 'pay'; openTab(2);">{{ getLang ? tabs.pay.title_ru.toUpperCase() : tabs.pay.title_uk.toUpperCase() }}</span>/<span :class="{ 'product__name_active': tab == 'return' }"  @click="tab = 'return'; openTab(3);">{{ getLang ? tabs.return.title_ru.toUpperCase() : tabs.return.title_uk.toUpperCase() }}</span>/<span :class="{ 'product__name_active': tab == 'guarantee' }"  @click="tab = 'guarantee'; openTab(4);">{{ getLang ? tabs.guarantee.title_ru.toUpperCase() : tabs.guarantee.title_uk.toUpperCase() }}</span></pre>
                 </div>
 
                 <div class="information">
-                    <div class="information__item" :class="{ 'active': tab == 'delivery' }">
+                    <div class="information__item" ref="tab-1" :class="{ 'active': tab == 'delivery' }">
                         <img src="/img/box.png" alt="" class="information__item-img">
 
                         <div class="information__item-body">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
 
-                    <div class="information__item" :class="{ 'active': tab == 'pay' }">
+                    <div class="information__item" ref="tab-2" :class="{ 'active': tab == 'pay' }">
                         <img src="/img/money-check-alt.png" alt="" class="information__item-img">
 
                         <div class="information__item-body">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
 
-                    <div class="information__item" :class="{ 'active': tab == 'return' }">
+                    <div class="information__item" ref="tab-3" :class="{ 'active': tab == 'return' }">
                         <img src="/img/map-signs.png" alt="" class="information__item-img">
 
                         <div class="information__item-body">
@@ -59,7 +59,7 @@
                         </div>
                     </div>
 
-                    <div class="information__item" :class="{ 'active': tab == 'guarantee    ' }">
+                    <div class="information__item" ref="tab-4" :class="{ 'active': tab == 'guarantee' }">
                         <img src="/img/medal.png" alt="" class="information__item-img">
 
                         <div class="information__item-body">
@@ -105,6 +105,15 @@
                     url.searchParams.append('tab', this.tab);
                 }
                 history.pushState(null, null, url);
+            },
+
+            openTab(number_tab) {
+                // Получение ссылки на элемент
+                let tab = this.$refs[`tab-${number_tab}`];
+                // Определение расстояния от начала страницы до нужного элемента
+                let top = window.scrollY + tab.getBoundingClientRect().y;
+                // Перемотка
+                window.scrollTo(0, top)
             }
         },
         watch: {
@@ -131,15 +140,19 @@
                 switch (url.searchParams.get('tab')) {
                     case 'delivery':
                         this.tab = 'delivery';
+                        window.scrollTo(0, window.scrollY - 200 + this.$refs[`tab-1`].getBoundingClientRect().y);
                         break;
                     case 'pay':
                         this.tab = 'pay';
+                        window.scrollTo(0, window.scrollY - 200 + this.$refs[`tab-2`].getBoundingClientRect().y);
                         break;
                     case 'return':
                         this.tab = 'return';
+                        window.scrollTo(0, window.scrollY - 200 + this.$refs[`tab-3`].getBoundingClientRect().y);
                         break;
                     case 'guarantee':
                         this.tab = 'guarantee';
+                        window.scrollTo(0, window.scrollY - 200 + this.$refs[`tab-4`].getBoundingClientRect().y);
                         break;
                 }
             }

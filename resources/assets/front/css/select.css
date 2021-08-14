@@ -92,6 +92,9 @@
   background-size: auto auto;
   transition: transform .3s ease;
   background-position: center center; }
+.select .without-arrow:after {
+  content: '' !important; }
+
 .select.select-open .select-inner {
   border-color: #007bff; }
 .select.select-open .select-inner:after {

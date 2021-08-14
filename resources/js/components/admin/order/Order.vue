@@ -71,7 +71,7 @@
                                 <input class="form-control" type="text" value="order.email" v-model="order.email" name="">
                             </div>
 
-                            <div class="form-group" v-if="cr === false">
+                            <div class="form-group">
                                 <label class="form-label">Статус:</label>
                                 <select v-model="order.status" name="status" id="stat" class="form-control">
                                     <option v-for="(status, index) in statuses" v-bind:key="index" :selected="order.status == status.title" :value="status.title">{{ status.title }}</option>
@@ -83,41 +83,83 @@
                     <div class="w-100 p-3 tab-pane" id="delivery" style="background-color: #fff">
                         <div>
                             <div class="row">
-                                <div class="form-group col-md-4">
-                                    <input type="radio" name="delivery" v-model="delivery" checked value="carrier" id="carrier">
-                                    <label for="carrier">Перевозчик</label>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <input type="radio" name="delivery" v-model="delivery" value="pickup" id="pickup">
-                                    <label for="pickup">Самовывоз</label>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <input type="radio" name="delivery" id="other">
-                                    <label for="other">Другое</label>
-                                </div>
-                            </div>
-                            <div class="row" v-if="delivery === 'carrier'">
                                 <div class="form-group col-md-12">
                                     <label for="trans">Перевозчик</label>
-                                    <select name="trans" id="trans" class="form-control">
-                                        <option value="">Новая почта</option>
+                                    <select name="trans" id="trans" class="form-control" v-model="order.delivery">
+                                        <option :value="'nova'">Новая почта</option>
+                                        <option :value="'ukr'">Укр почта</option>
+                                        <option :value="'pickup'">Другое (самовывоз)</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Город</label>
-                                    <input class="form-control" type="text" v-model="order.city" name="city">
+
+                                <div class="inputbox">
+                                    <label for="">
+                                        Город
+                                        <img src="/assets/front/img/uploading.gif" alt="loading..." class="upload-gif" v-show="loadingCities">
+                                    </label>
+                                    <div class="select select-custom">
+                                        <div class="select-inner">
+                                            <input v-model="keywordCity"
+                                                   @keydown="debouncedGetAnswerCity()"
+                                                   @focusout="closeCitiesWithDelay();"
+                                                   @focusin="openCities = true; openPoints = false;"
+                                                   type="text"
+                                                   class="input-search"
+                                                   placeholder="Пусто"
+                                            >
+                                        </div>
+                                        <div class="select-wrapper" data-select="2" v-show="openCities"
+                                             style="">
+                                            <div class="select-content">
+                                                <ul class="select-options">
+                                                    <li class="select-option-itemm"
+                                                        v-for="wareCity in cities"
+                                                        @click="city = wareCity; keywordCity = wareCity.Description;">
+                                                        {{ wareCity.Description }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="form-label">Отделение</label>
-                                    <input class="form-control" type="text" v-model="order.warehouse" name="warehouse">
+                                <div class="inputbox">
+                                    <label for="">
+                                        {{ order.delivery == 'nova' ? 'Отделение' : 'Адрес' }}
+                                        <img v-if="order.delivery == 'nova'" src="/assets/front/img/uploading.gif" alt="loading..." class="upload-gif" v-show="loadingPoints">
+                                    </label>
+                                    <div class="select select-custom">
+                                        <div class="select-inner">
+                                            <input v-if="order.delivery == 'nova'"
+                                                   v-model="keywordPoint"
+                                                   @keydown="debouncedGetAnswerPoint()"
+                                                   @focusout="closePointsWithDelay();"
+                                                   @focusin="openPoints = true; openCities = false;"
+                                                   type="text" class="input-search"
+                                                   placeholder="Пусто"
+                                            >
+                                            <input v-else
+                                                   v-model="keywordPoint"
+                                                   @focusout="closePointsWithDelay();"
+                                                   @focusin="openPoints = true; openCities = false;"
+                                                   type="text" class="input-search"
+                                                   placeholder="Пусто"
+                                            >
+                                        </div>
+
+                                        <div class="select-wrapper" data-select="2" v-show="openPoints && order.delivery == 'nova'"
+                                             style="">
+                                            <div class="select-content">
+                                                <ul class="select-options">
+                                                    <li class="select-option-itemm" v-for="avPoint in points" @click="point = avPoint; keywordPoint = avPoint; openPoints = false;">
+                                                        {{ avPoint }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div v-if="delivery === 'pickup'" class="row">
-                                <div class="form-group col-md-12">
-                                    <label for="region">Адрес</label>
-                                    <input type="text" disabled value="Адрес самовывоза" class="form-control">
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -127,21 +169,18 @@
                             <div class="form-group position-relative">
                                 <label for="search">Поиск товара</label>
                                 <div class="d-flex">
-                                    <input v-model="keywords" @input="searchProduct($event)" type="text" id="search" class="form-control">
+                                    <input v-model="keywords" type="text" id="search" class="form-control">
                                     <div class="m-l-5 btn btn-secondary d-flex justify-content-center align-items-center" @click="clearSearch()"><span style="font-weight: bold;" aria-hidden="true"><i class="fas fa-times"></i></span></div>
                                 </div>
                                 <div class="position-absolute m-t-10 search w-100 d-flex justify-content-between" v-if="keywords">
-                                    <div class="col-md-10" v-show="result.length === 0">
+                                    <div class="col-md-10 h-auto" v-show="result.length === 0">
                                         Ничего не найдено
-                                        {{ res }}
-                                        {{ products }}
                                     </div>
                                     <div class="w-100 d-flex flex-column">
                                         <!-- col-md-12 py-3 result border-bottom border-secondary -->
-                                        <div v-for="(res, key_r) in result" class="h-auto result m-b-10" @click="addProduct(key_r)">
+                                        <div v-for="(res, key_r) in result" class="h-auto result" @click="addProduct(key_r)">
                                             <div class="col-md-9"><strong>{{ res.title_ru }}</strong></div>
-                                            <div v-if="res.status_stock" class="col-md-3">{{ res.price_stock }} грн</div>
-                                            <div v-else class="col-md-3">{{ res.price }} грн</div>
+                                            <div class="col-md-3">{{ res.price }} грн</div>
                                         </div>
                                     </div>
                                 </div>
@@ -198,28 +237,28 @@
                         <div>
                             <div class="form-group">
                                 <label for="pay">Вид оплаты</label>
-                                <select name="pay" id="pay" class="form-control">
-                                    <option value="">Наложеный платеж</option>
+                                <select name="pay" v-model="order.way_to_pay" id="pay" class="form-control">
+                                    <option v-for="wayToPay in wayToPays" :value="wayToPay.id">{{ wayToPay.title_ru }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="mt-3">
-                            <div v-if="cr === false">
-                                <label class="form-label">Комментарий</label>
-                                <p class="form-control disabled">{{ order.comment || "Нет комментариев" }}</p>
+                            <div>
+                                <label class="form-label" for="comment">Комментарий</label>
+                                <!--<p class="form-control disabled">{{ order.comment || "Нет комментариев" }}</p>-->
                             </div>
-                            <textarea v-else name="" placeholder="Комментарий" v-model="comment" cols="30" rows="10" class="form-control" style="resize:none"></textarea>
+                            <textarea name="comment" placeholder="Нет комментариев" v-model="order.comment" cols="30" rows="10" class="form-control" style="resize:none">{{ order.comment }}</textarea>
                         </div>
-                        <div class="mt-3" v-if="cr === true">
+                        <!--<div class="mt-3" v-if="cr === true">
                             <div class="form-group">
                             	<label class="form-label" for="stat">Статус</label>
 
                                 <select v-model="order.status" name="stat" id="stat" class="form-control">
-                                    <option value="Ожидает" selected>Ожидает</option><!--
-                                    <option v-for="status in statuses" :value="status.title">{{ status.title }}</option>-->
+                                    <option value="Ожидает" selected>Ожидает</option>&lt;!&ndash;
+                                    <option v-for="status in statuses" :value="status.title">{{ status.title }}</option>&ndash;&gt;
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
             </div>
         </div>
@@ -240,45 +279,69 @@
             'ord',
             'prod',
             'regi',
-            'cities',
-            'warehouse',
+            /*'cities',
+            'warehouse',*/
             'create',
-            'statuses'
+            'statuses',
+            'wayToPays'
         ],
         data(){
             return{
-                order: this.ord ? this.ord :  {id: 0, name: '', fatherland: '', surname: '', phone: '', email: '', delivery: '', region: '', city: '', warehouse: '', comment: '', confirm: false, total: '', status: 'Ожидает'},
+                order: this.ord ? this.ord :  {id: 0, name: '', fatherland: '', surname: '', phone: '', email: '', delivery: '', way_to_pay: '', region: '', city: '', warehouse: '', comment: '', products: '', confirm: 1, total: '', status: 'Новый'},
                 products : this.prod ? this.prod : [],
                 totalPrice : 0,
-                delivery: this.ord ? this.ord.delivery : 'carrier',
+                aWayToPay: this.ord && this.ord.wayToPay ? this.ord.wayToPay : '',
                 region: this.ord && this.ord.region ? this.ord.region : '',
-                city: this.ord && this.ord.city ? this.ord.city : '',
                 warehouse: this.ord && this.ord.warehouse ? this.ord.warehouse : '',
                 comment: this.ord ? this.ord.comment : '',
                 regions: this.regi ? this.regi : [],
                 status: '',
-                cities: this.cit ? this.cit : [],
                 warehouses: this.warehouse ? this.warehouse : [],
                 confirm: false,
                 error: false,
                 result: [],
-                keywords: null,
+                keywords: '',
                 cr: this.create ? this.create : false,
                 date: new Date(),
-                now: null
+                now: null,
+
+                city: '',
+                point: '',
+                keywordCity: '',
+                keywordPoint: '',
+                cities: [],
+                points: [],
+                loadingCities: false,
+                loadingPoints: false,
+                openPoints: false,
+                openCities: false,
+
+                selected: {
+                    query: '',
+                    page: 0,
+                    fakePageForMoreProducts: 0,
+                    limit: 11,
+                }
             }
         },
         watch:{
-            region(val){
-                axios.post('/api/order/selectCities', {ref: val}).then((res) => {
-                    this.cities = res.data;
-                    this.warehouses = [];
-                });
+            keywordCity(newVal) {
+                this.order.city = newVal;
             },
-            city(val){
-                axios.post('/api/order/selectWarehouses', {ref: val}).then((res) => {
-                    this.warehouses = res.data;
-                });
+
+            keywordPoint(newVal) {
+                this.order.warehouse = newVal;
+            },
+
+            city() {
+                this.debouncedGetAnswerPoint();
+            },
+
+            keywords(value) {
+                if (value.length >= 2) {
+                    this.selected.query = this.keywords;
+                    this.debouncedGetAnswer()
+                }
             }
         },
         methods:{
@@ -340,6 +403,55 @@
                 this.updatePrice(key);
 
             },
+
+            loadCities() {
+                if (this.keywordCity != '') {
+                    this.loadingCities = true;
+
+                    axios.get('/api/novaPoshta/cities', {
+                        params: {
+                            locale: this.locale,
+                            keyword: this.keywordCity,
+                        },
+                    })
+                        .then((response) => {
+                            this.cities = response.data.cities;
+                            this.loadingCities = false;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+
+                }
+            },
+
+            loadPoints() {
+                if (this.city) {
+                    this.loadingPoints = true;
+                    axios.get('/api/novaPoshta/refs', {
+                        params: {
+                            locale: this.locale,
+                            ref: this.city.Ref,
+                            keyword: this.keywordPoint,
+                        },
+                    })
+                        .then((response) => {
+                            this.points = response.data.points;
+                            this.loadingPoints = false;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+            },
+
+            closeCitiesWithDelay() {
+                setTimeout(() => this.openCities = false, 300);
+            },
+
+            closePointsWithDelay() {
+                setTimeout(() => this.openPoints = false, 300);
+            },
             getValues: function (id, values) {
 
                 let name = values.find(value => value.id === id);
@@ -398,6 +510,8 @@
                 for(let i = 0;i < this.products.length;i++){
                     this.totalPrice += this.getPrice(i);
                 }
+
+                this.order.total = this.totalPrice
             },
             getValuePrice: function (id, key) {
 
@@ -417,54 +531,65 @@
 
             },
             confirmOrder: function () {
-                if(this.order.name && this.order.surname && this.order.phone){
-                    if(this.delivery === 'carrier'){
-                        if(this.city && this.warehouse){
-                            this.confirm = true;
-                            this.error = false;
-                        }else{
-                            this.error = true;
-                        }
-                    }else{
-                        this.confirm = true;
-                        this.error = false;
-                    }
-                }else{
-                    this.error = true;
-                }
-
-                if(this.confirm && !this.error){
-                    this.order.confirm = this.confirm;
-                    this.updateOrder(true);
-                    this.$store.commit('clearCart');
-
-                    setTimeout(function(){
-                        window.location.href = '/admin/orders'
-                    }, 2000);
-
-                }
-
-
+                this.updateOrder(true);
+                this.confirm = true;
+                setTimeout(function(){
+                    window.location.href = '/admin/orders'
+                }, 1500);
             },
             updateOrder: function (confirm = false) {
                 this.order.total = this.totalPrice;
-                this.order.delivery = this.delivery;
-                this.order.region = this.region;
-                axios.get('/api/order/updateOrder', {
-                    params: {
-                        order: this.order,
-                    }
-                }).then((res) => {
 
-                });
+                let prods = [];
+                for (let i = 0; i < this.products.length; i++) {
+                    prods.push({
+                        'product': this.products[i].id,
+                        'count': this.products[i].quantity,
+                        'currentPrice': this.products[i].price,
+                    });
+                }
+
+                prods = JSON.stringify(prods);
+                this.order.products = prods;
+                console.log(prods);
+
+                if (this.ord) {
+                    axios.get('/api/order/updateOrder', {
+                        params: {
+                            order: this.order,
+                            products: this.order.products,
+                        }
+                    }).then((res) => {
+
+                    });
+                } else {
+                    axios.post('/api/order/createOrder', {
+                        products: [],
+                    }).then((res) => {
+                        this.order.id = res.data;
+                        axios.get('/api/order/updateOrder', {
+                            params: {
+                                order: this.order,
+                                products: this.order.products,
+                            }
+                        }).then((res) => {
+
+                        });
+                    });
+                }
             },
-            searchProduct: function (e) {
+            searchProduct: function () {
+                axios.get('/api/getForCatalogGlasses/search', {
+                    params: this.selected
+                })
+                    .then((response) => {
+                        this.result = response.data.products;
+                        this.countProducts = response.data.countProducts;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
 
-                this.keywords = e.target.value;
-
-                axios.post('/api/searching', {q: this.keywords}).then((res) => {
-                    this.result = res.data;
-                });
             },
             addProduct: function (key) {
 
@@ -472,17 +597,17 @@
 
                 axios.post('/api/order/getProduct', {id: id}).then((res) => {
 
-                    /*let id = this.products.findIndex(item => item.id === res.data.id);
+
+                    let id = this.products.findIndex(item => item.id === res.data.id);
 
                     if(id !== -1){
                         this.products[id].quantity++;
                     }else{
                         this.products.push(res.data);
-                    }*/
+                    }
 
-                    this.products.push(res.data);
                     this.updateTotalPrice();
-                    this.keywords = null;
+                    this.keywords = '';
                 });
             },
             deleteProduct: function (key) {
@@ -493,7 +618,7 @@
             },
             clearSearch: function () {
 
-                this.keywords = null;
+                this.keywords = '';
 
             },
             closeError(){
@@ -519,7 +644,28 @@
         },
         mounted() {
             this.updatePrice();
-        }
+
+            if (this.order.city) {
+                this.keywordCity = this.order.city;
+            }
+
+            if (this.order.warehouse) {
+                this.keywordPoint = this.order.warehouse;
+            }
+        },
+
+
+        created() {
+            // _.debounce — это функция lodash, позволяющая ограничить то,
+            // насколько часто может выполняться определённая операция.
+            // В данном случае мы ограничиваем частоту обращений к yesno.wtf/api,
+            // дожидаясь завершения печати вопроса перед отправкой ajax-запроса.
+            // Узнать больше о функции _.debounce (и её родственнице _.throttle),
+            // можно в документации: https://lodash.com/docs#debounce
+            this.debouncedGetAnswerCity = _.debounce(this.loadCities, 1000);
+            this.debouncedGetAnswerPoint = _.debounce(this.loadPoints, 1000);
+            this.debouncedGetAnswer = _.debounce(this.searchProduct, 800)
+        },
     }
 </script>
 
@@ -535,4 +681,70 @@
     {
         z-index: 1000 !important;
     }
+
+    .h-auto {
+        background-color: white;
+        z-index: 100001;
+    }
+
+    .upload-gif {
+        height: 17px;
+        width: 26px;
+        display: inline;
+        margin: 4px 0px -4px 0px;
+    }
+    .inputbox {
+        margin: 0 30px;
+        min-width: 300px;
+    }
+    .select-custom:hover .select-inner {
+        background: none;
+        border-color: #999999; }
+    .select-custom .select-inner {
+        width: 100%;
+        min-height: 39px;
+        height: 100%;
+        background-color: #f8f8f8;
+        transition: all .2s ease;
+        border: 1px solid  #f8f8f8; }
+
+    .select.select-open .select-inner {
+        border-color: #000; }
+    .input-search {
+        border: 0px;
+        background-color: #f8f8f8;
+        width: 100%;
+        height: 39px;
+        color: #171717;
+        font-size: 14px;
+        padding: 0 8px;
+        font-weight: 400;
+        transition: all .2s ease;
+        -webkit-appearance: none; }
+    .input-search:focus {
+        background: #f8f8f8;
+        border: 0px; }
+    .input-search:hover {
+        background: none;
+        border-color: #999999; }
+    .select-wrapper {
+        z-index: 1001;
+    }
+    .select-wrapper .select-content .select-options {
+        border-radius: 0 !important;
+        list-style: none;
+    }
+
+    .select-wrapper .select-content .select-options .select-option-itemm {
+        color: #171717;
+        font-size: 16px;
+        font-weight: 400;
+        cursor: pointer; }
+
+    .select-wrapper .select-content .select-options .select-option-itemm:hover {
+        background-color: #f8f8f8; }
+
+    .select-wrapper .select-content .select-options .select-option-itemm.item-active {
+        background-color: #f8f8f8 !important;
+        color: #171717; }
 </style>

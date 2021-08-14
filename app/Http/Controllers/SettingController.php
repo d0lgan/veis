@@ -109,6 +109,7 @@ class SettingController extends Controller {
 			$setting->phone_site_1 = $request->phone_site_1;
 			$setting->phone_site_2 = $request->phone_site_2;
 			$setting->phone_site_3 = $request->phone_site_3;
+            $setting->receive_email   	= $request->receive_email;
 			$setting->phone_site_4 = $request->phone_site_4;
 
 		}
@@ -117,13 +118,11 @@ class SettingController extends Controller {
 		if ($request->address) {
 
 			//RU
-			$setting->email_site_ru   	= $request->email_site_ru;
 			$setting->address_site_ru 	= $request->address_site_ru;
 			$setting->name_company_ru 	= $request->name_company_ru;
 			$setting->country_ru 		= $request->country_ru;
 
 			// UA
-			$setting->email_site_uk   	= $request->email_site_uk;
 			$setting->address_site_uk 	= $request->address_site_uk;
 			$setting->name_company_uk 	= $request->name_company_uk;
 			$setting->country_uk 		= $request->country_uk;

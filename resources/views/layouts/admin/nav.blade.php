@@ -30,7 +30,6 @@
                     <li><a href="{{route('admin-options-index')}}">Опции</a></li>
                     <li><a href="{{route('admin-manufacturers-index')}}">Производители</a></li>
                     <li><a href="{{route('admin-suppliers-index')}}">Поставщики</a></li>
-                    <li><a href="{{route('admin-products-export')}}" style="color: #2b2b2b;">Экспорт в XML</a></li>
                 </ul>
             </div>
             
@@ -42,6 +41,7 @@
                     <li><a href="{{route('admin-orders-index')}}" >Заказы</a></li>
                     <li><a href="{{route('admin-contacts-index')}}">Запросы с сайта</a></li>
                     <li><a href="{{route('admin-status-index')}}">Статусы заказа</a></li>
+                    <li><a href="{{route('admin-way-to-pays-index')}}">Способы оплаты</a></li>
                 </ul>
             </div>
 
@@ -70,7 +70,44 @@
                     <li><a href="{{route('admin-mailing-index')}}">Рассылка</a></li>
                 </ul>
             </div>
+            
+    <script type="text/javascript">
+        function Copy(t) {
+            // $(t).attr('href')
+            let text = $(t).find('#textid');
+            text.show();
+            text.select();
+            document.execCommand("copy");
+            text.hide();
 
+            let copy = $(t).find('#copyid');
+            copy.css('color', 'green');
+        }
+    </script>
+    <div class="navigation-bar__submenu">
+        <a class="nav-text d-flex justify-content-center align-items-center" title="Экспорт в XML" href="#"><i
+                    class="fas fa-download"></i></a>
+
+        <ul class="list-unstyled">
+            <li>Русский:
+                <button id="CopyUserButton" onclick="Copy(this)">
+                    <i id="copyid" class="fas fa-copy"></i>
+                    <textarea style="display: none;" id="textid">{{route('products-export')}}?lang=ru&display=xml</textarea>
+                </button>
+                <button><a href="{{route('admin-products-export')}}?lang=ru"><i class="fas fa-download"></i></a>
+                </button>
+            </li>
+            <li>Украинский:
+                <button id="CopyUserButton" onclick="Copy(this)">
+                    <i id="copyid" class="fas fa-copy"></i>
+                    <textarea style="display: none;" id="textid">{{route('products-export')}}?lang=uk&display=xml</textarea>
+                </button>
+                <button><a href="{{route('admin-products-export')}}?lang=uk"><i class="fas fa-download"></i></a>
+                </button>
+            </li>
+        </ul>
+    </div>
+    
             <hr>
 
 
@@ -114,7 +151,7 @@
                 	<div class="noti-wrap">
                         <div class="noti__item js-item-menu">
                             <i class="zmdi zmdi-comment-more"></i>
-                            <span class="quantity">1</span>
+                            <span class="quantity">0</span>
                             <div class="mess-dropdown js-dropdown">
                                 <div class="mess__title">
                                     <p>You have 2 news message</p>
@@ -145,43 +182,7 @@
                             </div>
                         </div>
                         <div class="noti__item js-item-menu">
-                            <i style="color: #a9b3c9; font-size: 25px; margin-bottom: 3px;" class="fas fa-shopping-cart"></i>
-                            <span class="quantity">{{ \App\Order::where('new', 2)->where('confirm', 1)->count() }}</span>
-                            <div class="email-dropdown js-dropdown">
-                                <div class="email__title">
-                                    <p>You have 3 New Emails</p>
-                                </div>
-                                <div class="email__item">
-                                    <div class="image img-cir img-40">
-                                        <img src="images/icon/avatar-06.jpg" alt="Cynthia Harvey">
-                                    </div>
-                                    <div class="content">
-                                        <p>Meeting about new dashboard...</p>
-                                        <span>Cynthia Harvey, 3 min ago</span>
-                                    </div>
-                                </div>
-                                <div class="email__item">
-                                    <div class="image img-cir img-40">
-                                        <img src="images/icon/avatar-05.jpg" alt="Cynthia Harvey">
-                                    </div>
-                                    <div class="content">
-                                        <p>Meeting about new dashboard...</p>
-                                        <span>Cynthia Harvey, Yesterday</span>
-                                    </div>
-                                </div>
-                                <div class="email__item">
-                                    <div class="image img-cir img-40">
-                                        <img src="images/icon/avatar-04.jpg" alt="Cynthia Harvey">
-                                    </div>
-                                    <div class="content">
-                                        <p>Meeting about new dashboard...</p>
-                                        <span>Cynthia Harvey, April 12,,2018</span>
-                                    </div>
-                                </div>
-                                <div class="email__footer">
-                                    <a href="#">See all emails</a>
-                                </div>
-                            </div>
+                            <fa-shopping-cart-component></fa-shopping-cart-component>
                         </div>
                         <div class="noti__item js-item-menu">
                             <i class="zmdi zmdi-notifications"></i>
@@ -223,7 +224,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="account-wrap">
+                    {{--<div class="account-wrap">
                         <div class="account-item clearfix js-item-menu">
                             <div class="content">
                                 <a class="js-acc-btn" href="#">Михаил</a>
@@ -265,7 +266,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
                 </div>
             </div>
         </div>

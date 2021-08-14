@@ -7,7 +7,7 @@
                         <a :href="getLang ? '/ru' : '/'" class="breadcrumbs__link">{{ translate.store }}</a>
                     </li>
                     <li class="breadcrumbs__item">
-                        <a href="" class="breadcrumbs__link">ПОИСК ПО САЙТУ</a>
+                        <a href="" class="breadcrumbs__link">{{ translate.crumb }}</a>
                     </li>
                 </ul>
             </div>
@@ -25,33 +25,33 @@
                                     </g>
                                 </g>
                             </svg>
-                            Вернуться обратно
+                            {{ translate.back }}
                         </a>
 
                         <p class="search-word">
-                            ПОИСК: <span>{{ selected.query.toUpperCase() }}</span>
+                            {{ translate.search }}: <span>{{ selected.query.toUpperCase() }}</span>
                         </p>
                     </div>
                     <p class="results__head-text">
-                        НАЙДЕНО <span>{{ countProducts }}</span>
+                        {{ translate.founded }} <span>{{ countProducts }}</span>
                     </p>
                 </div>
 
                 <div class="results__list">
                     <site-product-elem-component v-for="product in products" :key="product.id" :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
 
-                    <div class="catalog__more" @click="loadMoreProducts()" v-if="pageCount - selected.fakePageForMoreProducts > 1">
+                    <div class="catalog__more" style="width: 285px !important;" @click="loadMoreProducts()" v-if="pageCount - selected.fakePageForMoreProducts > 1">
                         <span class="catalog__more-link"></span>
                         <div class="catalog__more-main">
                             <span class="catalog__more-num">{{ getMoreProductsNumber }}</span>
-                            <span class="catalog__more-num catalog__more-num--small">ПОКАЗАТЬ ЕЩЕ</span>
+                            <span class="catalog__more-num catalog__more-num--small">{{ translate.show_more }}</span>
                         </div>
-                        <p class="product__text">В ЭТОЙ КАТЕГОРИИ</p>
-                        <p class="product__number">всего <span>{{ countProducts }}</span> товаров в категории</p>
+                        <p class="product__text">{{ translate.in_this_cat }}</p>
+                        <p class="product__number">{{ translate.all1 }} <span>{{ countProducts }}</span> {{ translate.all2 }}</p>
                     </div>
                 </div>
 
-                <a href="" class="btn__more" @click="loadMoreProducts()">ПОКАЗАТЬ ЕЩЕ  {{ getMoreProductsNumber }}</a>
+                <span class="btn__more" @click="loadMoreProducts()" v-if="getMoreProductsNumber > 0">{{ translate.show_more }}  {{ getMoreProductsNumber }}</span>
 
                 <div class="pagination">
                         <span class="pagination__view pagination__view--prev" @click="prevPage()" v-if="!(pageNumber == 0)">

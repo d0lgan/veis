@@ -63,8 +63,8 @@ class CreateProductsTable extends Migration {
 			$table->string('meta_h1_ru')->nullable();
 			$table->string('meta_h1_uk')->nullable();
 			$table->string('alt')->nullable();
-			$table->text('description_ru')->nullable();
-			$table->text('description_uk')->nullable();
+			$table->mediumText('description_ru')->nullable();
+			$table->mediumText('description_uk')->nullable();
 			$table->string('image')->nullable();
 			$table->text('seo')->nullable();
 			$table->integer('public')->nullable()->default(1);

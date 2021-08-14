@@ -9,7 +9,7 @@
 
 
             <div class="head__hide" v-show="products">
-                <p v-for="product in products.slice(0, 4)"><a style="color: #000; text-decoration: none;" :href="'/produce/' + getLang ? product.slug_ru : product.slug_uk">{{ getLang ? product.title_ru : product.title_uk }}</a></p>
+                <p v-for="product in products.slice(0, 4)"><a style="color: #000; text-decoration: none;" :href="getLang ? ('/ru/produce/' + product.slug_ru) : ('/produce/' + product.slug_uk)">{{ getLang ? product.title_ru : product.title_uk }}</a></p>
                 <a @click="redirect()"><div class="head__btn">{{ getLang ? 'посмотреть все результаты' : 'подивитися всі результати' }} {{ countProducts }}</div></a>
             </div>
         </div>
@@ -40,7 +40,7 @@
 
         watch: {
             request(value) {
-                if (value.length >= 3) {
+                if (value.length >= 2) {
                     this.selected.query = this.request;
                     this.debouncedGetAnswer()
                 }

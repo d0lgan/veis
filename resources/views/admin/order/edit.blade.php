@@ -5,7 +5,7 @@
                     <div class="container-fluid">
             <div id="app">
                 <div class="row">
-                    <order-component :statuses="{{ json_encode($statuses) }}" :ord="{{ json_encode($order)}}" :prod="{{ json_encode($products) }}" :regi="{{ json_encode($regions) }}" :cit="{{ json_encode($cities) }}" :warehouse="{{ json_encode($warehouses) }}"></order-component>
+                    <order-component :statuses="{{ json_encode($statuses) }}" :way-to-pays="{{ json_encode($wayToPays) }}" :ord="{{ json_encode($order)}}" :prod="{{ json_encode($products) }}" :regi="{{ json_encode($regions) }}" :cit="{{ json_encode($cities) }}" :warehouse="{{ json_encode($warehouses) }}"></order-component>
                 </div>
             </div>
         </div>

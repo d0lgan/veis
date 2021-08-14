@@ -6,7 +6,7 @@
             </a>
             <img class="notfound__img" src="/assets/front/img/404.png" alt="">
             <div class="searchbox">
-            <input type="text" v-model="query" v-on:click="stopTimer()" :placeholder="translate.input">
+            <input type="text" v-on:keyup.enter="red()" v-model="query" v-on:click="stopTimer()" :placeholder="translate.input">
             <button class="search">
                 <img src="/assets/front/img/search.svg" alt="">
             </button>
@@ -43,7 +43,7 @@
         mounted() {
             this.startTimer();
             console.log(this.locale);
-            this.redirect = setTimeout(() => window.location.href = '/', 5990);
+            this.redirect = setTimeout(() => window.location.href = '/', 6990);
         },
         destroyed() {
             this.stopTimer()
@@ -60,6 +60,15 @@
 
                 this.onMain = true;
             },
+
+            red: function () {
+                if (this.locale == 'ru') {
+                    window.location.href = window.location.origin + '/ru/search?q=' + this.query;
+                } else if (this.locale == 'uk') {
+                    window.location.href = window.location.origin + '/search?q=' + this.query;
+                }
+
+            }
         },
         watch: {
             currentTime(time) {

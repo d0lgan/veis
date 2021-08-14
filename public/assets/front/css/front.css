@@ -209,6 +209,9 @@
   background-size: auto auto;
   transition: transform .3s ease;
   background-position: center center; }
+.select .without-arrow:after {
+  content: '' !important; }
+
 .select.select-open .select-inner {
   border-color: #007bff; }
 .select.select-open .select-inner:after {
@@ -1110,9 +1113,14 @@ nav > a:hover {
   margin-bottom: 100px; }
 @media screen and (max-width: 640px) {
   .product__btn_box {
+    display: none;
     margin: 20px 0; }
   .product__btn_box .intro__btn {
-    margin: 0; } }
+    margin: 0; }
+  .work {
+    display: none; }
+
+}
 
 .work {
   width: 100%;
@@ -1426,7 +1434,7 @@ nav > a:hover {
   color: #171717;
   font-size: 16px;
   font-weight: 500;
-  height: 110px;
+  height: 150px;
   overflow: hidden;
   margin-bottom: 16px;
   transition: 0.3s; }
@@ -1935,7 +1943,7 @@ img[src="img/blog__main_foto3.jpg"] + p {
   display: flex;
   align-items: center;
   position: relative;
-  z-index: 9999; }
+  z-index: 100; }
 
 .map__head_input:hover svg {
   fill: #fff; }
@@ -3973,8 +3981,8 @@ textarea {
     display: inline; }
   .consul {
     padding: 0; }
-  .about__text {
-    text-align: center; }
+  /*.about__text {
+    text-align: center; }*/
   .foot__inner {
     display: none; }
   .media__foot {
@@ -4246,8 +4254,8 @@ textarea {
     justify-content: center; }
   .consul__block_input {
     width: 475px; }
-  .about__title {
-    text-align: center; }
+  /*.about__title {
+    text-align: center; }*/
   .bottom__head {
     padding-top: 20px; }
   .head__lines {
@@ -4587,7 +4595,7 @@ textarea {
   .head__search, .block__number {
     width: 100%; }
   .conteiner {
-    max-width: calc(100% - 80px); }
+    max-width: calc(100% - 10px); }
   .left__arrow, .right__arrow {
     width: 20px;
     height: 40px; }
@@ -5179,7 +5187,13 @@ textarea {
 @media screen and (max-width: 768px) {
   .catalog__more {
     width: 33%;
-    margin-right: 0; } }
+    margin-right: 0; }
+  .catalog-filters__slider-val {
+    font-size: 14px !important; }
+  .catalog-filters__item {
+    font-size: 14px !important; }
+
+}
 @media screen and (max-width: 600px) {
   .catalog__more {
     width: 50%;
@@ -5259,16 +5273,20 @@ textarea {
     margin: 0;
     left: 0;
     right: 0;
-    z-index: 999999;
-    opacity: 0;
+    z-index: -100;
+    opacity: 0;/*
     visibility: hidden;
-    transition: all .2s ease;
+    transition: all .3s ease;*/
     max-height: 100vh;
     overflow-y: scroll;
     padding-top: 0; }
   .catalog-filters.active {
     opacity: 1;
-    visibility: visible; } }
+    visibility: visible;
+    z-index: 99999; }
+  .use-filters {
+      display: none;
+  } }
 .catalog-filters__box {
   padding: 22px;
   padding-left: 44px;
@@ -5349,13 +5367,13 @@ textarea {
   cursor: pointer !important; }
 .catalog-filters__slider-val {
   color: #2a2a2f;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   line-height: 20px;
   display: inline-block;
   min-width: 20px; }
 .catalog-filters__slider-val--min {
-  margin-right: 10px; }
+  margin-right: 16px; }
 .catalog-filters__slider-val--max {
   margin-left: 10px; }
 .catalog-filters__type {
@@ -5420,6 +5438,7 @@ textarea {
   color: #171717; }
 
 .catalog-filters__radio {
+  font-size: 17px;
   display: flex;
   align-items: center;
   user-select: none;
@@ -5587,7 +5606,7 @@ textarea {
   width: 100%;
   height: 560px; }
 .slick-list {
-  /*height: 560px;*/
+  height: 100%;
 }
 .product-card__slider-item {
   padding-top: 7.7%;
@@ -5601,7 +5620,7 @@ textarea {
   right: 0;
   cursor: zoom-in; }
 .product-card__slider-item a img {
-  width: 100%px;
+  width: 100%;
   height: 560px;
   object-fit: contain; }
 .product-card__slider-navbox {
@@ -5654,7 +5673,7 @@ textarea {
 .product-card__flexer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
   margin-bottom: 12px; }
 @media screen and (max-width: 1024px) {
   .product-card__flexer {
@@ -5681,6 +5700,7 @@ textarea {
 .product-card__btn {
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: center;
   width: 100%;
   max-width: 304px;

@@ -492,7 +492,7 @@
     </style>
 </head>
 <body>
-
+<div id="app">
     <div class="page-wrapper" style="background: #EBEBEB !important;">
         @include('layouts.admin.nav')
     </div>
@@ -503,7 +503,7 @@
         	@yield('content')
         </div>
     </div>
-
+</div>
 <!-- Jquery JS-->
 <script src="{{ asset('vendor/jquery-3.2.1.min.js') }}"></script>
 <!-- Bootstrap JS-->
@@ -783,6 +783,5 @@
 
 
 
-</script>
 </body>
 </html>

@@ -31,7 +31,7 @@
                                     <th class="align-middle py-2 pr-3">Email</th>
                                     <th class="align-middle py-2 pr-3">Телефон</th>
                                     <th class="align-middle py-2 pr-3">Дата</th>
-                                    <th class="align-middle py-2 pr-3">Товар</th>
+                                    <th class="align-middle py-2 pr-3">Товаров</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -42,7 +42,7 @@
                                         <td class="align-middle py-2 pr-3">{{ $order->email }}</td>
                                         <td class="align-middle py-2 pr-3">{{ $order->phone }}</td>
                                         <td class="align-middle py-2 pr-3">{{ $order->created_at }}</td>
-                                        <td class="align-middle py-2 pr-3"></td>
+                                        <td class="align-middle py-1 pr-3" style="" title="@foreach ($order->products as $product){{ $product['name'] . "\n" }}@endforeach">{{ count($order->products) }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
