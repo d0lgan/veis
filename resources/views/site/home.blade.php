@@ -139,38 +139,16 @@
         </div>
     </div>
     <div class="brands__inner">
-        <a href="#/" class="brands__iteam">
-            <img style="mix-blend-mode: darken;" src="/assets/front/img/brands__foto.jpg">
+        @foreach($mainCats as $cat)
+        <a href="{{ $locale=='ru' ? '/ru/category/' . $cat->slug_ru : '/category/' . $cat->slug_uk }}" class="brands__iteam">
+            <img style="mix-blend-mode: darken;" src="{{ '/house/uploads/' . $cat->image }}">
             <div class="brands__text">
-                <p class="brands__text_name">{{ __('site.products.umbrellas') }}</p>
+                <p class="brands__text_name">{{ $locale=='ru' ? $cat->title_ru : $cat->title_uk }}</p>
                 <p class="brands__text_more">{{ __('site.products.details') }}</p>
                 <img src="/assets/front/img/brand__icon.svg">
             </div>
         </a>
-        <a href="#/" class="brands__iteam">
-            <img src="/assets/front/img/brands__foto2.jpg">
-            <div class="brands__text">
-                <p class="brands__text_name">{{ __('site.products.bags') }}</p>
-                <p class="brands__text_more">{{ __('site.products.details') }}</p>
-                <img src="/assets/front/img/brand__icon.svg">
-            </div>
-        </a>
-        <a href="#/" class="brands__iteam">
-            <img src="/assets/front/img/brands__foto3.jpg">
-            <div class="brands__text">
-                <p class="brands__text_name">{{ __('site.products.portfolios') }}</p>
-                <p class="brands__text_more">{{ __('site.products.details') }}</p>
-                <img src="/assets/front/img/brand__icon.svg">
-            </div>
-        </a>
-        <a href="#/" class="brands__iteam">
-            <img src="/assets/front/img/brands__foto4.jpg">
-            <div class="brands__text">
-                <p class="brands__text_name">{{ __('site.products.wallets') }}</p>
-                <p class="brands__text_more">{{ __('site.products.details') }}</p>
-                <img src="/assets/front/img/brand__icon.svg">
-            </div>
-        </a>
+        @endforeach
     </div>
 </section>
 

@@ -41,7 +41,7 @@
                                         <td class="align-middle py-2 pr-3">{{ $order->name }}</td>
                                         <td class="align-middle py-2 pr-3">{{ $order->email }}</td>
                                         <td class="align-middle py-2 pr-3">{{ $order->phone }}</td>
-                                        <td class="align-middle py-2 pr-3">{{ $order->created_at }}</td>
+                                        <td class="align-middle py-2 pr-3">{{ date('d.m.Y', strtotime($order->created_at)) }}</td>
                                         <td class="align-middle py-1 pr-3" style="" title="@foreach ($order->products as $product){{ $product['name'] . "\n" }}@endforeach">{{ count($order->products) }}</td>
                                     </tr>
                                 @endforeach

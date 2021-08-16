@@ -37,7 +37,11 @@
                 this.options = val;
             },
             value(){
-                this.$root.$emit('value', this.value);
+                if (this.title == 'Выберите теги') {
+                    this.$root.$emit('tags', this.value);
+                } else {
+                    this.$root.$emit('value', this.value);
+                }
             }
         },
         props: {

@@ -213,7 +213,7 @@ class ApiController extends Controller
 
     public function getData(Request $request){
 
-        $product = Product::find($request->product_id);
+        $product = Product::where('id', $request->product_id)->with('tags')->first();
 
         $manufacturers = Manufacturer::all();
         $suppliers = Supplier::all();
@@ -284,10 +284,10 @@ class ApiController extends Controller
         $cat = $request->categories;
 
         $mainCat = false;
-        if($cat){
+        if($cat) {
             $product->categories()->detach();
             foreach ($cat as $c) {
-                if($c['id'] == $request->product['category_id']){
+                if ($c['id'] == $request->product['category_id']) {
                     $mainCat = true;
                 }
 
@@ -295,11 +295,18 @@ class ApiController extends Controller
 
             }
         }
-
-
         if(!$mainCat){
             $product->categories()->syncWithoutDetaching($request->product['category_id']);
         }
+
+        $tag = $request->tags;
+        if($tag){
+            $product->tags()->detach();
+            foreach ($tag as $t) {
+                $product->tags()->syncWithoutDetaching($t['id']);
+            }
+        }
+
 
         return response()->json(true);
 
@@ -1005,7 +1012,7 @@ class ApiController extends Controller
 
             $product->public = $request->public;
             $product->sort = $request->sort;
-            
+
             $product->save();
 
 //            return response()->json($product);

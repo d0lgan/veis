@@ -181,15 +181,6 @@ class PageController extends Controller {
 		return redirect()->route('admin-pages-index');
 	}
 
-	//page site
-	public function about() {
-
-		$page = Page::where( 'type', 'about' )->first();
-		pagetitle( $page->meta_h1 );
-
-		return view( 'site.about', compact( 'page' ) );
-	}
-
 	public function service() {
 
 		$page = Page::where( 'type', 'service' )->first();
@@ -257,6 +248,7 @@ class PageController extends Controller {
             ->toArray();
 
         $brands = Brand::orderBy('sort')->get();
+        $mainCats = Category::where('at_home', '1')->get();
 
         $locale = App::getLocale();
 
@@ -276,7 +268,7 @@ class PageController extends Controller {
             $settings['country'] = $settings['country_ru'];
         }*/
 
-	    return view('site.home', compact('leftGlasses', 'rightGlasses', 'leftStock', 'rightStock', 'locale', 'translate', 'brands', 'page', 'desctran', 'desc'));
+	    return view('site.home', compact('leftGlasses', 'rightGlasses', 'leftStock', 'rightStock', 'locale', 'mainCats', 'translate', 'brands', 'page', 'desctran', 'desc'));
     }
 
     public function catalog(Request $request, $categorySlug = null) {
@@ -675,6 +667,14 @@ class PageController extends Controller {
         }*/
 
         return view('site.catalog', compact('translate', 'desctran', 'locale', 'filters', 'instantCategory', 'childCategories', 'instantManufacturer', 'instantTag', 'instantRedirect', 'desc', 'page'));
+    }
+
+    //page site
+    public function about() {
+        $locale = App::getLocale();
+        $page = Page::where( 'type', 'about')->first();
+
+        return view( 'site.about', compact( 'locale', 'page' ) );
     }
 
     public function info() {

@@ -1,49 +1,41 @@
-@extends('layouts.site.app')
+@extends('layouts.site.layout_with_short_header')
 
-@include('site.technical_mode')
+@section('title', $locale == 'ru' ? $page->title_ru : $page->title_uk)
+@section('locale', $locale)
 
 @section('content')
     <div class="container">
-        <div class="row">
-            {!! Breadcrumbs::render('about') !!}
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h1>{{$page->title}}</h1>
-                    </div>
-                    <div class="panel-body">
-
-                        <!-- Columns are always 50% wide, on mobile and desktop -->
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <img class="im_page" src="{{URL::to('/public')}}/house/uploads/{{$page->image}}">
-                            </div>
-                            <div class="col-xs-6">
-                                {!! $page->description !!}<br>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="panel-group" id="accordion">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordion"
-                                                   href="#collapseThree">
-                                                    SEO Текст
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseThree" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                {!! $page->seo !!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="breadcrumbs">
+            <div class="holder">
+                <ul class="breadcrumbs__list">
+                    <li class="breadcrumbs__item">
+                        <a href="{{ $locale == 'ru' ? '/ru' : '/' }}" class="breadcrumbs__link">{{ $locale == 'ru' ? 'ИНТЕРНЕТ МАГАЗИН' : 'ІНТЕРНЕТ МАГАЗИН'}}</a>
+                    </li>
+                    <li class="breadcrumbs__item">
+                        <a href="" class="breadcrumbs__link" >{{ $locale == 'ru' ? $page->title_ru : $page->title_uk }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <section class="product-card">
+            <div class="holder">
+                <div class="product-card__head">
+                    <a href="{{ $locale == 'ru' ? 'Вернуться назад' : 'Повернутися назад' }}" class="back-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="20" viewBox="0 0 8 20">
+                            <g>
+                                <g>
+                                    <path fill="#5c5c5c" d="M7 0h1L1 10l7 9v1L0 10z" />
+                                </g>
+                            </g>
+                        </svg>
+                        {{ $locale == 'ru' ? 'Вернуться назад' : 'Повернутися назад' }}
+                    </a>
                 </div>
             </div>
+        </section>
+
+        <div class="conteiner">
+            {{ $locale == 'ru' ? $page->description_ru : $page->description_uk }}
         </div>
     </div>
 @endsection

@@ -70,7 +70,7 @@
             <div class="form-group col-md-2 d-flex align-items-end">
                 <label for="public">Отображение</label>
                 <label class="switch switch-3d switch-success ml-3">
-                    <input type="checkbox" v-model="public" value="1" name="public" class="switch-input" id="public">
+                    <input type="checkbox" v-model="public" name="public" class="switch-input" id="public">
                     <span class="switch-label"></span>
                     <span class="switch-handle"></span>
                 </label>
@@ -209,6 +209,7 @@
             return{
                 data: [],
                 categories: [],
+                tags: [],
                 notification: false,
                 ude: 0,
                 course: 0,
@@ -236,7 +237,7 @@
                 this.data.supplier = this.supplier;
                 this.data.public = this.public;
                 this.data.sort = this.sort;
-                axios.post('/api/fastEdit/saveData', {product: this.data, categories: this.categories}).then((res) => {
+                axios.post('/api/fastEdit/saveData', {product: this.data, categories: this.categories, tags: this.tags }).then((res) => {
                     if(res.data === true){
                         this.notification = true;
                         this.$root.$emit('groupPrice', this.value);
@@ -245,7 +246,6 @@
                     console.log(res.data);
                 });
 
-                console.log('data saved');
             },
             changePrice: function () {
                 if(this.ude !== null && this.course !== null){
@@ -260,10 +260,13 @@
         },
         watch:{
             product(val){
+                this.notification = false;
+
                 this.data = val;
                 this.ude = this.data.ude;
                 this.course = this.data.course;
                 this.price = this.data.price;
+                this.public = this.data.public;
                 this.percent = this.data.percent;
                 this.stock = this.data.stock;
                 this.undiscounted = this.data.undiscounted;
@@ -279,6 +282,10 @@
 
             this.$root.$on('value', (data) => {
                 this.categories = data;
+            });
+
+            this.$root.$on('tags', (data) => {
+                this.tags = data;
             });
 
             this.$root.$on('startDate', (data) => {

@@ -28,6 +28,7 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
     Route::get('/city/{redirectSlug?}', 'PageController@catalog')->name('city')->middleware('pagePublic');
 
     Route::get('/info', 'PageController@info')->name('info')->middleware('pagePublic');
+    Route::get('/about', 'PageController@about')->name('about')->middleware('pagePublic');
 
     Route::get('/map', 'PageController@map')->name('map')->middleware('pagePublic');
 
