@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Stock extends Model
+/**
+ * Class Stock
+ * @package App
+ */
+class Stock extends \Illuminate\Database\Eloquent\Model
 {
     public function products() {
         return $this->hasMany('App/Product');

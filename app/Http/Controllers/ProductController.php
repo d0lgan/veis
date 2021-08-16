@@ -74,11 +74,12 @@ class ProductController extends Controller
         $contacts_count = $contacts->count();
         $orders = Order::all();
         $order_count = $orders->count();
-        
+
         return view('admin.product.index', compact('products', 'categories', 'manufacturers', 'stocks', 'settings', 'count_p', 'order_count', 'contacts_count'));
     }
-    
+
     // Export
+
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
@@ -99,7 +100,7 @@ class ProductController extends Controller
         ob_start();
         echo '<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="'.date('Y-m-d H:i').'">
+<yml_catalog date="' . date('Y-m-d H:i') . '">
     <shop>
         <name>Магазин</name>
         <company>Магазин</company>
@@ -283,9 +284,9 @@ class ProductController extends Controller
 
         return response($c, 200)
             ->header('Content-Type', 'application/octet-stream')
-            ->header('Content-Disposition', 'attachment; filename="export-' . date('Y-m-d H_i_s'). '_' . $lang . '.xml"');
+            ->header('Content-Disposition', 'attachment; filename="export-' . date('Y-m-d H_i_s') . '_' . $lang . '.xml"');
     }
-    
+
     /**
      * @param Request $request
      * @param $id
@@ -351,7 +352,6 @@ class ProductController extends Controller
         $orders = Order::all();
         $order_count = $orders->count();
 //dd($tags);
-
         return view('admin.product.create', compact('categories', 'langs', 'product', 'categories_json', 'tags', 'stocks', 'manufacturers', 'suppliers', 'group_attributes', 'currencies', 'tags', 'options', 'settings', 'order_count', 'contacts_count'));
     }
 
@@ -376,7 +376,6 @@ class ProductController extends Controller
         $res = json_decode($request->categories);
         $gallery = json_decode($request->gallery);
         $image = json_decode($request->image);
-
 
         if (!empty($image->tmp_name)) {
             $file = public_path() . '/house/uploads/' . $image->tmp_name;
@@ -457,7 +456,6 @@ class ProductController extends Controller
         $product->manufacturer_id = $request->manufacturer_id;
         $product->manufacturer_title = Manufacturer::find($request->manufacturer_id)->title_ru;
 
-
         if ($request->how_size_image) {
             $destinationPath = public_path() . '/house/uploads/';
 
@@ -481,7 +479,6 @@ class ProductController extends Controller
 
         $product->save();
 
-
         $langs = Language::all();
 
         foreach ($langs as $lang) {
@@ -504,9 +501,9 @@ class ProductController extends Controller
 
         if ($request->price_option) {
             $values = [];
-    
+
             for ($i = 0; $i < count($request->price_option); $i++) {
-    
+
                 $product_value = ProductValue::with('valueOption')->create([
                     'price_option' => $request->price_option[$i],
                     'operation_option' => $request->operation_option[$i],
@@ -516,7 +513,7 @@ class ProductController extends Controller
                 ]);
                 $values[] = $product_value->id;
             }
-            
+
             $product->productValues()->attach($values);
         }
 
@@ -536,7 +533,6 @@ class ProductController extends Controller
 
         }
 
-
         //заись в сводную таблицу
         $product->attributes()->attach($request->attribute_id);
 
@@ -554,11 +550,10 @@ class ProductController extends Controller
             }
         }
 
-
         if (!$mainCat) {
             $product->categories()->syncWithoutDetaching($request->category_id);
         }
-        
+
         return redirect()->route('admin-products-index')->with('success', 'Товар успешно сохранен!');
     }
 
@@ -709,22 +704,19 @@ class ProductController extends Controller
             }
         }
 
-
         $settings = Setting::first();
-
 
         $product->tags;
 
         //dd($product, $group_attributes, $select_attributes, $selected_attr);
 
         return view('site.product', compact('product', 'pages', 'page', 'locale', 'selected_attr', 'settings', 'translate', 'translate_watch'));
-
     }
 
 
     public function shownew($slug)
     {
-        $page = Page::where( 'type', 'produce' )->first();
+        $page = Page::where('type', 'produce')->first();
         $desc = [
             'ru' => $page->description_ru,
             'uk' => $page->description_uk,
@@ -779,7 +771,6 @@ class ProductController extends Controller
             'free_consul_2' => Lang::trans('product.free_consul_2'),
             'reviews' => Lang::trans('product.reviews'),
             'leave_review' => Lang::trans('product.leave_review'),
-
         ];
         $translate_watch = [
             'show_all' => Lang::trans('watched.show_all'),
@@ -826,14 +817,12 @@ class ProductController extends Controller
         $product->category;
         $product->description = trim($product->description_ru, '<p></p>');
 
-
         $options = Option::with('values')->get();
 
         // echo "<pre>";
         // var_dump(Document::get('option', 'title', 3, "ru"));
         // echo "</pre>";
         // exit;
-
 
         $selected_product_values = $product->productValues()->get();
         $selected_values = null;
@@ -883,7 +872,6 @@ class ProductController extends Controller
         $group_attributes = null;
         $select_attributes = null;
 
-
         $product->load(['attributes.group_attribute' => function ($items) use (&$group_attributes) {
             $group_attributes = $items->orderBy('sort')->get();
         }]);
@@ -906,14 +894,10 @@ class ProductController extends Controller
                         }
                     }
                 }
-
-
             }
         }
 
-
         $settings = Setting::first();
-
 
         $product->tags;
         $product->manufacturer;
@@ -925,8 +909,8 @@ class ProductController extends Controller
         }
 
         return view('site.produce', compact('product', 'pages', 'page', 'locale', 'selected_attr', 'settings', 'translate', 'translate_watch', 'desc'));
-
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -943,7 +927,6 @@ class ProductController extends Controller
         $settings = Setting::first();
         $categories_json = Category::get();
         $categories = Category::get()->pluck('title', 'id');
-
 
         $contacts = Contact::all();
         $contacts_count = $contacts->count();
@@ -982,7 +965,6 @@ class ProductController extends Controller
             $images['gallery'][0]['alt'] = '';
         }
 
-
         $options = Option::with('values')->get();
 
         $selected_product_values = $product->productValues()->get();
@@ -997,7 +979,6 @@ class ProductController extends Controller
             $selected_values->load(['select_options' => function ($items) use (&$select_options) {
                 $select_options = $items->get();
             }]);
-
 
             if ($select_options != null) {
 
@@ -1017,10 +998,8 @@ class ProductController extends Controller
             }
         }
 
-
         $group_attributes = null;
         $select_attributes = null;
-
 
         $product->load(['attributes.group_attribute' => function ($items) use (&$group_attributes) {
             $group_attributes = $items->get();
@@ -1043,8 +1022,6 @@ class ProductController extends Controller
                         }
                     }
                 }
-
-
             }
         }
         $tags = Tag::all();
@@ -1104,7 +1081,6 @@ class ProductController extends Controller
             }
         }
 
-
         $product = Product::find($id);
 
         if ($request->type_stock == 'percent' && $request->stock !== null) {
@@ -1117,7 +1093,6 @@ class ProductController extends Controller
         $product->stock = $request->stock;
         $product->type_stock = $request->type_stock;
         if (time() > strtotime($request->start_stock) && time() < strtotime($request->end_stock) && $request->stock > 0) {
-
             $product->status_stock = true;
         } else {
             $product->status_stock = false;
@@ -1126,7 +1101,7 @@ class ProductController extends Controller
         $product->start_stock = $request->start_stock;
         $product->end_stock = $request->end_stock;
 
-            // Meta info
+        // Meta info
         if (empty($request->meta_ru)) {
             $product->meta_h1_ru = $product->title_ru;
         } else {
@@ -1138,7 +1113,7 @@ class ProductController extends Controller
             $product->meta_h1_uk = $request->meta_uk;
         }
 
-            // Slug
+        // Slug
         if ($request->slug_ru) {
             $product->slug_ru = $request->slug_ru;
         }
@@ -1175,7 +1150,6 @@ class ProductController extends Controller
         $product->alt = $image->alt;
         $product->manufacturer_id = $request->manufacturer_id;
         $product->manufacturer_title = Manufacturer::find($request->manufacturer_id)->title_ru;
-
 
         if ($request->del_how_size) {
             if ($product->how_size) {
@@ -1221,9 +1195,9 @@ class ProductController extends Controller
             $product->productValues()->delete();
             $product->productValues()->detach();
             $values = [];
-    
+
             for ($i = 0; $i < count($request->price_option); $i++) {
-    
+
                 $product_value = ProductValue::with('valueOption')->create([
                     'price_option' => $request->price_option[$i],
                     'operation_option' => $request->operation_option[$i],
@@ -1233,16 +1207,14 @@ class ProductController extends Controller
                 ]);
                 $values[] = $product_value->id;
             }
-            
+
             $product->productValues()->attach($values);
         }
-        
+
         $langs = Language::all();
 
         foreach ($langs as $lang) {
-
             $documents = ['title', 'desc', 'meta', 'seo', 'additional', 'additional_title', 'how_size'];
-
 
             foreach ($documents as $document) {
                 $content = $document . '_' . $lang->locate_code;
@@ -1256,10 +1228,7 @@ class ProductController extends Controller
                     'content' => request($content, '')
                 ]);
             }
-
-
         }
-
 
         //заись в сводную таблицу
         $product->attributes()->sync($request->attribute_id);
@@ -1282,7 +1251,7 @@ class ProductController extends Controller
             $product->categories()->syncWithoutDetaching($request->category_id);
         }
 //dd($gallery);
-        
+
         if (!empty($gallery[0]->name)) {
             for ($i = 0; $i < count($gallery); $i++) {
                 $image = Gallery::where('name', $gallery[$i]->name)->first();
@@ -1341,7 +1310,6 @@ class ProductController extends Controller
 
     public function favorite_add_del($id, Request $request)
     {
-
         $array = Session::get('favorites') ?? [];
         if (in_array($id, $array)) {
             if (($key = array_search($id, $array)) !== FALSE) {
@@ -1358,5 +1326,3 @@ class ProductController extends Controller
         return redirect()->back();
     }
 }
-
-

@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class BlogCategory extends Model
+/**
+ * Class BlogCategory
+ * @package App
+ */
+class BlogCategory extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'title',

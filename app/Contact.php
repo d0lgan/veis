@@ -2,19 +2,21 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Contact extends Model
+/**
+ * Class Contact
+ * @package App
+ */
+class Contact extends \Illuminate\Database\Eloquent\Model
 {
-	protected $table = 'contacts';
-	protected $fillable = [
+    protected $table = 'contacts';
+    protected $fillable = [
         'type',
         'email',
         'name',
-		'phone',
-		'theme',
+        'phone',
+        'theme',
         'message',
-		'created_at',
+        'created_at',
         'updated_at'
     ];
 }

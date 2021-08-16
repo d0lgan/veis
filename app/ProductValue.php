@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ProductValue extends Model
+/**
+ * Class ProductValue
+ * @package App
+ */
+class ProductValue extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'need_option',
@@ -15,26 +17,21 @@ class ProductValue extends Model
     ];
 
     /*public function products() {
-
         return $this->hasMany(ProductOption::class,'product_id');
-
     }*/
 
-    public function values() {
-
+    public function values()
+    {
         return $this->belongsTo(ValueOption::class);
-
     }
 
-    public function products() {
-
+    public function products()
+    {
         return $this->belongsToMany(Product::class, 'product_product_values');
-
     }
 
-    public function valueOption() {
-
+    public function valueOption()
+    {
         return $this->belongsTo(ValueOption::class);
-
     }
 }

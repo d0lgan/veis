@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ProductProductValues extends Model
+/**
+ * Class ProductProductValues
+ * @package App
+ */
+class ProductProductValues extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'product_product_values';
 
@@ -12,5 +14,4 @@ class ProductProductValues extends Model
         'product_id',
         'product_value_id',
     ];*/
-
 }

@@ -3,9 +3,7 @@
 namespace App;
 
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Model;
 use Aginev\SearchFilters\Filterable;
-
 
 /**
  * Class Product
@@ -57,37 +55,37 @@ use Aginev\SearchFilters\Filterable;
  * @property string updated_at
  * @package App
  */
-class Product extends Model
+class Product extends \Illuminate\Database\Eloquent\Model
 {
-	use Sluggable;
-	
+    use Sluggable;
+
     protected $table = 'products';
 
-	public CONST IS_PUBLIC = 1;
-    public CONST NOT_PUBLIC = 0;
+    public const IS_PUBLIC = 1;
+    public const NOT_PUBLIC = 0;
 
-    public CONST IS_AVAILABILITY = 1;
-    public CONST NOT_AVAILABILITY = 0;
-	
-	/**
-	 * Return the sluggable configuration array for this model.
-	 *
-	 * @return array
-	 */
-	public function sluggable()
-	{
-		return [
-			'slug_ru' => [
-				'source' => 'title_ru'
-			],
+    public const IS_AVAILABILITY = 1;
+    public const NOT_AVAILABILITY = 0;
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug_ru' => [
+                'source' => 'title_ru'
+            ],
             'slug_uk' => [
                 'source' => 'title_uk'
             ]
-		];
-	}
-	
-	protected $fillable = [
-	    'title',
+        ];
+    }
+
+    protected $fillable = [
+        'title',
         'description',
         'image',
         'alt',
@@ -126,81 +124,81 @@ class Product extends Model
         'updated_at'
     ];
 
-	public function category()
-	{
-		return $this->belongsTo('App\Category');
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
         //return $this->belongsToMany('App\Category','product_category');
-	}
-
-	public function tags() {
-		return $this->belongsToMany('App\Tag','product_tag');
-	}
-
-    public function categories() {
-        return $this->belongsToMany('App\Category','product_category');
     }
 
-	public function orders(){
-		return $this->belongsToMany('App\Order');
-	}
-
-	public function comments()
-	{
-		return $this->hasMany('App\Comment');
-	}
-
-	public function galleries()
-	{
-		return $this->hasMany('App\Gallery')->orderBy('sort');
-	}
-
-	public function manufacturer()
-	{
-		return $this->belongsTo('App\Manufacturer');
-	}
-
-	public function attributes() {
-		return $this->belongsToMany('App\Attribute','product_attribute');
-	}
-
-	public function stock() {
-	    return $this->belongsTo('App\Stock');
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag', 'product_tag');
     }
 
-    public function productValues() {
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category', 'product_category');
+    }
 
+    public function orders()
+    {
+        return $this->belongsToMany('App\Order');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+    public function galleries()
+    {
+        return $this->hasMany('App\Gallery')->orderBy('sort');
+    }
+
+    public function manufacturer()
+    {
+        return $this->belongsTo('App\Manufacturer');
+    }
+
+    public function attributes()
+    {
+        return $this->belongsToMany('App\Attribute', 'product_attribute');
+    }
+
+    public function stock()
+    {
+        return $this->belongsTo('App\Stock');
+    }
+
+    public function productValues()
+    {
         return $this->belongsToMany('App\ProductValue', 'product_product_values');
-
     }
 
-    public function relations(){
-
-	    return $this->belongsToMany('App\Product', 'relations', 'product_id', 'relation_id');
-
+    public function relations()
+    {
+        return $this->belongsToMany('App\Product', 'relations', 'product_id', 'relation_id');
     }
 
-    public function getCurrencyRate($value) {
-
-        if(!Session::has('currency')) {
+    public function getCurrencyRate($value)
+    {
+        if (!Session::has('currency')) {
             Session::put('currency', 'UAH');
         }
-
-
     }
 
-  /* public static function boot()
-    {
-        parent::boot();
+    /* public static function boot()
+      {
+          parent::boot();
 
-        // cause a delete of a product to cascade to children so they are also deleted
-        static::deleted(function($product)
-        {
-            $product->galleries()->delete();
-        });
-    }*/
+          // cause a delete of a product to cascade to children so they are also deleted
+          static::deleted(function($product)
+          {
+              $product->galleries()->delete();
+          });
+      }*/
 
-
-  //Скоуп для фильтров товаров в каталоге
+    //Скоуп для фильтров товаров в каталоге
 
     public function scopeWithFilters($query, $filters, $prices, $tags, $sale, $childCategories, $IdOfInstantCategory, $IdOfInstantManufacturer, $IdOfInstantTag)
     {
@@ -219,13 +217,11 @@ class Product extends Model
                     });
                 }
             })
-
             ->when($IdOfInstantTag, function ($query) use ($IdOfInstantTag) {
-                $query->whereHas('tags', function($q) use ($IdOfInstantTag) {
+                $query->whereHas('tags', function ($q) use ($IdOfInstantTag) {
                     $q->whereIn('tags.id', [$IdOfInstantTag]);
                 });
             })
-
             ->when($IdOfInstantManufacturer, function ($query) use ($IdOfInstantManufacturer) {
                 $query->where('manufacturer_id', $IdOfInstantManufacturer);
             })
@@ -233,7 +229,7 @@ class Product extends Model
                 foreach ($filters as $index => $filter) {
                     // $filters это всегда массив со строками
                     if ($filter == "undefined" || $filter == "[]") continue;
-                    $query->whereHas('attributes', function($q) use ($index, $filter) {
+                    $query->whereHas('attributes', function ($q) use ($index, $filter) {
                         // $filter это массив, в виде строки, поэтому тут мы преобразовываем его обратно в массив
                         $filter = explode(',', substr($filter, 1, -1));
                         if ($index == 14) {
@@ -268,16 +264,16 @@ class Product extends Model
                 $query->whereBetween('price', [$prices[0], $prices[1]]);
             })
             ->when(count($tags), function ($query) use ($tags) {
-                $query->whereHas('tags', function($q) use ($tags) {
+                $query->whereHas('tags', function ($q) use ($tags) {
                     $q->whereIn('tags.id', $tags);
                 });
             });
-
     }
 
     // Scope по поиску товаров в компоненте поиск
 
-    public function scopeSearchProducts($query, $request) {
+    public function scopeSearchProducts($query, $request)
+    {
         return $query
             ->when($request, function ($query) use ($request) {
                 $words = explode(' ', $request);
@@ -322,23 +318,25 @@ class Product extends Model
     }
 
     /**
-	 * Set query filters
-	 * https://github.com/aginev/search-filters
-	 * Overwrite this method in the model to set query filters
-	 */
-	use Filterable;
-	public function setFilters()
-	{
-		$this->filter->equal('id')
-			->custom('attribute_id', function ($query, $key, $value) {
-				$query->whereHas('attributes', function ($query) use ($value){
-					$query->whereIn('attribute_id', $value);
-				});
-			}, function ($by, $dir, $query) {$query->orderBy($by, $dir);
-		})
-			->equal('manufacturer_id')
-			->between('new_price')
-			->between('price');
+     * Set query filters
+     * https://github.com/aginev/search-filters
+     * Overwrite this method in the model to set query filters
+     */
+    use Filterable;
+
+    public function setFilters()
+    {
+        $this->filter->equal('id')
+            ->custom('attribute_id', function ($query, $key, $value) {
+                $query->whereHas('attributes', function ($query) use ($value) {
+                    $query->whereIn('attribute_id', $value);
+                });
+            }, function ($by, $dir, $query) {
+                $query->orderBy($by, $dir);
+            })
+            ->equal('manufacturer_id')
+            ->between('new_price')
+            ->between('price');
 
 //	->equal('column')                  // column = filter_value
 //	->distinct('column')               // column <> filter_value
@@ -357,5 +355,5 @@ class Product extends Model
 //	->notNull('column')                // column IS NOT NULL
 //	->date('column')                   // column DATE(column) = filter_value
 //	->dateBetween('column');           // column DATE(column) BETWEEN filter_value[0] AND filter_value[1]
-	}
+    }
 }

@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Class Gallery
  * @property int id
@@ -16,18 +14,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property string updated_at
  * @package App
  */
-class Gallery extends Model
+class Gallery extends \Illuminate\Database\Eloquent\Model
 {
-	protected $table = 'galleries';
+    protected $table = 'galleries';
 
+    public const ON_STATUS = 1;
+    public const OFF_STATUS = 0;
 
-	public CONST ON_STATUS = 1;
-    public CONST OFF_STATUS = 0;
+    protected $fillable = ['name', 'product_id', 'status', 'updated_at', 'created_at', 'sort', 'alt'];
 
-	protected $fillable = ['name','product_id','status','updated_at','created_at', 'sort', 'alt'];
-
-	public function product()
-	{
-		return $this->belongsTo('App\Product');
-	}
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
 }

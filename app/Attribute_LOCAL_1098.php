@@ -3,6 +3,7 @@
 namespace App;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Attribute
@@ -19,10 +20,9 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @property string updated_at
  * @package App
  */
-class Attribute extends \Illuminate\Database\Eloquent\Model
+class Attribute extends Model
 {
     use Sluggable;
-
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -40,21 +40,20 @@ class Attribute extends \Illuminate\Database\Eloquent\Model
         ];
     }
 
-    protected $table = 'attributes';
-    protected $fillable = ['name_ru', 'name_uk', 'item_name_ru', 'item_name_uk', 'group_attribute_id', 'sort', 'created_at', 'updated_at'];
+	protected $table = 'attributes';
+	protected $fillable = ['name_ru', 'name_uk', 'item_name_ru', 'item_name_uk', 'group_attribute_id','sort', 'created_at','updated_at'];
 
-    public function group_attribute()
-    {
-        return $this->belongsTo('App\GroupAttribute');
+	public function group_attribute()
+	{
+		return $this->belongsTo('App\GroupAttribute');
+	}
+
+	public function categories() {
+	    return $this->belongsToMany('App\Category', 'category_attribute');
     }
 
-    public function categories()
-    {
-        return $this->belongsToMany('App\Category', 'category_attribute');
-    }
-
-    public function products()
-    {
-        return $this->belongsToMany('App\Product', 'product_attribute');
-    }
+	public function products()
+	{
+		return $this->belongsToMany('App\Product','product_attribute');
+	}
 }

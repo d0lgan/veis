@@ -2,12 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 use DB;
 
-
-class Document extends Model
+/**
+ * Class Document
+ * @package App
+ */
+class Document extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = ['module', 'module_id', 'lang', 'type', 'content'];
 
@@ -21,22 +23,21 @@ class Document extends Model
             ['lang', '=', $lang]
         ])->first();
 
-        if($res) {
+        if ($res) {
             return $res->content;
         }
 
         return false;
 
     }
-/*
-    public static function test($i, $id, $lang) {
-        $result = DB::table('documents')
-            ->where([
-                ['module', $i],
-                ['module_id', $id],
-                ['lang', $lang],
-            ])->first();
-        return $result;
-    }*/
-
+    /*
+        public static function test($i, $id, $lang) {
+            $result = DB::table('documents')
+                ->where([
+                    ['module', $i],
+                    ['module_id', $id],
+                    ['lang', $lang],
+                ])->first();
+            return $result;
+        }*/
 }

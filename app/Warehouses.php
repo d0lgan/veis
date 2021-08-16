@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Warehouses extends Model
+/**
+ * Class Warehouses
+ * @package App
+ */
+class Warehouses extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'ref',

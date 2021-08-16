@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Supplier extends Model
+/**
+ * Class Supplier
+ * @package App
+ */
+class Supplier extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'title',
@@ -14,5 +16,4 @@ class Supplier extends Model
         'update_new_products',
         'overwrite_products'
     ];
-
 }
