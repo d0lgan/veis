@@ -218,6 +218,10 @@ Route::group(['middleware' => 'AdminPanel'], function () {
     Route::get('/admin/manufacturers', 'ManufacturerController@indexAdmin')
         ->name('admin-manufacturers-index');
 
+    Route::resource('admin-catalog-dropdown', 'CatalogDropDownController');
+    Route::get('/admin/catalog-dropdown', 'CatalogDropDownController@indexAdmin')
+        ->name('admin-catalog-dropdown-index');
+
     Route::resource('admin-suppliers', 'SupplierController');
     Route::get('/admin/suppliers', 'SupplierController@indexAdmin')
         ->name('admin-suppliers-index');

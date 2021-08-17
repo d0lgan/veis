@@ -193,12 +193,15 @@ s<template>
                             </div>
                             <div class="product-card__description-body" v-if="attributes[0]">
                                 <div class="prod-table">
-                                    <div class="prod-table__row"  v-for="attribute in attributes">
+                                    <div class="prod-table__row" v-for="attribute in attributes">
                                         <p class="prod-table__title">{{ ucFirst(attribute.title) }}:
                                         </p>
-                                        <p class="prod-table__text" v-for="(select, key) in attribute.selected">
-                                            {{ ucFirst(selectAttr(attribute.selected[key], attribute.params)) }}
-                                        </p>
+                                        <div style="display: flex;" :class="{ intheline: attribute.title == 'Особливості' || attribute.title == 'Особенности' }">
+                                            <p class="prod-table__text" :class="{ mar: attribute.selected.length > 1 }" v-for="(select, key) in attribute.selected">
+                                                {{ ucFirst(selectAttr(attribute.selected[key], attribute.params)) }}
+                                            </p>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -262,7 +265,7 @@ s<template>
                         <div class="product-card__description mobile-hidden" v-if="product.tags">
                             <div class="product-card__description-head">
                                 <div class="hashtags">
-                                    <a v-for="tag in product.tags" :href="getLang ? '/ru/tag/'+tag.slug_ru : '/tag/'+tag.slug_uk">{{ locale == 'ru' ? tag.title_ru : tag.title_uk }}</a>
+                                    <a v-for="tag in product.tags" :href="getLang ? '/ru/tag/'+ tag.slug_ru : '/tag/'+tag.slug_uk">{{ locale == 'ru' ? tag.title_ru : tag.title_uk }}</a>
                                 </div>
                             </div>
                         </div>
@@ -912,5 +915,12 @@ s<template>
 </script>
 
 <style>
+    .intheline {
+        display: flex;
+        flex-direction: column;
+    }
 
+    .mar {
+        margin: 8px 4px;
+    }
 </style>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Attribute;
 use App\Blog;
 use App\BlogCategory;
+use App\CatalogDropDown;
 use App\Contact;
 use App\GroupAttribute;
 use App\Http\Middleware\LocaleMiddleware;
@@ -595,10 +596,8 @@ class PageController extends Controller {
                         array_push($filters[$firstElementId]['attributes'], $attribute);
                     }
                 }
-
                 unset($filters[$key]);
             }
-
         }
 
         // Сортировка атрибутов группы атрибутов по количеству привязанных продуктов
@@ -607,6 +606,18 @@ class PageController extends Controller {
             return $item;
         })->toArray());
 
+        // Выпадающий Список над фильтрами
+        $dropdown = CatalogDropDown::all()->sortBy('sort');
+        foreach ($dropdown as $key => $elem) {
+            if (($locale == 'ru' && $request->path() == $elem->link_ru) || ($locale == 'uk' && $request->path() == $elem->link_uk)) {
+                $firstElem = $elem;
+                unset($dropdown[$key]);
+            }
+        }
+        $dropdown = array_values($dropdown->toArray());
+        if (isset($firstElem)) {
+            array_unshift($dropdown, $firstElem->toArray());
+        }
 
 
         // Описание:
@@ -666,7 +677,7 @@ class PageController extends Controller {
             $a->save();
         }*/
 
-        return view('site.catalog', compact('translate', 'desctran', 'locale', 'filters', 'instantCategory', 'childCategories', 'instantManufacturer', 'instantTag', 'instantRedirect', 'desc', 'page'));
+        return view('site.catalog', compact('translate', 'desctran', 'locale', 'filters', 'dropdown', 'instantCategory', 'childCategories', 'instantManufacturer', 'instantTag', 'instantRedirect', 'desc', 'page'));
     }
 
     //page site

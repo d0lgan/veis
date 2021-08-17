@@ -60,17 +60,13 @@
                         </button>
                     </div>
                     <div class="catalog-filters__box">
-                        <div class="catalog-filters__block catalog-filters__block--mainlinks">
+                        <div class="catalog-filters__block catalog-filters__block--mainlinks" v-if="dropdown.length">
                             <div class="catalog-filters__block-head activee">
-                                <p class="catalog-filters__type">{{ translate.glasses }}</p>
+                                <a class="catalog-filters__type" :href="getLang ? dropdown[0].link_ru : dropdown[0].link_uk">{{ getLang ? dropdown[0].title_ru : dropdown[0].title_uk }}</a>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="8" viewBox="0 0 20 8"><g><g><path fill="#5c5c5c" d="M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"></path></g></g></svg>
                             </div>
                             <div style="display: none;" class="catalog-filters__block-body">
-                                <a href="#" class="catalog-filters__type">{{ translate.gloves }}</a>
-                                <a href="#" class="catalog-filters__type">{{ translate.umbrellas }}</a>
-                                <a href="#" class="catalog-filters__type">{{ translate.bags }}</a>
-                                <a href="#" class="catalog-filters__type">{{ translate.portfolios }}</a>
-                                <a href="#" class="catalog-filters__type">{{ translate.wallets }}</a>
+                                <a v-for="elem in dropdown.slice(1, dropdown.length)" :href="getLang ? elem.link_ru : elem.link_uk" class="catalog-filters__type">{{ getLang ? elem.title_ru : elem.title_uk}}</a>
                             </div>
                         </div>
 
@@ -406,6 +402,11 @@
             },
             //Фильтры
             filters: {
+                required: true
+            },
+
+            // Выпадающий список
+            dropdown: {
                 required: true
             },
 

@@ -47,6 +47,7 @@
         <ul class="list-unstyled">
             <li><a class="nav-text" href="{{route('admin-pages-index')}}">Страницы</a></li>
             <li><a class="nav-text" href="{{route('admin-redirects-index')}}">Редиректы</a></li>
+            <li><a class="nav-text" href="{{route('admin-catalog-dropdown-index')}}">DropDown Каталога</a></li>
             <li><a class="nav-text" href="{{route('admin-settings-edit')}}">Настройки</a></li>
             <li><a class="nav-text" href="{{route('admin-languages-index')}}">Языки</a></li>
             <li><a class="nav-text" href="{{route('admin-currency-index')}}">Валюта</a></li>

@@ -99,7 +99,7 @@
                         </div>
                     </div>-->
 
-                    <div v-for="product in products">
+                    <div v-for="product in products" v-if="product.price || product.availability || product.image">
                         <!--<a :href="getLang ? '/produce/' + product.slug_ru : '/uk/produce/' + product.slug_uk" style="display: flex; align-items: center; flex-direction: column; text-decoration: none; margin: 15px 15px 0 0">
 
                             <img :src="'/house/uploads/' + product.image" style="width: 94%;">
