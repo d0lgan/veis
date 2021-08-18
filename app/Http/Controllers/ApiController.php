@@ -1541,7 +1541,7 @@ class ApiController extends Controller
         if($request->from == null && $request->to == null){
 
             $result['orders'] = Order::where('status', '<>', 'Новый')->count();
-            $result['sales'] = Order::where('status', 'Сделка завершена')->count();
+            $result['sales'] = Order::where('status', 'Сделка завершена')->sum('total');
             /*$orders = Order::where([['confirm', 1], ['status', 'Выполнен']])->get();
 
             foreach ($orders as $order){

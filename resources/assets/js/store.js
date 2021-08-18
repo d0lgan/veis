@@ -45,6 +45,7 @@ let store = {
                         if(c.length === 0){
                             add = false;
                             prod.quantity++;
+                            prod.totalPrice += prod.price;
                         }
                     }
                 });

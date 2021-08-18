@@ -42,6 +42,12 @@
 
             <div class="cats">
                 <div class="cat">
+                    <span class="category_title">» <a :href="getLang ? '/ru/about' : '/about'">{{ getLang ? 'О нас' : 'Про нас' }}</a></span>
+                </div>
+            </div>
+
+            <div class="cats">
+                <div class="cat">
                     <span class="category_title">» <a :href="getLang ? '/ru/catalog' : '/catalog'">{{ translate.catalog }}</a></span>
                 </div>
             </div>

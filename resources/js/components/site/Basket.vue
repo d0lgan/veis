@@ -482,28 +482,26 @@
                     } else if (this.orderCreated == true) {
                         this.order.total = this.totalPrice;
 
-                        if (this.error === false) {
-                            axios.get('/api/order/updateOrder', {
-                                params: {
-                                    order: this.order,
-                                    confirm: confirm,
-                                }
-                            }).then((res) => {
-                                this.id = res.data.id;
-                            });
-                        }
+                        axios.get('/api/order/updateOrder', {
+                            params: {
+                                order: this.order,
+                                confirm: confirm,
+                            }
+                        }).then((res) => {
+                            this.id = res.data.id;
+                        });
                     }
                 }
             },
             confirmOrder: function () {
                 this.order.confirm = 1;
                 this.updateOrder(true);
-                this.$store.commit('clearCart');
+                /*this.$store.commit('clearCart');
                 if (this.locale == 'ru') {
                     window.location.href = '/ru/basket#confirm';
                 } else if (this.locale == 'uk') {
                     window.location.href = '/basket#confirm';
-                }
+                }*/
 
             },
 

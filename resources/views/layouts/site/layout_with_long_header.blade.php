@@ -264,7 +264,7 @@
         </div>
         <div class="foot__iteam2">
             <div class="foot__title">{{ __('site.footer.about_magazine') }}</div>
-            <a href="{{ route('info') }}">{{ __('site.footer.about_us') }}</a>
+            <a href="{{ route('about') }}">{{ __('site.footer.about_us') }}</a>
             <a href="#/">{{ __('site.footer.articles') }}</a>
             <a href="#/">{{ __('site.footer.replies') }}</a>
             <a href="{{ route('map') }}">{{ __('site.footer.map') }}</a>
@@ -325,7 +325,7 @@
             <img src="/assets/front/img/down_white.png">
         </div>
         <div class="media__foot_hide">
-            <a href="{{ route('info') }}">{{ __('site.footer.about_us') }}</a>
+            <a href="{{ route('about') }}">{{ __('site.footer.about_us') }}</a>
             <a href="#/">{{ __('site.footer.articles') }}</a>
             <a href="#/">{{ __('site.footer.replies') }}</a>
             <a href="{{ route('map') }}">{{ __('site.footer.map') }}</a>

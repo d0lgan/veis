@@ -501,21 +501,26 @@ class PageController extends Controller {
 
             if ($group['id'] == 19) {
                 $attrs = collect($group['attributes']);
-                $uniqueAttrs = $attrs->groupBy('item_name_ru')->flatMap(function ($values) use ($filters, $key) {
+
+                $attrs = $attrs->groupBy(function ($item, $key) {
+                    return explode(' ',trim($item['name_ru']))[0];
+                });
+
+                /*foreach ($attrs as $attr) {
+                    $unAttrs = [];
+                    $firstWord = explode(' ',trim($attr['name_ru']))[0];
+                    dump(array_key_exists($firstWord, $unAttrs), $firstWord, $unAttrs);
+                    if (!array_key_exists($firstWord, $unAttrs)) {
+                        $unAttrs[$firstWord] = $attr;
+                    } else {
+
+                    }
+                }*/
+
+
+                $uniqueAttrs = $attrs->flatMap(function ($values) use ($filters, $key) {
                     if (count($values) > 1) {
                         $q = $values->sum('products_count');
-
-//                        return $values->map(function ($value) use ($q) {
-//                            unset($value);
-//                        });
-                        /*foreach ($values as $key => $value) {
-                            if ($key == 0) {
-                                $values[0]['products_count'] = 11;
-                                dd($values[0]['products_count'], $q);
-                            } else {
-                                unset($values[$key]);
-                            }
-                        }*/
 
                         $values = $values->map(function ($value, $key) use ($q) {
                             if ($key == 0) {
@@ -538,7 +543,6 @@ class PageController extends Controller {
                 $filters[$key]['attributes'] = $uniqueAttrs->toArray();
             }
         }
-
 
         // Если заранее выбран атрибут женские то в поле "Для кого" не отображается select "мужские" и наоборот
         if ($instantCategory) {

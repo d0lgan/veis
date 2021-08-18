@@ -7,10 +7,10 @@
                     <img src="/assets/front/img/down_white.png">
                 </div>
                 <div class="media__foot_hide">
-                    <a href="#/">{{ translate.gloves }}</a>
-                    <a href="#/">{{ translate.sunglasses }}</a>
-                    <a href="#/">{{ translate.bags }}</a>
-                    <a href="#/">{{ translate.umbrellas }}</a>
+                    <a href="#/" @click="productNameWindow = 'gloves'">{{ translate.gloves }}</a>
+                    <a href="#/" @click="productNameWindow = 'glasses'; productKingWindow = 'left';">{{ translate.sunglasses }}</a>
+                    <a href="#/" @click="productNameWindow = 'bags'">{{ translate.bags }}</a>
+                    <a href="#/" @click="productNameWindow = 'umbrellas'">{{ translate.umbrellas }}</a>
                 </div>
 
                 <div class="media__foot_iteam">
@@ -18,10 +18,10 @@
                     <img src="/assets/front/img/down_white.png">
                 </div>
                 <div class="media__foot_hide">
-                    <a href="#/">{{ translate.gloves }}</a>
-                    <a href="#/">{{ translate.sunglasses }}</a>
-                    <a href="#/">{{ translate.bags }}</a>
-                    <a href="#/">{{ translate.umbrellas }}</a>
+                    <a href="#/" @click="productNameWindow = 'gloves'">{{ translate.gloves }}</a>
+                    <a href="#/" @click="productNameWindow = 'glasses'; productKingWindow = 'right';">{{ translate.sunglasses }}</a>
+                    <a href="#/" @click="productNameWindow = 'bags'">{{ translate.bags }}</a>
+                    <a href="#/" @click="productNameWindow = 'umbrellas'">{{ translate.umbrellas }}</a>
                 </div>
             </div>
             <div class="conteiner">
@@ -38,15 +38,30 @@
                     </div>
 
                     <div class="product__block" v-if="productNameWindow == 'glasses'">
-                        <div class="product__inner">
-                            <div v-for="product in leftGlasses.slice(0, 4)">
+                        <div class="product-more__sliderbox">
+                            <span class="slider-arrow prev">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
+                                    <g>
+                                        <g>
+                                            <path fill="#5c5c5c" d="M24 0h1L.794 30.984 25 61l-.955.008L0 32v-2z" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </span>
+                            <div class="product-more__slider">
+                                <div v-for="product in leftGlasses" v-if="product.price || product.availability || product.image">
                                     <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
+                                </div>
                             </div>
-                        </div>
-                        <div class="product__inner">
-                            <div v-for="product in leftGlasses.slice(4, 8)">
-                                <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
-                            </div>
+                            <span class="slider-arrow next">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
+                                    <g>
+                                        <g>
+                                            <path fill="#5c5c5c" d="M.795 61.008L0 61l24.206-30.016L0 0l.955-.008L25 30v2z" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </span>
                         </div>
                     </div>
 
@@ -68,15 +83,30 @@
                     </div>
 
                     <div class="product__block" v-if="productNameWindow == 'glasses'">
-                        <div class="product__inner">
-                            <div v-for="product in rightGlasses.slice(0, 4)">
-                                <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
+                        <div class="product-more__sliderbox">
+                            <span class="slider-arrow prev">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
+                                    <g>
+                                        <g>
+                                            <path fill="#5c5c5c" d="M24 0h1L.794 30.984 25 61l-.955.008L0 32v-2z" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </span>
+                            <div class="product-more__slider">
+                                <div v-for="product in rightGlasses" v-if="product.price || product.availability || product.image">
+                                    <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
+                                </div>
                             </div>
-                        </div>
-                        <div class="product__inner">
-                            <div v-for="product in rightGlasses.slice(4, 8)">
-                                <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
-                            </div>
+                            <span class="slider-arrow next">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
+                                    <g>
+                                        <g>
+                                            <path fill="#5c5c5c" d="M.795 61.008L0 61l24.206-30.016L0 0l.955-.008L25 30v2z" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </span>
                         </div>
                     </div>
 
@@ -138,6 +168,37 @@
 
             var cd = new Date();
             this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
+        },
+
+        updated () {
+            $('.product-more__slider').slick({
+                infinite: true,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                dots: false,
+                arrows: true,
+                dots: false,
+                prevArrow: '.product-more__sliderbox .prev',
+                nextArrow: '.product-more__sliderbox .next',
+                responsive: [
+                    {
+                        breakpoint: 900,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            infinite: true,
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            infinite: true,
+                        }
+                    },
+                ]
+            });
         }
     }
 </script>

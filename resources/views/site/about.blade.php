@@ -12,7 +12,7 @@
                         <a href="{{ $locale == 'ru' ? '/ru' : '/' }}" class="breadcrumbs__link">{{ $locale == 'ru' ? 'ИНТЕРНЕТ МАГАЗИН' : 'ІНТЕРНЕТ МАГАЗИН'}}</a>
                     </li>
                     <li class="breadcrumbs__item">
-                        <a href="" class="breadcrumbs__link" >{{ $locale == 'ru' ? $page->title_ru : $page->title_uk }}</a>
+                        <a href="" class="breadcrumbs__link" >{{ $locale == 'ru' ? mb_strtoupper($page->title_ru) : mb_strtoupper($page->title_uk) }}</a>
                     </li>
                 </ul>
             </div>
@@ -34,8 +34,8 @@
             </div>
         </section>
 
-        <div class="conteiner">
-            {{ $locale == 'ru' ? $page->description_ru : $page->description_uk }}
+        <div class="conteiner" style="padding-top: 15px;">
+            {!! $locale == 'ru' ? $page->description_ru : $page->description_uk !!}
         </div>
     </div>
 @endsection
