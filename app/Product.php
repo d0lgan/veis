@@ -241,7 +241,7 @@ class Product extends \Illuminate\Database\Eloquent\Model
                             $attrs = Attribute::where('group_attribute_id', 19)->get();
                             foreach ($attrs as $attr) {
                                 foreach ($colors as $color) {
-                                    if ($attr->id != $color->id && $attr->item_name_ru == $color->item_name_ru) {
+                                    if ($attr->id != $color->id && (explode(' ', trim($attr->name_ru))[0] == explode(' ', trim($color->name_ru))[0])) {
                                         array_push($filter, $attr->id);
                                     }
                                 }

@@ -29,7 +29,7 @@
 
 
 
-                            <table class="table table-data2 <!--datatable--> border-0" >
+                            <table class="table table-data2 datatable border-0" >
                             	<thead>
                                     <tr class="border-0">
                                         <th class="align-middle py-1 pr-3">№</th>

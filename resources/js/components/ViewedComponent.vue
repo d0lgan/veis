@@ -80,7 +80,7 @@
                         </svg>
                     </span>
                 <div class="product-more__slider">
-                    <div v-for="product in products" v-if="product.price || product.availability || product.image">
+                    <div v-for="product in products" v-if="product.price && product.availability && product.image">
                         <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
                     </div>
                 </div>

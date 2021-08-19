@@ -554,6 +554,7 @@
             dom: '<"datatables_lf_wrapper" lf>tp',
             pageLength: 14,
             scrollY: '671px',
+            order: [[ 0, "desc" ]],
             scrollCollapse: true,
             language: {
                 "lengthMenu": "_MENU_",
