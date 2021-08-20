@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <data-component ref="dataSave" :product="product" :tags_json="tags_json" :categories_json="categories_json" :manufacturers="manufacturers" :suppliers="suppliers" :fastEdit="true" :product_categories="product_categories" :settings="settings"></data-component>
+                            <data-component ref="dataSave" :product="product" :stocks="stocks" :tags_json="tags_json" :categories_json="categories_json" :manufacturers="manufacturers" :suppliers="suppliers" :fastEdit="true" :product_categories="product_categories" :settings="settings"></data-component>
                         </div>
                     </div>
                 </div>

@@ -268,6 +268,11 @@ class ApiController extends Controller
         $product->ude = $request->product['ude'];
         $product->course = $request->product['course'];
         $product->percent = $request->product['percent'];
+        $product->lens_height = $request->product['lens_height'];
+        $product->lens_width = $request->product['lens_width'];
+        $product->bridge_width = $request->product['bridge_width'];
+        $product->long_arms = $request->product['long_arms'];
+        $product->frame_width = $request->product['frame_width'];
         $product->availability = $request->product['availability'];
         $product->type = $request->product['type'];
         $product->model = $request->product['model'];

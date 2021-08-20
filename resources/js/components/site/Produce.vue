@@ -265,8 +265,8 @@ s<template>
                         <div class="product-card__description mobile-hidden" v-if="product.tags">
                             <div class="product-card__description-head">
                                 <div class="hashtags">
-                                    <a :href="tagsHref">
-                                        <span v-for="tag in product.tags" >{{(locale == 'ru' ? tag.title_ru : tag.title_uk) + ' '}}</span>
+                                    <a :href="getLang ? '/ru/catalog?t=' + tag.slug_ru : '/catalog?t=' + tag.slug_uk " v-for="tag in product.tags">
+                                        <span>{{(locale == 'ru' ? tag.title_ru : tag.title_uk) + ' '}}</span>
                                     </a>
                                 </div>
                             </div>
@@ -880,19 +880,6 @@ s<template>
                     return true;
                 } else if (this.locale == 'uk') {
                     return false;
-                }
-            },
-
-            tagsHref: function () {
-                if (this.product.tags) {
-                    let link = '/catalog?t=';
-                    for (let i = 0; i < this.product.tags.length; i++) {
-                        link = link + (this.locale == 'uk' ? this.product.tags[i].slug_uk : this.product.tags[i].slug_ru) + '_';
-                    }
-                    link = link.substring(0, link.length - 1);
-                    return link;
-                } else {
-                    return null;
                 }
             },
         },

@@ -37,7 +37,7 @@
             <div class="col-md-3 form-group">
                 <label for="manufacturers">Производитель</label>
                 <select v-model="data.manufacturer_id" name="manufacturer_id" id="manufacturers" class="form-control">
-                    <option v-for="manufacturer in manufacturers" :value="manufacturer.id">{{ manufacturer.title }}</option>
+                    <option v-for="manufacturer in manufacturers" :value="manufacturer.id">{{ manufacturer.title_ru }}</option>
                 </select>
             </div>
             <div class="col-md-3 form-group">
@@ -47,13 +47,10 @@
             </div>
 
             <div class="form-group col-md-2">
-                <label for="type_stock">Тип</label>
-                <select name="type" id="type" class="form-control">
-                    <option value="null">Обычный</option>
-                    <option :selected="product.type == 'recommended'" value="recommended">Рекомендуемый</option>
-                    <option :selected="product.type == 'hit'" value="hit">Хит продаж</option>
-                    <option :selected="product.type == 'new'" value="new">Новинка</option>
-                    <option :selected="product.type == 'sell'" value="sell">Обмен</option>
+                <label for="type_stock">Ярлык</label>
+                <select v-model="data.type" name="type" id="type" class="form-control">
+                    <option value="null">Без ярлыка</option>
+                    <option v-for="stock in stocks" :value="stock.id">{{ stock.title_ru }}</option>
                 </select>
             </div>
 
@@ -67,13 +64,13 @@
                 </select>
             </div>
 
-            <div class="form-group col-md-2 d-flex align-items-end">
+            <div class="form-group col-md-2">
                 <label for="public">Отображение</label>
-                <label class="switch switch-3d switch-success ml-3">
-                    <input type="checkbox" v-model="public" name="public" class="switch-input" id="public">
-                    <span class="switch-label"></span>
-                    <span class="switch-handle"></span>
-                </label>
+                <select v-model="public" name="public" id="public"
+                        class="form-control" style="display: block;">
+                    <option value="1">Да</option>
+                    <option value="0">Нет</option>
+                </select>
             </div>
 
             <!-- <div class="col-md-3 form-group">
@@ -146,27 +143,27 @@
             <div class="row d-flex justify-content-between">
                 <div class="form-group col-md-2">
                     <label for="" class="form-label">Высота линзы (мм)</label>
-                    <input type="text" class="form-control"/>
+                    <input type="text" v-model="data.lens_height" class="form-control"/>
                 </div>
 
                 <div class="form-group col-md-2">
                     <label for="" class="form-label">Ширина линзы (мм)</label>
-                    <input type="text" class="form-control"/>
+                    <input type="text" v-model="data.lens_width" class="form-control"/>
                 </div>
                 
                 <div class="form-group col-md-2">
                     <label for="" class="form-label">Ширина моста (мм)</label>
-                    <input type="text" class="form-control"/>
+                    <input type="text" v-model="data.bridge_width" class="form-control"/>
                 </div>
                 
                 <div class="form-group col-md-2">
                     <label for="" class="form-label">Длинна дужки (мм)</label>
-                    <input type="text" class="form-control"/>
+                    <input type="text" v-model="data.long_arms" class="form-control"/>
                 </div>
                 
                 <div class="form-group col-md-3">
                     <label for="" class="form-label">Ширина оправы (мм)</label>
-                    <input type="text" class="form-control"/>
+                    <input type="text" v-model="data.frame_width" class="form-control"/>
                 </div>
             </div>
         </div>
@@ -195,6 +192,7 @@
             'categories_json',
             'tags_json',
             'manufacturers',
+            'stocks',
             'suppliers',
             'product_categories',
             'default_category',
