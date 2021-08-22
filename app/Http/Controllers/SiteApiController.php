@@ -296,4 +296,26 @@ class SiteApiController extends Controller
             'orders' => $orders,
         ]);
     }
+
+    public function saveTableProductsOptions()
+    {
+        $settings = request()->input('settings', 'null');
+
+        $model = Setting::first();
+        $model->table_product_settings = json_encode($settings);
+        $model->save();
+
+        return response()->json([
+            'settings' => $model->table_product_settings,
+        ]);
+    }
+
+    public function getTableProductsOptions()
+    {
+        $model = Setting::first();
+
+        return response()->json([
+            'settings' => $model->table_product_settings,
+        ]);
+    }
 }

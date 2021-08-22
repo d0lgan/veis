@@ -40,7 +40,7 @@
 
                         <div class="d-flex">
                             <button class="btn mr-3 save" type="submit"><i class="far fa-save"></i></button>
-                            <a href="{{ route('admin-products-index') }}" class="btn back"><i class="fas fa-reply-all"></i></a>
+                            <a href="{{ route('admin-products-index', ['query' => Request::get('query')]) }}" class="btn back"><i class="fas fa-reply-all"></i></a>
                         </div>
                     </div>
 

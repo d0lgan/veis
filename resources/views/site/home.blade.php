@@ -152,7 +152,7 @@
     </div>
 </section>
 
-<site-products-card-component :left-glasses="{{json_encode($leftGlasses)}}" :right-glasses="{{json_encode($rightGlasses)}}" :left-stock="{{json_encode($leftStock)}}" :right-stock="{{json_encode($rightStock)}}" :translate="{{json_encode($translate)}}" :locale="{{json_encode($locale)}}"></site-products-card-component>
+<site-products-card-component :dropdowns="{{json_encode($dropdowns)}}" :left-stock="{{json_encode($leftStock)}}" :right-stock="{{json_encode($rightStock)}}" :translate="{{json_encode($translate)}}" :locale="{{json_encode($locale)}}"></site-products-card-component>
 
 <section class="work">
     <h2 class="work__title">{{ __('site.howWeDoing.how') }}</h2>

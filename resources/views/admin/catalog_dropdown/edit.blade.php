@@ -47,6 +47,20 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4 form-group">
+                                            <label for="category">Категория</label>
+                                            <category-component :default_category="{{ $elem->category_id }}"
+                                                                :categories="{{ json_encode($categories_json) }}"></category-component>
+                                        </div>
+
+                                        <div class="form-group col-md-2">
+                                            <label for="at_home">На главной</label>
+                                            <select name="at_home" id="at_home" class="form-control">
+                                                <option value="0">Нет</option>
+                                                <option @if($elem->at_home == 1) selected @endif value="1">Да</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
                                             {!! Form::label('sort', 'Сортировать',['class' => 'control-label']) !!}
                                             {!! Form::text('sort', $elem->sort, array_merge(['class' => 'form-control', 'required' => 'required'])) !!}
                                         </div>

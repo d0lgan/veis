@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CatalogDropDown;
+use App\Category;
 use App\Contact;
 use App\Language;
 use App\Order;
@@ -43,12 +44,14 @@ class CatalogDropDownController extends Controller
         $langs = Language::all();
         $elem = null;
 
+        $categories_json = Category::select(['id', 'title_ru'])->get();
+
         $contacts      = Contact::all();
         $contacts_count   = $contacts->count();
         $orders        = Order::all();
         $order_count   = $orders->count();
 
-        return view('admin.catalog_dropdown.create', compact('elem', 'langs', 'order_count', 'contacts_count'));
+        return view('admin.catalog_dropdown.create', compact('elem', 'categories_json', 'langs', 'order_count', 'contacts_count'));
     }
 
     /**
@@ -69,6 +72,9 @@ class CatalogDropDownController extends Controller
         $elem = new CatalogDropDown();
         $elem->title_ru = $request->title_ru;
         $elem->title_uk = $request->title_uk;
+        $elem->category_id = $request->category_id;
+        $elem->at_home = $request->at_home;
+
 
         $elem->link_ru = $request->link_ru;
         $elem->link_uk = $request->link_uk;
@@ -107,6 +113,7 @@ class CatalogDropDownController extends Controller
         $request->user()->authorizeRoles(['admin']);
 
         $elem = CatalogDropDown::find($id);
+        $categories_json = Category::select(['id', 'title_ru'])->get();
 
         $langs = Language::all();
 
@@ -115,7 +122,7 @@ class CatalogDropDownController extends Controller
         $orders        = Order::all();
         $order_count   = $orders->count();
 
-        return view('admin.catalog_dropdown.edit', compact('elem', 'langs', 'order_count', 'contacts_count'));
+        return view('admin.catalog_dropdown.edit', compact('elem', 'categories_json', 'langs', 'order_count', 'contacts_count'));
     }
 
     /**
@@ -134,6 +141,9 @@ class CatalogDropDownController extends Controller
         $elem->title_uk = $request->title_uk;
         $elem->link_ru = $request->link_ru;
         $elem->link_uk = $request->link_uk;
+        $elem->category_id = $request->category_id;
+        $elem->at_home = $request->at_home;
+
         $elem->sort = $request->sort;
 
         $elem->save();

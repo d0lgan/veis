@@ -230,26 +230,38 @@ class PageController extends Controller {
 	    $leftStock = Stock::where('side', 'left')->orderBy('created_at', 'desc')->first();
 	    $rightStock = Stock::where('side', 'right')->orderBy('created_at', 'desc')->first();
 
-        $leftGlasses = Product::orderBy('created_at', 'desc')
-            ->where('title_ru', 'like', '%очки%')
-            ->where('stock_id', $leftStock->id)
-            ->where('image', '<>', null)->where('price', '<>', 0)
-            ->take(8)
-            ->with('galleries', 'attributes', 'tags', 'stock')
-            ->get()
-            ->toArray();
+        $dropdowns = CatalogDropDown::where('at_home', 1)->where('category_id', '<>', null)->orderBy('sort')->get();
 
-        $rightGlasses = Product::orderBy('created_at', 'desc')
-            ->where('title_ru', 'like', '%очки%')
-            ->where('stock_id', $rightStock->id)
-            ->where('image', '<>', null)->where('price', '<>', 0)
-            ->take(8)
-            ->with('galleries', 'attributes', 'tags', 'stock')
-            ->get()
-            ->toArray();
+        $dropdowns->map(function ($dropdown) use ($leftStock, $rightStock) {
+            $dropdown['products'] = [];
+
+            $dropdown['products'] += ['left' => Product::orderBy('created_at', 'desc')
+                ->where('category_id', $dropdown->category_id)
+                ->where('stock_id', $leftStock->id)
+                ->where('image', '<>', null)->where('price', '<>', 0)
+
+                ->take(10)
+
+                ->with('galleries', 'attributes', 'tags', 'stock')
+                ->get()
+                ->toArray()];
+
+            $dropdown['products'] += ['right' => Product::orderBy('created_at', 'desc')
+                ->where('category_id', $dropdown->category_id)
+                ->where('stock_id', $rightStock->id)
+                ->where('image', '<>', null)->where('price', '<>', 0)
+
+                ->take(10)
+
+                ->with('galleries', 'attributes', 'tags', 'stock')
+                ->get()
+                ->toArray()];
+
+        });
 
         $brands = Brand::orderBy('sort')->get();
-        $mainCats = Category::where('at_home', '1')->get();
+
+        $mainCats = Category::where('at_home', '1')->orderBy('sort', 'asc')->get();
 
         $locale = App::getLocale();
 
@@ -269,7 +281,7 @@ class PageController extends Controller {
             $settings['country'] = $settings['country_ru'];
         }*/
 
-	    return view('site.home', compact('leftGlasses', 'rightGlasses', 'leftStock', 'rightStock', 'locale', 'mainCats', 'translate', 'brands', 'page', 'desctran', 'desc'));
+	    return view('site.home', compact('dropdowns', 'leftStock', 'rightStock', 'locale', 'mainCats', 'translate', 'brands', 'page', 'desctran', 'desc'));
     }
 
     public function catalog(Request $request, $categorySlug = null) {

@@ -29,15 +29,15 @@
                     <pre><span class="product__king_active" @click="productKingWindow = 'left'">{{ getLang ? leftStock.title_ru : leftStock.title_uk }}</span>  /  <span @click="productKingWindow = 'right'">{{ getLang ? rightStock.title_ru : rightStock.title_uk }}</span></pre>
                 </div>
 
-                <div class="king__window" v-if="productKingWindow == 'left'">
+
+                <div class="king__window">
                     <div class="product__name">
-                        <pre><span class="product__name_active" @click="productNameWindow = 'gloves'">{{ translate.gloves }}</span>   /   <span @click="productNameWindow = 'glasses'">{{ translate.sunglasses }}</span>   /   <span @click="productNameWindow = 'bags'">{{ translate.bags }}</span>   /   <span @click="productNameWindow = 'umbrellas'">{{ translate.umbrellas }}</span></pre>
+                        <pre>
+                            <span class="<!--product__name_active-->" @click="" v-for="dropdown in dropdowns">{{ getLang ? dropdown.title_ru.toUpperCase() : dropdown.title_uk.toUpperCase() }}</span>
+                        </pre>
                     </div>
-                    <div class="product__block" v-if="productNameWindow == 'gloves'">
 
-                    </div>
-
-                    <div class="product__block" v-if="productNameWindow == 'glasses'">
+                    <div class="product__block">
                         <div class="product-more__sliderbox">
                             <span class="slider-arrow prev">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
@@ -49,7 +49,7 @@
                                 </svg>
                             </span>
                             <div class="product-more__slider">
-                                <div v-for="product in leftGlasses" v-if="product.price || product.availability || product.image">
+                                <div v-for="product in dropdowns[0].products.right" v-if="product.price || product.availability || product.image">
                                     <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
                                 </div>
                             </div>
@@ -64,61 +64,7 @@
                             </span>
                         </div>
                     </div>
-
-                    <div class="product__block"  v-if="productNameWindow == 'bags'">
-
-                    </div>
-
-                    <div class="product__block"  v-if="productNameWindow == 'umbrellas'">
-
-                    </div>
                 </div>
-
-                <div class="king__window" v-if="productKingWindow == 'right'">
-                    <div class="product__name">
-                        <pre><span class="product__name_active" @click="productNameWindow = 'gloves'">{{ translate.gloves }}</span>   /   <span @click="productNameWindow = 'glasses'">{{ translate.sunglasses }}</span>   /   <span @click="productNameWindow = 'bags'">{{ translate.bags }}</span>   /   <span @click="productNameWindow = 'umbrellas'">{{ translate.umbrellas }}</span></pre>
-                    </div>
-                    <div class="product__block" v-if="productNameWindow == 'gloves'">
-
-                    </div>
-
-                    <div class="product__block" v-if="productNameWindow == 'glasses'">
-                        <div class="product-more__sliderbox">
-                            <span class="slider-arrow prev">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
-                                    <g>
-                                        <g>
-                                            <path fill="#5c5c5c" d="M24 0h1L.794 30.984 25 61l-.955.008L0 32v-2z" />
-                                        </g>
-                                    </g>
-                                </svg>
-                            </span>
-                            <div class="product-more__slider">
-                                <div v-for="product in rightGlasses" v-if="product.price || product.availability || product.image">
-                                    <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
-                                </div>
-                            </div>
-                            <span class="slider-arrow next">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
-                                    <g>
-                                        <g>
-                                            <path fill="#5c5c5c" d="M.795 61.008L0 61l24.206-30.016L0 0l.955-.008L25 30v2z" />
-                                        </g>
-                                    </g>
-                                </svg>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="product__block"  v-if="productNameWindow == 'bags'">
-
-                    </div>
-
-                    <div class="product__block"  v-if="productNameWindow == 'umbrellas'">
-
-                    </div>
-                </div>
-
 
                 <div class="product__btn_box">
                     <a class="intro__btn" href="#/">{{ translate.show_all }} <span>{{ translate.gloves }}</span></a>
@@ -136,8 +82,7 @@
             'translate',
             'leftStock',
             'rightStock',
-            'leftGlasses',
-            'rightGlasses',
+            'dropdowns'
         ],
         data() {
             return {

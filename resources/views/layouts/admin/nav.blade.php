@@ -37,6 +37,7 @@
             <li><a href="{{route('admin-orders-index')}}">Заказы</a></li>
             <li><a href="{{route('admin-contacts-index')}}">Запросы с сайта</a></li>
             <li><a href="{{route('admin-status-index')}}">Статусы заказа</a></li>
+            <li><a href="{{route('admin-way-to-pays-index')}}">Способы оплаты</a></li>
         </ul>
     </div>
 

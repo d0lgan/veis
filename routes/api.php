@@ -40,6 +40,9 @@ Route::get('getValPrice', 'SiteApiController@getValPrice');
 Route::get('getProductWithOptions', 'SiteApiController@getProductWithOptions');
 Route::get('getRecentOrders', 'SiteApiController@getRecentOrders');
 
+Route::get('saveTableProductsOptions', 'SiteApiController@saveTableProductsOptions');
+Route::get('getTableProductsOptions', 'SiteApiController@getTableProductsOptions');
+
 
 Route::group(['prefix' => 'statistics'], function() {
     Route::post('getStatistics', [

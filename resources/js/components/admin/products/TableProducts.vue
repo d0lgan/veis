@@ -57,7 +57,7 @@
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Настройки отображения</h5>
+                            <h5 class="modal-title">Настройки отображения.</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="saveSettings()">Закрыть и сохранить</button>
                         </div>
                     </div>
                 </div>
@@ -288,7 +288,7 @@
                             <div style="height: 35px" v-model="headers" v-for="header in headers" v-if="header.key === 'title_ru'" class="d-flex">
                                 <div class="rs-select2--light rs-select2--md srw" style="height: 35px">
                                     <div class="sr" style="height: 35px" v-model="headers" v-for="header in headers" v-if="header.key === 'title_ru'">
-                                        <input type="text" placeholder="Поиск" v-model="header.value" v-on:keyup.enter="searchProducts()" style="background-color: #9ea3a7; color: #fff; border-radius: 3px; font-size: 13px !important;" class="inp form-control w-100 h-100">
+                                        <input type="text" placeholder="Поиск..." v-model="header.value" v-on:keyup.enter="searchProducts()" style="background-color: #9ea3a7; color: #fff; border-radius: 3px; font-size: 13px !important;" class="inp form-control w-100 h-100">
                                         <i class="fas fa-search sr_icon" style="color: #fff; cursor: pointer;" @click="searchProducts()"></i>
                                     </div>
                                 </div>
@@ -376,7 +376,7 @@
 
                                     <a :href="'/produce/' + product.slug_ru" style="width: 25px; height: 25px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Посмотреть"><i style="font-size: 12px" class="far fa-eye"></i></a>
 
-                                    <a :href="`/admin-products/`+ product.id + `/edit`" style="width: 25px; height: 25px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Редактировать">
+                                    <a :href="`/admin-products/`+ product.id + `/edit?query=` + headers[2].value" style="width: 25px; height: 25px; border-radius: 100%; background-color: #e5e5e5" class="item p-1 d-flex justify-content-center align-items-center" title="Редактировать">
                                         <i style="font-size: 12px; text-decoration: none;" class="fas fa-pencil-alt"></i>
                                     </a>
 
@@ -746,7 +746,7 @@
                                             <a :href="'/product/' + product.slug_ru" class="btn btn-primary"><i class="far fa-eye"></i></a>
                                         </td>
                                         <td>
-                                            <p><a class="btn btn-warning" :href="`/admin-products/`+ product.id + `/edit`"><i
+                                            <p><a class="btn btn-warning" :href="`/admin-products/`+ product.id + `/edit?query=` + headers[2].value"><i
                                                     class="fas fa-pencil-alt"></i></a></p>
                                         </td>
                                     </tr>
@@ -1258,7 +1258,7 @@
                             <a :href="'/product/' + product.slug_ru" class="btn btn-primary"><i class="far fa-eye"></i></a>
                         </td>
                         <td>
-                            <p><a class="btn btn-warning" :href="`/admin-products/`+ product.id + `/edit`"><i
+                            <p><a class="btn btn-warning" :href="`/admin-products/`+ product.id + `/edit?query=` + headers[2].value"><i
                                     class="fas fa-pencil-alt"></i></a></p>
                         </td>
                     </tr>
@@ -1295,6 +1295,7 @@
 <script>
     import draggable from "vuedraggable";
     import axios from "axios";
+    import $ from "jquery";
 
     export default {
         name: "table-column-example",
@@ -1575,6 +1576,7 @@
                 this.search();
             },
             search: function(){
+                console.log(this.select_headers);
                 axios.post('/api/filter/searchTableProduct', {headers: this.select_headers, skip: this.skip, take: this.sort_count}).then((res) => {
                     this.products = res.data.products;
                     this.count_products = res.data.count_p;
@@ -1593,8 +1595,58 @@
                 });
                 this.allChecked = false;
             },
+
+            // Слежение за полем поиска (изменения записываются в get параметр, для сохранения)
+            watchSearchRequest: function () {
+                setInterval(() => {
+                    let url = new URL(window.location.href);
+
+                    if (this.headers[2].value != '') {
+                        url.searchParams.set('query', this.headers[2].value);
+                    }
+
+                    history.pushState(null, null, url);
+                }, 2000)
+            },
+
+            saveSettings: function () {
+                axios.get('/api/saveTableProductsOptions', {
+                    params: {
+                        settings: this.headers,
+                    },
+                })
+                    .then((response) => {
+                        /*let s = JSON.parse(response.data.settings);
+                        for (let i = 0; i < s.length; i++) {
+                            s[i] = JSON.parse(s[i]);
+                        }
+                        this.headers = s;*/
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
+            getSettings: function () {
+                axios.get('/api/getTableProductsOptions', {
+                    params: {
+                        settings: null,
+                    },
+                })
+                    .then((response) => {
+                        let s = JSON.parse(response.data.settings);
+                        for (let i = 0; i < s.length; i++) {
+                            s[i] = JSON.parse(s[i]);
+                        }
+                        this.headers = s;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
             type: function (data) {
-                return
+                return null;
             }
 
         },
@@ -1607,7 +1659,21 @@
                 this.checked.push({id: this.prod[i].id, check: false});
             }
             this.count_pages = Math.ceil(this.count_products / 10);
-        }
+
+            // Проверка на get параметр 'query', чтобы потом записать его в поле поиска
+            let url = new URL(window.location.href);
+            if (url.searchParams.has('query')) {
+                this.headers[2].value = url.searchParams.get('query');
+                this.searchProducts();
+            }
+
+            this.getSettings();
+        },
+
+        created() {
+            this.watchSearchRequest();
+        },
+
     };
 </script>
 <style scoped>

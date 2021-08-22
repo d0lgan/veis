@@ -19,6 +19,12 @@ class CreateCatalogDropdown extends Migration
             $table->string('title_uk')->nullable();
             $table->string('link_ru')->nullable();
             $table->string('link_uk')->nullable();
+
+            $table->integer('at_home')->default(0);
+
+            $table->integer('category_id')->index()->unsigned()->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
+
             $table->integer('sort')->nullable();
             $table->timestamps();
         });
