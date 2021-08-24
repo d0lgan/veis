@@ -49,7 +49,6 @@
         </div>
     </div>-->
 
-
     <section class="product product-more" v-if="products.length">
         <div class="mobile__product">
             <div class="media__foot_iteam">
@@ -62,7 +61,6 @@
                 <a href="#/">СУМКИ</a>
                 <a href="#/">ЗОНТЫ</a>
             </div>-->
-
         </div>
         <div class="conteiner">
             <h2 class="section-title product-more__title xs-hidden">{{ translate.viewed }}</h2>

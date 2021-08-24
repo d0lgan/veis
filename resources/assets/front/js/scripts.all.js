@@ -656,6 +656,7 @@ window.addEventListener('load',function(){
 		});
 	}
 
+	console.log('1000-7?');
 	$('.intro__slider_block').slick({
 		infinite: true,
 		autoplay: true,
