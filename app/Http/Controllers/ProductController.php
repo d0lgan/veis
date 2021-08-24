@@ -87,6 +87,8 @@ class ProductController extends Controller
     public function indexExport(Request $request)
     {
         set_time_limit(360);
+        ignore_user_abort(true);
+
         // Экспорт
         // $request->user()->authorizeRoles(['admin']);
 
@@ -133,10 +135,12 @@ class ProductController extends Controller
         $start = microtime(true);
 
         // Определяем продукты которые будем обрабатывать
-        $products = [];
         $productIDs = [];
         $categories = [];
-        Product::chunk(1000, function ($arr) use ($start, &$products, &$productIDs, &$categories, $lang, $base_url, $image_base_url) {
+
+        Product::chunk(1000, function ($arr) use ($start, &$productIDs, &$categories, $lang, $base_url, $image_base_url) {
+            $products = [];
+
             foreach ($arr as $product) {
                 if (!empty($product->price)) { // не с нулевой ценой
                     $products[] = $product;
@@ -202,16 +206,24 @@ class ProductController extends Controller
 
                 $convertImage = function ($image) {
                     // если оно не webp возврат
-                    if (!$image || !preg_match('#\\.webp$#i', $image)) return $image;
+                    if (!$image || !preg_match('#\\.webp$#i', $image)) {
+                        return $image;
+                    }
+
                     // если она webp, то конвертируем и выдаем
                     $image_file_path = realpath(__DIR__ . '/../../../public/house/uploads/' . $image);
-                    if (!$image_file_path) return null;
+                    if (!$image_file_path) {
+                        return null;
+                    }
+
                     // дальше только если картинка есть, её ведь может и не быть!
                     $image_file_path_converted = $image_file_path . '.jpg'; // путь к картинке.webp.jpg
-                    if (false && file_exists($image_file_path_converted)) {
+
+                    if (file_exists($image_file_path_converted)) {
                         // ура, файл уже есть!
                         return $image . '.jpg';
                     }
+
                     // если конвертированного файла нет, конвертируем
                     // после конвертации (или если файл был) выдаем на него ссылку
                     $im = imagecreatefromwebp($image_file_path);
