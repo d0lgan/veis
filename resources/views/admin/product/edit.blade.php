@@ -139,13 +139,13 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-group col-md-2 d-flex align-items-end">
+                                    <div class="form-group col-md-2">
                                         <label for="public">Отображение</label>
-                                        <label class="switch switch-3d switch-success ml-3">
-                                            <input type="checkbox" class="switch-input" id="public" checked="true">
-                                            <span class="switch-label"></span>
-                                            <span class="switch-handle"></span>
-                                        </label>
+                                        <select name="public" id="public"
+                                                class="form-control" style="display: block;">
+                                            <option value="1" @if($product->public == 1) selected @endif>Да</option>
+                                            <option value="0" @if($product->public == 0) selected @endif>Нет</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row">

@@ -1015,7 +1015,10 @@ class ApiController extends Controller
                 $product->stock_id = $request->data['type'];
             }
 
-            $product->public = $request->public;
+            if ($request->public != null) {
+                $product->public = $request->public;
+            }
+
             $product->sort = $request->sort;
 
             $product->save();

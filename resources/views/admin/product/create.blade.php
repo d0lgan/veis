@@ -134,7 +134,7 @@
 
                                         <div class="col-md-4 form-group">
                                             <label>Сортировка</label>
-                                            <input class="form-control" type="text" name="">
+                                            <input class="form-control" type="text" name="sort">
                                         </div>
                                     <!-- <div class="col-md-4 form-group">
                                         {!! Form::label('supplier', 'Поставщик',['class' => 'control-label'])
@@ -184,13 +184,13 @@
                                             </select>
                                         </div>
 
-                                        <div class="form-group col-md-2 d-flex align-items-end">
+                                        <div class="form-group col-md-2">
                                             <label for="public">Отображение</label>
-                                            <label class="switch switch-3d switch-success ml-3">
-                                                <input type="checkbox" class="switch-input" id="public" checked="true">
-                                                <span class="switch-label"></span>
-                                                <span class="switch-handle"></span>
-                                            </label>
+                                            <select name="public" id="public"
+                                                    class="form-control" style="display: block;">
+                                                <option value="1" selected>Да</option>
+                                                <option value="0">Нет</option>
+                                            </select>
                                         </div>
                                     </div>
 

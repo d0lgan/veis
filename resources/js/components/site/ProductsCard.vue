@@ -7,10 +7,10 @@
                     <img src="/assets/front/img/down_white.png">
                 </div>
                 <div class="media__foot_hide">
-                    <a href="#/" @click="productNameWindow = 'gloves'">{{ translate.gloves }}</a>
-                    <a href="#/" @click="productNameWindow = 'glasses'; productKingWindow = 'left';">{{ translate.sunglasses }}</a>
-                    <a href="#/" @click="productNameWindow = 'bags'">{{ translate.bags }}</a>
-                    <a href="#/" @click="productNameWindow = 'umbrellas'">{{ translate.umbrellas }}</a>
+                    <a href="#/">{{ translate.gloves }}</a>
+                    <a href="#/">{{ translate.sunglasses }}</a>
+                    <a href="#/">{{ translate.bags }}</a>
+                    <a href="#/">{{ translate.umbrellas }}</a>
                 </div>
 
                 <div class="media__foot_iteam">
@@ -18,22 +18,21 @@
                     <img src="/assets/front/img/down_white.png">
                 </div>
                 <div class="media__foot_hide">
-                    <a href="#/" @click="productNameWindow = 'gloves'">{{ translate.gloves }}</a>
-                    <a href="#/" @click="productNameWindow = 'glasses'; productKingWindow = 'right';">{{ translate.sunglasses }}</a>
-                    <a href="#/" @click="productNameWindow = 'bags'">{{ translate.bags }}</a>
-                    <a href="#/" @click="productNameWindow = 'umbrellas'">{{ translate.umbrellas }}</a>
+                    <a href="#/">{{ translate.gloves }}</a>
+                    <a href="#/">{{ translate.sunglasses }}</a>
+                    <a href="#/">{{ translate.bags }}</a>
+                    <a href="#/">{{ translate.umbrellas }}</a>
                 </div>
             </div>
             <div class="conteiner">
-                <div class="product__king first__kind xs-hidden">
-                    <pre><span class="product__king_active" @click="productKingWindow = 'left'">{{ getLang ? leftStock.title_ru : leftStock.title_uk }}</span>  /  <span @click="productKingWindow = 'right'">{{ getLang ? rightStock.title_ru : rightStock.title_uk }}</span></pre>
+                <div class="product__king xs-hidden">
+                    <pre><span class="product__king_active">{{ getLang ? leftStock.title_ru : leftStock.title_uk }}</span>  /  <span>{{ getLang ? rightStock.title_ru : rightStock.title_uk }}</span></pre>
                 </div>
-
 
                 <div class="king__window">
                     <div class="product__name">
                         <pre>
-                            <span class="<!--product__name_active-->" @click="" v-for="dropdown in dropdowns">{{ getLang ? dropdown.title_ru.toUpperCase() : dropdown.title_uk.toUpperCase() }}</span>
+                            <span :class="{ product__name_active: key == 0 }" v-for="(dropdown, key) in dropdowns">{{ getLang ? dropdown.title_ru.toUpperCase() : dropdown.title_uk.toUpperCase() }}</span>
                         </pre>
                     </div>
 
@@ -48,8 +47,9 @@
                                     </g>
                                 </svg>
                             </span>
+
                             <div class="product-more__slider">
-                                <div v-for="product in dropdowns[0].products.right" v-if="product.price || product.availability || product.image">
+                                <div v-for="product in products">
                                     <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
                                 </div>
                             </div>
@@ -82,12 +82,11 @@
             'translate',
             'leftStock',
             'rightStock',
-            'dropdowns'
+            'dropdowns',
         ],
         data() {
             return {
-                productKingWindow: 'left',
-                productNameWindow: 'gloves',
+                products: [],
                 date: '',
             }
         },
@@ -110,41 +109,12 @@
             }
         },
         mounted() {
-
             var cd = new Date();
             this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
+
+            this.products = this.dropdowns[0].products.left;
         },
 
-        updated () {
-            $('.product-more__slider').slick({
-                infinite: true,
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                dots: false,
-                arrows: true,
-                dots: false,
-                prevArrow: '.product-more__sliderbox .prev',
-                nextArrow: '.product-more__sliderbox .next',
-                responsive: [
-                    {
-                        breakpoint: 900,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1,
-                            infinite: true,
-                        }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            infinite: true,
-                        }
-                    },
-                ]
-            });
-        }
     }
 </script>
 

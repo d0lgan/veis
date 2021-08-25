@@ -182,7 +182,7 @@
                         </div>
 
 
-                        <div class="catalog-filters__block" v-if="!instantTag">
+                        <div class="catalog-filters__block">
                             <div class="catalog-filters__block-head activee">
                                 <span>{{ translate.tags }}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="8" viewBox="0 0 20 8"><g><g><path fill="#5c5c5c" d="M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"/></g></g></svg>
@@ -222,14 +222,14 @@
                                 </a>
                             </div>
 
-                            <div class="catalog__tag" v-if="instantTag">
+                            <!--<div class="catalog__tag" v-if="instantTag">
                                 <a :href="getLang ? '/ru/catalog' : '/catalog'" style="text-decoration: none">
                                     <div class="catalog__tag catalog__tag__img">
                                         <span class="catalog__tag-text">{{ getLang ? instantTag.title_ru.toUpperCase() : instantTag.title_uk.toUpperCase() }}</span>
                                         <img :src="'/assets/front/img/close-tag.png'" alt="">
                                     </div>
                                 </a>
-                            </div>
+                            </div>-->
 
                             <div class="catalog__tag" v-if="instantManufacturer">
                                 <a :href="getLang ? '/ru/catalog' : '/catalog'" style="text-decoration: none">
@@ -479,6 +479,23 @@
                 }
             }
 
+            // Автовыбранные атрибуты и номер страницы для редиректа
+            if (this.instantRedirect) {
+                for (let instAttr of this.instantRedirect.attributes) {
+                    for (let filter of this.filters) {
+                        for (let attr of filter.attributes) {
+                            if (attr.id == instAttr.id) {
+                                this.selected.sel_filters[filter.id].push(attr.id);
+                            }
+                        }
+                    }
+                }
+
+                if (this.instantRedirect.page != null || this.instantRedirect.page != 0) {
+                    this.pageNumber = this.instantRedirect.page - 1;
+                }
+            }
+
 
             if (url.searchParams.has('min')) {
                 this.$refs.start.innerText = url.searchParams.get('min');
@@ -501,10 +518,6 @@
 
             if (this.instantManufacturer) {
                 this.selected.IdOfInstantManufacturer = this.instantManufacturer.id;
-            }
-
-            if (this.instantTag) {
-                this.selected.IdOfInstantTag = this.instantTag.id;
             }
 
             var cd = new Date();
@@ -601,6 +614,14 @@
                                     if (tag.slug_ru == sel_tag || tag.slug_uk == sel_tag) {
                                         this.selected.tags.push(tag.id);
                                     }
+                                }
+                            }
+                        }
+
+                        if (this.instantTag) {
+                            for (let tag of this.tags) {
+                                if (tag.id == this.instantTag.id) {
+                                    this.selected.tags.push(tag.id);
                                 }
                             }
                         }

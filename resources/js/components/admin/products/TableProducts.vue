@@ -1639,6 +1639,14 @@
                             s[i] = JSON.parse(s[i]);
                         }
                         this.headers = s;
+
+                        // Проверка на get параметр 'query', чтобы потом записать его в поле поиска
+                        let url = new URL(window.location.href);
+                        if (url.searchParams.has('query')) {
+                            this.headers[2].value = url.searchParams.get('query');
+                            console.log( this.headers[2].value, url.searchParams.get('query'));
+                            this.searchProducts();
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -1660,14 +1668,10 @@
             }
             this.count_pages = Math.ceil(this.count_products / 10);
 
-            // Проверка на get параметр 'query', чтобы потом записать его в поле поиска
-            let url = new URL(window.location.href);
-            if (url.searchParams.has('query')) {
-                this.headers[2].value = url.searchParams.get('query');
-                this.searchProducts();
-            }
-
             this.getSettings();
+
+
+
         },
 
         created() {

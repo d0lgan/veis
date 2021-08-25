@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Attribute;
 use App\Category;
 use App\Contact;
 use App\Document;
@@ -78,6 +79,12 @@ class RedirectController extends Controller
         $langs = Language::all();
         $redirect = null;
 
+        $attributes = Attribute::get()->toArray();
+        foreach ($attributes as $key => $attribute) {
+            $attribute += ['title' => $attribute['name_ru']];
+            $attributes[$key] = $attribute;
+        }
+
         $categories_json = Category::select(['id', 'title_ru'])->get();
 
         $contacts      = Contact::all();
@@ -85,7 +92,7 @@ class RedirectController extends Controller
         $orders        = Order::all();
         $order_count   = $orders->count();
 
-        return view('admin.redirect.create', compact('redirect', 'langs', 'order_count', 'contacts_count', 'categories_json'));
+        return view('admin.redirect.create', compact('redirect', 'attributes', 'langs', 'order_count', 'contacts_count', 'categories_json'));
     }
 
     /**
@@ -126,6 +133,7 @@ class RedirectController extends Controller
             $redirect->slug_uk = $request->slug_uk;
         }
         $redirect->category_id = $request->category_id;
+        $redirect->page = $request->page;
         $redirect->description_ru = $request->description_ru;
         $redirect->description_uk = $request->description_uk;
         $redirect->seo_ru = $request->seo_ru;
@@ -133,6 +141,10 @@ class RedirectController extends Controller
 
 
         $redirect->save();
+
+        foreach (json_decode($request->categories) as $attr) {
+            $redirect->attributes()->syncWithoutDetaching($attr->id);
+        }
 
         $langs = Language::all();
 
@@ -185,6 +197,12 @@ class RedirectController extends Controller
 
         $redirect = Redirect::find($id);
 
+        $attributes = Attribute::get()->toArray();
+        foreach ($attributes as $key => $attribute) {
+            $attribute += ['title' => $attribute['name_ru']];
+            $attributes[$key] = $attribute;
+        }
+
         $categories_json = Category::select(['id', 'title_ru'])->get();
         $langs = Language::all();
         $arr = [];
@@ -202,7 +220,7 @@ class RedirectController extends Controller
         $orders        = Order::all();
         $order_count   = $orders->count();
 
-        return view('admin.redirect.edit', compact('redirect', 'langs', 'order_count', 'contacts_count', 'categories_json'));
+        return view('admin.redirect.edit', compact('redirect', 'attributes', 'langs', 'order_count', 'contacts_count', 'categories_json'));
     }
 
     /**
@@ -222,10 +240,16 @@ class RedirectController extends Controller
         $redirect->meta_h1_ru = $request->meta_ru;
         $redirect->meta_h1_uk = $request->meta_uk;
         $redirect->category_id = $request->category_id;
+        $redirect->page = $request->page;
         $redirect->description_ru = $request->description_ru;
         $redirect->description_uk = $request->description_uk;
         $redirect->seo_ru = $request->seo_ru;
         $redirect->seo_uk = $request->seo_uk;
+
+        foreach (json_decode($request->categories) as $attr) {
+            $redirect->attributes()->syncWithoutDetaching($attr->id);
+        }
+
 
         if ($request->slug_ru) {
             $redirect->slug_ru = $request->slug_ru;

@@ -209,10 +209,10 @@ window.addEventListener('load',function(){
 				}
 			  },
 		  ]
-	  });*/
-
+	  });
+*/
 	  $('.select').select({
-		//options
+		// options
 	 });
 	
 
@@ -324,7 +324,7 @@ window.addEventListener('load',function(){
 		}
 	}
 	changeFoto('.product__hide_iteam');
-	const productSorting = (iteam, iteam2, class1, class2, btn = false) => {
+	/*const productSorting = (iteam, iteam2, class1, class2, btn = false) => {
 		const title = document.querySelectorAll(iteam),
 			  subtitle  = document.querySelectorAll(iteam2);
 
@@ -359,7 +359,7 @@ window.addEventListener('load',function(){
 			}
 		}
 	};
-
+*/
 	const checkProducts = (iteam) => {
 		// let counter = 5;
 		// let start = 2;
@@ -613,9 +613,9 @@ window.addEventListener('load',function(){
   	sliderr('.blog__slider_iteam','.blog__slider_center');
 	
 	
-	productSorting('.first__kind pre span', '.product__name pre span', 'product__king_active', 'product__name_active', '.product__btn_box .intro__btn span');
+	/*productSorting('.first__kind pre span', '.product__name pre span', 'product__king_active', 'product__name_active', '.product__btn_box .intro__btn span');
 	productSorting('.second__kind pre span', '.blog__subtitle pre span', 'product__king_active', 'blog__subtitle_active');
-	
+	*/
 	// if(!leftArrow) return;
 	
 	for(let i = 0; i < productIteam.length; i++){

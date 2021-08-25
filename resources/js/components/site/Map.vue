@@ -90,7 +90,7 @@
                 <div class="cat">
                     <span class="category_title">» {{ translate.tags }}</span>
                     <div class="second_layer" v-for="tag in tags">
-                        <span>-<a :href="getLang ? '/ru/catalog?t=' + tag.slug_ru : '/catalog?t=' + tag.slug_uk" class="second">{{ getLang ? tag.title_ru : tag.title_uk }}</a></span>
+                        <span>-<a :href="getLang ? '/ru/tag/' + tag.slug_ru : '/tag/' + tag.slug_uk" class="second">{{ getLang ? tag.title_ru : tag.title_uk }}</a></span>
 
                     </div>
                 </div>

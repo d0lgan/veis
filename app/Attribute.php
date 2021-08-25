@@ -53,6 +53,11 @@ class Attribute extends \Illuminate\Database\Eloquent\Model
         return $this->belongsToMany('App\Category', 'category_attribute');
     }
 
+    public function redirects()
+    {
+        return $this->belongsToMany('App\Redirect', 'redirect_attribute');
+    }
+
     public function products()
     {
         return $this->belongsToMany('App\Product', 'product_attribute');

@@ -110,6 +110,16 @@
                                                         <label for="sort">Сортировка</label>
                                                         <input type="number" name="sort" class="form-control">
                                                     </div>
+
+                                                    <div class="col-md-6 form-group">
+                                                        <div id="app">
+                                                            <select-component :default="{{ json_encode([]) }}"
+                                                                              :categories="{{ json_encode($attributes) }}"
+                                                                              :title="{{ json_encode('Aтрибуты') }}"
+                                                                              :title-or-name="{{ json_encode('name') }}"
+                                                                              id="category"></select-component>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

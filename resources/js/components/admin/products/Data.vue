@@ -264,7 +264,7 @@
                 this.ude = this.data.ude;
                 this.course = this.data.course;
                 this.price = this.data.price;
-                this.public = this.data.public;
+                this.public = this.data.public === null ? 1 : this.data.public;
                 this.percent = this.data.percent;
                 this.stock = this.data.stock;
                 this.undiscounted = this.data.undiscounted;

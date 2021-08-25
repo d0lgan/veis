@@ -235,28 +235,40 @@ class PageController extends Controller {
         $dropdowns->map(function ($dropdown) use ($leftStock, $rightStock) {
             $dropdown['products'] = [];
 
-            $dropdown['products'] += ['left' => Product::orderBy('created_at', 'desc')
-                ->where('category_id', $dropdown->category_id)
+            $instantCategory = Category::where('id', $dropdown->category_id)->firstOrFail();
+            $allCategories = Category::where('parent_id', $instantCategory->id)->get();
+            foreach ($allCategories as $cat) {
+                $cats = Category::where('parent_id', $cat->id)->get();
+                if ($cats->count()) {
+                    $allCategories = $allCategories->merge($cats);
+                }
+            }
+
+            $allCategories = $allCategories->push($instantCategory);
+
+            $allCategories = $allCategories->pluck('id');
+
+
+            $prods = Product::where(function ($subQuery) use ($allCategories) {
+                    $subQuery->whereIn('category_id', $allCategories)->orWhere(function ($que) use ($allCategories) {
+                        $que->whereHas('categories', function ($q) use ($allCategories) {
+                            $q->whereIn('categories.id', $allCategories);
+                        });
+                    });
+                })
+                ->where('image', '<>', null)->where('price', '<>', 0)
+                ->with('galleries', 'attributes', 'tags', 'stock')
+                ->orderBy('created_at', 'desc')->get();
+
+            $dropdown['products'] += ['left' => array_values($prods
                 ->where('stock_id', $leftStock->id)
-                ->where('image', '<>', null)->where('price', '<>', 0)
-
                 ->take(10)
+                ->toArray())];
 
-                ->with('galleries', 'attributes', 'tags', 'stock')
-                ->get()
-                ->toArray()];
-
-            $dropdown['products'] += ['right' => Product::orderBy('created_at', 'desc')
-                ->where('category_id', $dropdown->category_id)
+            $dropdown['products'] += ['right' => array_values($prods
                 ->where('stock_id', $rightStock->id)
-                ->where('image', '<>', null)->where('price', '<>', 0)
-
                 ->take(10)
-
-                ->with('galleries', 'attributes', 'tags', 'stock')
-                ->get()
-                ->toArray()];
-
+                ->toArray())];
         });
 
         $brands = Brand::orderBy('sort')->get();
@@ -461,7 +473,7 @@ class PageController extends Controller {
                 }
             }
             if ($categorySlug) {
-                $instantRedirect = Redirect::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->firstOrFail();
+                $instantRedirect = Redirect::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->with('attributes')->firstOrFail();
                 // Проверка на категорию
                 if ($instantRedirect->category_id) {
                     $instantCategory = Category::where('id', $instantRedirect->category_id)->with('attributes')->firstOrFail();

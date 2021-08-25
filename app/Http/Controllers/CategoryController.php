@@ -273,6 +273,12 @@ class CategoryController extends Controller
         $categories = Category::get()->pluck('title_ru', 'id')->prepend('Выбрать', 0);
         $category = null;
 
+        $attributes = Attribute::get()->toArray();
+        foreach ($attributes as $key => $attribute) {
+            $attribute += ['title' => $attribute['name_ru']];
+            $attributes[$key] = $attribute;
+        }
+
         $langs = Language::all();
 
         $contacts      = Contact::all();
@@ -280,7 +286,7 @@ class CategoryController extends Controller
         $orders        = Order::all();
         $order_count   = $orders->count();
 
-        return view('admin.category.create', compact('categories', 'langs', 'category', 'order_count', 'contacts_count'));
+        return view('admin.category.create', compact('categories', 'langs', 'category', 'order_count', 'contacts_count', 'attributes'));
     }
 
     /**
@@ -318,6 +324,8 @@ class CategoryController extends Controller
         $category->parent_id   = $request->parent_id;
         $category->at_home = $request->at_home;
 
+
+
         //создаем изображение
         if ($request->image) {
             $destinationPath = public_path() . '/house/uploads/';
@@ -334,6 +342,10 @@ class CategoryController extends Controller
         }
 
         $category->save();
+
+        foreach (json_decode($request->categories) as $attr) {
+            $category->attributes()->syncWithoutDetaching($attr->id);
+        }
 
         $langs = Language::all();
 
@@ -385,7 +397,7 @@ class CategoryController extends Controller
         $orders        = Order::all();
         $order_count   = $orders->count();
 
-        $category = Category::find($id);
+        $category = Category::where('id', $id)->with('attributes')->firstOrFail();
         $arr = [];
         foreach ($langs as $lang) {
             $arr[$lang->locate_code] = [
@@ -396,9 +408,6 @@ class CategoryController extends Controller
             ];
         }
         $category->data = $arr;
-
-        //dd($category);
-
 
         return view('admin.category.edit', compact('category', 'langs', 'categories', 'order_count', 'contacts_count', 'attributes'));
     }

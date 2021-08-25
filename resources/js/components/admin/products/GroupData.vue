@@ -102,13 +102,13 @@
                 </select>
             </div>
 
-            <div class="form-group col-md-2 d-flex align-items-end">
+            <div class="form-group col-md-2">
                 <label for="public">Отображение</label>
-                <label class="switch switch-3d switch-success ml-3">
-                    <input type="checkbox" v-model="public" value="1" name="public" class="switch-input" id="public">
-                    <span class="switch-label"></span>
-                    <span class="switch-handle"></span>
-                </label>
+                <select v-model="public" name="public" id="public"
+                        class="form-control" style="display: block;">
+                    <option value="1">Да</option>
+                    <option value="0">Нет</option>
+                </select>
             </div>
 
 
@@ -359,7 +359,7 @@
                 notification: false,
                 error: false,
                 error_text: '',
-                public: 1,
+                public: null,
                 sort: null
             }
         },

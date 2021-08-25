@@ -59,6 +59,19 @@
                                                 <category-component :default_category="{{ $redirect->category_id }}"
                                                                     :categories="{{ json_encode($categories_json) }}"></category-component>
                                             </div>
+                                            <div class="col-md-6 form-group">
+                                                <div id="app">
+                                                    <select-component :default="{{ json_encode($redirect->attributes) }}"
+                                                                      :categories="{{ json_encode($attributes) }}"
+                                                                      :title="{{ json_encode('Aтрибуты') }}"
+                                                                      :title-or-name="{{ json_encode('name') }}"
+                                                                      id="category"></select-component>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 form-group">
+                                                <label>Страница</label>
+                                                <input class="form-control" type="number" value="{{ $redirect->page }}" name="page">
+                                            </div>
                                         </div>
                                     </div>
 

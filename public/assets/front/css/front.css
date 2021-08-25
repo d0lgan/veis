@@ -296,12 +296,6 @@
 	width: 100%;
 }
 
-@font-face {
-  font-family: 'Degreco';
-  src: local("Degreco"), local("Degreco-Condensed-Regular"), url("../fonts/degreco-condensed-regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal; }
-
 * {
   margin: 0;
   padding: 0;
@@ -598,8 +592,8 @@ nav > a:hover {
 
 .logo {
   color: #fff;
-  font-family: Degreco;
-  font-weight: normal;
+  font-family: Montserrat;
+  font-weight: 750;
   font-size: 28.07px;
   text-align: center;
   line-height: 15px;
@@ -1593,8 +1587,8 @@ footer a {
   font-size: 12px; }
 
 .foot__logo {
-  font-family: Degreco;
-  font-size: 28px;
+  font-family: Montserrat;
+  font-size: 29px;
   letter-spacing: 10px;
   margin-right: 37px; }
 
@@ -4554,10 +4548,13 @@ textarea {
     padding: 12px 0 12px 16px;
     display: block; }
   .consul__block_input input[type="submit"] {
-    width: 100%;
+    width: 70%;
     padding: 12px 0 12px 16px;
     font-size: 15px;
-    display: block; }
+    isplay: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto 0; }
   .contact__hide {
     left: -110px; }
   .modal__hide > img {
@@ -4567,9 +4564,9 @@ textarea {
   .bottom__block {
     margin-bottom: 20px; }
   .logo {
-    font-size: 20px; }
+    font-size: 22px; }
   .logo span {
-    font-size: 8px; }
+    font-size: 9px; }
   .blog__bottom {
     flex-wrap: wrap;
     justify-content: center; }
@@ -4629,7 +4626,8 @@ textarea {
   .consul__block_input {
     width: 100%; }
   .consul__block_input input[type="text"] {
-    width: 100%; }
+    width: 90%;
+    margin: 0 auto; }
   .consul__block_input input[type="submit"] {
     background-position: 70%;
     font-size: 13px; }
