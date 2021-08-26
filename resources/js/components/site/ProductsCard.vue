@@ -31,11 +31,10 @@
 
                 <div class="king__window">
                     <div class="product__name">
-                        <pre>
+                        <pre style="display: flex; align-items: center; justify-content: center;">
                             <span :class="{ product__name_active: key == 0 }" v-for="(dropdown, key) in dropdowns">{{ getLang ? dropdown.title_ru.toUpperCase() : dropdown.title_uk.toUpperCase() }}</span>
                         </pre>
                     </div>
-
                     <div class="product__block">
                         <div class="product-more__sliderbox">
                             <span class="slider-arrow prev">

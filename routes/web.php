@@ -30,6 +30,13 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
     Route::get('/info', 'PageController@info')->name('info')->middleware('pagePublic');
     Route::get('/about', 'PageController@about')->name('about')->middleware('pagePublic');
 
+
+    // Обновление товаров.
+    Route::get('/updateProductUrl', 'PageController@updateProductUrl')->name('updateProductUrl');
+    //
+
+
+
     Route::get('/map', 'PageController@map')->name('map')->middleware('pagePublic');
 
     Route::get('/search', 'PageController@search')->name('search')->middleware('pagePublic');
@@ -79,7 +86,6 @@ Route::get('setlocale/{lang}', function ($lang) {
 
 })->name('setlocale');
 
-
 /*
 Route::get('/about', 'PageController@about')->name('about')->middleware('pagePublic');
 
@@ -107,19 +113,14 @@ Route::get('/blog/{id}', 'BlogController@index')
 Route::get('/blog-category/{id}', 'BlogCategoryController@show')
     ->name('blog-category');*/
 
-
 Route::group(['middleware' => ['auth', 'blocked']], function () {
-
     Route::get('/user/profile', 'UserController@index')
         ->name('profile')->middleware('pagePublic');
-
 });
 
 Route::group(['prefix' => 'design'], function () {
-
     Route::get('/', 'DesignController@index')
         ->name('design-index');
-
     Route::get('/main', 'DesignController@main')
         ->name('design-main');
     Route::get('/product', 'DesignController@product')

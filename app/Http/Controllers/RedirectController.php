@@ -166,9 +166,8 @@ class RedirectController extends Controller
 
         }
 
-        return back()
-            ->withInput()
-            ->withErrors(array('info_messages' => 'Создан!'));
+        return redirect()
+            ->route('admin-redirects-index');
     }
 
     /**

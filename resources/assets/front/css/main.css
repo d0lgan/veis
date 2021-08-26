@@ -3745,6 +3745,17 @@ textarea {
     padding-top: 40px;
     padding-bottom: 10px;
     display: none; }
+  .media__modal .lang__info {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    padding: 12px;
+  }
+  .media__modal a {
+    font-size: 20px;
+    margin: 0 5px;
+  }
   .media__modal_iteam {
     display: flex;
     align-items: center;

@@ -182,8 +182,31 @@ window.addEventListener('load',function(){
 		  ]
 	  });
 
+	console.log('1000-7?');
+	$('.intro__slider_block').slick({
+		infinite: true,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		arrows: true,
+		prevArrow: $('.intro__control .left__arrow'),
+		nextArrow: $('.intro__control .right__arrow'),
+		speed: 600,
+		pauseOnHover: true
+	});
 
-	  /*$('.product-more__slider').slick({
+	$('.intro__slider_block2').slick({
+		infinite: true,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		arrows: true,
+		prevArrow: $('.intro__control2 .left__arrow2'),
+		nextArrow: $('.intro__control2 .right__arrow2'),
+		speed: 600,
+		pauseOnHover: true
+	});
+	$('.intro__slider_block2').slick('slickPause');
+
+	  $('.product-more__slider').slick({
 		infinite: true,
 		slidesToShow: 4,
 		slidesToScroll: 1,
@@ -210,13 +233,200 @@ window.addEventListener('load',function(){
 			  },
 		  ]
 	  });
-*/
+
 	  $('.select').select({
 		// options
 	 });
-	
 
-		const productIteam = document.querySelectorAll('.product__iteam'),
+	if(window.innerWidth <= 1800 ||
+		document.querySelector('.brands__slide').clientWidth > document.querySelector('.brands__name').clientWidth){
+
+		const runLine = (iteam) => {
+			const brandBlock =  document.querySelector(iteam),
+				brandIteam = document.querySelector('.brands__block1');
+
+			let counter = 0;
+			let hovered = false;
+			let a = 1;
+			let b = 2;
+			let a2 = 1;
+			let b2 = 2;
+			let array = [];
+			let cliked = false;
+			let interatot = 2;
+
+			document.querySelector('.brands__name').addEventListener('mouseenter',() => {
+				hovered = true;
+			});
+
+			document.querySelector('.brands__name').addEventListener('mouseleave',() => {
+				hovered = false;
+				brandMove();
+			});
+
+			document.querySelector('.brands__name').addEventListener('mousedown',() => {
+				cliked = true;
+				hovered = true;
+
+			});
+			window.addEventListener('mouseup',() => {
+				cliked = false;
+				array = [];
+			});
+
+			window.addEventListener('mousemove',movePosition);
+
+			let div = document.createElement('div');
+			div.classList.add('brands__block2');
+			div.innerHTML = brandIteam.innerHTML;
+			brandBlock.append(div);
+			let brandIteam2  = document.querySelector('.brands__block2');
+			let links = brandBlock.querySelectorAll('a');
+
+			for(let i = 0; i < links.length; i++){
+				links[i].addEventListener("dragstart", (event) => {
+					event.preventDefault();
+
+				});
+			}
+
+			document.querySelector('.brands__name').addEventListener("touchend", (e) => {
+				hovered = false;
+				brandMove();
+			})
+
+			document.querySelector('.brands__name').addEventListener("touchmove", (e) => {
+				hovered = true;
+				array.push(e.touches[0].clientX);
+
+				if(counter > (-200)){
+					brandIteam2.style.transform = 'translateX(' + 0  + 'px)';
+				}
+				if(counter <=  (brandIteam.clientWidth * -1) * a){
+					brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2) * (b / 2) + 'px)';
+					a += 2
+				}
+				if(counter <=  (brandIteam2.clientWidth * -1) * b){
+					brandIteam2.style.transform = 'translateX(' + brandIteam.clientWidth * 2 * (b / 2)   + 'px)';
+					b += 2
+				}
+				if(counter > 0){
+					brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
+
+					if(counter >=  (brandIteam.clientWidth) * a2){
+						brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2) + 'px)';
+						a2 += 2
+					}
+					if(counter >=  (brandIteam2.clientWidth) * b2){
+						brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
+						b2 += 2
+					}
+				}
+
+				if(array[array.length - 2] - e.touches[0].clientX < 0){
+
+					counter += 7;
+					brandBlock.style.transform = 'translateX(' + counter + 'px)';
+				}else{
+
+					counter -= 7;
+					brandBlock.style.transform = 'translateX(' + counter + 'px)';
+				}
+			});
+
+			function movePosition(e) {
+				let a2 = 1;
+				let b2 = 2;
+
+				if(cliked){
+					hovered = true;
+					array.push(e.clientX);
+
+					if(counter > (-200)){
+						brandIteam2.style.transform = 'translateX(' + 0  + 'px)';
+					}
+					if(counter <=  (brandIteam.clientWidth * -1) * a){
+						brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2) * (b / 2) + 'px)';
+						a += 2
+					}
+					if(counter <=  (brandIteam2.clientWidth * -1) * b){
+						brandIteam2.style.transform = 'translateX(' + brandIteam.clientWidth * 2 * (b / 2)   + 'px)';
+						b += 2
+					}
+					if(counter > 0){
+						brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
+
+						if(counter >=  (brandIteam.clientWidth) * a2){
+							brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2) + 'px)';
+							a2 += 2
+						}
+						if(counter >=  (brandIteam2.clientWidth) * b2){
+							brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
+							b2 += 2
+						}
+					}
+
+					if(array[array.length - 2] - e.clientX < 0){
+
+						counter += 7;
+						brandBlock.style.transform = 'translateX(' + counter + 'px)';
+					}else{
+
+						counter -= 7;
+						brandBlock.style.transform = 'translateX(' + counter + 'px)';
+					}
+				}
+			}
+
+
+
+			function brandMove () {
+				// console.log(hovered)
+				let num = ((Math.ceil(brandIteam.clientWidth / interatot)) * interatot) - brandIteam.clientWidth;
+				if(hovered){
+					return;
+				}else{
+
+					if(counter > (-200)){
+						brandIteam2.style.transform = 'translateX(' + 0  + 'px)';
+					}
+					if(counter <=  (brandIteam.clientWidth * -1) * a){
+						brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2) * (b / 2) + 'px)';
+						a += 2
+					}
+					if(counter <=  (brandIteam2.clientWidth * -1) * b){
+						brandIteam2.style.transform = 'translateX(' + brandIteam.clientWidth * 2 * (b / 2)   + 'px)';
+						b += 2
+					}
+					if(counter > 0){
+						brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
+
+						if(counter >=  (brandIteam.clientWidth) * a2){
+							brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2) + 'px)';
+							a2 += 2
+						}
+						if(counter >=  (brandIteam2.clientWidth) * b2){
+							brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
+							b2 += 2
+						}
+					}
+
+					counter -= interatot;
+					brandBlock.style.transform = 'translateX(' + counter + 'px)';
+
+					window.requestAnimationFrame(brandMove)
+				}
+			}
+
+			window.requestAnimationFrame(brandMove)
+
+		}
+		runLine('.brands__slide')
+	}
+
+
+
+	const productIteam = document.querySelectorAll('.product__iteam'),
 		  introFoto = document.querySelectorAll('.intro__foto'),
 		  leftArrow = document.querySelector('.left__arrow'),
 		  rightArrow = document.querySelector('.right__arrow'),
@@ -656,29 +866,7 @@ window.addEventListener('load',function(){
 		});
 	}
 
-	console.log('1000-7?');
-	$('.intro__slider_block').slick({
-		infinite: true,
-		autoplay: true,
-		autoplaySpeed: 3000,
-		arrows: true,
-		prevArrow: $('.intro__control .left__arrow'),
-		nextArrow: $('.intro__control .right__arrow'),
-		speed: 600,
-		pauseOnHover: true
-  	});
 
-  	$('.intro__slider_block2').slick({
-		infinite: true,
-		autoplay: true,
-		autoplaySpeed: 3000,
-		arrows: true,
-		prevArrow: $('.intro__control2 .left__arrow2'),
-		nextArrow: $('.intro__control2 .right__arrow2'),
-		speed: 600,
-		pauseOnHover: true
-  	});
-  	$('.intro__slider_block2').slick('slickPause');
 
   	if(innerWidth <= 560){
 	  	$('.mobile__blog_slide').slick({
@@ -697,192 +885,7 @@ window.addEventListener('load',function(){
   	
   
   	
-  	if(window.innerWidth <= 1800 ||
-  		document.querySelector('.brands__slide').clientWidth > document.querySelector('.brands__name').clientWidth){
 
-  		const runLine = (iteam) => {
-	  		const brandBlock =  document.querySelector(iteam),
-	  			  brandIteam = document.querySelector('.brands__block1');
-
-	  		let counter = 0;
-	  		let hovered = false;
-	  		let a = 1;
-	  		let b = 2;
-	  		let a2 = 1;
-	  		let b2 = 2;
-	  		let array = [];
-	  		let cliked = false;
-	  		let interatot = 2;
-
-	  		document.querySelector('.brands__name').addEventListener('mouseenter',() => {
-	  			hovered = true;
-	  		});
-
-	  		document.querySelector('.brands__name').addEventListener('mouseleave',() => {
-	  			hovered = false;
-	  			brandMove();
-	  		});
-
-  			document.querySelector('.brands__name').addEventListener('mousedown',() => {
-	  			cliked = true;
-  				hovered = true;
-
-	  		});
-	  		window.addEventListener('mouseup',() => {
-	  			cliked = false;
-	  			array = [];
-	  		});
-
-	  		window.addEventListener('mousemove',movePosition);
-
-	  		let div = document.createElement('div');
-	  		div.classList.add('brands__block2');
-	  		div.innerHTML = brandIteam.innerHTML;
-	  		brandBlock.append(div);
-  			let brandIteam2  = document.querySelector('.brands__block2');
-  			let links = brandBlock.querySelectorAll('a');
-
-  			for(let i = 0; i < links.length; i++){
-	  			links[i].addEventListener("dragstart", (event) => {
-				    event.preventDefault();
-
-	  			});
-  			}
-  			
-  			document.querySelector('.brands__name').addEventListener("touchend", (e) => {
-	  			hovered = false;
-	  			brandMove();
-  			})
-
-	  		document.querySelector('.brands__name').addEventListener("touchmove", (e) => {
-	  			hovered = true;
-  				array.push(e.touches[0].clientX);
-
-	  			if(counter > (-200)){
-	  				brandIteam2.style.transform = 'translateX(' + 0  + 'px)';
-	  			}
-  				if(counter <=  (brandIteam.clientWidth * -1) * a){
-	  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2) * (b / 2) + 'px)';
-	  				a += 2
-	  			}
-	  			if(counter <=  (brandIteam2.clientWidth * -1) * b){
-	  				brandIteam2.style.transform = 'translateX(' + brandIteam.clientWidth * 2 * (b / 2)   + 'px)';
-	  				b += 2
-	  			}
-	  			if(counter > 0){
-						brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
-
-	  				if(counter >=  (brandIteam.clientWidth) * a2){
-		  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2) + 'px)';
-		  				a2 += 2
-		  			}
-		  			if(counter >=  (brandIteam2.clientWidth) * b2){
-		  				brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
-		  				b2 += 2
-		  			}
-	  			}
-
-  				if(array[array.length - 2] - e.touches[0].clientX < 0){
-
-  					counter += 7;
-  					brandBlock.style.transform = 'translateX(' + counter + 'px)';
-  				}else{
-
-  					counter -= 7;
-  					brandBlock.style.transform = 'translateX(' + counter + 'px)';
-  				}
-	  		});
-
-	  		function movePosition(e) {
-	  			let a2 = 1;
-	  			let b2 = 2;
-
-	  			if(cliked){
-	  				hovered = true;
-	  				array.push(e.clientX);
-
-		  			if(counter > (-200)){
-		  				brandIteam2.style.transform = 'translateX(' + 0  + 'px)';
-		  			}
-	  				if(counter <=  (brandIteam.clientWidth * -1) * a){
-		  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2) * (b / 2) + 'px)';
-		  				a += 2
-		  			}
-		  			if(counter <=  (brandIteam2.clientWidth * -1) * b){
-		  				brandIteam2.style.transform = 'translateX(' + brandIteam.clientWidth * 2 * (b / 2)   + 'px)';
-		  				b += 2
-		  			}
-		  			if(counter > 0){
-  						brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
-
-		  				if(counter >=  (brandIteam.clientWidth) * a2){
-			  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2) + 'px)';
-			  				a2 += 2
-			  			}
-			  			if(counter >=  (brandIteam2.clientWidth) * b2){
-			  				brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
-			  				b2 += 2
-			  			}
-		  			}
-
-	  				if(array[array.length - 2] - e.clientX < 0){
-
-	  					counter += 7;
-	  					brandBlock.style.transform = 'translateX(' + counter + 'px)';
-	  				}else{
-
-	  					counter -= 7;
-	  					brandBlock.style.transform = 'translateX(' + counter + 'px)';
-	  				}
-	  			}
-	  		}
-
-	  		
-
-	  		function brandMove () {
-	  			// console.log(hovered)
-	  			let num = ((Math.ceil(brandIteam.clientWidth / interatot)) * interatot) - brandIteam.clientWidth;
-	  			if(hovered){
-		  			return;
-	  			}else{
-
-	  				if(counter > (-200)){
-		  				brandIteam2.style.transform = 'translateX(' + 0  + 'px)';
-		  			}
-		  			if(counter <=  (brandIteam.clientWidth * -1) * a){
-		  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2) * (b / 2) + 'px)';
-		  				a += 2
-		  			}
-		  			if(counter <=  (brandIteam2.clientWidth * -1) * b){
-		  				brandIteam2.style.transform = 'translateX(' + brandIteam.clientWidth * 2 * (b / 2)   + 'px)';
-		  				b += 2
-		  			}
-		  			if(counter > 0){
-  						brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
-
-		  				if(counter >=  (brandIteam.clientWidth) * a2){
-			  				brandIteam.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2) + 'px)';
-			  				a2 += 2
-			  			}
-			  			if(counter >=  (brandIteam2.clientWidth) * b2){
-			  				brandIteam2.style.transform = 'translateX(' + (brandIteam.clientWidth * 2 * -1) * (b2 / 2)   + 'px)';
-			  				b2 += 2
-			  			}
-		  			}
-
-		  			counter -= interatot;
-	  				brandBlock.style.transform = 'translateX(' + counter + 'px)';
-
-		  			window.requestAnimationFrame(brandMove)
-	  			}
-	  		}
-
-	  		window.requestAnimationFrame(brandMove)
-
-	  	}
-	  	runLine('.brands__slide')
-	  }
-	  
 	
 	
 	window.addEventListener('resize', () => {

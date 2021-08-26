@@ -708,6 +708,17 @@ class PageController extends Controller {
         return view('site.catalog', compact('translate', 'desctran', 'locale', 'filters', 'dropdown', 'instantCategory', 'childCategories', 'instantManufacturer', 'instantTag', 'instantRedirect', 'desc', 'page'));
     }
 
+    public function updateProductUrl() {
+        $products = Product::all();
+        foreach ($products as $a) {
+            $a->slug_ru = SlugService::createSlug(Attribute::class, 'slug_ru', $a->title_ru);
+            $a->slug_uk = SlugService::createSlug(Attribute::class, 'slug_uk', $a->title_uk);
+            $a->save();
+        }
+
+        return 'чпу товаров обновлены';
+    }
+
     //page site
     public function about() {
         $locale = App::getLocale();

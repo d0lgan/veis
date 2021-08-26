@@ -8,7 +8,6 @@
                 <a class="nav-link" id="instagram-tab" data-toggle="tab" href="#instagram" role="tab" aria-controls="instagram" aria-selected="false">Instagram</a>
             </li>
         </ul>
-
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="blog" role="tabpanel" aria-labelledby="blog-tab">
                 <div class="col-md-12 d-flex justify-content-center">
