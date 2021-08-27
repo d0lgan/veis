@@ -26,13 +26,14 @@
             </div>
             <div class="conteiner">
                 <div class="product__king xs-hidden">
-                    <pre><span class="product__king_active">{{ getLang ? leftStock.title_ru : leftStock.title_uk }}</span>  /  <span>{{ getLang ? rightStock.title_ru : rightStock.title_uk }}</span></pre>
+                    <pre><span :class="{ product__king_active: dropStock == 'left' }" @click="dropStock = 'left'">{{ getLang ? leftStock.title_ru : leftStock.title_uk }}</span>  /  <span :class="{ product__king_active: dropStock == 'right' }" @click="dropStock = 'right'">{{ getLang ? rightStock.title_ru : rightStock.title_uk }}</span></pre>
                 </div>
 
                 <div class="king__window">
                     <div class="product__name">
                         <pre style="display: flex; align-items: center; justify-content: center;">
-                            <span :class="{ product__name_active: key == 0 }" v-for="(dropdown, key) in dropdowns">{{ getLang ? dropdown.title_ru.toUpperCase() : dropdown.title_uk.toUpperCase() }}</span>
+                            <div v-for="(dropdown, key) in dropdowns">{{ key != 0 ? '/' : ''}}<span :class="{ product__name_active: key == dropKey }"
+                                      @click="dropKey = key">{{ getLang ? dropdown.title_ru.toUpperCase() : dropdown.title_uk.toUpperCase() }}</span></div>
                         </pre>
                     </div>
                     <div class="product__block">
@@ -66,7 +67,7 @@
                 </div>
 
                 <div class="product__btn_box">
-                    <a class="intro__btn" href="#/">{{ translate.show_all }} <span>{{ translate.gloves }}</span></a>
+                    <a class="intro__btn" :href="getLang ? dropdowns[dropKey].link_ru : dropdowns[dropKey].link_uk">{{ translate.show_all }} <span>{{ getLang ? dropdowns[dropKey].title_ru : dropdowns[dropKey].title_uk }}</span></a>
                 </div>
             </div>
         </section>
@@ -86,6 +87,8 @@
         data() {
             return {
                 products: [],
+                dropKey: 0,
+                dropStock: 'left',
                 date: '',
             }
         },
@@ -96,6 +99,22 @@
                     zero += '0';
                 }
                 return (zero + num).slice(-digit);
+            },
+
+            changeDrop: function () {
+                if (this.dropStock == 'left') {
+                    this.products = this.dropdowns[this.dropKey].products.left;
+                } else if (this.dropStock == 'right') {
+                    this.products = this.dropdowns[this.dropKey].products.right;
+                }
+            }
+        },
+        watch: {
+            dropKey: function () {
+                this.changeDrop();
+            },
+            dropStock: function () {
+                this.changeDrop();
             },
         },
         computed: {
@@ -111,7 +130,7 @@
             var cd = new Date();
             this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
 
-            this.products = this.dropdowns[0].products.left;
+            this.changeDrop();
         },
 
     }

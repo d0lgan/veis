@@ -1007,7 +1007,7 @@ nav > a:hover {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 71px; }
+  margin-bottom: 51px; }
 .product__name span {
   margin: 0 10px; }
 
@@ -1103,12 +1103,12 @@ nav > a:hover {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 65px;
+  margin-top: 10px;
   margin-bottom: 100px; }
 @media screen and (max-width: 640px) {
   .product__btn_box {
     display: none;
-    margin: 20px 0; }
+    margin: 15px 0; }
   .product__btn_box .intro__btn {
     margin: 0; }
   .work {
@@ -1590,7 +1590,8 @@ footer a {
   font-family: Montserrat;
   font-size: 29px;
   letter-spacing: 10px;
-  margin-right: 37px; }
+  margin-right: 37px;
+  font-weight: 800;  }
 
 .active__hover {
   background-color: #f8f8f8; }

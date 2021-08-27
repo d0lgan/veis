@@ -264,13 +264,23 @@
                 this.ude = this.data.ude;
                 this.course = this.data.course;
                 this.price = this.data.price;
-                this.public = this.data.public === null ? 1 : this.data.public;
+                this.public = this.data.public === null ? 0 : this.data.public;
                 this.percent = this.data.percent;
                 this.stock = this.data.stock;
                 this.undiscounted = this.data.undiscounted;
                 this.start_stock = this.data.start_stock;
                 this.end_stock = this.data.end_stock;
                 this.supplier = this.data.supplier;
+            },
+
+            price(val) {
+                if (this.percent != 0) {
+                    this.undiscounted = Math.round(val * (1 + this.percent / 100));
+                }
+            },
+
+            percent(val) {
+                this.undiscounted = Math.round(this.price * (1 + val / 100));
             }
         },
         mounted() {

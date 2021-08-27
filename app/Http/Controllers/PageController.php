@@ -257,7 +257,7 @@ class PageController extends Controller {
                     });
                 })
                 ->where('image', '<>', null)->where('price', '<>', 0)
-                ->with('galleries', 'attributes', 'tags', 'stock')
+                ->with('galleries', 'stock')
                 ->orderBy('created_at', 'desc')->get();
 
             $dropdown['products'] += ['left' => array_values($prods

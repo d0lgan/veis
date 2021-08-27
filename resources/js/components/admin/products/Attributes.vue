@@ -1,5 +1,10 @@
 <template>
     <div class="d-flex mb-3 row pr-3">
+		<div class="alert alert-success notification col-12" v-if="notification">OK
+			<button type="button" class="close" @click="notification = false">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
     	<div class="col-6">
     		<select class="form-control mb-3" v-model="selected">
     		    <option
@@ -74,7 +79,8 @@
                 arr_groups: this.selected_attr !== undefined ? this.selected_attr : [],
                 attribute_id: [],
                 product: this.prod !== undefined ? this.prod : [],
-                isModal: this.isModal
+                isModal: this.isModal,
+				notification: false,
             }
         },
 
@@ -130,13 +136,16 @@
             this.$root.$on('eventing', data => {
                 axios.post('/api/attributes/group', {category_id: data}).then((res) => {
                     this.group_attributes = res.data;
+					this.notification = false;
                     // this.arr_groups = [];
                 });
             });
 
             if (this.default_category) {
                 axios.post('/api/attributes/group', {category_id: this.default_category}).then((res) => {
-                    this.group_attributes = res.data
+                    this.group_attributes = res.data;
+
+					this.notification = false;
                 });
             }
 
@@ -167,7 +176,9 @@
             },
             saveAttr: function () {
                 axios.post('/api/fastEdit/saveAttr', {product_id: this.product_id, attribute_id: this.attribute_id}).then((res) => {
-
+					if(res.data === true){
+						this.notification = true;
+					}
                 });
 
                 console.log('attr saved');

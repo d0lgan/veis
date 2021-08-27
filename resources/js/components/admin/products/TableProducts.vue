@@ -207,7 +207,7 @@
                             <h5 class="modal-title">Настройки атрибутов</h5>
                             
                             <div class="d-flex align-items-center">
-                                <a href="javascript:void(0)" @click="saveAttr()" data-dismiss="modal" class="btn save saveOptions mr-3"><i class="far fa-save"></i></a>
+                                <a href="javascript:void(0)" @click="saveAttr()" class="btn save saveOptions mr-3"><i class="far fa-save"></i></a>
                                 
                                 <a href="javascript:void(0)" class="btn back mr-2" data-dismiss="modal"><i class="fas fa-reply-all"></i></a>
                             </div>
@@ -1644,7 +1644,6 @@
                         let url = new URL(window.location.href);
                         if (url.searchParams.has('query')) {
                             this.headers[2].value = url.searchParams.get('query');
-                            console.log( this.headers[2].value, url.searchParams.get('query'));
                             this.searchProducts();
                         }
                     })
@@ -1659,6 +1658,8 @@
 
         },
         mounted() {
+            this.headers[2].value = '';
+
             this.$root.$on('groupPrice', (data) => {
                 this.countPages(this.current_page);
             });
@@ -1669,9 +1670,6 @@
             this.count_pages = Math.ceil(this.count_products / 10);
 
             this.getSettings();
-
-
-
         },
 
         created() {
