@@ -74,6 +74,7 @@
         },
         props: [
             'translate',
+            'key1',
             'product',
             'locale',
         ],

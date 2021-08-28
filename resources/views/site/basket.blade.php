@@ -144,3 +144,18 @@
     --}}
 
 @endsection
+@section('css')
+
+    <style>
+        @media screen and (max-width: 640px) {
+            body {
+                padding-top: 15px !important;
+            }
+
+            .cart {
+                padding-top: 0px !important;
+            }
+        }
+    </style>
+
+@endsection

@@ -148,6 +148,9 @@
                 </div>
             </div>
             <a href="#/" class="hide__btn">{{ __('site.menu.call_me') }}</a>
+
+            <p class="lang__info"><a href="{{ route('setlocale', ['lang' => 'uk']) }}">UA</a> | <a href="{{ route('setlocale', ['lang' => 'ru']) }}">RU</a></p>
+
         </div>
     </div>
     <div class="bottom__head bottom__head--min">

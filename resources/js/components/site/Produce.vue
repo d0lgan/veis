@@ -20,14 +20,14 @@ s<template>
         </div>
 
         <section class="product-card">
-            <div class="product-card__headmob desktop-hidden">
+            <!--<div class="product-card__headmob desktop-hidden">
                 <div id="prod-timer-mob"></div>
                 <div class="product-card__tag">
             <span class="product-card__tag-text">
                 {{ translate.sale }}
             </span>
                 </div>
-            </div>
+            </div>-->
             <div class="holder">
                 <div class="product-card__head">
                     <a :href="back" class="back-btn">
@@ -115,7 +115,7 @@ s<template>
                                 </div>
 
                                 <div class="product-card__prices" v-else>
-                                    <p class="text-price text-price--fix">{{ product.price }} грн</p>
+                                    <p class="text-price text-price--fix">{{ translate.price }} {{ product.price }} грн</p>
                                 </div>
 
                                 <!--<div class="product-card__timerbox">

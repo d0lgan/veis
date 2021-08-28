@@ -775,6 +775,10 @@ class PageController extends Controller {
             $subCats = Category::where('parent_id', $mainCat->id)->get();
             foreach ($subCats as $subCat) {
                 $subSubCats = Category::where('parent_id', $subCat->id)->get();
+                foreach ($subSubCats as $subSubCat) {
+                    $sssCats = Category::where('parent_id', $subSubCat->id)->get();
+                    $subSubCat->fourthLayer = $sssCats;
+                }
                 $subCat->thirdLayer = $subSubCats;
             }
             $mainCat->secondLayer = $subCats;

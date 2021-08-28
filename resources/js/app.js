@@ -57,6 +57,7 @@ Vue.component('site-catalog-component', require('./components/site/Catalog').def
 Vue.component('site-map-component', require('./components/site/Map').default);
 Vue.component('site-not-found-component', require('./components/site/NotFound').default);
 Vue.component('site-products-card-component', require('./components/site/ProductsCard').default);
+Vue.component('site-products-slider-component', require('./components/site/ProductsSlider').default);
 Vue.component('site-product-elem-component', require('./components/site/ProductElem').default);
 Vue.component('site-produce-component', require('./components/site/Produce').default);
 Vue.component('site-basket-element-component', require('./components/site/BasketElement').default);
