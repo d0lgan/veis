@@ -288,7 +288,7 @@
                             <div style="height: 35px" v-model="headers" v-for="header in headers" v-if="header.key === 'title_ru'" class="d-flex">
                                 <div class="rs-select2--light rs-select2--md srw" style="height: 35px">
                                     <div class="sr" style="height: 35px" v-model="headers" v-for="header in headers" v-if="header.key === 'title_ru'">
-                                        <input type="text" placeholder="Поиск..." v-model="header.value" v-on:keyup.enter="searchProducts()" style="background-color: #9ea3a7; color: #fff; border-radius: 3px; font-size: 13px !important;" class="inp form-control w-100 h-100">
+                                        <input type="text" autocomplete="off" placeholder="Поиск..." v-model="header.value" v-on:keyup.enter="searchProducts()" style="background-color: #9ea3a7; color: #fff; border-radius: 3px; font-size: 13px !important;" class="inp form-control w-100 h-100">
                                         <i class="fas fa-search sr_icon" style="color: #fff; cursor: pointer;" @click="searchProducts()"></i>
                                     </div>
                                 </div>
@@ -1670,6 +1670,15 @@
             this.count_pages = Math.ceil(this.count_products / 10);
 
             this.getSettings();
+
+            let timer = setTimeout(function(){
+                let url = new URL(window.location.href);
+                if (this.headers[2].value == "6012/N/NEW 01062EX") {
+                    this.headers[2].value = '';
+                    url.searchParams.delete('query');
+                    history.pushState(null, null, url);
+                }
+            }, 2000)
         },
 
         created() {

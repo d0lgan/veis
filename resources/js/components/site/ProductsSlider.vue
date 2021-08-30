@@ -37,7 +37,6 @@
             'locale',
             'translate',
             'products',
-            'key1',
         ],
 
 

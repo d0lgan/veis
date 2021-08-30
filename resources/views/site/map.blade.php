@@ -49,22 +49,24 @@
             padding-bottom: 22px !important;
         }
 
-        .second_layer {
-            margin-left: 26px;
-            margin-top: 6px;
-        }
-
         .second_layer span {
-            font-weight: 450;
-        }
-
-        .third_layer {
-            margin-left: 26px;
-            margin-top: 5px;
+            font-weight: 550;
+            font-size: 18px;
         }
 
         .third_layer span {
+            font-weight: 450;
+            font-size: 17px;
+        }
+
+        .fourth_layer span {
             font-weight: 400;
+            font-size: 16px;
+        }
+
+        .second_layer, .third_layer,.fourth_layer {
+            margin-left: 17px;
+            margin-top: 6px;
         }
 
         .category_title {
@@ -74,7 +76,7 @@
         }
 
         .second {
-            margin: 8px;
+            margin: 4px;
         }
 
         .back-btn {

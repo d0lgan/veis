@@ -20,7 +20,7 @@
         <section class="product-card">
             <div class="holder">
                 <div class="product-card__head">
-                    <a href="{{ $locale == 'ru' ? 'Вернуться назад' : 'Повернутися назад' }}" class="back-btn">
+                    <a href="{{ url()->previous() }}" class="back-btn" style="padding: 5px 0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="8" height="20" viewBox="0 0 8 20">
                             <g>
                                 <g>
@@ -28,7 +28,7 @@
                                 </g>
                             </g>
                         </svg>
-                        {{ $locale == 'ru' ? 'Вернуться назад' : 'Повернутися назад' }}
+                        <span style="font-size: 15px !important;">{{ $locale == 'ru' ? 'Вернуться назад' : 'Повернутися назад' }}</span>
                     </a>
                 </div>
             </div>

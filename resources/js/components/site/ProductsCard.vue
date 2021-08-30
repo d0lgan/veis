@@ -36,9 +36,23 @@
                                       @click="dropKey = key">{{ getLang ? dropdown.title_ru.toUpperCase() : dropdown.title_uk.toUpperCase() }}</span></div>
                         </pre>
                     </div>
-                    <div class="product__block">
-                        <site-products-slider-component :locale="locale" :key1="componentKey" :products="products" :translate="translate"></site-products-slider-component>
+
+                    <!--<div class="product__block" v-show="dropStock == 'left'">
+                        <site-products-slider-component v-for="(dropdown, key1) in dropdowns" v-show="key1 == dropKey" :key="key1" :locale="locale" :products="dropdown.products.left" :translate="translate"></site-products-slider-component>
                     </div>
+
+                    <div class="product__block" v-show="dropStock == 'right'">
+                        <site-products-slider-component v-for="(dropdown, key2) in dropdowns" v-show="key2 == dropKey" :key="key2" :locale="locale" :products="dropdown.products.right" :translate="translate"></site-products-slider-component>
+                    </div>-->
+
+                    <div class="product__inner">
+                        <site-product-elem-component v-for="(product, k) in products.slice(0, 4)" :product="product" :key="k" :translate="translate" :locale="locale"></site-product-elem-component>
+                    </div>
+                    <div class="product__inner">
+                        <site-product-elem-component v-for="(product, k) in products.slice(4, 8)" :product="product" :key="k" :translate="translate" :locale="locale"></site-product-elem-component>
+                    </div>
+
+
                 </div>
 
                 <div class="product__btn_box">
@@ -65,7 +79,6 @@
                 dropKey: 0,
                 dropStock: 'left',
                 date: '',
-                componentKey: 0,
             }
         },
         methods: {
@@ -77,27 +90,24 @@
                 return (zero + num).slice(-digit);
             },
 
-            forceRender: function () {
-                this.componentKey += 1;
-            },
-
             changeDrop: function () {
                 if (this.dropStock == 'left') {
                     this.products = this.dropdowns[this.dropKey].products.left;
                 } else if (this.dropStock == 'right') {
                     this.products = this.dropdowns[this.dropKey].products.right;
                 }
-
-                this.forceRender();
             }
         },
         watch: {
-            dropKey: function () {
+
+            dropKey: function (val) {
                 this.changeDrop();
             },
-            dropStock: function () {
+
+            dropStock: function (val) {
                 this.changeDrop();
-            },
+            }
+
         },
         computed: {
             getLang: function() {
@@ -113,7 +123,7 @@
             this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
 
             this.changeDrop();
-        },
+            },
 
     }
 </script>

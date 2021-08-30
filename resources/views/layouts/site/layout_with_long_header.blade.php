@@ -370,7 +370,7 @@
     <div class="foot__down">
         <div class="media__down">
             <div class="foot__logo">VEIS</div>
-            <p>© 2017-2020 {{ __('site.footer.copyright') }}</p>
+            <p>© 2017-2021 {{ __('site.footer.copyright') }}</p>
             <p>{{ __('site.footer.social') }} –</p>
         </div>
         <div class="media__social">
@@ -395,7 +395,7 @@
         <div class="media__info_iteam"><a href="#">{{ $locale == 'uk' ? $address_site_uk : $address_site_ru }}</a></div>
 
         <div class="media__info_iteam">
-            © 2017-2020 {{ __('site.footer.copyright') }}
+            © 2017-2021 {{ __('site.footer.copyright') }}
         </div>
     </div>
 </footer>

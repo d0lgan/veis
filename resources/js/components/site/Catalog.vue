@@ -8,6 +8,7 @@
             <div class="catalog__btns-item mob-select-btn">
                 <select>
                     <option value="" hidden selected>{{ translate.sort }}</option>
+
                     <option value="">
                         {{ translate.newest }}
                     </option>

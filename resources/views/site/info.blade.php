@@ -35,7 +35,7 @@
             </div>
         </div>
     </section>
-    <section class="blog">
+    {{--<section class="blog">
         <!-- <div class="mobile__product">
             <div class="media__foot_iteam">
                 <span>БЛОГ</span>
@@ -60,9 +60,9 @@
         <div class="product__king second__kind">
             <pre><span class="product__king_active">БЛОГ</span>   /   <span>INSTAGRAM</span></pre>
         </div>
-        {{--<div class="blog__subtitle">
+        --}}{{--<div class="blog__subtitle">
             <pre><span class="blog__subtitle_active">КАЧЕСТВЕННЫЕ И СТИЛЬНЫЕ АВТОМОБИЛЬНЫЕ ПЕРЧАТКИ </span>    /    <span>КАК ВЫБРАТЬ ПОДАРОК ЖЕНЩИНЕ</span>    /    <span>TIFOSI – ВЕДУЩИЙ БРЕНД НА РЫНКЕ </span></pre>
-        </div>--}}
+        </div>--}}{{--
         <div class="blog__wrap">
             <div class="blog__slider_inner">
                 <div class="blog__slider_center">
@@ -318,7 +318,7 @@
             </a>
         </div>
 
-    </section>
+    </section>--}}
     <section class="consul">
         <img src="/assets/front/img/consul.webp" class="consul__foto">
         <div class="consul__block">

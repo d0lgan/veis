@@ -717,182 +717,6 @@ window.addEventListener('load',function(){
 		}
 	};
 
-	const sliderr = (iteam, parent) => {
-		const sliderIteam = document.querySelectorAll(iteam),
-			leftBtn = document.querySelector('.slider_left'),
-			rightBtn = document.querySelector('.slider_right'),
-			parentElem = document.querySelector(parent);
-
-		let counter = 0;
-
-		for(let i = 0; i < sliderIteam.length; i++){
-			if(i === 1){
-				sliderIteam[i].classList.add('right_1');
-			}
-			if(i === 2){
-				sliderIteam[i].classList.add('right_2');
-			}
-			if(i === sliderIteam.length - 1){
-				sliderIteam[i].classList.add('left_1');
-			}
-			if(i === sliderIteam.length - 2){
-				sliderIteam[i].classList.add('left_2');
-			}
-			sliderIteam[i].addEventListener('click',() => {
-				clikedElem(i);
-			});
-		}
-
-		function clikedElem (index) {
-			sliderIteam[index].classList.add('center');
-			let classIteam = sliderIteam[index].classList[1].split('_');
-			if(classIteam.includes('right') === true){
-
-				for(let i = 0; i < sliderIteam.length; i++){
-					sliderIteam[i].className = 'blog__slider_iteam';
-				}
-
-				sliderIteam[index].classList.add('center')
-
-				if (!parentElem.querySelector('.center').nextElementSibling) {
-					sliderIteam[0].className = 'blog__slider_iteam right_1'
-				}else{
-					parentElem.querySelector('.center').nextElementSibling.className = 'blog__slider_iteam right_1';
-				}
-
-				if(parentElem.querySelector('.center').nextElementSibling === null){
-					sliderIteam[1].className = 'blog__slider_iteam right_2'
-				}else{
-					if (!parentElem.querySelector('.center').nextElementSibling.nextElementSibling) {
-						sliderIteam[0].className = 'blog__slider_iteam right_2'
-					}else{
-						parentElem.querySelector('.center').nextElementSibling.nextElementSibling.className = 'blog__slider_iteam right_2';
-					}
-				}
-
-				if(!parentElem.querySelector('.center').previousElementSibling){
-					sliderIteam[sliderIteam.length - 1].className = 'blog__slider_iteam left_1'
-				}else{
-					parentElem.querySelector('.center').previousElementSibling.className = 'blog__slider_iteam left_1';
-				}
-
-				if(parentElem.querySelector('.center').previousElementSibling === null){
-					sliderIteam[sliderIteam.length - 2].className = 'blog__slider_iteam left_2'
-				}else{
-					if (!parentElem.querySelector('.center').previousElementSibling.previousElementSibling) {
-						sliderIteam[sliderIteam.length - 1].className = 'blog__slider_iteam left_2'
-					}else{
-						parentElem.querySelector('.center').previousElementSibling.previousElementSibling.className = 'blog__slider_iteam left_2';
-					}
-
-				}
-
-			}else if (classIteam.includes('left') === true) {
-				for(let i = 0; i < sliderIteam.length; i++){
-					sliderIteam[i].className = 'blog__slider_iteam';
-				}
-
-				sliderIteam[index].classList.add('center')
-
-				if (!parentElem.querySelector('.center').nextElementSibling) {
-					sliderIteam[0].className = 'blog__slider_iteam right_1'
-				}else{
-					parentElem.querySelector('.center').nextElementSibling.className = 'blog__slider_iteam right_1';
-				}
-
-				if(parentElem.querySelector('.center').nextElementSibling === null){
-					sliderIteam[1].className = 'blog__slider_iteam right_2'
-				}else{
-					if (!parentElem.querySelector('.center').nextElementSibling.nextElementSibling) {
-						sliderIteam[0].className = 'blog__slider_iteam right_2'
-					}else{
-						parentElem.querySelector('.center').nextElementSibling.nextElementSibling.className = 'blog__slider_iteam right_2';
-					}
-				}
-
-				if(!parentElem.querySelector('.center').previousElementSibling){
-					sliderIteam[sliderIteam.length - 1].className = 'blog__slider_iteam left_1'
-				}else{
-					parentElem.querySelector('.center').previousElementSibling.className = 'blog__slider_iteam left_1';
-				}
-
-				if(parentElem.querySelector('.center').previousElementSibling === null){
-					sliderIteam[sliderIteam.length - 2].className = 'blog__slider_iteam left_2'
-				}else{
-					if (!parentElem.querySelector('.center').previousElementSibling.previousElementSibling) {
-						sliderIteam[sliderIteam.length - 1].className = 'blog__slider_iteam left_2'
-					}else{
-						parentElem.querySelector('.center').previousElementSibling.previousElementSibling.className = 'blog__slider_iteam left_2';
-					}
-
-				}
-			}
-
-
-		}
-		function moveRight() {
-
-			parentElem.querySelector('.left_2').classList.remove('left_2');
-
-			parentElem.querySelector('.left_1').classList.add('left_2');
-			parentElem.querySelector('.left_1').classList.remove('left_1');
-
-			parentElem.querySelector('.center').classList.add('left_1');
-			parentElem.querySelector('.center').classList.remove('center');
-
-
-			parentElem.querySelector('.right_1').classList.add('center');
-			parentElem.querySelector('.right_1').classList.remove('right_1');
-
-			parentElem.querySelector('.right_2').classList.add('right_1');
-
-			if(!parentElem.querySelector('.right_2').nextElementSibling){
-				parentElem.querySelector('.right_2').classList.remove('right_2');
-				parentElem.querySelector('.blog__slider_iteam').classList.add('right_2')
-			}else{
-				parentElem.querySelector('.right_2').nextElementSibling.classList.add('right_2');
-				parentElem.querySelector('.right_2').classList.remove('right_2');
-			}
-
-		}
-		function moveLeft() {
-			parentElem.querySelector('.right_2').classList.remove('right_2');
-
-			parentElem.querySelector('.right_1').classList.add('right_2');
-			parentElem.querySelector('.right_1').classList.remove('right_1');
-
-
-			parentElem.querySelector('.center').classList.add('right_1');
-			parentElem.querySelector('.center').classList.remove('center');
-
-			parentElem.querySelector('.left_1').classList.add('center');
-			parentElem.querySelector('.left_1').classList.remove('left_1');
-
-			parentElem.querySelector('.left_2').classList.add('left_1');
-
-			if(!parentElem.querySelector('.left_2').previousElementSibling){
-				parentElem.querySelector('.left_2').classList.remove('left_2');
-				sliderIteam[sliderIteam.length - 1].classList.add('left_2')
-			}else{
-				parentElem.querySelector('.left_2').classList.remove('left_2');
-				parentElem.querySelector('.left_1').previousElementSibling.classList.add('left_2');
-			}
-
-		}
-
-		rightBtn.addEventListener('click', moveRight);
-		leftBtn.addEventListener('click', moveLeft);
-	};
-	sliderr('.blog__slider_iteam','.blog__slider_center');
-
-	productSorting('.first__kind pre span', '.product__name pre span', 'product__king_active', 'product__name_active', '.product__btn_box .intro__btn span');
-	productSorting('.second__kind pre span', '.blog__subtitle pre span', 'product__king_active', 'blog__subtitle_active');
-
-
-	$('.select').select({
-		// options
-	 });
-
 	if(window.innerWidth <= 1800 ||
 		document.querySelector('.brands__slide').clientWidth > document.querySelector('.brands__name').clientWidth){
 
@@ -1078,6 +902,179 @@ window.addEventListener('load',function(){
 		}
 		runLine('.brands__slide')
 	}
+
+	const sliderr = (iteam, parent) => {
+		const sliderIteam = document.querySelectorAll(iteam),
+			leftBtn = document.querySelector('.slider_left'),
+			rightBtn = document.querySelector('.slider_right'),
+			parentElem = document.querySelector(parent);
+
+		let counter = 0;
+
+		for(let i = 0; i < sliderIteam.length; i++){
+			if(i === 1){
+				sliderIteam[i].classList.add('right_1');
+			}
+			if(i === 2){
+				sliderIteam[i].classList.add('right_2');
+			}
+			if(i === sliderIteam.length - 1){
+				sliderIteam[i].classList.add('left_1');
+			}
+			if(i === sliderIteam.length - 2){
+				sliderIteam[i].classList.add('left_2');
+			}
+			sliderIteam[i].addEventListener('click',() => {
+				clikedElem(i);
+			});
+		}
+
+		function clikedElem (index) {
+			sliderIteam[index].classList.add('center');
+			let classIteam = sliderIteam[index].classList[1].split('_');
+			if(classIteam.includes('right') === true){
+
+				for(let i = 0; i < sliderIteam.length; i++){
+					sliderIteam[i].className = 'blog__slider_iteam';
+				}
+
+				sliderIteam[index].classList.add('center')
+
+				if (!parentElem.querySelector('.center').nextElementSibling) {
+					sliderIteam[0].className = 'blog__slider_iteam right_1'
+				}else{
+					parentElem.querySelector('.center').nextElementSibling.className = 'blog__slider_iteam right_1';
+				}
+
+				if(parentElem.querySelector('.center').nextElementSibling === null){
+					sliderIteam[1].className = 'blog__slider_iteam right_2'
+				}else{
+					if (!parentElem.querySelector('.center').nextElementSibling.nextElementSibling) {
+						sliderIteam[0].className = 'blog__slider_iteam right_2'
+					}else{
+						parentElem.querySelector('.center').nextElementSibling.nextElementSibling.className = 'blog__slider_iteam right_2';
+					}
+				}
+
+				if(!parentElem.querySelector('.center').previousElementSibling){
+					sliderIteam[sliderIteam.length - 1].className = 'blog__slider_iteam left_1'
+				}else{
+					parentElem.querySelector('.center').previousElementSibling.className = 'blog__slider_iteam left_1';
+				}
+
+				if(parentElem.querySelector('.center').previousElementSibling === null){
+					sliderIteam[sliderIteam.length - 2].className = 'blog__slider_iteam left_2'
+				}else{
+					if (!parentElem.querySelector('.center').previousElementSibling.previousElementSibling) {
+						sliderIteam[sliderIteam.length - 1].className = 'blog__slider_iteam left_2'
+					}else{
+						parentElem.querySelector('.center').previousElementSibling.previousElementSibling.className = 'blog__slider_iteam left_2';
+					}
+
+				}
+
+			}else if (classIteam.includes('left') === true) {
+				for(let i = 0; i < sliderIteam.length; i++){
+					sliderIteam[i].className = 'blog__slider_iteam';
+				}
+
+				sliderIteam[index].classList.add('center')
+
+				if (!parentElem.querySelector('.center').nextElementSibling) {
+					sliderIteam[0].className = 'blog__slider_iteam right_1'
+				}else{
+					parentElem.querySelector('.center').nextElementSibling.className = 'blog__slider_iteam right_1';
+				}
+
+				if(parentElem.querySelector('.center').nextElementSibling === null){
+					sliderIteam[1].className = 'blog__slider_iteam right_2'
+				}else{
+					if (!parentElem.querySelector('.center').nextElementSibling.nextElementSibling) {
+						sliderIteam[0].className = 'blog__slider_iteam right_2'
+					}else{
+						parentElem.querySelector('.center').nextElementSibling.nextElementSibling.className = 'blog__slider_iteam right_2';
+					}
+				}
+
+				if(!parentElem.querySelector('.center').previousElementSibling){
+					sliderIteam[sliderIteam.length - 1].className = 'blog__slider_iteam left_1'
+				}else{
+					parentElem.querySelector('.center').previousElementSibling.className = 'blog__slider_iteam left_1';
+				}
+
+				if(parentElem.querySelector('.center').previousElementSibling === null){
+					sliderIteam[sliderIteam.length - 2].className = 'blog__slider_iteam left_2'
+				}else{
+					if (!parentElem.querySelector('.center').previousElementSibling.previousElementSibling) {
+						sliderIteam[sliderIteam.length - 1].className = 'blog__slider_iteam left_2'
+					}else{
+						parentElem.querySelector('.center').previousElementSibling.previousElementSibling.className = 'blog__slider_iteam left_2';
+					}
+
+				}
+			}
+
+
+		}
+		function moveRight() {
+
+			parentElem.querySelector('.left_2').classList.remove('left_2');
+
+			parentElem.querySelector('.left_1').classList.add('left_2');
+			parentElem.querySelector('.left_1').classList.remove('left_1');
+
+			parentElem.querySelector('.center').classList.add('left_1');
+			parentElem.querySelector('.center').classList.remove('center');
+
+
+			parentElem.querySelector('.right_1').classList.add('center');
+			parentElem.querySelector('.right_1').classList.remove('right_1');
+
+			parentElem.querySelector('.right_2').classList.add('right_1');
+
+			if(!parentElem.querySelector('.right_2').nextElementSibling){
+				parentElem.querySelector('.right_2').classList.remove('right_2');
+				parentElem.querySelector('.blog__slider_iteam').classList.add('right_2')
+			}else{
+				parentElem.querySelector('.right_2').nextElementSibling.classList.add('right_2');
+				parentElem.querySelector('.right_2').classList.remove('right_2');
+			}
+
+		}
+		function moveLeft() {
+			parentElem.querySelector('.right_2').classList.remove('right_2');
+
+			parentElem.querySelector('.right_1').classList.add('right_2');
+			parentElem.querySelector('.right_1').classList.remove('right_1');
+
+
+			parentElem.querySelector('.center').classList.add('right_1');
+			parentElem.querySelector('.center').classList.remove('center');
+
+			parentElem.querySelector('.left_1').classList.add('center');
+			parentElem.querySelector('.left_1').classList.remove('left_1');
+
+			parentElem.querySelector('.left_2').classList.add('left_1');
+
+			if(!parentElem.querySelector('.left_2').previousElementSibling){
+				parentElem.querySelector('.left_2').classList.remove('left_2');
+				sliderIteam[sliderIteam.length - 1].classList.add('left_2')
+			}else{
+				parentElem.querySelector('.left_2').classList.remove('left_2');
+				parentElem.querySelector('.left_1').previousElementSibling.classList.add('left_2');
+			}
+
+		}
+
+		rightBtn.addEventListener('click', moveRight);
+		leftBtn.addEventListener('click', moveLeft);
+	};
+	sliderr('.blog__slider_iteam','.blog__slider_center');
+
+	productSorting('.first__kind pre span', '.product__name pre span', 'product__king_active', 'product__name_active', '.product__btn_box .intro__btn span');
+	productSorting('.second__kind pre span', '.blog__subtitle pre span', 'product__king_active', 'blog__subtitle_active');
+
+
 
 
 

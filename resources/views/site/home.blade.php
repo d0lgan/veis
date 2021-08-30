@@ -184,7 +184,7 @@
         </div>
     </div>
 </section>
-<section class="blog">
+{{--<section class="blog">
     <!-- <div class="mobile__product">
         <div class="media__foot_iteam">
             <span>БЛОГ</span>
@@ -467,7 +467,7 @@
         </a>
     </div>
 
-</section>
+</section>--}}
 <section class="consul">
     <img src="/assets/front/img/consul.webp" class="consul__foto">
     <div class="consul__block">

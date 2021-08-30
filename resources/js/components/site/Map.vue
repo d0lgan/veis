@@ -72,8 +72,7 @@
                         <div class="third_layer" v-if="subCat.thirdLayer.length" v-for="subSubCat in subCat.thirdLayer">
                             <span>- <a :href="getLang ? '/ru/category/' + subSubCat.slug_ru : '/category/' + subSubCat.slug_uk" class="third">{{ getLang ? subSubCat.title_ru : subSubCat.title_uk }}</a></span>
                             <div class="fourth_layer" v-if="subSubCat.fourthLayer.length" v-for="sssCat in subSubCat.fourthLayer">
-                                <span>- <a :href="getLang ? '/ru/category/' + sssCat.slug_ru : '/category/' + sssCat.slug_uk" class="third">{{ getLang ? sssCat.title_ru : sssCat.title_uk }}</a></span>
-
+                                <span>- <a :href="getLang ? '/ru/category/' + sssCat.slug_ru : '/category/' + sssCat.slug_uk" class="fourth">{{ getLang ? sssCat.title_ru : sssCat.title_uk }}</a></span>
                             </div>
                         </div>
                     </div>

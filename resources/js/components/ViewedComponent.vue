@@ -129,11 +129,9 @@
                 this.select_products = [];
 
                 for(let i = 0;i < this.products.length;i++){
-
                     if(this.products[i].category_id === cat.id && this.select_products.length <= 10){
                         this.select_products.push(this.products[i]);
                     }
-
                 }
             },
             comparison: function(date){
@@ -239,5 +237,11 @@
     .sel
     {
         color: red;
+    }
+
+    @media (max-width: 560px) {
+        .media__foot_iteam img {
+            display: none !important;
+        }
     }
 </style>

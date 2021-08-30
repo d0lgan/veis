@@ -21,9 +21,9 @@
 
                 <div class="information">
                     <div class="information__item" ref="tab-1" :class="{ 'active': tab == 'delivery' }">
-                        <img src="/img/box.png" alt="" class="information__item-img">
-
                         <div class="information__item-body">
+                            <img src="/assets/front/img/box.png" alt="" class="information__item-img">
+
                             <h4 class="information__item-title">
                                 {{ getLang ? tabs.delivery.title_ru : tabs.delivery.title_uk }}
                             </h4>
@@ -34,9 +34,9 @@
                     </div>
 
                     <div class="information__item" ref="tab-2" :class="{ 'active': tab == 'pay' }">
-                        <img src="/img/money-check-alt.png" alt="" class="information__item-img">
-
                         <div class="information__item-body">
+                            <img src="/assets/front/img/money-check-alt.png" alt="" class="information__item-img">
+
                             <h4 class="information__item-title">
                                 {{ getLang ? tabs.pay.title_ru : tabs.pay.title_uk }}
                             </h4>
@@ -47,9 +47,9 @@
                     </div>
 
                     <div class="information__item" ref="tab-3" :class="{ 'active': tab == 'return' }">
-                        <img src="/img/map-signs.png" alt="" class="information__item-img">
-
                         <div class="information__item-body">
+                            <img src="/assets/front/img/map-signs.png" alt="" class="information__item-img">
+
                             <h4 class="information__item-title">
                                 {{ getLang ? tabs.return.title_ru : tabs.return.title_uk }}
                             </h4>
@@ -60,9 +60,9 @@
                     </div>
 
                     <div class="information__item" ref="tab-4" :class="{ 'active': tab == 'guarantee' }">
-                        <img src="/img/medal.png" alt="" class="information__item-img">
-
                         <div class="information__item-body">
+                            <img src="/assets/front/img/medal.png" alt="" class="information__item-img">
+
                             <h4 class="information__item-title">
                                 {{ getLang ? tabs.guarantee.title_ru : tabs.guarantee.title_uk }}
                             </h4>
