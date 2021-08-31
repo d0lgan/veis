@@ -44,8 +44,8 @@
                                     <label for="name">
                                         {{ translate.basket.name }}
                                     </label>
-                                    <input type="text" v-model="order.name" @focusout="updateOrder()"
-                                           class="input" name="name">
+                                    <input  v-model="order.name" required name="name" @focusout="updateOrder()" type="text"
+                                            class="input">
                                 </div>
                             </div>
                             <div class="cart__form-col">
@@ -56,7 +56,7 @@
                                     <label for="">
                                         {{ translate.basket.phone }}
                                     </label>
-                                    <input v-model="order.phone" @focusout="updateOrder()" type="text"
+                                    <input v-model="order.phone" required name="phone" @focusout="updateOrder(false, true)" type="text"
                                            class="input <!--phone-->">
                                 </div>
                             </div>
@@ -496,12 +496,12 @@
             confirmOrder: function () {
                 this.order.confirm = 1;
                 this.updateOrder(true);
-                /*this.$store.commit('clearCart');
+                this.$store.commit('clearCart');
                 if (this.locale == 'ru') {
                     window.location.href = '/ru/basket#confirm';
                 } else if (this.locale == 'uk') {
                     window.location.href = '/basket#confirm';
-                }*/
+                }
 
             },
 

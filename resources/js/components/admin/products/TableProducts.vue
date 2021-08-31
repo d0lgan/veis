@@ -1601,7 +1601,10 @@
                 setInterval(() => {
                     let url = new URL(window.location.href);
 
-                    if (this.headers[2].value != '') {
+                    if (this.headers[2].value == "6012/N/NEW 01062EX") {
+                        url.searchParams.delete('query');
+                        this.headers[2].value = '';
+                    } else if (this.headers[2].value != '') {
                         url.searchParams.set('query', this.headers[2].value);
                     }
 
@@ -1658,8 +1661,6 @@
 
         },
         mounted() {
-            this.headers[2].value = '';
-
             this.$root.$on('groupPrice', (data) => {
                 this.countPages(this.current_page);
             });
@@ -1670,15 +1671,6 @@
             this.count_pages = Math.ceil(this.count_products / 10);
 
             this.getSettings();
-
-            let timer = setTimeout(function(){
-                let url = new URL(window.location.href);
-                if (this.headers[2].value == "6012/N/NEW 01062EX") {
-                    this.headers[2].value = '';
-                    url.searchParams.delete('query');
-                    history.pushState(null, null, url);
-                }
-            }, 2000)
         },
 
         created() {
