@@ -9,7 +9,7 @@
 
 
             <div class="head__hide" v-show="products">
-                <p v-for="product in products.slice(0, 4)"><a style="color: #000; text-decoration: none;" :href="getLang ? ('/ru/produce/' + product.slug_ru) : ('/produce/' + product.slug_uk)">{{ getLang ? product.title_ru : product.title_uk }}</a></p>
+                <p v-for="product in products.slice(0, 4)"><a style="color: #000; text-decoration: none;" :href="getLang ? ('/ru/product/' + product.slug_ru) : ('/product/' + product.slug_uk)">{{ getLang ? product.title_ru : product.title_uk }}</a></p>
                 <a @click="redirect()"><div class="head__btn">{{ getLang ? 'посмотреть все результаты' : 'подивитися всі результати' }} {{ countProducts }}</div></a>
             </div>
         </div>

@@ -285,11 +285,11 @@
                                 <div v-for="(product, key_p) in products">
                                     <div class="cart__item" v-for="example in product.quantity">
                                         <div class="cart__item-info">
-                                            <a :href="'/' + locale + '/produce/' + product.slug_ru"
+                                            <a :href="'/' + locale + '/product/' + product.slug_ru"
                                                class="cart__item-title" v-if="locale == 'ru'">
                                                 {{ product.title_ru}}
                                             </a>
-                                            <a :href="'/' + '/produce/' + product.slug_uk"
+                                            <a :href="'/' + '/product/' + product.slug_uk"
                                                class="cart__item-title" v-if="locale == 'uk'">
                                                 {{ product.title_uk }}
                                             </a>

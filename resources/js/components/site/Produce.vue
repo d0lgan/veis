@@ -196,7 +196,7 @@ s<template>
                                     <div class="prod-table__row" v-for="attribute in attributes">
                                         <p class="prod-table__title">{{ ucFirst(attribute.title) }}:
                                         </p>
-                                        <div style="display: flex;" :class="{ intheline: attribute.title == 'Особливості' || attribute.title == 'Особенности' }">
+                                        <div style="display: flex;" :class="{ intheline: attribute.title == 'Особливості' || attribute.title == 'Особенности' || attribute.title == 'Уникальность' || attribute.title == 'Унікальність' }">
                                             <p class="prod-table__text" :class="{ mar: attribute.selected.length > 1 }" v-for="(select, key) in attribute.selected">
                                                 {{ ucFirst(selectAttr(attribute.selected[key], attribute.params)) }}
                                             </p>

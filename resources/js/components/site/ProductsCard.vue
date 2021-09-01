@@ -7,10 +7,7 @@
                     <img src="/assets/front/img/down_white.png">
                 </div>
                 <div class="media__foot_hide">
-                    <a href="#/">{{ translate.gloves }}</a>
-                    <a href="#/">{{ translate.sunglasses }}</a>
-                    <a href="#/">{{ translate.bags }}</a>
-                    <a href="#/">{{ translate.umbrellas }}</a>
+                    <a href="#/" v-for="(dropdown, key) in dropdowns" @click="dropKey = key; dropStock = 'left'">{{ getLang ? dropdown.title_ru.toUpperCase() : dropdown.title_uk.toUpperCase() }}</a>
                 </div>
 
                 <div class="media__foot_iteam">
@@ -18,10 +15,7 @@
                     <img src="/assets/front/img/down_white.png">
                 </div>
                 <div class="media__foot_hide">
-                    <a href="#/">{{ translate.gloves }}</a>
-                    <a href="#/">{{ translate.sunglasses }}</a>
-                    <a href="#/">{{ translate.bags }}</a>
-                    <a href="#/">{{ translate.umbrellas }}</a>
+                    <a href="#/" v-for="(dropdown, key) in dropdowns" @click="dropKey = key; dropStock = 'right'">{{ getLang ? dropdown.title_ru.toUpperCase() : dropdown.title_uk.toUpperCase() }}</a>
                 </div>
             </div>
             <div class="conteiner">

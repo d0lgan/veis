@@ -27,8 +27,8 @@ class SiteApiController extends Controller
             request()->input('childCategories', []),
             request()->input('IdOfInstantCategory', null),
             request()->input('IdOfInstantManufacturer', null),
-            request()->input('IdOfInstantTag', null),
-        )->with('galleries', 'attributes', 'tags', 'stock')->where('image', '<>', null)->where('price', '<>', 0);
+            request()->input('IdOfInstantTag', null)
+        )->where('image', '<>', null)->where('price', '<>', 0)->where('public', ['1', null])->with('galleries', 'attributes', 'tags', 'stock');
 
 
 
@@ -58,7 +58,7 @@ class SiteApiController extends Controller
     public function searchProducts() {
         $query = Product::searchProducts(
             request()->input('query', '')
-        )->with('galleries', 'attributes', 'tags', 'stock')->where('image', '<>', null)->where('price', '<>', 0);
+        )->where('image', '<>', null)->where('price', '<>', 0)->where('public', ['1', null])->with('galleries', 'attributes', 'tags', 'stock');
 
         $countProducts = $query->count();
 
@@ -95,15 +95,15 @@ class SiteApiController extends Controller
                         $q->whereIn('categories.id', $instantCategories);
                     });
                 });
-            })->where('price', '<>', 0);
+            })->where('price', '<>', 0)->where('public', ['1', null]);
         } else if ($instantManufacturer) {
-            $products = Product::where('manufacturer_id', $instantManufacturer)->where('price', '<>', 0);
+            $products = Product::where('manufacturer_id', $instantManufacturer)->where('price', '<>', 0)->where('public', ['1', null]);
         } else if ($instantTag) {
             $products = Product::whereHas('tags', function($q) use ($instantTag) {
                 $q->whereIn('tags.id', [$instantTag]);
-            })->where('price', '<>', 0);
+            })->where('price', '<>', 0)->where('public', ['1', null]);
         } else {
-            $products = Product::where('price', '<>', 0);
+            $products = Product::where('price', '<>', 0)->where('public', ['1', null]);
         }
 
         $vals = [
@@ -120,7 +120,7 @@ class SiteApiController extends Controller
         // Получение тегов
         if ($instantCategories) {
             $tags = Tag::withCount(['products' => function ($query) use ($instantCategories) {
-                $query->whereIn('category_id', $instantCategories)->orWhere(function ($que) use ($instantCategories) {
+                $query->where('public', ['1', null])->whereIn('category_id', $instantCategories)->orWhere(function ($que) use ($instantCategories) {
                     $que->whereHas('categories', function ($q) use ($instantCategories) {
                         $q->whereIn('categories.id', $instantCategories);
                     });
@@ -128,10 +128,12 @@ class SiteApiController extends Controller
             }])->get()->map->toArray()->sortByDesc('products_count');
         } else if ($instantManufacturer) {
             $tags = Tag::withCount(['products' => function ($query) use ($instantManufacturer) {
-                $query->where('manufacturer_id', $instantManufacturer);
+                $query->where('public', ['1', null])->where('manufacturer_id', $instantManufacturer);
             }])->get()->map->toArray()->sortByDesc('products_count');
         } else {
-            $tags = Tag::withCount('products')->get()->map->toArray()->sortByDesc('products_count');
+            $tags = Tag::withCount(['products' => function ($query) use ($instantManufacturer) {
+                $query->where('public', ['1', null]);
+            }])->get()->map->toArray()->sortByDesc('products_count');
         }
 
         return response()->json(array_values($tags->toArray()));

@@ -509,7 +509,7 @@ class PageController extends Controller {
                     $q->where('manufacturer_id', $instantManufacturer->id);
                 }
 
-                $q->where('price', '<>', 0);
+                $q->where('price', '<>', 0)->where('public', ['1', null]);
             }]);
         }])->get()->map->toArray()->sortBy('sort')->toArray();
 
@@ -628,6 +628,32 @@ class PageController extends Controller {
             }
         }
 
+        // Объединение типов
+        $firstElement1 = true;
+        foreach ($filters as $key => $group) {
+            if ($group['title_ru'] != 'Тип') continue;
+
+            if($firstElement1) {
+                $firstElement1 = false;
+                $firstElementId1 = $key;
+            } else {
+                foreach ($group['attributes'] as $attribute) {
+                    $isColorInMainGroup = false;
+                    foreach ($filters[$firstElementId1]['attributes'] as $indexOfMainAttr => $mainAttribute) {
+                        if ($attribute['name_ru'] == $mainAttribute['name_ru']) {
+                            $isColorInMainGroup = true;
+                            $filters[$firstElementId1]['attributes'][$indexOfMainAttr]['products_count'] += $attribute['products_count'];
+                        }
+                    }
+
+                    if (!$isColorInMainGroup) {
+                        array_push($filters[$firstElementId1]['attributes'], $attribute);
+                    }
+                }
+                unset($filters[$key]);
+            }
+        }
+
         // Сортировка атрибутов группы атрибутов по количеству привязанных продуктов
         $filters = array_values(collect($filters)->map(function ($item) {
             $item['attributes'] = array_values(collect($item['attributes'])->sortByDesc('products_count')->toArray());
@@ -713,6 +739,9 @@ class PageController extends Controller {
         foreach ($products as $a) {
             $a->slug_ru = SlugService::createSlug(Attribute::class, 'slug_ru', $a->title_ru);
             $a->slug_uk = SlugService::createSlug(Attribute::class, 'slug_uk', $a->title_uk);
+            if ($a->public === null) {
+                $a->public = 1;
+            }
             $a->save();
         }
 

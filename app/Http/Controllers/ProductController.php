@@ -794,7 +794,7 @@ class ProductController extends Controller
             // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
             $product = Product::where('slug_uk', $slug)->first();
             if ($product) {
-                return redirect('/ru/produce/' . $product->slug_ru);
+                return redirect('/ru/product/' . $product->slug_ru);
             }
 
             $product = Product::where('slug_ru', $slug)->firstOrFail();
@@ -802,7 +802,7 @@ class ProductController extends Controller
             //
             $product = Product::where('slug_ru', $slug)->first();
             if ($product) {
-                return redirect('/produce/' . $product->slug_uk);
+                return redirect('/product/' . $product->slug_uk);
             }
 
             $product = Product::where('slug_uk', $slug)->firstOrFail();
@@ -1126,11 +1126,11 @@ class ProductController extends Controller
         }
 
         // Slug
-        if ($request->slug_ru) {
-            $product->slug_ru = $request->slug_ru;
+        if ($product->title_ru != $request->title_ru) {
+            $product->slug_ru = SlugService::createSlug(Product::class, 'slug_ru', $request->title_ru);
         }
-        if ($request->slug_uk) {
-            $product->slug_uk = $request->slug_uk;
+        if ($product->title_uk != $request->title_uk) {
+            $product->slug_uk = SlugService::createSlug(Product::class, 'slug_uk', $request->title_uk);
         }
 
         $product->title_ru = $request->title_ru;

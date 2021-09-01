@@ -41,11 +41,11 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
 
     Route::get('/search', 'PageController@search')->name('search')->middleware('pagePublic');
 
-    Route::get('/product/{slug?}', 'ProductController@show')
-        ->name('product')->middleware('pagePublic');
+    /*Route::get('/product/{slug?}', 'ProductController@show')
+        ->name('product')->middleware('pagePublic');*/
 
-    Route::get('/produce/{slug?}', 'ProductController@shownew')
-        ->name('produce')->middleware('pagePublic');
+    Route::get('/product/{slug?}', 'ProductController@shownew')
+        ->name('product')->middleware('pagePublic');
 
 
     Route::get('/basket', 'OrderController@getBasket')->name('basket')->middleware('pagePublic');
