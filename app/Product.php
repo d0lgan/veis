@@ -270,6 +270,13 @@ class Product extends \Illuminate\Database\Eloquent\Model
             });
     }
 
+
+    public function scopeDefaultFiltersForProducts($query)
+    {
+        return $query->where('image', '<>', null)->where('price', '<>', 0)->where('availability', '<>', 0)->where('public', ['1', null]);
+
+    }
+
     // Scope по поиску товаров в компоненте поиск
 
     public function scopeSearchProducts($query, $request)

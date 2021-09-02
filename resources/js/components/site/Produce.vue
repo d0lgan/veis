@@ -132,7 +132,7 @@ s<template>
                                     <span class="product-card__btn-inner">{{ translate.to_cart }}</span>
                                 </a>
 
-                                <a href="#" class="product-card__btn product-card__btn--sold" v-if="!(product.availability == 1)">
+                                <a href="#" class="product-card__btn product-card__btn--sold" v-if="product.availability == 0">
                                     <img src="/assets/front/img/cart__black.jpg" alt="">
                                     <span class="product-card__btn-inner">{{ translate.no_availability }}</span>
                                 </a>

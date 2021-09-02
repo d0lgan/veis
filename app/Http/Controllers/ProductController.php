@@ -728,7 +728,7 @@ class ProductController extends Controller
 
     public function shownew($slug)
     {
-        $page = Page::where('type', 'produce')->first();
+        $page = Page::where('type', 'product')->first();
         $desc = [
             'ru' => $page->description_ru,
             'uk' => $page->description_uk,
@@ -918,6 +918,10 @@ class ProductController extends Controller
         $file = public_path() . '/house/uploads/' . $product->how_size;
         if (File::exists($file) === false) {
             $product->how_size = null;
+        }
+
+        if ($a->how_size == 'sertifikat_polaroid_how_size_product_1612956092.webp') {
+            $a->how_size = 'sertifikat_invu_how_size_product_1614889985.jpeg';
         }
 
         return view('site.produce', compact('product', 'pages', 'page', 'locale', 'selected_attr', 'settings', 'translate', 'translate_watch', 'desc'));

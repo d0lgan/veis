@@ -739,11 +739,17 @@ class PageController extends Controller {
         foreach ($products as $a) {
             $a->slug_ru = SlugService::createSlug(Attribute::class, 'slug_ru', $a->title_ru);
             $a->slug_uk = SlugService::createSlug(Attribute::class, 'slug_uk', $a->title_uk);
-            if ($a->public === null) {
-                $a->public = 1;
+
+            if (substr($a->how_size, 0, strlen('sertifikat_polaroid')) === 'sertifikat_polaroid') {
+                $a->how_size = 'sertifikat_polaroid_how_size_product_1612956092.webp';
             }
+
+            $a->public = 1;
             $a->save();
         }
+
+        dump('чпу обновлены, все продукты теперь с отображением "да"');
+        dd('товаров с отображением "нет": ' . Product::where('public', 0)->count(), 'товаров с нулевой ценой: ' . Product::where('price', 0)->count());
 
         return 'чпу товаров обновлены';
     }

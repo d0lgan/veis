@@ -43,7 +43,7 @@
         mounted() {
             this.startTimer();
             console.log(this.locale);
-            this.redirect = setTimeout(() => window.location.href = '/', 6990);
+            this.redirect = setTimeout(() => (window.location.href = this.locale == 'ru' ? '/ru' : '/'), 6990);
         },
         destroyed() {
             this.stopTimer()
@@ -71,11 +71,11 @@
             }
         },
         watch: {
-            /*currentTime(time) {
+            currentTime(time) {
                 if (time === 0) {
-                    this.stopTimer()
+                    clearTimeout(this.timer);
                 }
-            }*/
+            }
         },
     }
 </script>
