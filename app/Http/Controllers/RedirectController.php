@@ -11,6 +11,7 @@ use App\Manufacturer;
 use App\Order;
 use App\Product;
 use App\Redirect;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -113,17 +114,10 @@ class RedirectController extends Controller
         $redirect = new Redirect();
         $redirect->title_ru = $request->title_ru;
         $redirect->title_uk = $request->title_uk;
-        if (empty($redirect->meta_h1_ru)) {
-            $redirect->meta_h1_ru = $redirect->title_ru;
-        } else {
-            $redirect->meta_h1_ru = $request->meta_ru;
-        }
 
-        if (empty($redirect->meta_h1_uk)) {
-            $redirect->meta_h1_uk = $redirect->title_uk;
-        } else {
-            $redirect->meta_h1_uk = $request->meta_uk;
-        }
+        $redirect->meta_h1_ru = $request->meta_ru;
+
+        $redirect->meta_h1_uk = $request->meta_uk;
 
         if ($request->slug_ru) {
             $redirect->slug_ru = $request->slug_ru;
@@ -202,6 +196,8 @@ class RedirectController extends Controller
             $attributes[$key] = $attribute;
         }
 
+        $tags = Tag::get()->toArray();
+
         $categories_json = Category::select(['id', 'title_ru'])->get();
         $langs = Language::all();
         $arr = [];
@@ -219,7 +215,7 @@ class RedirectController extends Controller
         $orders        = Order::all();
         $order_count   = $orders->count();
 
-        return view('admin.redirect.edit', compact('redirect', 'attributes', 'langs', 'order_count', 'contacts_count', 'categories_json'));
+        return view('admin.redirect.edit', compact('redirect', 'attributes', 'tags', 'langs', 'order_count', 'contacts_count', 'categories_json'));
     }
 
     /**
@@ -247,6 +243,10 @@ class RedirectController extends Controller
 
         foreach (json_decode($request->categories) as $attr) {
             $redirect->attributes()->syncWithoutDetaching($attr->id);
+        }
+
+        foreach (json_decode($request->tags) as $tag) {
+            $redirect->tags()->syncWithoutDetaching($tag->id);
         }
 
 

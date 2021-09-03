@@ -34,5 +34,10 @@ class Redirect extends \Illuminate\Database\Eloquent\Model
         return $this->belongsToMany('App\Attribute', 'redirect_attribute');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag', 'redirect_tag');
+    }
+
     protected $table = 'redirects';
 }

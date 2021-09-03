@@ -920,10 +920,6 @@ class ProductController extends Controller
             $product->how_size = null;
         }
 
-        if ($a->how_size == 'sertifikat_polaroid_how_size_product_1612956092.webp') {
-            $a->how_size = 'sertifikat_invu_how_size_product_1614889985.jpeg';
-        }
-
         return view('site.produce', compact('product', 'pages', 'page', 'locale', 'selected_attr', 'settings', 'translate', 'translate_watch', 'desc'));
     }
 

@@ -5,7 +5,7 @@
                      :label="titleOrName + '_ru'" track-by="id" :options="options" :multiple="true" :taggable="false"
         ></multiselect>
 
-        <input type="hidden" name="categories" :value="JSON.stringify(value)" />
+        <input type="hidden" :name="name ? name : 'categories'" :value="JSON.stringify(value)" />
 
     </div>
 </template>
@@ -48,7 +48,10 @@
             categories: Array,
             default: Array,
             title: String,
-            titleOrName: String
+            titleOrName: String,
+            name: {
+                required: false,
+            }
         }
     }
 </script>

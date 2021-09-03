@@ -473,7 +473,7 @@ class PageController extends Controller {
                 }
             }
             if ($categorySlug) {
-                $instantRedirect = Redirect::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->with('attributes')->firstOrFail();
+                $instantRedirect = Redirect::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->with('attributes', 'tags')->firstOrFail();
                 // Проверка на категорию
                 if ($instantRedirect->category_id) {
                     $instantCategory = Category::where('id', $instantRedirect->category_id)->with('attributes')->firstOrFail();
@@ -740,11 +740,10 @@ class PageController extends Controller {
             $a->slug_ru = SlugService::createSlug(Attribute::class, 'slug_ru', $a->title_ru);
             $a->slug_uk = SlugService::createSlug(Attribute::class, 'slug_uk', $a->title_uk);
 
-            if (substr($a->how_size, 0, strlen('sertifikat_polaroid')) === 'sertifikat_polaroid') {
+            /*if (substr($a->how_size, 0, strlen('sertifikat_polaroid')) === 'sertifikat_polaroid') {
                 $a->how_size = 'sertifikat_polaroid_how_size_product_1612956092.webp';
-            }
+            }*/
 
-            $a->public = 1;
             $a->save();
         }
 

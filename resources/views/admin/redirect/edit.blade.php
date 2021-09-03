@@ -68,6 +68,18 @@
                                                                       id="category"></select-component>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-6 form-group">
+                                                <div id="app">
+                                                    <select-component :default="{{ json_encode($redirect->tags) }}"
+                                                                      :categories="{{ json_encode($tags) }}"
+                                                                      :title="{{ json_encode('Теги') }}"
+                                                                      :title-or-name="{{ json_encode('title') }}"
+                                                                      :name="{{ json_encode('tags') }}"
+                                                                      id="category"></select-component>
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-4 form-group">
                                                 <label>Страница</label>
                                                 <input class="form-control" type="number" value="{{ $redirect->page }}" name="page">

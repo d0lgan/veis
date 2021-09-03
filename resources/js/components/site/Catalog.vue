@@ -131,7 +131,7 @@
 
                             </div>
                         </div>-->
-                        <div class="catalog-filters__block" v-for="filter in filters.slice(0, 5)" :key="filter.id">
+                        <div class="catalog-filters__block" v-for="filter in filters.slice(0, 5)" :key="filter.id" v-if="isFilterHasProducts(filter)">
                             <div class="catalog-filters__block-head activee">
                                 <span style="text-transform: uppercase;">{{ getLang ? filter.title_ru : filter.title_uk }}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="8" viewBox="0 0 20 8"><g><g><path fill="#5c5c5c" d="M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"/></g></g></svg>
@@ -168,7 +168,7 @@
 
 
                     <div class="catalog-filters__box">
-                        <div class="catalog-filters__block" v-for="filter in filters.slice(5)" :key="filter.id">
+                        <div class="catalog-filters__block" v-for="filter in filters.slice(5)" :key="filter.id" v-if="isFilterHasProducts(filter)">
                             <div class="catalog-filters__block-head activee">
                                 <span style="text-transform: uppercase;">{{ getLang ? filter.title_ru : filter.title_uk }}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="8" viewBox="0 0 20 8"><g><g><path fill="#5c5c5c" d="M-.01.254L.1 0l9.902 7.574 9.885-7.52.11.25-9.777 7.437.004.003-.11.253-.116-.088-.043.033-.043-.099z"/></g></g></svg>
@@ -199,7 +199,7 @@
                     </div>
 
                     <div style="padding: 22px 18px 22px 40px;" class="use-filters" @click="pageNumber = 0">
-                        <span class="product-card__btn product-card__btn--default" @click="loadProducts(); scrollToTop();">
+                        <span class="product-card__btn product-card__btn--default" style="width: 100% !important;" @click="loadProducts(); scrollToTop();">
                             <span class="product-card__btn-inner">{{ translate.use_filter }}</span>
                         </span>
                     </div>
@@ -538,6 +538,15 @@
                 }
             },
 
+            isFilterHasProducts: function (filter) {
+                for (let attr of filter.attributes) {
+                    if (attr.products_count != 0) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+
             // Удаление выбранного фильтра (который отображается в верхней панели)
             deleteParam: function (filterId) {
                 for (let filter of this.selected.sel_filters) {
@@ -613,6 +622,14 @@
                             for (let sel_tag of tags) {
                                 for (let tag of this.tags) {
                                     if (tag.slug_ru == sel_tag || tag.slug_uk == sel_tag) {
+                                        this.selected.tags.push(tag.id);
+                                    }
+                                }
+                            }
+                        } else if (this.instantRedirect) {
+                            for (let sel_tag of this.instantRedirect.tags) {
+                                for (let tag of this.tags) {
+                                    if (tag.id == sel_tag.id) {
                                         this.selected.tags.push(tag.id);
                                     }
                                 }

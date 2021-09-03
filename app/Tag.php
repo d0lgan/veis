@@ -36,4 +36,9 @@ class Tag extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsToMany('App\Product', 'product_tag');
     }
+
+    public function redirects()
+    {
+        return $this->belongsToMany('App\Redirect', 'redirect_tag');
+    }
 }
