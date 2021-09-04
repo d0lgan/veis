@@ -217,29 +217,29 @@
             </div>
         </div>
         <div class="tab__hide">
-            <a href="{{ $locale == 'ru' ? '/ru/catalog?sale=1' : '/catalog?sale=1'}}" class="choose__bar_active">{{ __('site.header.sail') }}</a>
-            <a href="{{ $locale == 'ru' ? '/ru/category/muzhskie-perchatki' : '/category/cholovichi-rukavichki'}}">{{ __('site.header.male') }}</a>
-            <a href="{{ $locale == 'ru' ? '/ru/category/zhenskie-perchatki' : '/category/zhinochi-rukavichki'}}">{{ __('site.header.female') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/perchatki?sale=1' : '/category/rukavichki?sale=1'}}" class="choose__bar_active">{{ __('site.header.sail') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/muzhskie-kozhanyye-perchatki' : '/category/cholovichi-shkiryani-rukavichki'}}">{{ __('site.header.male') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/zhenskie-kozhanyye-perchatki' : '/category/zhinochi-shkiryani-rukavichki'}}">{{ __('site.header.female') }}</a>
             <a href="{{ $locale == 'ru' ? '/ru/category/avtomobilnye-perchatki' : '/category/avtomobilni-rukavichki'}}">{{ __('site.header.auto') }}</a>
         </div>
         <div class="tab__hide">
-            <a href="{{ $locale == 'ru' ? '/ru/catalog?sale=1' : '/catalog?sale=1'}}" class="choose__bar_active">{{ __('site.header.sail') }}</a>
-            <a href="{{ $locale == 'ru' ? '/ru/catalog?f=muzhskie' : '/catalog?f=cholovichi'}}">{{ __('site.header.male') }}</a>
-            <a href="{{ $locale == 'ru' ? '/ru/catalog?f=zhenskie' : '/catalog?f=zhinochi'}}">{{ __('site.header.female') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/ochki?sale=1' : '/category/okulyari?sale=1'}}" class="choose__bar_active">{{ __('site.header.sail') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/ochki?f=muzhskie' : '/category/okulyari?f=cholovichi'}}">{{ __('site.header.male') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/ochki?f=zhenskie' : '/category/okulyari?f=zhinochi'}}">{{ __('site.header.female') }}</a>
             <a href="{{ $locale == 'ru' ? '/ru/category/sportivnye-ochki' : '/category/sportivni-okulyari'}}">{{ __('site.header.sport') }}</a>
         </div>
     </div>
     <div class="choose__bar">
         <div class="choose__content">
-            <a href="{{ $locale == 'ru' ? '/ru/catalog?sale=1' : '/catalog?sale=1'}}" class="choose__bar_active">{{ __('site.header.sail') }}</a>
-            <a href="{{ $locale == 'ru' ? '/ru/category/muzhskie-perchatki' : '/category/cholovichi-rukavichki'}}">{{ __('site.header.male') }}</a>
-            <a href="{{ $locale == 'ru' ? '/ru/category/zhenskie-perchatki' : '/category/zhinochi-rukavichki'}}">{{ __('site.header.female') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/perchatki?sale=1' : '/category/rukavichki?sale=1'}}" class="choose__bar_active">{{ __('site.header.sail') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/muzhskie-kozhanyye-perchatki' : '/category/cholovichi-shkiryani-rukavichki'}}">{{ __('site.header.male') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/zhenskie-kozhanyye-perchatki' : '/category/zhinochi-shkiryani-rukavichki'}}">{{ __('site.header.female') }}</a>
             <a href="{{ $locale == 'ru' ? '/ru/category/avtomobilnye-perchatki' : '/category/avtomobilni-rukavichki'}}">{{ __('site.header.auto') }}</a>
         </div>
         <div class="choose__content hide">
-            <a href="{{ $locale == 'ru' ? '/ru/catalog?sale=1' : '/catalog?sale=1'}}" class="choose__bar_active">{{ __('site.header.sail') }}</a>
-            <a href="{{ $locale == 'ru' ? '/ru/catalog?f=muzhskie' : '/catalog?f=cholovichi'}}">{{ __('site.header.male') }}</a>
-            <a href="{{ $locale == 'ru' ? '/ru/catalog?f=zhenskie' : '/catalog?f=zhinochi'}}">{{ __('site.header.female') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/ochki?sale=1' : '/category/okulyari?sale=1'}}" class="choose__bar_active">{{ __('site.header.sail') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/ochki?f=muzhskie' : '/category/okulyari?f=cholovichi'}}">{{ __('site.header.male') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/ochki?f=zhenskie' : '/category/okulyari?f=zhinochi'}}">{{ __('site.header.female') }}</a>
             <a href="{{ $locale == 'ru' ? '/ru/category/sportivnye-ochki' : '/category/sportivni-okulyari'}}">{{ __('site.header.sport') }}</a>
         </div>
     </div>

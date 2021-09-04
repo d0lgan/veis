@@ -54,36 +54,48 @@
                                             <div class="tab-content">
                                                 @include('admin.partials.title', ['item' => $redirect, 'title' => true,  'description' => true,'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                             </div>
-                                            <div class="col-md-4 form-group">
-                                                <label for="category">Категория</label>
-                                                <category-component :default_category="{{ $redirect->category_id }}"
-                                                                    :categories="{{ json_encode($categories_json) }}"></category-component>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <div id="app">
-                                                    <select-component :default="{{ json_encode($redirect->attributes) }}"
-                                                                      :categories="{{ json_encode($attributes) }}"
-                                                                      :title="{{ json_encode('Aтрибуты') }}"
-                                                                      :title-or-name="{{ json_encode('name') }}"
-                                                                      id="category"></select-component>
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="category">Категория</label>
+                                                    <category-component :default_category="{{ $redirect->category_id }}"
+                                                                        :categories="{{ json_encode($categories_json) }}"></category-component>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <div id="app">
+                                                        <select-component :default="{{ json_encode($redirect->attributes) }}"
+                                                                          :categories="{{ json_encode($attributes) }}"
+                                                                          :title="{{ json_encode('Aтрибуты') }}"
+                                                                          :title-or-name="{{ json_encode('name') }}"
+                                                                          id="category"></select-component>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <div id="app">
+                                                        <select-component :default="{{ json_encode($redirect->tags) }}"
+                                                                          :categories="{{ json_encode($tags) }}"
+                                                                          :title="{{ json_encode('Теги') }}"
+                                                                          :title-or-name="{{ json_encode('title') }}"
+                                                                          :name="{{ json_encode('tags') }}"
+                                                                          id="category"></select-component>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-2 form-group">
+                                                    <label>Страница</label>
+                                                    <input class="form-control" type="number" value="{{ $redirect->page }}" name="page">
+                                                </div>
+
+                                                <div class="form-group col-md-2">
+                                                    <label for="sail">Товары по Акции</label>
+                                                    <select name="sail" id="sail"
+                                                            class="form-control" style="display: block;">
+                                                        <option value="1" @if($redirect->sail == 1) selected @endif>Да</option>
+                                                        <option value="0" @if($redirect->sail == 0 || $redirect->sail == null) selected @endif>Нет</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6 form-group">
-                                                <div id="app">
-                                                    <select-component :default="{{ json_encode($redirect->tags) }}"
-                                                                      :categories="{{ json_encode($tags) }}"
-                                                                      :title="{{ json_encode('Теги') }}"
-                                                                      :title-or-name="{{ json_encode('title') }}"
-                                                                      :name="{{ json_encode('tags') }}"
-                                                                      id="category"></select-component>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 form-group">
-                                                <label>Страница</label>
-                                                <input class="form-control" type="number" value="{{ $redirect->page }}" name="page">
-                                            </div>
                                         </div>
                                     </div>
 

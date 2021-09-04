@@ -27,6 +27,7 @@ class CreateRedirectsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
 
             $table->integer('page')->nullable();
+            $table->integer('sail')->nullable();
 
             $table->text('description_ru')->nullable();
             $table->text('description_uk')->nullable();

@@ -36,7 +36,7 @@ class CreateProductsTable extends Migration {
 
             $table->integer('price');
 			$table->integer('undiscounted')->nullable();
-			$table->integer('vendor_code');
+			$table->string('vendor_code');
 			$table->integer('ude')->nullable();
 			$table->integer('course')->nullable();
 			$table->integer('percent')->nullable();
@@ -66,7 +66,8 @@ class CreateProductsTable extends Migration {
 			$table->mediumText('description_ru')->nullable();
 			$table->mediumText('description_uk')->nullable();
 			$table->string('image')->nullable();
-			$table->text('seo')->nullable();
+			$table->text('seo_ru')->nullable();
+			$table->text('seo_uk')->nullable();
 			$table->integer('public')->nullable()->default(1);
 			$table->timestamps();
 		});

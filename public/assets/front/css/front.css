@@ -1529,7 +1529,7 @@ footer {
   transition: 0.3s; }
 
 .slick-list {
-  min-height: 570px;
+  min-height: 630px;
 }
 
 @media screen and (max-width: 600px) {
@@ -1537,7 +1537,14 @@ footer {
     font-weight: 500; } }
 
 .tab__hide a:hover {
-  text-decoration: underline; }
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 400px) {
+.slick-list {
+  min-height: 330px;
+}
+}
 
 .active__tab_menu {
   display: block;

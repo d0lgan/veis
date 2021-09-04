@@ -440,7 +440,8 @@ class ProductController extends Controller
         $product->start_stock = $request->start_stock;
         $product->end_stock = $request->end_stock;
 
-        $product->seo = $request->seo_ru;
+        $product->seo_ru = $request->seo_ru;
+        $product->seo_uk = $request->seo_uk;
         $product->price = $request->price;
         $product->stock_id = $request->stock_id;
         $product->how_size_ru = $request->how_size_ru;
@@ -825,7 +826,7 @@ class ProductController extends Controller
 
         //$product->category_title = Document::get('category', 'title', $product->category_id, $locale);
         $product->data = $arr;
-        $product->galleries;
+        $product->galleries->sortBy('sort');
         $product->category;
         $product->description = trim($product->description_ru, '<p></p>');
 
@@ -1035,6 +1036,10 @@ class ProductController extends Controller
                     }
                 }
             }
+
+            foreach ($selected_attr as $k => $sel) {
+                $selected_attr[$k]['params'] = array_values(collect($selected_attr[$k]['params'])->sortBy('name_ru')->toArray());
+            }
         }
         $tags = Tag::all();
 
@@ -1135,7 +1140,8 @@ class ProductController extends Controller
 
         $product->title_ru = $request->title_ru;
         $product->title_uk = $request->title_uk;
-        $product->seo = $request->seo_ru;
+        $product->seo_ru = $request->seo_ru;
+        $product->seo_uk = $request->seo_uk;
         $product->price = $request->price;
         $product->stock_id = $request->stock_id;
         $product->how_size_ru = $request->how_size_ru;

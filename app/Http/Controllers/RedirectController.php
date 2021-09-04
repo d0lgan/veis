@@ -236,6 +236,7 @@ class RedirectController extends Controller
         $redirect->meta_h1_uk = $request->meta_uk;
         $redirect->category_id = $request->category_id;
         $redirect->page = $request->page;
+        $redirect->sail = $request->sail;
         $redirect->description_ru = $request->description_ru;
         $redirect->description_uk = $request->description_uk;
         $redirect->seo_ru = $request->seo_ru;

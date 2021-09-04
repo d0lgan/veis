@@ -495,6 +495,10 @@
                 if (this.instantRedirect.page != null || this.instantRedirect.page != 0) {
                     this.pageNumber = this.instantRedirect.page - 1;
                 }
+
+                if (this.instantRedirect.sail != null || this.instantRedirect.sail == 1) {
+                    this.selected.sale = true;
+                }
             }
 
 
@@ -519,6 +523,17 @@
 
             if (this.instantManufacturer) {
                 this.selected.IdOfInstantManufacturer = this.instantManufacturer.id;
+            }
+
+            // Проверка является ли страница ссылкой dropdown'а (разворачивающийся элемент)
+            if (this.dropdown) {
+                for (var key in this.dropdown) {
+                    if (this.dropdown[key].link_ru == url.pathname || this.dropdown[key].link_uk == url.pathname) {
+                        let mainElem = this.dropdown[key];
+                        this.dropdown.splice(key, 1);
+                        this.dropdown.unshift(mainElem);
+                    }
+                }
             }
 
             var cd = new Date();
@@ -581,6 +596,11 @@
                         this.products = response.data.products;
                         this.countProducts = response.data.countProducts;
                         this.loading = false;
+
+                        // Обнуление страницы если ?page= больше чем кол-во страниц
+                        if (this.pageNumber + 1 > this.pageCount) {
+                            this.pageNumber = 0;
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);

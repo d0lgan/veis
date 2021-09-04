@@ -25,7 +25,7 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
     Route::get('/category/{categorySlug?}', 'PageController@catalog')->name('category')->middleware('pagePublic');
     Route::get('/manufacturer/{manufacturerSlug?}', 'PageController@catalog')->name('manufacturer')->middleware('pagePublic');
     Route::get('/tag/{tagSlug?}', 'PageController@catalog')->name('tag')->middleware('pagePublic');
-    Route::get('/city/{redirectSlug?}', 'PageController@catalog')->name('city')->middleware('pagePublic');
+    Route::get('/{redirectSlug?}', 'PageController@catalog')->fallback()->name('city')->middleware('pagePublic');
 
     Route::get('/info', 'PageController@info')->name('info')->middleware('pagePublic');
     Route::get('/about', 'PageController@about')->name('about')->middleware('pagePublic');
@@ -50,7 +50,6 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
 
     Route::get('/basket', 'OrderController@getBasket')->name('basket')->middleware('pagePublic');
 
-    Route::get('/city/{redirect?}', 'PageController@redirect')->name('redirect')->middleware('pagePublic');
 });
 
 Route::get('/takeOrder', 'PageController@takeOrder')->middleware('pagePublic');
