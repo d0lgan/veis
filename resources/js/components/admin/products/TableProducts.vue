@@ -184,7 +184,7 @@
                             <h5 class="modal-title">Настройки изображений</h5>
                             
                             <div class="d-flex align-items-center">
-                                <a href="javascript:void(0)" @click="saveImage()" data-dismiss="modal" class="btn save saveOptions mr-3"><i class="far fa-save"></i></a>
+                                <a href="javascript:void(0)" @click="saveImage()" class="btn save saveOptions mr-3"><i class="far fa-save"></i></a>
                                 
                                 <a href="javascript:void(0)" class="btn back mr-2" data-dismiss="modal"><i class="fas fa-reply-all"></i></a>
                             </div>

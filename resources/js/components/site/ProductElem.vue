@@ -20,16 +20,23 @@
 
 
         <div class="product__foto_btn" v-if="product.stock">{{ product.stock.label }}</div>
+        </a>
+
 
         <div class="product__hide">
             <div class="product__hide_inner">
-                <div class="product__hide_colors">
-                    <img class="product__hide_iteam" :src="'/house/uploads/' + img.name" alt="" v-for="img in product.galleries" v-if="!(img.name.substr(0, 7) == 'futlyar')">
-                    <!--<div class="product__icon_box">
+                <div class="product__hide_colors" v-if="relations">
+                        <img class="product__hide_iteam" :src="'/house/uploads/' + relation.image" alt=""
+                          v-for="(relation, key) in relations" @click="swapProduct(key)">
+
+                    <!--<img class="product__hide_iteam" :src="'/house/uploads/' + img.name" alt="" v-for="img in product.galleries" v-if="!(img.name.substr(0, 7) == 'futlyar')">
+                    <div class="product__icon_box">
                         <img class="product__hide_icon" src="/assets/front/img/next.svg" alt="">
                     </div>-->
                 </div>
             </div>
+
+            <a :href="getLang ? '/ru/product/' + product.slug_ru : '/product/' + product.slug_uk" style="display: flex; align-items: center; flex-direction: column; text-decoration: none; margin: 15px 15px 0 0">
 
             <div v-if="product.price != 0">
                 <div v-if="(!product.end_stock && product.percent) || (product.end_stock && (product.end_stock > date))">
@@ -57,8 +64,9 @@
                     <span v-if="!(product.availability == 1)">{{ translate.no_availability }}</span>
                 </div>
             </div>
+
+            </a>
         </div>
-        </a>
     </div>
 </template>
 
@@ -70,6 +78,7 @@
         data() {
             return {
                 fullProduct: [],
+                relations: [],
             }
         },
         props: [
@@ -78,6 +87,12 @@
             'product',
             'locale',
         ],
+
+        mounted() {
+            if (this.product.relations) {
+                this.relations = this.product.relations;
+            }
+        },
 
         methods: {
             firstTwoLetterInProduct(product) {
@@ -96,6 +111,12 @@
                 }
             },
 
+            swapProduct(relationIndex) {
+                let mainProd = this.product;
+                this.product = this.relations[relationIndex];
+                this.relations.splice(relationIndex, 1, mainProd);
+                console.log(this.relations, relationIndex);
+            },
 
             addToCart: function () {
                 axios.get('/api/getProductWithOptions', {

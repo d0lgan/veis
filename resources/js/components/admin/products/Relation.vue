@@ -1,9 +1,14 @@
 <template>
     <div class="col-md-12">
         <div class="form-group col-md-12">
+            <div class="alert alert-success notification" v-if="notification">OK
+                <button type="button" class="close" @click="notification = false">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <label for="search">Поиск товара</label>
             <div class="d-flex">
-                <input v-model="keywords" @input="searchProduct($event)" type="text" id="search" class="form-control">
+                <input v-model="keywords" type="text" id="search" class="form-control">
                 <div class="m-l-5 btn btn-secondary d-flex justify-content-center align-items-center" @click="clearSearch()"><span style="font-weight: bold;" aria-hidden="true"><i class="fas fa-times"></i></span></div>
             </div>
             <div class="search w-100" v-if="keywords">
@@ -41,35 +46,47 @@
         ],
         created() {
             this.$root.$refs.relSave = this;
+
+            // _.debounce — это функция lodash, позволяющая ограничить то,
+            // насколько часто может выполняться определённая операция.
+            // В данном случае мы ограничиваем частоту обращений к yesno.wtf/api,
+            // дожидаясь завершения печати вопроса перед отправкой ajax-запроса.
+            // Узнать больше о функции _.debounce (и её родственнице _.throttle),
+            // можно в документации: https://lodash.com/docs#debounce
+            this.debouncedGetAnswer = _.debounce(this.searchProduct, 700)
         },
         data(){
             return{
                 keywords: null,
+                notification: false,
                 result: [],
             }
         },
+        watch: {
+            keywords(value) {
+                if (value.length >= 2) {
+                    this.debouncedGetAnswer()
+                }
+            },
+            product_id() {
+                this.notification = false;
+            }
+        },
         methods:{
-            searchProduct: function (e) {
-
-                this.keywords = e.target.value;
-
+            searchProduct: function () {
                 axios.post('/api/searching', {q: this.keywords}).then((res) => {
                     this.result = res.data;
                 });
             },
             clearSearch: function () {
-
                 this.keywords = null;
-
             },
-            addProduct: function (key) {
 
+            addProduct: function (key) {
                 let id = this.result[key].id;
 
                 axios.post('/api/order/getProduct', {id: id}).then((res) => {
-
                     this.relations.push(res.data);
-                    this.keywords = null;
                 });
             },
             deleteProduct: function (key) {
@@ -81,6 +98,7 @@
 
                 axios.post('/api/fastEdit/saveRelation', {id: this.product_id, products: this.relations}).then((res) => {
                     this.keywords = null;
+                    this.notification = true;
                 });
 
             }
@@ -94,7 +112,13 @@
 <style scoped>
     .result:hover
     {
-        background: lightgray;
+        background: #5658567d;
+        cursor: pointer;
+        color: white;
+    }
+
+    .selected {
+        background: #4fa63e;
         cursor: pointer;
         color: white;
     }

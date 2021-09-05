@@ -1,6 +1,11 @@
 <template>
     <div class="col-md-12">
         <div class="row d-flex flex-column">
+            <div class="alert alert-success notification col-12" v-if="notification">OK
+                <button type="button" class="close" @click="notification = false">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div v-if="images.main" class="d-flex align-items-start">
                 <div class="form-group">
                     <label for="image">Главное изображение</label> 
@@ -90,14 +95,18 @@
                 time: Math.ceil(Math.random() * 10000),
                 disabled: false,
                 tab: 'ru',
-                isModal: this.isModal
+                isModal: this.isModal,
+                notification: false,
             }
         },
         watch:{
-          product_images(val){
-              this.images = val;
-              this.disabled = false;
-          }
+            product_images(val){
+                this.images = val;
+                this.disabled = false;
+            },
+            product_id() {
+                this.notification = false;
+            }
         },
         methods:{
             addImage: function (event) {
@@ -153,10 +162,9 @@
             },
             saveImages: function () {
                 axios.post('/api/fastEdit/saveImage', {images: this.images, product_id: this.product_id}).then((res) => {
-                    console.log(res.data)
+                    this.notification = true;
                 });
 
-                console.log('img saved');
             },
             changeTab: function (event) {
                 this.tab == 'ru' ? this.tab = 'uk' : this.tab = 'ru';
