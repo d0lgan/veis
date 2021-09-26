@@ -74,7 +74,7 @@ s<template>
 
                         </div>
                         <div class="product-card__slider-navbox">
-                    <span class="slider-arrow prev">
+                    <span class="slider-arrow prev" style="margin-top: -220px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
                             <g>
                                 <g>
@@ -92,7 +92,7 @@ s<template>
                                     <img :src="'/house/uploads/' + image.name" alt="">
                                 </div>
                             </div>
-                            <span class="slider-arrow next">
+                            <span class="slider-arrow next" style="margin-top: -220px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
                             <g>
                                 <g>

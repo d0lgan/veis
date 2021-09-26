@@ -40,7 +40,7 @@
                         <site-products-slider-component v-for="(dropdown, key2) in dropdowns" v-show="key2 == dropKey" :key="key2" :locale="locale" :products="dropdown.products.right" :translate="translate"></site-products-slider-component>
                     </div>-->
 
-                    <carousel :navigationEnabled="true" :perPageCustom="[[500, 1], [800, 2], [1100, 3], [1500, 4], [1700, 5]]">
+                    <carousel :navigationEnabled="true" :perPageCustom="[[500, 1], [800, 2], [1100, 3], [1500, 4], [1700, 5]]" navigationNextLabel="" navigationPrevLabel="">
                         <slide v-for="product in products" :key="product.id">
                             <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
                         </slide>
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="product__btn_box">
-                    <a class="intro__btn" :href="getLang ? dropdowns[dropKey].link_ru : dropdowns[dropKey].link_uk">{{ translate.show_all }} <span>{{ getLang ? dropdowns[dropKey].title_ru : dropdowns[dropKey].title_uk }}</span></a>
+                    <a class="intro__btn" style="margin-right: 0px !important;" :href="getLang ? dropdowns[dropKey].link_ru : dropdowns[dropKey].link_uk">{{ translate.show_all }} <span>{{ getLang ? dropdowns[dropKey].title_ru : dropdowns[dropKey].title_uk }}</span></a>
                 </div>
             </div>
         </section>
@@ -118,6 +118,7 @@ import { Carousel, Slide } from 'vue-carousel';
                 }
             }
         },
+
         mounted() {
             var cd = new Date();
             this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
@@ -131,5 +132,10 @@ import { Carousel, Slide } from 'vue-carousel';
 <style scoped>
     .product__iteam {
         margin: 0 auto 98px auto !important;
+    }
+
+    @media (max-width: 560px) {
+        .conteiner {
+            max-width: calc(100% - 50px); }
     }
 </style>

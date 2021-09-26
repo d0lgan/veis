@@ -68,33 +68,35 @@
                 <pre><span class="product__name_active">ПЕРЧАТКИ</span>   /   <span>СОЛНЦЕЗАЩИТНЫЕ ОЧКИ</span>   /   <span>СУМКИ</span>   /   <span>ЗОНТЫ</span></pre>
             </div>-->
             <div class="product-more__sliderbox">
-                    <span class="slider-arrow prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
+                <span class="slider-arrow prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
+                        <g>
                             <g>
-                                <g>
-                                    <path fill="#5c5c5c" d="M24 0h1L.794 30.984 25 61l-.955.008L0 32v-2z" />
-                                </g>
+                                <path fill="#5c5c5c" d="M24 0h1L.794 30.984 25 61l-.955.008L0 32v-2z" />
                             </g>
-                        </svg>
-                    </span>
-                <div class="product-more__slider">
+                        </g>
+                    </svg>
+                </span>
+                
+                <div class="product-more__slider" style="width: 100% !important;">
                     <div v-for="product in products" v-if="product.price && product.availability && product.image">
                         <site-product-elem-component :product="product" :translate="translate" :locale="locale"></site-product-elem-component>
                     </div>
                 </div>
                 <span class="slider-arrow next">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
-                    <g>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
                         <g>
-                            <path fill="#5c5c5c" d="M.795 61.008L0 61l24.206-30.016L0 0l.955-.008L25 30v2z" />
+                            <g>
+                                <path fill="#5c5c5c" d="M.795 61.008L0 61l24.206-30.016L0 0l.955-.008L25 30v2z" />
+                            </g>
                         </g>
-                    </g>
-                </svg>
-            </span>
+                    </svg>
+                </span>
             </div>
         </div>
     </section>
 </template>
+
 
 <script>
     import axios from "axios";
@@ -195,6 +197,8 @@
                     });
 
             }
+
+
         },
 
         updated () {
@@ -204,7 +208,6 @@
                 slidesToScroll: 1,
                 dots: false,
                 arrows: true,
-                dots: false,
                 prevArrow: '.product-more__sliderbox .prev',
                 nextArrow: '.product-more__sliderbox .next',
                 responsive: [

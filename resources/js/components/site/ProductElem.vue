@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <a :href="getLang ? '/ru/product/' + product.slug_ru : '/product/' + product.slug_uk" style="display: flex; align-items: center; flex-direction: column; text-decoration: none; margin: 15px 15px 0 0">
+            <a :href="getLang ? '/ru/product/' + product.slug_ru : '/product/' + product.slug_uk" style="display: flex; align-items: center; flex-direction: column; text-decoration: none; margin: 15px 0 0 0">
 
             <div v-if="product.price != 0">
                 <div v-if="(!product.end_stock && product.percent) || (product.end_stock && (product.end_stock > date))">
