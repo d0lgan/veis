@@ -2,13 +2,13 @@
   'app' => 
   array (
     'name' => 'Shop',
-    'env' => 'local',
-    'debug' => true,
-    'url' => 'http://localhost',
+    'env' => 'production',
+    'debug' => false,
+    'url' => 'http://test.veis.dp.ua',
     'timezone' => 'EET',
     'locale' => 'ru',
     'fallback_locale' => 'uk',
-    'key' => 'base64:wz9RRg5gk8UA8VDMCfL630ioGIY6vowhYNVDOBCtfhc=',
+    'key' => 'base64:McREdMkirqQhL9wAPpAc9MQmnrNKV3gOdrGlDVc1T+w=',
     'cipher' => 'AES-256-CBC',
     'log' => 'daily',
     'log_level' => 'debug',
@@ -188,7 +188,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'G:\\OpenServer\\domains\\testlara\\storage\\framework/cache/data',
+        'path' => '/home/veisdpua/test.veis.dp.ua/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -228,17 +228,17 @@
       'sqlite' => 
       array (
         'driver' => 'sqlite',
-        'database' => 'veis',
+        'database' => 'veisdpua_adminka',
         'prefix' => '',
       ),
       'mysql' => 
       array (
         'driver' => 'mysql',
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
-        'database' => 'veis',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'veisdpua_adminka',
+        'username' => 'veisdpua_adminka',
+        'password' => 'T8i5C3v5',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
         'prefix' => '',
@@ -248,11 +248,11 @@
       'pgsql' => 
       array (
         'driver' => 'pgsql',
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
-        'database' => 'veis',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'veisdpua_adminka',
+        'username' => 'veisdpua_adminka',
+        'password' => 'T8i5C3v5',
         'charset' => 'utf8',
         'prefix' => '',
         'schema' => 'public',
@@ -281,13 +281,13 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'G:\\OpenServer\\domains\\testlara\\storage\\app',
+        'root' => '/home/veisdpua/test.veis.dp.ua/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'G:\\OpenServer\\domains\\testlara\\storage\\app/public',
-        'url' => 'http://localhost/storage',
+        'root' => '/home/veisdpua/test.veis.dp.ua/storage/app/public',
+        'url' => 'http://test.veis.dp.ua/storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -296,7 +296,7 @@
         'key' => NULL,
         'secret' => NULL,
         'region' => NULL,
-        'bucket' => '',
+        'bucket' => NULL,
       ),
     ),
   ),
@@ -363,7 +363,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'G:\\OpenServer\\domains\\testlara\\resources\\views/vendor/mail',
+        0 => '/home/veisdpua/test.veis.dp.ua/resources/views/vendor/mail',
       ),
     ),
   ),
@@ -456,7 +456,7 @@
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'G:\\OpenServer\\domains\\testlara\\storage\\framework/sessions',
+    'files' => '/home/veisdpua/test.veis.dp.ua/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -497,9 +497,9 @@
   array (
     'paths' => 
     array (
-      0 => 'G:\\OpenServer\\domains\\testlara\\resources\\views',
+      0 => '/home/veisdpua/test.veis.dp.ua/resources/views',
     ),
-    'compiled' => 'G:\\OpenServer\\domains\\testlara\\storage\\framework\\views',
+    'compiled' => '/home/veisdpua/test.veis.dp.ua/storage/framework/views',
   ),
   'widgets' => 
   array (
@@ -525,7 +525,7 @@
     array (
       'enabled' => true,
       'driver' => 'file',
-      'path' => 'G:\\OpenServer\\domains\\testlara\\storage\\debugbar',
+      'path' => '/home/veisdpua/test.veis.dp.ua/storage/debugbar',
       'connection' => NULL,
       'provider' => '',
     ),
@@ -619,18 +619,18 @@
   array (
     'config' => 
     array (
-      'model_template_path' => 'G:\\OpenServer\\domains\\testlara\\vendor/xethron/laravel-4-generators/src/Way/Generators/templates/model.txt',
-      'scaffold_model_template_path' => 'G:\\OpenServer\\domains\\testlara\\vendor/xethron/laravel-4-generators/src/Way/Generators/templates/scaffolding/model.txt',
-      'controller_template_path' => 'G:\\OpenServer\\domains\\testlara\\vendor/xethron/laravel-4-generators/src/Way/Generators/templates/controller.txt',
-      'scaffold_controller_template_path' => 'G:\\OpenServer\\domains\\testlara\\vendor/xethron/laravel-4-generators/src/Way/Generators/templates/scaffolding/controller.txt',
-      'migration_template_path' => 'G:\\OpenServer\\domains\\testlara\\vendor/xethron/laravel-4-generators/src/Way/Generators/templates/migration.txt',
-      'seed_template_path' => 'G:\\OpenServer\\domains\\testlara\\vendor/xethron/laravel-4-generators/src/Way/Generators/templates/seed.txt',
-      'view_template_path' => 'G:\\OpenServer\\domains\\testlara\\vendor/xethron/laravel-4-generators/src/Way/Generators/templates/view.txt',
-      'model_target_path' => 'G:\\OpenServer\\domains\\testlara\\app',
-      'controller_target_path' => 'G:\\OpenServer\\domains\\testlara\\app\\Http/Controllers',
-      'migration_target_path' => 'G:\\OpenServer\\domains\\testlara\\database/migrations',
-      'seed_target_path' => 'G:\\OpenServer\\domains\\testlara\\database/seeds',
-      'view_target_path' => 'G:\\OpenServer\\domains\\testlara\\resources/views',
+      'model_template_path' => '/home/veisdpua/test.veis.dp.ua/vendor/xethron/laravel-4-generators/src/Way/Generators/templates/model.txt',
+      'scaffold_model_template_path' => '/home/veisdpua/test.veis.dp.ua/vendor/xethron/laravel-4-generators/src/Way/Generators/templates/scaffolding/model.txt',
+      'controller_template_path' => '/home/veisdpua/test.veis.dp.ua/vendor/xethron/laravel-4-generators/src/Way/Generators/templates/controller.txt',
+      'scaffold_controller_template_path' => '/home/veisdpua/test.veis.dp.ua/vendor/xethron/laravel-4-generators/src/Way/Generators/templates/scaffolding/controller.txt',
+      'migration_template_path' => '/home/veisdpua/test.veis.dp.ua/vendor/xethron/laravel-4-generators/src/Way/Generators/templates/migration.txt',
+      'seed_template_path' => '/home/veisdpua/test.veis.dp.ua/vendor/xethron/laravel-4-generators/src/Way/Generators/templates/seed.txt',
+      'view_template_path' => '/home/veisdpua/test.veis.dp.ua/vendor/xethron/laravel-4-generators/src/Way/Generators/templates/view.txt',
+      'model_target_path' => '/home/veisdpua/test.veis.dp.ua/app',
+      'controller_target_path' => '/home/veisdpua/test.veis.dp.ua/app/Http/Controllers',
+      'migration_target_path' => '/home/veisdpua/test.veis.dp.ua/database/migrations',
+      'seed_target_path' => '/home/veisdpua/test.veis.dp.ua/database/seeds',
+      'view_target_path' => '/home/veisdpua/test.veis.dp.ua/resources/views',
     ),
   ),
   'ide-helper' => 
@@ -646,7 +646,7 @@
     'include_helpers' => false,
     'helper_files' => 
     array (
-      0 => 'G:\\OpenServer\\domains\\testlara/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+      0 => '/home/veisdpua/test.veis.dp.ua/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
     ),
     'model_locations' => 
     array (
