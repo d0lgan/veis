@@ -147,13 +147,14 @@ s<template>
 
                         <div class="product-card__wrapbox options" v-if="product.options.length">
                             <p class="options__title">{{ translate.select_options }}</p>
-                            <div class="product-card__flexer">
+                            <div class="product-card__flexer" style="justify-content: flex-start !important;">
                                 <div class="select select-custom" v-for="option in product.options">
                                     <div class="select-inner" style="padding-left: 10px;"></div>
                                     <select>
                                         <option value="0">Выберите {{ option.option.title_ru }}</option>
                                         <option value="2" v-for="value in option.product_values">{{ value.value_option.value_ru }}</option>
                                     </select>
+
                                 </div>
                             </div>
                         </div>
@@ -206,6 +207,19 @@ s<template>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="product-card__description" v-if="additional.additional_title || additional.additional">
+                            <div class="product-card__description-head">
+                                <h3 class="product-card__title">» {{ additional.additional_title }}</h3>
+                                <svg class="" xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9"><g><g><path fill="#2a2a2f" d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/></g></g></svg>
+                            </div>
+                            <div class="product-card__description-body">
+                                <p class="product-card__description-text" v-html="additional.additional">
+
+                                </p>
+                            </div>
+                        </div>
+
                         <div class="product-card__description">
                             <div class="product-card__description-head">
                                 <h3 class="product-card__title">» {{ translate.free_del }}</h3>
@@ -738,6 +752,7 @@ s<template>
         name: "Produce",
         props: [
             'product',
+            'additional',
             'locale',
             'attributes',
             'back',
@@ -914,6 +929,15 @@ s<template>
 
             this.checkCart();
             this.now = this.date.getFullYear() + '-' + (this.date.getMonth()+1) + '-' + this.date.getDate() + ' ' + this.date.getHours() + ':' + this.date.getMinutes();
+
+            // проверяем дополнительные сведения
+            if (this.additional) {
+                if (typeof this.additional.uk !== 'undefined') {
+                    this.additional = this.additional.uk;
+                } else if (typeof this.additional.ru !== 'undefined') {
+                    this.additional = this.additional.ru;
+                }
+            }
 
             // Устанавливаем текущую дату для проверки акции
             var cd = new Date();

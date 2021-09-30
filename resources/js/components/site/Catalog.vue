@@ -100,6 +100,7 @@
                                     <span class="catalog-filters__item-num">23</span>
                                 </label>
 
+
                             </div>
                         </div>
                         <div class="catalog-filters__block">

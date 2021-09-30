@@ -10,7 +10,6 @@ let store = {
     },
     mutations: {
         addToCart(state, item){
-
             let need = false;
 
             let option = item.options.find(option => option.option.need === '1');
@@ -77,13 +76,10 @@ let store = {
                     this.commit('saveTotalPrice', state.totalPrice);
                     state.cart.push(item);
 
-                    console.log(state.totalPrice, 1);
-
                 } else {
                     state.totalPrice += item.price;
                     this.commit('saveTotalPrice', state.totalPrice);
 
-                    console.log(state.totalPrice, 2);
                 }
 
 

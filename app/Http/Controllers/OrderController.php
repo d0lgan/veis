@@ -507,7 +507,6 @@ class OrderController extends Controller {
 		    $product = Product::find($prod[$i]['product']);
 
             $options = Option::with('values')->get();
-
             $selected_product_values = $product->productValues()->get();
             $selected_values = null;
 
@@ -521,7 +520,6 @@ class OrderController extends Controller {
                     $select_options = $items->get();
                 }]);
 
-
                 if ($select_options != null) {
 
                     for ($so = 0; $so < count($select_options); $so++) {
@@ -532,7 +530,8 @@ class OrderController extends Controller {
                                     if ($selected_product_values[$pv]->value_option_id == $options[$o]->values[$ov]->id && $options[$o]->values[$ov]->option_id == $select_options[$so]->id) {
                                         $selected[$so]['values'][] = $options[$o]->values;
 
-                                        if(array_key_exists($selected[$so]['values'][0][0]['option_id'], $prod[$i]['selected_options'])){
+//                                        if(array_key_exists($selected[$so]['values'][0][0]['option_id'], $prod[$i]['selected_options'])){
+                                        if(0){
                                             $selected[$so]['select'] = $prod[$i]['selected_options'][$selected[$so]['values'][0][0]['option_id']];
                                         }else{
                                             $selected[$so]['select'] = null;

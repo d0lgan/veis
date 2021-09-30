@@ -148,7 +148,7 @@ class SiteApiController extends Controller
         $arr = [];
         $product->data = $arr;
         $product->galleries;
-        $product->description = trim($product->description_ru, '<p></p>');
+        $product->description = $product->description_ru;
 
 
         $options = Option::with('values')->get();

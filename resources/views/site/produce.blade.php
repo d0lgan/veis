@@ -5,7 +5,7 @@
 
 @section('content')
 
-<site-produce-component :page="{{ json_encode($page) }}" :translate_watch="{{ json_encode($translate_watch) }}" :translate="{{ json_encode($translate) }}" :product="{{ json_encode($product) }}" :locale="{{ json_encode($locale) }}" :attributes="{{ json_encode($selected_attr) }}" :back="{{ json_encode(url()->previous()) }}" :settings="{{ json_encode($settings) }}"></site-produce-component>
+<site-produce-component :page="{{ json_encode($page) }}" :translate_watch="{{ json_encode($translate_watch) }}" :translate="{{ json_encode($translate) }}" :product="{{ json_encode($product) }}" :additional="{{ json_encode($product->data) }}" :locale="{{ json_encode($locale) }}" :attributes="{{ json_encode($selected_attr) }}" :back="{{ json_encode(url()->previous()) }}" :settings="{{ json_encode($settings) }}"></site-produce-component>
 
 <section class="about">
     <site-catalog-description-component :desc="{{ json_encode($desc) }}" :locale="{{ json_encode($locale) }}"></site-catalog-description-component>

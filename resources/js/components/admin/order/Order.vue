@@ -200,8 +200,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
+
                                             <select required v-for="(option, key_o) in product.options" @change="selectValue($event, key_o, key_p)" class="form-control my-2">
-                                                <option>{{ option.option.title }} <span v-if="option.option.need === '1'">(Обязательная функция)</span></option>
+                                                <option>{{ option.option.title_ru }} <span v-if="option.option.need === '1'">(Обязательная функция)</span></option>
                                                 <option  v-for="(val, key) in option.product_values" :value="val.value_option_id" :selected="parseInt(val.value_option_id) === parseInt(option.select)">
                                                     {{ getValues(val.value_option_id, option.values[key]) }}
                                                     <span v-if="val.price_option > 0">
@@ -390,18 +391,20 @@
             },
             selectValue: function(e, id, key){
 
-                if(!parseInt(e.target.value)){
+                /*if(!parseInt(e.target.value)){
                     this.products[key].options[id].select = null;
                 }else{
                     this.products[key].options[id].select = e.target.value;
-                }
+                }*/
+                // this.updatePrice(key);
+
+
+
                 /*if(e.target.checked){
                     this.products[key].selected_options.push(id);
                 }else{
                     this.products[key].selected_options.splice(this.products[key].selected_options.findIndex(item => item === id), 1);
                 }*/
-                this.updatePrice(key);
-
             },
 
             loadCities() {
@@ -456,7 +459,7 @@
 
                 let name = values.find(value => value.id === id);
 
-                return name.value;
+                return name.value_ru;
             },
             updatePrice: function (key = null) {
 
@@ -465,6 +468,7 @@
 
                     this.products[key].options.forEach(option => {
                         let value = option.product_values.find(val => val.value_option_id === parseInt(option.select));
+                        console.log(value);
                         if(value){
 
                             if(value.operation_option === 'minus'){

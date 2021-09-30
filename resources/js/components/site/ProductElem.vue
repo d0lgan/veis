@@ -124,6 +124,7 @@
                     }
                 })
                     .then((response) => {
+                        console.log(response.data);
                         this.fullProduct = response.data;
 
                         if(true){

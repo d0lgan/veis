@@ -100,7 +100,7 @@
                                                               :title-or-name="{{ json_encode('title') }}"
                                                               id="category"></select-component>
                                         </div>
-                                    </div> 
+                                    </div>
 
                                     <div class="col-md-4 form-group">
                                         <label>Сортировка</label>
@@ -112,7 +112,7 @@
                                         {!! Form::label('manufacturer_id', 'Производитель',['class' => 'control-label']) !!}
                                         {!! Form::select('manufacturer_id', $manufacturers, old('manufacturer_id'), ['class'=>'form-control'])!!}
                                     </div>
-                                    
+
                                     <div class="col-md-3 form-group">
                                         <label for="vendor_code">Артикул</label>
                                         <input value="{{ $product->vendor_code }}" required class="form-control" type="text" name="vendor_code"
@@ -219,7 +219,7 @@
                         <div style="background-color: #fff" class="tab-pane p-3 fade show" id="optii" role="tabpanel" aria-labelledby="home-tab">
                             <!-- <span>{{ json_encode($selected_attr) }}</span> -->
                             <attributes-component ref="saveAttribute" :isModal="false" :default_category="{{ $product->category_id }}" :prod="{{ $product }}" :product_id="{{ $product->id }}" :selected_attr="{{ json_encode($selected_attr) }}"></attributes-component>
-                        </div> 
+                        </div>
 
 
                         <div style="background-color: #fff" class="tab-pane p-3 fade show" id="option" role="tabpanel" aria-labelledby="home-tab">
@@ -276,7 +276,7 @@
                         </div>
 
 
-                        
+
                         <div style="background-color: #fff" class="tab-pane p-3 fade show" id="seo" role="tabpanel" aria-labelledby="home-tab">
                             <div class="col-md-12">
                                 <ul class="nav nav-tabs" id="language">
@@ -302,7 +302,7 @@
                         </div>
 
 
-                        
+
                         <div style="background-color: #fff" class="tab-pane p-3 fade show" id="add" role="tabpanel" aria-labelledby="home-tab">
                             <div class="col-md-12 form-group">
                                 <ul class="nav nav-tabs" id="language">
@@ -318,7 +318,7 @@
                                             </a></li>
                                     @endforeach
                                 </ul>
-
+{{dd($product->data)}}
                                 <div class="tab-content">
                                     @include('admin.partials.title', ['item' => $product, 'title' => false, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'add', 'additional' => true])
                                     @if($product->how_size)
@@ -342,7 +342,7 @@
                     </div>
 
 
-                    
+
                     {!! Form::close() !!}
                 </div>
             </div>
