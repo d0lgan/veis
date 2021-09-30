@@ -318,7 +318,7 @@
                                             </a></li>
                                     @endforeach
                                 </ul>
-{{dd($product->data)}}
+
                                 <div class="tab-content">
                                     @include('admin.partials.title', ['item' => $product, 'title' => false, 'description' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'add', 'additional' => true])
                                     @if($product->how_size)
