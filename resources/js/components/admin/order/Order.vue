@@ -203,7 +203,7 @@
 
                                             <select required v-for="(option, key_o) in product.options" @change="selectValue($event, key_o, key_p)" class="form-control my-2">
                                                 <option>{{ option.option.title_ru }} <span v-if="option.option.need === '1'">(Обязательная функция)</span></option>
-                                                <option  v-for="(val, key) in option.product_values" :value="val.value_option_id" :selected="parseInt(val.value_option_id) === parseInt(option.select)">
+                                                <option  v-for="(val, key) in option.product_values" :value="val.value_option_id" :selected="isSelectedOption(val, product.selected_options)">
                                                     {{ getValues(val.value_option_id, option.values[key]) }}
                                                     <span v-if="val.price_option > 0">
                                                     (<span v-if="val.operation_option === 'plus'">+</span>
@@ -389,6 +389,19 @@
                 }
 
             },
+
+            isSelectedOption: function (product_value, selected_options) {
+                let sel = false
+                for (let opt in selected_options) {
+                    if (product_value.value_option_id == selected_options[opt]) {
+                        sel = true;
+                    }
+                }
+
+
+                return sel;
+            },
+
             selectValue: function(e, id, key){
 
                 /*if(!parseInt(e.target.value)){

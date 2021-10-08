@@ -479,6 +479,17 @@ export default {
                     }
                 }
             }
+
+            // Проверка является ли страница ссылкой dropdown'а (разворачивающийся элемент)
+            if (this.dropdown && this.instantCategory.drop_id) {
+                for (let key in this.dropdown) {
+                    if (this.dropdown[key].id == this.instantCategory.drop_id) {
+                        let mainElem = this.dropdown[key];
+                        this.dropdown.splice(key, 1);
+                        this.dropdown.unshift(mainElem);
+                    }
+                }
+            }
         }
 
         // Автовыбранные атрибуты и номер страницы для редиректа

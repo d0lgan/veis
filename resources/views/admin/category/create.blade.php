@@ -77,7 +77,7 @@
                                                 </ul>
 
                                                 <div class="tab-content">
-                                                    @include('admin.partials.title', ['item' => $category, 'title' => true, 'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                                    @include('admin.partials.title', ['item' => $category, 'title' => true, 'description' => true, 'free_del' => true, 'payback' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                                 </div>
                                             </div>
                                             <div class="col-md-12">

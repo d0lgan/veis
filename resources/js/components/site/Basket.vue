@@ -296,6 +296,10 @@
                                             <p class="cart__item-subtitle">
                                                 {{ product.manufacturer_title }}
                                             </p>
+                                            <p class="cart__item-subtitle" style="margin-bottom: 0px !important;"
+                                               v-for="option in product.options" v-if="product.length != 0">
+                                                {{ findSelectedOption(option) }}
+                                            </p>
                                             <!--<div class="cart__item-chars">
                                                 <p>
                                                     Кол-во: <span>{{ product.quantity }}</span>
@@ -523,8 +527,6 @@
                 this.error = false;
             },
 
-
-
             loadCities() {
                 if (this.keywordCity != '') {
                     this.loadingCities = true;
@@ -621,6 +623,14 @@
 
             },
 
+            findSelectedOption: function (option) {
+                let value = option.product_values.find(value => value.value_option_id === parseInt(option.select));
+                let title = (this.getLang ? option.option.title_ru : option.option.title_uk) + ': ' + (this.getLang ? value.value_option.value_ru : value.value_option.value_uk);
+
+
+                return title;
+            }
+
             /*confirmOrder: function () {
 
                 console.log(1);
@@ -647,7 +657,9 @@
             },*/
         },
         mounted() {
-
+            if (!Number.isInteger(this.totalPrice)) {
+                this.updateTotalPrice();
+            }
         },
 
         created() {

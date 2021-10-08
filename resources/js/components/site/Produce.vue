@@ -73,8 +73,8 @@ s<template>
                             </div>
 
                         </div>
-                        <div class="product-card__slider-navbox">
-                    <span class="slider-arrow prev" style="margin-top: -220px;">
+                        <div class="product-card__slider-navbox" v-if="product.galleries.length != 0">
+                            <span class="slider-arrow prev" style="margin-top: -220px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="61" viewBox="0 0 25 61">
                             <g>
                                 <g>
@@ -148,13 +148,38 @@ s<template>
                         <div class="product-card__wrapbox options" v-if="product.options.length">
                             <p class="options__title">{{ translate.select_options }}</p>
                             <div class="product-card__flexer" style="justify-content: flex-start !important;">
-                                <div class="select select-custom" v-for="option in product.options">
-                                    <div class="select-inner" style="padding-left: 10px;"></div>
+                                <div class="select select-custom" v-for="(option, key) in product.options" :key="option.option.id">
+
+                                    <div class="select-inner" style="padding-left: 10px;"
+                                    @focusout="closeOptionsPopupsWithDelay();"
+                                    @click="checkOptionsPopups(key)">{{ titleOptions[key] }}</div>
+
                                     <select>
                                         <option value="0">Выберите {{ option.option.title_ru }}</option>
                                         <option value="2" v-for="value in option.product_values">{{ value.value_option.value_ru }}</option>
                                     </select>
 
+                                    <div class="select-wrapper" data-select="2" v-if="selectOption == key"
+                                         style="width: 240px;">
+                                        <div class="select-content">
+                                            <ul class="select-options">
+                                                <li class="select-option-item" @click="
+                                                    checkOptionsPopups(key)
+                                                    titleOptions[key] = getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk;
+                                                    ">
+                                                    {{ getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk }}
+                                                </li>
+                                                <li class="select-option-item" v-for="value in option.product_values"
+                                                    @click="
+                                                        product.options[key].select = value.value_option_id;
+                                                        titleOptions[key] = getLang ? value.value_option.value_ru : value.value_option.value_uk;
+                                                        checkOptionsPopups(key)
+                                                    ">
+                                                    {{ getLang ? value.value_option.value_ru : value.value_option.value_uk }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -220,27 +245,24 @@ s<template>
                             </div>
                         </div>
 
-                        <div class="product-card__description">
+                        <div class="product-card__description" v-if="product.free_del">
                             <div class="product-card__description-head">
                                 <h3 class="product-card__title">» {{ translate.free_del }}</h3>
                                 <svg class="" xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9"><g><g><path fill="#2a2a2f" d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/></g></g></svg>
                             </div>
                             <div class="product-card__description-body">
-                                <p class="product-card__description-text" v-html="translate.free_del_text">
-
+                                <p class="product-card__description-text" v-html="product.free_del">
                                 </p>
                             </div>
                         </div>
-                        <div class="product-card__description">
+                        <div class="product-card__description" v-if="product.payback">
                             <div class="product-card__description-head">
                                 <h3 class="product-card__title">» {{ translate.guarantee }}</h3>
                                 <a href="#" class="red-link">{{ translate.more }}</a>
                                 <svg class="" xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9"><g><g><path fill="#2a2a2f" d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/></g></g></svg>
                             </div>
                             <div class="product-card__description-body">
-                                <p class="product-card__description-text">
-                                    {{ translate.guarantee_text }}
-                                </p>
+                                <p class="product-card__description-text" v-html="product.payback"></p>
                             </div>
                         </div>
                         <div class="product-card__description" v-if="product.description_ru || product.description_uk">
@@ -771,6 +793,8 @@ s<template>
                 free_shipping: false,
                 glasses: false,
                 dateForDiscount: '',
+                selectOption: null,
+                titleOptions: [],
             }
         },
         methods: {
@@ -893,6 +917,22 @@ s<template>
                     return product.title_uk.split( " " ).slice(3).join(' ');
                 }
             },
+
+            checkOptionsPopups(key) {
+                if (this.selectOption == null || this.selectOption != key) {
+                    this.selectOption = key
+                } else {
+                    this.selectOption = null
+                }
+            },
+
+            closeOptionsPopupsWithDelay() {
+                setTimeout(() => this.selectOption = null, 300);
+            },
+
+            titleForOptionsPopups(key) {
+                return key;
+            }
         },
         computed: {
             console: () => console,
@@ -938,6 +978,11 @@ s<template>
                     this.additional = this.additional.ru;
                 }
             }
+
+            this.product.options.forEach(option => {
+                let title = this.getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk;
+                this.titleOptions.push(title);
+            });
 
             // Устанавливаем текущую дату для проверки акции
             var cd = new Date();

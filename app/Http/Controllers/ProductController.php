@@ -828,15 +828,83 @@ class ProductController extends Controller
         $product->data = $arr;
         $product->galleries->sortBy('sort');
         $product->category;
-        $product->description = trim($product->description_ru, '<p></p>');
+
+        // Текст в блоках "бесплатная доставка" и "возврат и гарантия"
+        $category = Category::where('id', $product->category_id)->first();
+        if ($locale == 'uk') {
+            $product->free_del = $category->free_del_uk;
+            if (!$product->free_del) {
+                $isParentCatHasFreeDel = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasFreeDel) {
+                    if ($parentCategory->free_del_uk) {
+                        $product->free_del = $parentCategory->free_del_uk;
+                        $isParentCatHasFreeDel = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+            $product->payback = $category->payback_uk;
+            if (!$product->payback) {
+                $isParentCatHasPayback = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasPayback) {
+                    if ($parentCategory->payback_uk) {
+                        $product->payback = $parentCategory->payback_uk;
+                        $isParentCatHasPayback = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+        } else if ($locale == 'ru') {
+            $product->free_del = $category->free_del_ru;
+            if (!$product->free_del) {
+                $isParentCatHasFreeDel = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasFreeDel) {
+                    if ($parentCategory->free_del_ru) {
+                        $product->free_del = $parentCategory->free_del_ru;
+                        $isParentCatHasFreeDel = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+            $product->payback = $category->payback_ru;
+            if (!$product->payback) {
+                $isParentCatHasPayback = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasPayback) {
+                    if ($parentCategory->payback_ru) {
+                        $product->payback = $parentCategory->payback_ru;
+                        $isParentCatHasPayback = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
 
         $options = Option::with('values')->get();
-
         // echo "<pre>";
         // var_dump(Document::get('option', 'title', 3, "ru"));
         // echo "</pre>";
         // exit;
-
         $selected_product_values = $product->productValues()->get();
         $selected_values = null;
 

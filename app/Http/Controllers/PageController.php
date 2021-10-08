@@ -371,6 +371,19 @@ class PageController extends Controller {
 
         $locale = App::getLocale();
 
+        // Выпадающий Список над фильтрами
+        $dropdown = CatalogDropDown::all()->sortBy('sort');
+        foreach ($dropdown as $key => $elem) {
+            if (($locale == 'ru' && $request->path() == $elem->link_ru) || ($locale == 'uk' && $request->path() == $elem->link_uk)) {
+                $firstElem = $elem;
+                unset($dropdown[$key]);
+            }
+        }
+        $dropdown = array_values($dropdown->toArray());
+        if (isset($firstElem)) {
+            array_unshift($dropdown, $firstElem->toArray());
+        }
+
         // Если это Страница Категории
 
         $instantCategory = null;
@@ -394,6 +407,34 @@ class PageController extends Controller {
             // Проверка на категорию
             if ($categorySlug) {
                 $instantCategory = Category::where('slug_ru', $categorySlug)->orWhere('slug_uk', $categorySlug)->with('attributes')->firstOrFail();
+                // Определяем категорию для Дропдаунов
+                foreach ($dropdown as $drop) {
+                    if ($drop['category_id'] == $instantCategory->id) {
+                        $instantCategory->drop_id = $drop->id;
+                    }
+                }
+                //   Если не нашли на категории продукта, то ищем на родительских категориях этой категории
+                if (!$instantCategory->drop_id) {
+                    $isParentCatHasDropDown = false;
+
+                    $parentCategory = Category::where('id', $instantCategory->parent_id)->first();
+                    while (!$isParentCatHasDropDown) {
+                        foreach ($dropdown as $drop) {
+                            if ($drop['category_id'] == $parentCategory->id) {
+                                $instantCategory->drop_id = $drop['id'];
+                                $isParentCatHasDropDown = true;
+                            }
+                        }
+
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                } else {
+                    $instantCategory->drop_id = null;
+                }
+
             }
             // Дочерние категории
             if ($instantCategory) {
@@ -659,19 +700,6 @@ class PageController extends Controller {
             $item['attributes'] = array_values(collect($item['attributes'])->sortByDesc('products_count')->toArray());
             return $item;
         })->toArray());
-
-        // Выпадающий Список над фильтрами
-        $dropdown = CatalogDropDown::all()->sortBy('sort');
-        foreach ($dropdown as $key => $elem) {
-            if (($locale == 'ru' && $request->path() == $elem->link_ru) || ($locale == 'uk' && $request->path() == $elem->link_uk)) {
-                $firstElem = $elem;
-                unset($dropdown[$key]);
-            }
-        }
-        $dropdown = array_values($dropdown->toArray());
-        if (isset($firstElem)) {
-            array_unshift($dropdown, $firstElem->toArray());
-        }
 
 
         // Описание:

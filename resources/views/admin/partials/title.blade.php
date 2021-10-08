@@ -72,21 +72,38 @@
 
                 </div>
             @endif
-        @if($description)
-            <div class="form-group">
-                <label for="desc">Описание:</label>
-                <div class="w-100">
-                  <editor-component :name="{{ json_encode('description_' . $lang->locate_code)}}" :v="{{ $lang->locate_code == 'ru' ? json_encode(@optional($item)->description_ru) : json_encode(@optional($item)->description_uk) }}"></editor-component>
+            @if($description)
+                <div class="form-group">
+                    <label for="desc">Описание:</label>
+                    <div class="w-100">
+                      <editor-component :name="{{ json_encode('description_' . $lang->locate_code)}}" :v="{{ $lang->locate_code == 'ru' ? json_encode(@optional($item)->description_ru) : json_encode(@optional($item)->description_uk) }}"></editor-component>
+
+                    </div>
+                </div>
+            @endif
+
+            @if(isset($free_del))
+                <div class="form-group">
+                    <label for="desc">Бесплатная доставка:</label>
+                    <div class="w-100">
+                        <editor-component :name="{{ json_encode('free_del_' . $lang->locate_code)}}" :v="{{ $lang->locate_code == 'ru' ? json_encode(@optional($item)->free_del_ru) : json_encode(@optional($item)->free_del_uk) }}"></editor-component>
+
+                    </div>
 
                 </div>
-                    {{--<textarea id="editor1" name="description_{{ $lang->locate_code }}"
-                              --}}{{--id="editor_{{ $key }}"--}}{{--
-                              class="form-control">
-                    {{ @optional($item)->data[$lang->locate_code]['desc'] ?: old('description_' . $lang->locate_code) }}
-                </textarea>--}}
+            @endif
 
-            </div>
-        @endif
+            @if(isset($payback))
+                <div class="form-group">
+                    <label for="desc">Возврат и гарантия:</label>
+                    <div class="w-100">
+                        <editor-component :name="{{ json_encode('payback_' . $lang->locate_code)}}" :v="{{ $lang->locate_code == 'ru' ? json_encode(@optional($item)->payback_ru) : json_encode(@optional($item)->payback_uk) }}"></editor-component>
+
+                    </div>
+
+                </div>
+            @endif
+
             @if(isset($slider))
                 <div class="form-group pl-0">
                     <label for="button_{{ $lang->locate_code }}">Название кнопки:</label>

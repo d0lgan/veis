@@ -6,7 +6,7 @@ let store = {
     state:{
         cart: cart ? JSON.parse(cart) : [],
         cartCount: cartCount ? JSON.parse(cartCount) : 0,
-        totalPrice: totalPrice ? JSON.parse(totalPrice) : 0,
+        totalPrice: totalPrice,
     },
     mutations: {
         addToCart(state, item){
@@ -26,7 +26,7 @@ let store = {
 
             if(need === false){
                 let add = true;
-                let selected_item = [];
+                /*let selected_item = [];
                 item.options.forEach((opt) => {
                     if(opt.select !== null){
                         selected_item.push(opt.select);
@@ -47,20 +47,20 @@ let store = {
                             prod.totalPrice += prod.price;
                         }
                     }
-                });
+                });*/
 
                 if(add){
                     let date = new Date();
                     let now = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
                     let price = 0;
-                    for(let i = 0;i < item.options.length;i++){
+                    /*for(let i = 0;i < item.options.length;i++){
                         if(item.options[i].select !== undefined && item.options[i].select !== null){
                             let value = item.options[i].product_values.find(value => value.value_option_id === parseInt(item.options[i].select));
                             if(value){
                                 price += parseInt(value.price_option);
                             }
                         }
-                    }
+                    }*/
 
                     if(item.status_stock){
                         price += parseInt(item.price_stock);

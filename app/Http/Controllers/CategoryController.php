@@ -318,12 +318,15 @@ class CategoryController extends Controller
         $category->meta_h1_uk = $request->meta_uk;
         $category->seo_ru = $request->seo_ru;
         $category->seo_uk = $request->seo_uk;
+        $category->free_del_ru = $request->free_del_ru;
+        $category->free_del_uk = $request->free_del_uk;
+        $category->payback_ru = $request->payback_ru;
+        $category->payback_uk = $request->payback_uk;
         $category->sort = $request->sort;
         $category->description_ru = $request->description_ru;
         $category->description_uk = $request->description_uk;
         $category->parent_id   = $request->parent_id;
         $category->at_home = $request->at_home;
-
 
 
         //создаем изображение
@@ -384,7 +387,7 @@ class CategoryController extends Controller
         $categories = Category::get()
             ->pluck('title_ru', 'id')
             ->prepend('Выбрать', 0);
-        
+
         $attributes = Attribute::get()->toArray();
         foreach ($attributes as $key => $attribute) {
             $attribute += ['title' => $attribute['name_ru']];
@@ -441,6 +444,10 @@ class CategoryController extends Controller
         $category->sort = $request->sort;
         $category->seo_ru = $request->seo_ru;
         $category->seo_uk = $request->seo_uk;
+        $category->free_del_ru = $request->free_del_ru;
+        $category->free_del_uk = $request->free_del_uk;
+        $category->payback_ru = $request->payback_ru;
+        $category->payback_uk = $request->payback_uk;
         $category->description_ru = $request->description_ru;
         $category->description_uk = $request->description_uk;
         $category->parent_id   = $request->parent_id;

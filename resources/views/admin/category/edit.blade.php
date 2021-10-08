@@ -48,7 +48,7 @@
                                         </ul>
 
                                         <div style="background-color: #fff" class="tab-content">
-                                            @include('admin.partials.title', ['item' => $category, 'title' => true,  'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                            @include('admin.partials.title', ['item' => $category, 'title' => true,  'description' => true, 'free_del' => true, 'payback' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -80,7 +80,7 @@
                                                     <input type="number" value="{{ $category->sort }}" name="sort" class="form-control">
                                                 </div>
                                             </div>
-                                            
+
 
                                             <div class="d-flex">
                                                 @if($category->image)
