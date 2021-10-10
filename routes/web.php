@@ -16,6 +16,7 @@ if (env('APP_DEBUG')) {
 }
 
 Route::get('/sendemail', 'PageController@mail');
+Route::get('/emailMessage', 'PageController@emailMessage');
 
 /*страницы*/
 Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], function () {

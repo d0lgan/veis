@@ -120,11 +120,11 @@ class SiteApiController extends Controller
         // Получение тегов
         if ($instantCategories) {
             $tags = Tag::withCount(['products' => function ($query) use ($instantCategories) {
-                $query->whereIn('category_id', $instantCategories)->orWhere(function ($que) use ($instantCategories) {
+                $query->whereIn('category_id', $instantCategories)/*->orWhere(function ($que) use ($instantCategories) {
                     $que->whereHas('categories', function ($q) use ($instantCategories) {
                         $q->whereIn('categories.id', $instantCategories);
                     });
-                })->defaultFiltersForProducts();
+                })*/->defaultFiltersForProducts();
             }])->get()->map->toArray()->sortByDesc('products_count');
         } else if ($instantManufacturer) {
             $tags = Tag::withCount(['products' => function ($query) use ($instantManufacturer) {

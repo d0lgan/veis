@@ -410,7 +410,7 @@ class PageController extends Controller {
                 // Определяем категорию для Дропдаунов
                 foreach ($dropdown as $drop) {
                     if ($drop['category_id'] == $instantCategory->id) {
-                        $instantCategory->drop_id = $drop->id;
+                        $instantCategory->drop_id = $drop['id'];
                     }
                 }
                 //   Если не нашли на категории продукта, то ищем на родительских категориях этой категории
@@ -931,5 +931,11 @@ class PageController extends Controller {
         } else {
             return redirect('/')->with('order', 'success');
         }
+    }
+
+    public function emailMessage() {
+        $order = Order::where('id', 184)->firstOrFail();
+        $locale = App::getLocale();
+        return view('emails.user.create_order', ['order' => $order, 'locale' => $locale]);
     }
 }
