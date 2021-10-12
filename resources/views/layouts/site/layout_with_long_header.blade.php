@@ -69,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#/">{{ __('site.menu.blog') }}</a>
+                    <a href="{{ route('blog') }}">{{ __('site.menu.blog') }}</a>
                     <a href="#/">{{ __('site.menu.reviews') }}</a>
                 </nav>
                 <div class="top__head_info">
@@ -148,7 +148,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="#/">{{ __('site.menu.blog') }}</a>
+                <a href="{{ route('blog') }}">{{ __('site.menu.blog') }}</a>
             </div>
             <a href="#/" class="hide__btn">{{ __('site.menu.call_me') }}</a>
 
