@@ -5612,9 +5612,9 @@ textarea {
 @media screen and (max-width: 600px) {
   .product-card__description-head {
     padding-right: 40px;
-    font-size: 13px !important; }
+    font-size: 12px !important; }
   .product-card__description-text {
-    font-size: 13px !important;
+    font-size: 12px !important;
   }
 
   h1 {

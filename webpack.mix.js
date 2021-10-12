@@ -20,6 +20,10 @@ mix.styles([
     'resources/assets/front/css/main.css',
 ], 'public/assets/front/css/front.css');
 
+mix.styles([
+    'resources/assets/front/css/email.css'
+], 'public/assets/front/css/email.css');
+
 mix.scripts([
     'resources/assets/front/js/select.js',
     'resources/assets/front/js/slick.min.js',

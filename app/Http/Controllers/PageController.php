@@ -29,6 +29,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
+use phpDocumentor\Reflection\Types\Self_;
 use Session;
 use App\Product;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -390,17 +391,20 @@ class PageController extends Controller {
         $childCategories = null;
         if (\Request::route()->getName() == 'category') {
             if ($categorySlug) {
-                if ($locale == 'ru') {
-                    // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
-                    $category = Category::where('slug_uk', $categorySlug)->first();
-                    if ($category) {
-                        return redirect('/ru/category/' . $category->slug_ru);
-                    }
-                } else if ($locale == 'uk') {
-                    //
-                    $category = Category::where('slug_ru', $categorySlug)->first();
-                    if ($category) {
-                        return redirect('/category/' . $category->slug_uk);
+                // Проверка сработает если slug_uk равен slug_ru
+                if (Category::where('slug_uk', $categorySlug)->first() != Category::where('slug_ru', $categorySlug)->first()) {
+                     if ($locale == 'ru') {
+                        // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
+                        $category = Category::where('slug_uk', $categorySlug)->first();
+                        if ($category) {
+                            return redirect('/ru/category/' . $category->slug_ru);
+                        }
+                    } else if ($locale == 'uk') {
+                        //
+                        $category = Category::where('slug_ru', $categorySlug)->first();
+                        if ($category) {
+                            return redirect('/category/' . $category->slug_uk);
+                        }
                     }
                 }
             }
@@ -418,17 +422,19 @@ class PageController extends Controller {
                     $isParentCatHasDropDown = false;
 
                     $parentCategory = Category::where('id', $instantCategory->parent_id)->first();
-                    while (!$isParentCatHasDropDown) {
-                        foreach ($dropdown as $drop) {
-                            if ($drop['category_id'] == $parentCategory->id) {
-                                $instantCategory->drop_id = $drop['id'];
-                                $isParentCatHasDropDown = true;
+                    if ($parentCategory) {
+                        while (!$isParentCatHasDropDown) {
+                            foreach ($dropdown as $drop) {
+                                if ($drop['category_id'] == $parentCategory->id) {
+                                    $instantCategory->drop_id = $drop['id'];
+                                    $isParentCatHasDropDown = true;
+                                }
                             }
-                        }
 
-                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
-                        if (!$parentCategory) {
-                            break;
+                            $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                            if (!$parentCategory) {
+                                break;
+                            }
                         }
                     }
                 } else {
@@ -644,56 +650,14 @@ class PageController extends Controller {
 
 
         // Объединение цветов линз
-        $firstElement = true;
-        foreach ($filters as $key => $group) {
-            if ($group['title_ru'] != 'Цвет линз') continue;
-
-            if($firstElement) {
-                $firstElement = false;
-                $firstElementId = $key;
-            } else {
-                foreach ($group['attributes'] as $attribute) {
-                    $isColorInMainGroup = false;
-                    foreach ($filters[$firstElementId]['attributes'] as $indexOfMainAttr => $mainAttribute) {
-                        if ($attribute['name_ru'] == $mainAttribute['name_ru']) {
-                            $isColorInMainGroup = true;
-                            $filters[$firstElementId]['attributes'][$indexOfMainAttr]['products_count'] += $attribute['products_count'];
-                        }
-                    }
-
-                    if (!$isColorInMainGroup) {
-                        array_push($filters[$firstElementId]['attributes'], $attribute);
-                    }
-                }
-                unset($filters[$key]);
-            }
-        }
-
+        $filters = self::unionFilterForFirstWord($filters, 'Цвет линз');
         // Объединение типов
-        $firstElement1 = true;
-        foreach ($filters as $key => $group) {
-            if ($group['title_ru'] != 'Тип') continue;
+        $filters = self::unionFilterForFirstWord($filters, 'Тип');
+        // Объединение цветов
+        $filters = self::unionFilterForFirstWord($filters, 'Цвет');
+        // Объединение подкладок
+        $filters = self::unionFilterForFirstWord($filters, 'Подкладка');
 
-            if($firstElement1) {
-                $firstElement1 = false;
-                $firstElementId1 = $key;
-            } else {
-                foreach ($group['attributes'] as $attribute) {
-                    $isColorInMainGroup = false;
-                    foreach ($filters[$firstElementId1]['attributes'] as $indexOfMainAttr => $mainAttribute) {
-                        if ($attribute['name_ru'] == $mainAttribute['name_ru']) {
-                            $isColorInMainGroup = true;
-                            $filters[$firstElementId1]['attributes'][$indexOfMainAttr]['products_count'] += $attribute['products_count'];
-                        }
-                    }
-
-                    if (!$isColorInMainGroup) {
-                        array_push($filters[$firstElementId1]['attributes'], $attribute);
-                    }
-                }
-                unset($filters[$key]);
-            }
-        }
 
         // Сортировка атрибутов группы атрибутов по количеству привязанных продуктов
         $filters = array_values(collect($filters)->map(function ($item) {
@@ -925,6 +889,11 @@ class PageController extends Controller {
 	    return view('site.search', compact('translate', 'locale', 'query', 'page'));
     }
 
+    public function blog() {
+        $locale = App::getLocale();
+        return view('site.blog', compact('locale'));
+    }
+
     public function takeOrder() {
 	    if (App::getLocale() == 'ru') {
             return redirect('/ru')->with('order', 'success');
@@ -937,5 +906,37 @@ class PageController extends Controller {
         $order = Order::where('id', 184)->firstOrFail();
         $locale = App::getLocale();
         return view('emails.user.create_order', ['order' => $order, 'locale' => $locale]);
+    }
+
+
+
+    // Объединение фильтров в группе фильтров по первому слову
+    public function unionFilterForFirstWord($filters, $title) {
+        $firstElement = true;
+        foreach ($filters as $key => $group) {
+            if ($group['title_ru'] != $title) continue;
+
+            if($firstElement) {
+                $firstElement = false;
+                $firstElementId = $key;
+            } else {
+                foreach ($group['attributes'] as $attribute) {
+                    $isColorInMainGroup = false;
+                    foreach ($filters[$firstElementId]['attributes'] as $indexOfMainAttr => $mainAttribute) {
+                        if ($attribute['name_ru'] == $mainAttribute['name_ru']) {
+                            $isColorInMainGroup = true;
+                            $filters[$firstElementId]['attributes'][$indexOfMainAttr]['products_count'] += $attribute['products_count'];
+                        }
+                    }
+
+                    if (!$isColorInMainGroup) {
+                        array_push($filters[$firstElementId]['attributes'], $attribute);
+                    }
+                }
+                unset($filters[$key]);
+            }
+        }
+
+        return $filters;
     }
 }

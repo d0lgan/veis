@@ -472,7 +472,6 @@
                         this.id = res.data.id;
                     });
                 });
-
             },
             updateOrder: function (confirm = false, usefulData = false) {
                 /*this.order.delivery = this.delivery;

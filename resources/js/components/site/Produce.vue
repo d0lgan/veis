@@ -220,8 +220,9 @@ s<template>
                             <div class="product-card__description-body" v-if="attributes[0]">
                                 <div class="prod-table">
                                     <div class="prod-table__row" v-for="attribute in attributes">
-                                        <p class="prod-table__title">{{ ucFirst(attribute.title) }}:
-                                        </p>
+                                        <p class="prod-table__title" v-if="attribute.title != false">{{ ucFirst(attribute.title) }}: </p>
+                                        <p class="prod-table__title" v-else></p>
+
                                         <div style="display: flex;" :class="{ intheline: attribute.title == 'Особливості' || attribute.title == 'Особенности' || attribute.title == 'Уникальность' || attribute.title == 'Унікальність' }">
                                             <p class="prod-table__text" :class="{ mar: attribute.selected.length > 1 }" v-for="(select, key) in attribute.selected">
                                                 {{ ucFirst(selectAttr(attribute.selected[key], attribute.params)) }}
