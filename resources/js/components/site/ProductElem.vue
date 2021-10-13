@@ -24,8 +24,13 @@
         <div class="product__hide">
             <div class="product__hide_inner">
                 <div class="product__hide_colors" v-if="relations">
+
+                        <img @click="prevPage()" v-if="pageOfRelation > 0" class="product__hide_iteam" src="/assets/front/img/left.svg" style="width: 25%; height: 30px;">
+
                         <img class="product__hide_iteam" :src="'/house/uploads/' + relation.image" alt=""
-                          v-for="(relation, key) in relations" @click="swapProduct(key)">
+                          v-for="(relation, key) in paginatedRelations" @click="swapProduct(key)">
+
+                        <img @click="nextPage()" v-if="pageOfRelation < countOfPages - 1" class="product__hide_iteam" src="/assets/front/img/next.svg" style="width: 25%; height: 30px;">
 
                     <!--<img class="product__hide_iteam" :src="'/house/uploads/' + img.name" alt="" v-for="img in product.galleries" v-if="!(img.name.substr(0, 7) == 'futlyar')">
                     <div class="product__icon_box">
@@ -77,6 +82,9 @@
             return {
                 fullProduct: [],
                 relations: [],
+                paginatedRelations: [],
+                pageOfRelation: 0,
+                countOfPages: 0,
             }
         },
         props: [
@@ -90,9 +98,38 @@
             if (this.product.relations) {
                 this.relations = this.product.relations;
             }
+
+            this.countOfPages = Math.floor((this.relations.length - 5) / 4) + 2;
+
+            if (this.relations.length > 6) {
+                this.paginatedRelations = this.relations.slice(0, 5);
+            } else {
+                this.paginatedRelations = this.relations;
+            }
+        },
+
+        watch: {
+            pageOfRelation: function () {
+                if (this.pageOfRelation == 0) {
+                    this.paginatedRelations = this.relations.slice(0, 5);
+                } else if (this.pageOfRelation == this.countOfPages) {
+
+                } else {
+                    let lastPageStartIndex = (this.countOfPages - 1) * 4 + 1;
+                    this.paginatedRelations = this.relations.slice(lastPageStartIndex);
+                }
+            }
         },
 
         methods: {
+            nextPage() {
+                this.pageOfRelation++;
+            },
+
+            prevPage() {
+                this.pageOfRelation--;
+            },
+
             firstTwoLetterInProduct(product) {
                 if (this.locale == 'ru') {
                     return product.title_ru.split(" ").slice(0, 2).join(' ');
@@ -110,10 +147,11 @@
             },
 
             swapProduct(relationIndex) {
+                console.log(relationIndex);
+
                 let mainProd = this.product;
-                this.product = this.relations[relationIndex];
-                this.relations.splice(relationIndex, 1, mainProd);
-                console.log(this.relations, relationIndex);
+                this.product = this.paginatedRelations[relationIndex];
+                this.paginatedRelations.splice(relationIndex, 1, mainProd);
             },
 
             addToCart: function () {

@@ -1117,7 +1117,7 @@ class ApiController extends Controller
         if($order){
             $change_status = $request['order']['status'] !== $order->status ? true : false;
 
-            if($request->products){
+            /*if($request->products){
                 $prod = [];
 
                 for($i = 0;$i < count($request->products);$i++){
@@ -1142,7 +1142,7 @@ class ApiController extends Controller
 
             if ($request['products']) {
                 $order->products = $request['products'];
-            }
+            }*/
 
             $order->name = $request['order']['name'];
             $order->surname = $request['order']['surname'];

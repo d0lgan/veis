@@ -11,7 +11,7 @@
                 <category-component :default_category="product.category_id"
                                     :categories="categories_json"></category-component>
             </div>
-            
+
             <div class="col-md-6 form-group">
                 <div id="app">
                     <select-component :default="product.categories"
@@ -20,7 +20,7 @@
                                       :titleOrName="'title'"
                                       id="category"></select-component>
                 </div>
-            </div> 
+            </div>
 
             <div class="col-md-3 form-group">
                 <label>Сортировка</label>
@@ -97,7 +97,7 @@
                             <input v-model="price" class="form-control" type="text" name="price"
                                    id="price">
                         </div>
-    
+
                         <div class="form-group col-md-1">
                             <label for="percent">%</label>
                             <input v-model="percent" @change="changePrice()" class="form-control" type="text" name="percent"
@@ -150,17 +150,17 @@
                     <label for="" class="form-label">Ширина линзы (мм)</label>
                     <input type="text" v-model="data.lens_width" class="form-control"/>
                 </div>
-                
+
                 <div class="form-group col-md-2">
                     <label for="" class="form-label">Ширина моста (мм)</label>
                     <input type="text" v-model="data.bridge_width" class="form-control"/>
                 </div>
-                
+
                 <div class="form-group col-md-2">
                     <label for="" class="form-label">Длинна дужки (мм)</label>
                     <input type="text" v-model="data.long_arms" class="form-control"/>
                 </div>
-                
+
                 <div class="form-group col-md-3">
                     <label for="" class="form-label">Ширина оправы (мм)</label>
                     <input type="text" v-model="data.frame_width" class="form-control"/>
@@ -249,7 +249,6 @@
                 if(this.ude !== null && this.course !== null){
                     this.price = Math.ceil(this.ude * this.course);
                 }
-
                 if(this.percent !== null && this.price !== null){
                     this.undiscounted = Math.ceil((this.price / (100 - this.percent)) * 100);
                 }
@@ -274,13 +273,15 @@
             },
 
             price(val) {
-                if (this.percent != 0) {
+                if (this.percent != null && this.percent != 0) {
                     this.undiscounted = Math.round(val * (1 + this.percent / 100));
                 }
             },
 
             percent(val) {
-                this.undiscounted = Math.round(this.price * (1 + val / 100));
+                if (this.percent != null && this.percent != 0) {
+                    this.undiscounted = Math.round(this.price * (1 + val / 100));
+                }
             }
         },
         mounted() {

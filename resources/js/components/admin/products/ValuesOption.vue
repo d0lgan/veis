@@ -5,7 +5,7 @@
             <div class="col-md-12 form-group">
                 <ul class="nav nav-tabs" id="language">
                     <li v-for="(lang, key) in langs" class="nav-item" :class="{active: key === 0}"><a
-                        :href="`#language_main_` + lang.locate_code" data-toggle="tab" class="nav-link" :class="{active: key === 0}" 
+                        :href="`#language_main_` + lang.locate_code" data-toggle="tab" class="nav-link" :class="{active: key === 0}"
                         >
                         <img style="height: 25px;" v-if="lang.locate_code === 'ru'" src="/images/russia.svg" alt="">
                         <img style="height: 25px;" v-else src="/images/ukraine.svg" alt="">
@@ -51,7 +51,7 @@
                     <h3 class="col-10">Значение опции</h3>
 
                     <div class="col-2 d-flex justify-content-center">
-                        <div class="d-flex justify-content-center align-items-center" style="width: 35px;height: 35px; background-color: #249d3d; border-radius: 50%; cursor: pointer;" @click="addItem"><i style="color: #fff" class="fas fa-plus"></i></div>
+                        <div class="d-flex justify-content-center align-items-center" style="width: 35px;height: 35px; background-color: #249d3d; border-radius: 50%; cursor: pointer;" @click="addItem()"><i style="color: #fff" class="fas fa-plus"></i></div>
                     </div>
                 </div>
                 <div class="col-md-12 form-group">
@@ -71,7 +71,7 @@
                             <div  v-for="(item, key) in items">
                                 <div class="row no-gutters d-flex justify-content-between align-items-center">
                                     <input type="hidden" v-model="item.id" name="idv[]">
-                                    
+
                                     <div class="col-10 d-flex justify-content-between">
                                         <div class="form-group p-0 col-md-4" v-if="select == 'checkbox'">
                                             <label :for="'value_' + key">Значение {{ lang.locate_code }}</label>

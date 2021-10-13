@@ -184,8 +184,8 @@
         </div>
     </div>
 </section>
-{{--<section class="blog">
-    <!-- <div class="mobile__product">
+<section class="blog">
+    <div class="mobile__product">
         <div class="media__foot_iteam">
             <span>БЛОГ</span>
             <img src="/assets/front/img/down_white.png">
@@ -205,7 +205,7 @@
             <a href="#/">КАК ВЫБРАТЬ ПОДАРОК ЖЕНЩИНЕ</a>
             <a href="#/">TIFOSI – ВЕДУЩИЙ БРЕНД НА РЫНКЕ</a>
         </div>
-    </div> -->
+    </div>
     <div class="product__king second__kind">
         <pre><span class="product__king_active">БЛОГ</span>   /   <span>INSTAGRAM</span></pre>
     </div>
@@ -467,7 +467,7 @@
         </a>
     </div>
 
-</section>--}}
+</section>
 <section class="consul">
     <img src="/assets/front/img/consul.webp" class="consul__foto">
     <div class="consul__block">

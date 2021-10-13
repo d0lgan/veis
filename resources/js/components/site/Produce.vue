@@ -155,7 +155,6 @@ s<template>
                                     @click="checkOptionsPopups(key)">{{ titleOptions[key] }}</div>
 
                                     <select>
-                                        <option value="0">Выберите {{ option.option.title_ru }}</option>
                                         <option value="2" v-for="value in option.product_values">{{ value.value_option.value_ru }}</option>
                                     </select>
 
@@ -163,12 +162,12 @@ s<template>
                                          style="width: 240px;">
                                         <div class="select-content">
                                             <ul class="select-options">
-                                                <li class="select-option-item" @click="
+<!--                                                <li class="select-option-item" @click="
                                                     checkOptionsPopups(key)
                                                     titleOptions[key] = getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk;
                                                     ">
                                                     {{ getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk }}
-                                                </li>
+                                                </li>-->
                                                 <li class="select-option-item" v-for="value in option.product_values"
                                                     @click="
                                                         product.options[key].select = value.value_option_id;
@@ -796,6 +795,7 @@ s<template>
                 dateForDiscount: '',
                 selectOption: null,
                 titleOptions: [],
+
             }
         },
         methods: {
