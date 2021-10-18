@@ -247,6 +247,28 @@ class Product extends \Illuminate\Database\Eloquent\Model
                                 }
                             }
                         }
+                        if ($index == 38) {
+                            $colors = Attribute::whereIn('id', $filter)->get();
+                            $attrs = Attribute::where('group_attribute_id', 38)->get();
+                            foreach ($attrs as $attr) {
+                                foreach ($colors as $color) {
+                                    if ($attr->id != $color->id && (explode(' ', trim($attr->name_ru))[0] == explode(' ', trim($color->name_ru))[0])) {
+                                        array_push($filter, $attr->id);
+                                    }
+                                }
+                            }
+                        }
+                        if ($index == 37) {
+                            $colors = Attribute::whereIn('id', $filter)->get();
+                            $attrs = Attribute::where('group_attribute_id', 37)->get();
+                            foreach ($attrs as $attr) {
+                                foreach ($colors as $color) {
+                                    if ($attr->id != $color->id && (explode(' ', trim($attr->name_ru))[0] == explode(' ', trim($color->name_ru))[0])) {
+                                        array_push($filter, $attr->id);
+                                    }
+                                }
+                            }
+                        }
 
                         if ($index == 18) {
                             $colors = Attribute::whereIn('id', $filter)->get()->pluck('name_ru');

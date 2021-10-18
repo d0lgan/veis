@@ -137,7 +137,7 @@ s<template>
                                     <span class="product-card__btn-inner">{{ translate.no_availability }}</span>
                                 </a>
 
-                                <a href="#" class="product-card__btn product-card__btn--default" data-modal-open="colors" v-if="product.how_size != null">
+                                <a href="#" class="product-card__btn product-card__btn--default" data-modal-open="how_size" v-if="product.how_size != null">
                                     <span class="product-card__btn-inner"></span>
                                     {{ getLang ? product.how_size_ru : product.how_size_uk }}
                                 </a>
@@ -149,34 +149,64 @@ s<template>
                             <p class="options__title">{{ translate.select_options }}</p>
                             <div class="product-card__flexer" style="justify-content: flex-start !important;">
                                 <div class="select select-custom" v-for="(option, key) in product.options" :key="option.option.id">
+                                    <div v-if="option.option.id != 5">
 
-                                    <div class="select-inner" style="padding-left: 10px;"
-                                    @focusout="closeOptionsPopupsWithDelay();"
-                                    @click="checkOptionsPopups(key)">{{ titleOptions[key] }}</div>
+                                        <div class="select-inner" style="padding-left: 10px;"
+                                             @focusout="closeOptionsPopupsWithDelay();"
+                                             @click="checkOptionsPopups(key)">{{ titleOptions[key] }}</div>
 
-                                    <select>
-                                        <option value="2" v-for="value in option.product_values">{{ value.value_option.value_ru }}</option>
-                                    </select>
-
-                                    <div class="select-wrapper" data-select="2" v-if="selectOption == key"
-                                         style="width: 240px;">
-                                        <div class="select-content">
-                                            <ul class="select-options">
-<!--                                                <li class="select-option-item" @click="
-                                                    checkOptionsPopups(key)
-                                                    titleOptions[key] = getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk;
-                                                    ">
-                                                    {{ getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk }}
-                                                </li>-->
-                                                <li class="select-option-item" v-for="value in option.product_values"
-                                                    @click="
+                                        <div class="select-wrapper" data-select="2" v-if="selectOption == key"
+                                             style="width: 240px;">
+                                            <div class="select-content">
+                                                <ul class="select-options">
+                                                    <!--                                                <li class="select-option-item" @click="
+                                                                                                        checkOptionsPopups(key)
+                                                                                                        titleOptions[key] = getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk;
+                                                                                                        ">
+                                                                                                        {{ getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk }}
+                                                                                                    </li>-->
+                                                    <li class="select-option-item" v-for="value in option.product_values"
+                                                        @click="
                                                         product.options[key].select = value.value_option_id;
                                                         titleOptions[key] = getLang ? value.value_option.value_ru : value.value_option.value_uk;
                                                         checkOptionsPopups(key)
                                                     ">
-                                                    {{ getLang ? value.value_option.value_ru : value.value_option.value_uk }}
-                                                </li>
-                                            </ul>
+                                                        {{ getLang ? value.value_option.value_ru : value.value_option.value_uk }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-else>
+                                        <div class="select-inner" style="padding-left: 10px;" data-modal-open="colors"
+                                             @focusout="closeOptionsPopupsWithDelay();"
+                                             @click="checkOptionsPopups(key)">
+                                            {{ titleOptions[key] }}
+                                        </div>
+
+
+
+                                        <div class="modal-box colors-modal" data-modal-name="colors">
+                                            <div class="modal-box__bg" data-modal-closer></div>
+                                            <div class="modal-box__wrapper">
+                                                <img src="/assets/front/img/buy_close.svg" alt="" class="closer" data-modal-closer>
+                                                <div class="modal-box__wrap">
+                                                    <div class="colors-modal__item" v-for="value in option.product_values"  data-modal-closer
+                                                             @click="
+                                                            product.options[key].select = value.value_option_id;
+                                                            titleOptions[key] = getLang ? value.value_option.value_ru : value.value_option.value_uk;
+                                                            checkOptionsPopups(key)
+                                                        ">
+<!--                                                        <span class="colors-modal__item-num">
+                                                            1210
+                                                        </span>-->
+                                                        <img :src="'/house/uploads/' + value.value_option.image" alt="">
+                                                        <p class="colors-modal__item-text">
+                                                            {{ getLang ? value.value_option.value_ru : value.value_option.value_uk }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -757,7 +787,7 @@ s<template>
 
 
 
-        <div class="modal-box colors-modal" data-modal-name="colors">
+        <div class="modal-box colors-modal" data-modal-name="how_size">
             <div class="modal-box__bg" data-modal-closer></div>
             <div class="modal-box__wrapper">
                 <img src="/assets/front/img/buy_close.svg" alt="" class="closer" data-modal-closer>
@@ -767,6 +797,12 @@ s<template>
             </div>
         </div>
     </div>
+
+
+
+
+
+
 </template>
 
 <script>

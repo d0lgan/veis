@@ -48,15 +48,15 @@
 
             <div class="ordered-products">
                 <h1>Ваши заказанные товары</h1>
-                <span class="full-list">Полный список заказанных Вами товаров в нашем интернет-магазине <a href="{{ route('home') }}">veis.dp.ua</a></span>
+                <span class="full-list gray-text">Полный список заказанных Вами товаров в нашем интернет-магазине <a href="{{ route('home') }}">veis.dp.ua</a></span>
             </div>
 
             <div class="products">
                 <div class="product">
                     <div class="data">
                         <span class="title">Сумка из натур кожи</span>
-                        <div class="model">Polaroid 53454534</div>
-                        <div class="attributes">
+                        <div class="model gray-text">Polaroid 53454534</div>
+                        <div class="attributes gray-text">
                             <span>Цвет: Красный</span>
                             <span>Размер: 6</span>
                             <span>Подкладка: Шерсть</span>
@@ -70,8 +70,8 @@
                 <div class="product">
                     <div class="data">
                         <span class="title">Сумка из натур кожи</span>
-                        <div class="model">Polaroid 53454534</div>
-                        <div class="attributes">
+                        <div class="model gray-text">Polaroid 53454534</div>
+                        <div class="attributes gray-text">
                             <span>Цвет: Красный</span>
                             <span>Размер: 6</span>
                             <span>Подкладка: Шерсть</span>
@@ -94,15 +94,22 @@
 
                 <div class="price">
                     <div class="price-row left">
-                        <span class="del">Стоимость доставки:</span>
+                        <span class="del gray-text">Стоимость доставки:</span>
                         <span class="total_price">К оплате:</span>
                     </div>
                     <div class="price-row right">
-                        <span class="del">бесплатно</span>
+                        <span class="del gray-text">бесплатно</span>
                         <span class="total_price">19493 грн</span>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="gray-block">
+
+<!--                TODO: ДОВЕРСТАТЬ БЛОКИ ДАННЫЕ ПОКУПАТЕЛЯ И ФУТЕР
+            + ПРАВКИИИИИИИИИИИИИ-->
+
         </div>
     </div>
 </container>

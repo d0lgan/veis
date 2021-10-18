@@ -15,7 +15,6 @@
                             <a v-if="slide.additional_button !== false || slide.additional_link !== null" :href="slide.additional_link" class="btn btn-primary col-6">{{ slide.additional_button }}</a>
                         </div>
                     </div>
-
                 </li>
             </ul>
 

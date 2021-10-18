@@ -570,24 +570,13 @@ class PageController extends Controller {
                 unset($filters[$key]['attributes'][2]);
             }
 
-            if ($group['id'] == 19) {
+            // Объединение по первому слову
+            if ($group['id'] == 19 || $group['id'] == 38 || $group['id'] == 37) {
                 $attrs = collect($group['attributes']);
 
                 $attrs = $attrs->groupBy(function ($item, $key) {
                     return explode(' ',trim($item['name_ru']))[0];
                 });
-
-                /*foreach ($attrs as $attr) {
-                    $unAttrs = [];
-                    $firstWord = explode(' ',trim($attr['name_ru']))[0];
-                    dump(array_key_exists($firstWord, $unAttrs), $firstWord, $unAttrs);
-                    if (!array_key_exists($firstWord, $unAttrs)) {
-                        $unAttrs[$firstWord] = $attr;
-                    } else {
-
-                    }
-                }*/
-
 
                 $uniqueAttrs = $attrs->flatMap(function ($values) use ($filters, $key) {
                     if (count($values) > 1) {
@@ -653,10 +642,6 @@ class PageController extends Controller {
         $filters = self::unionFilterForFirstWord($filters, 'Цвет линз');
         // Объединение типов
         $filters = self::unionFilterForFirstWord($filters, 'Тип');
-        // Объединение цветов
-        $filters = self::unionFilterForFirstWord($filters, 'Цвет');
-        // Объединение подкладок
-        $filters = self::unionFilterForFirstWord($filters, 'Подкладка');
 
 
         // Сортировка атрибутов группы атрибутов по количеству привязанных продуктов
