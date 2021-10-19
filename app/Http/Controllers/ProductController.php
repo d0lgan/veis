@@ -202,7 +202,7 @@ class ProductController extends Controller
                 }
                 $offer->addChild("currencyId", "UAH");
                 // $offer->addChild("categoryId", "new");
-                if ($categories[$product->id]) {
+                if (isset($product->id) && isset($categories[$product->id])) {
                     $offer->addChild("categoryId", "" . $categories[$product->id]->id);
                 } else {
                     $offer->addChild("categoryId", "cat");
