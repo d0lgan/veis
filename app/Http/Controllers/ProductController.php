@@ -42,6 +42,10 @@ use Illuminate\Support\Facades\Lang;
 use Intervention\Image\ImageManagerStatic as Image;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
+/**
+ * Class ProductController
+ * @package App\Http\Controllers
+ */
 class ProductController extends Controller
 {
     /**
@@ -237,7 +241,7 @@ class ProductController extends Controller
                     $offer->addChild("picture", $image_base_url . $img);
                 }
 
-                if ($galleriesByProductId[$product->id]) {
+                if (isset($product->id) && isset($galleriesByProductId[$product->id])) {
                     foreach ($galleriesByProductId[$product->id] as $gallery) {
                         if ($img = $convertImage($gallery->name)) {
                             $offer->addChild("picture", $image_base_url . $img);
@@ -249,14 +253,16 @@ class ProductController extends Controller
                 // <param name="Выбрать размер">42</param>
                 // <param name="Материал">шелк</param>
                 // <param name="Артикул">062_283913</param>
-                foreach ($attributeLinksByProductId[$product->id] as $attributeID) {
-                    $attribute = $attributes[$attributeID];
+                if (isset($product->id) && isset($galleriesByProductId[$product->id])) {
+                    foreach ($attributeLinksByProductId[$product->id] as $attributeID) {
+                        $attribute = $attributes[$attributeID];
 
-                    // $offer->addChild("picture", $image_base_url . $gallery->name);
-                    $param = $offer->addChild("param", $attribute->{"name_{$lang}"});
-                    $param->addAttribute("name",
-                        $attribute->group_attribute->{"title_{$lang}"}
-                    );
+                        // $offer->addChild("picture", $image_base_url . $gallery->name);
+                        $param = $offer->addChild("param", $attribute->{"name_{$lang}"});
+                        $param->addAttribute("name",
+                            $attribute->group_attribute->{"title_{$lang}"}
+                        );
+                    }
                 }
 
                 // with images??
