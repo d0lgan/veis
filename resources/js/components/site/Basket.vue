@@ -659,9 +659,6 @@
             if (!Number.isInteger(this.totalPrice)) {
                 this.updateTotalPrice();
             }
-
-
-            this.$store.commit('clearCart');
         },
 
         created() {
