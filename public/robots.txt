@@ -8,6 +8,9 @@ Disallow: /ua/search/
 Disallow: /basket/
 Disallow: /ru/basket/
 Disallow: /ua/basket/
+Disallow: /house/
+Disallow: /assets/
+Disallow: /setlocale/
 Disallow: /*?sort=
 Disallow: /*&sort=
 Disallow: /*?limit=
@@ -42,6 +45,9 @@ Disallow: /ua/search/
 Disallow: /basket/
 Disallow: /ru/basket/
 Disallow: /ua/basket/
+Disallow: /house/
+Disallow: /assets/
+Disallow: /setlocale/
 Disallow: /*?sort=
 Disallow: /*&sort=
 Disallow: /*?limit=
