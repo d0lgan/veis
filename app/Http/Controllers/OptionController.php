@@ -80,6 +80,7 @@ class OptionController extends Controller
         $option->type = $request->type;
         $option->need = $request->need;
         $option->sort = $request->sort;
+        $option->public = $request->public;
         $option->save();
 
         foreach ($langs as $lang) {
@@ -202,6 +203,7 @@ class OptionController extends Controller
         $option->title_uk = $request->title_uk;
         $option->type = $request->type;
         $option->sort = $request->sort;
+        $option->public = $request->public;
         $option->need = $request->need;
         $option->save();
 

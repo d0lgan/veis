@@ -20,6 +20,7 @@ class CreateOptionsTable extends Migration
             $table->string('type');
             $table->string('need');
             $table->string('sort');
+            $table->integer('public')->nullable()->default(1);
             $table->timestamps();
         });
     }

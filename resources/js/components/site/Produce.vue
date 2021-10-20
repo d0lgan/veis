@@ -148,7 +148,7 @@ s<template>
                         <div class="product-card__wrapbox options" v-if="product.options.length">
                             <p class="options__title">{{ translate.select_options }}</p>
                             <div class="product-card__flexer" style="justify-content: flex-start !important;">
-                                <div class="select select-custom" v-for="(option, key) in product.options" :key="option.option.id">
+                                <div class="select select-custom" v-for="(option, key) in product.options" :key="option.option.id" v-if="option.option.public == 1">
                                     <div v-if="option.option.id != 5">
 
                                         <div class="select-inner" style="padding-left: 10px;"

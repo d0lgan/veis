@@ -22,15 +22,16 @@
 
 
         <div class="product__hide">
-            <div class="product__hide_inner">
+            <div class="product__hide_inner" style="background-color: #fff">
                 <div class="product__hide_colors" v-if="relations">
 
-                        <img @click="prevPage()" v-if="pageOfRelation > 0" class="product__hide_iteam" src="/assets/front/img/left.svg" style="width: 25%; height: 30px;">
-
-                        <img class="product__hide_iteam" :src="'/house/uploads/' + relation.image" alt=""
-                          v-for="(relation, key) in paginatedRelations" @click="swapProduct(key)">
-
-                        <img @click="nextPage()" v-if="pageOfRelation < countOfPages - 1" class="product__hide_iteam" src="/assets/front/img/next.svg" style="width: 25%; height: 30px;">
+                    <carousel :navigationEnabled="true" :paginationEnabled="false" :loop="true" :perPage="2" navigationNextLabel="" navigationPrevLabel="">
+                        <slide v-for="(relation, key) in paginatedRelations" :key="relation.id">
+                            <div style="display: flex; justify-content: center;">
+                                <img style="width: 80%; height: 100%;" :src="'/house/uploads/' + relation.image" alt="" @click="swapProduct(key)">
+                            </div>
+                        </slide>
+                    </carousel>
 
                     <!--<img class="product__hide_iteam" :src="'/house/uploads/' + img.name" alt="" v-for="img in product.galleries" v-if="!(img.name.substr(0, 7) == 'futlyar')">
                     <div class="product__icon_box">
@@ -74,9 +75,14 @@
 </template>
 
 <script>
-    export default {
+    import { Carousel, Slide } from 'vue-carousel';
 
+    export default {
         name: "ProductElem",
+        components: {
+            Carousel,
+            Slide
+        },
 
         data() {
             return {
@@ -106,6 +112,10 @@
             } else {
                 this.paginatedRelations = this.relations;
             }
+
+            var resizeEvent = window.document.createEvent('UIEvents');
+            resizeEvent.initUIEvent('resize', true, false, window, 0);
+            window.dispatchEvent(resizeEvent);
         },
 
         watch: {
@@ -218,4 +228,14 @@
 
 <style scoped>
 
+.VueCarousel-navigation-button {
+    background-color: red;
+    outline: none;
+    border: none;
+}
+
+.VueCarousel-navigation-button:focus, .VueCarousel-navigation-button:hover, .VueCarousel-navigation-button:active {
+    outline: none;
+    border: none;
+}
 </style>

@@ -25,12 +25,11 @@
                                 <ul class="nav nav-tabs d-flex justify-content-start px-3" id="myTab">
                                     <li class="nav-item"><a class="nav-link active" href="#main" data-toggle="tab"><strong>Основное</strong></a></li>
                                     <li class="nav-item"><a class="nav-link" href="#seo" data-toggle="tab"><strong>SEO</strong></a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#add" data-toggle="tab">Доп</a></li>
                                 </ul>
 
 
                                 <div style="background-color: #fff" class="tab-content">
-
-
                                     <div  style="background-color: #fff" class="tab-pane p-3 active" id="main">
                                     <div class="col-md-12 form-group">
                                         <ul class="nav nav-tabs" id="language">
@@ -48,7 +47,7 @@
                                         </ul>
 
                                         <div style="background-color: #fff" class="tab-content">
-                                            @include('admin.partials.title', ['item' => $category, 'title' => true,  'description' => true, 'free_del' => true, 'payback' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                            @include('admin.partials.title', ['item' => $category, 'title' => true,  'description' => true, 'free_del' => false, 'payback' => false, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -118,7 +117,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane p-3" id="seo">
+                                    <div class="tab-pane p-3" id="seo">
                                     <div class="col-md-12 form-group">
                                         <ul class="nav nav-tabs" id="language">
                                             @foreach($langs as $key => $lang)
@@ -152,7 +151,29 @@
                                         </div>
                                     </div>
                                 </div>
+                                    <div style="background-color: #fff" class="tab-pane p-3 fade show" id="add" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="col-md-12 form-group">
+                                            <ul class="nav nav-tabs" id="language">
+                                                @foreach($langs as $key => $lang)
+                                                    <li class="nav-item"><a
+                                                            href="#language_main_{{ $lang->locate_code }}" class="nav-link {{ $key == 0 ? 'active' : null }}" data-toggle="tab" class="nav-link {{ $key == 0 ? 'active' : null }}"
+                                                            class="nav-link {{ $key == 0 ? 'active' : null }}">
+                                                            @if($lang->locate_code == 'ru')
+                                                                <img style="height: 25px;" src="{{ asset('/images/russia.svg') }}" alt="">
+                                                            @elseif($lang->locate_code == 'uk')
+                                                                <img style="height: 25px;" src="{{ asset('/images/ukraine.svg') }}" alt="">
+                                                            @endif
+                                                        </a></li>
+                                                @endforeach
+                                            </ul>
+
+                                            <div style="background-color: #fff" class="tab-content">
+                                                @include('admin.partials.title', ['item' => $category, 'title' => false,  'description' => false, 'free_del' => true, 'payback' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
 
                                 {!! Form::close() !!}
                             </div>

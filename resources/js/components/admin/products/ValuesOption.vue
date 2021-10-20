@@ -26,22 +26,29 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="type">Тип</label>
                 <select name="type" id="type" required="required" class="form-control" v-model="select"  @change="clear(select)">
                     <option v-for="type in types" :selected="selectedValue(type.value)" :value="type.value">{{ type.name }}</option>
                 </select>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="need">Требовать</label>
                 <select name="need" id="need" required="required" v-model="option.need" class="form-control">
                     <option value="0">Не требовать</option>
                     <option value="1">Требовать</option>
                 </select>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="sort">Сортировка</label>
                 <input type="text" name="sort" id="sort" required="required" class="form-control" v-model="option.sort">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="public">Отображение</label>
+                <select name="public" id="public" required="required" v-model="option.public" class="form-control">
+                    <option value="0">Нет</option>
+                    <option value="1">Да</option>
+                </select>
             </div>
         </div>
 
@@ -138,7 +145,7 @@
                 return{
                     title: '',
                     sort: '',
-                    option: {title: {'ru' : '', 'uk' : ''}, type: 'checkbox', sort: '', need: 0},
+                    option: {title: {'ru' : '', 'uk' : ''}, type: 'checkbox', sort: '', need: 0, public: 1},
                     items: [{id: 0, value: {'ru' : '', 'uk' : ''}, image: null, sorting: 1}],
                     select: 'checkbox',
                     types: [
