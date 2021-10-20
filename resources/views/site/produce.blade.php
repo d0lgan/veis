@@ -1,6 +1,6 @@
 @extends('layouts.site.layout_with_short_header')
 
-@section('title', $locale == 'ru' ? $product->title_ru : $product->title_uk)
+@section('title', $locale == 'ru' ? $product->meta_h1_ru : $product->meta_h1_uk)
 @section('locale', $locale)
 
 @section('content')

@@ -560,8 +560,6 @@ class PageController extends Controller {
             }]);
         }])->get()->map->toArray()->sortBy('sort')->toArray();
 
-
-//        dd($filters);
         foreach ($filters as $key => $group) {
             // Добавление продуктов с атрибута Унисекс в атрибуты Мужские и Женские (костыль)
             if ($group['id'] == 14) {
@@ -661,38 +659,34 @@ class PageController extends Controller {
             if ($instantRedirect->description_ru || $instantRedirect->description_uk) {
                 $desc['ru'] = $instantRedirect->description_ru;
                 $desc['uk'] = $instantRedirect->description_uk;
-                $page->title_ru = $instantRedirect->title_ru;
-                $page->title_uk = $instantRedirect->title_uk;
             }
+            $page->title_ru = $instantRedirect->meta_h1_ru;
+            $page->title_uk = $instantRedirect->meta_h1_uk;
         } else if ($instantCategory) {
             if ($instantCategory->description_ru || $instantCategory->description_uk) {
                 $desc['ru'] = $instantCategory->description_ru;
                 $desc['uk'] = $instantCategory->description_uk;
-
-                $page->title_ru = $instantCategory->title_ru;
-                $page->title_uk = $instantCategory->title_uk;
             }
+            $page->title_ru = $instantCategory->meta_h1_ru;
+            $page->title_uk = $instantCategory->meta_h1_uk;
         } else if ($instantManufacturer) {
             if ($instantManufacturer->description_ru || $instantManufacturer->description_uk) {
                 $desc['ru'] = $instantManufacturer->description_ru;
                 $desc['uk'] = $instantManufacturer->description_uk;
-
-                $page->title_ru = $instantManufacturer->title_ru;
-                $page->title_uk = $instantManufacturer->title_uk;
             }
+            $page->title_ru = $instantManufacturer->meta_h1_ru;
+            $page->title_uk = $instantManufacturer->meta_h1_uk;
         } else if ($instantTag) {
             if ($instantTag->description_ru || $instantTag->description_uk) {
                 $desc['ru'] = $instantTag->description_ru;
                 $desc['uk'] = $instantTag->description_uk;
-
-                $page->title_ru = $instantTag->title_ru;
-                $page->title_uk = $instantTag->title_uk;
             }
+            $page->title_ru = $instantTag->meta_h1_ru;
+            $page->title_uk = $instantTag->meta_h1_uk;
         } else {
-            $desc['ru'] = $page->description_ru;
-            $desc['uk'] = $page->description_uk;
+            $desc['ru'] = $page->meta_h1_ru;
+            $desc['uk'] = $page->meta_h1_uk;
         }
-
 
         /*$gg = GroupAttribute::all();
         foreach ($gg as $g) {
