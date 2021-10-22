@@ -28,7 +28,9 @@ class SiteApiController extends Controller
             request()->input('IdOfInstantCategory', null),
             request()->input('IdOfInstantManufacturer', null),
             request()->input('IdOfInstantTag', null)
-        )->defaultFiltersForProducts()->with('galleries', 'relations', 'stock');
+        )->defaultFiltersForProducts()->with(['galleries', 'stock', 'relations' => function ($query) {
+            $query->defaultFiltersForProducts();
+        }]);
 
 
 

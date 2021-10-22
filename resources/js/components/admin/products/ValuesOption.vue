@@ -85,14 +85,21 @@
                                             <input type="text" required="required" :placeholder="lang.locate_code" :name="`value_` + lang.locate_code + `[]`" :id="'value_' + key" v-model="item.value[lang.locate_code]" class="form-control">
                                         </div>
 
-                                        <div v-if="item.image === null" class="form-group p-0 col-md-4">
+                                        <div v-if="item.image === null" class="form-group p-0 col-md-2">
                                             <label :for="'img_' + key">Изображение</label>
                                             <input @change="addImage($event, key)" type="file" :id="'img_' + key" class="form-control">
                                         </div>
-                                        <div v-else class="col-md-4">
+                                        <div v-else class="col-md-2">
                                             <img class="col-md-11" :src="'/house/uploads/' + item.image + '?time=' + time" alt="" style="max-height:100px; width:auto;"><i @click="deleteImage(key, item.image)" class="fa fa-times text-danger closer"></i>
                                         </div>
                                         <input type="hidden" name="image[]" :value="item.image">
+                                        <div class="form-group col-md-2">
+                                            <label :for="'public_' + key">Отображение</label>
+                                            <select name="public[]" :id="'public_' + key" required="required" v-model="item.public" class="form-control">
+                                                <option value="0">Нет</option>
+                                                <option value="1">Да</option>
+                                            </select>
+                                        </div>
                                         <div class="form-group p-0 col-md-2">
                                             <label :for="'sort_value_' + key">Сортировка</label>
                                             <input type="text" name="sorting[]" required :id="'sort_value_' + key" class="form-control" :value="item.sorting">

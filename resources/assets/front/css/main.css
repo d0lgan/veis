@@ -422,6 +422,15 @@ nav > a:hover {
   font-size: 16px;
   margin-bottom: 0; }
 
+.VueCarousel-navigation-next {
+    transform: translateY(-50%) translateX(35%) !important;
+}
+
+.VueCarousel-navigation-prev {
+    transform: translateY(-50%) translateX(-35%) !important;
+}
+
+
 .product__iteam .product__hide .lowprise__hide {
   margin-top: 15px; }
 

@@ -22,13 +22,13 @@
 
 
         <div class="product__hide">
-            <div class="product__hide_inner" style="background-color: #fff">
+            <div class="product__hide_inner">
                 <div class="product__hide_colors" v-if="relations">
 
-                    <carousel :navigationEnabled="true" :paginationEnabled="false" :loop="true" :perPage="2" navigationNextLabel="" navigationPrevLabel="">
-                        <slide v-for="(relation, key) in paginatedRelations" :key="relation.id">
-                            <div style="display: flex; justify-content: center;">
-                                <img style="width: 80%; height: 100%;" :src="'/house/uploads/' + relation.image" alt="" @click="swapProduct(key)">
+                    <carousel :navigationEnabled="true" :paginationEnabled="false" :loop="true" :perPage="3" navigationNextLabel="" navigationPrevLabel="">
+                        <slide v-for="(relation, key) in relations" :key="relation.id">
+                            <div style="display: flex; justify-content: center; background-color: #f8f8f8;">
+                                <img style="width: 80%; height: 65px; mix-blend-mode: darken; object-fit: contain;" :src="'/house/uploads/' + relation.image" alt="" @click="swapProduct(key)">
                             </div>
                         </slide>
                     </carousel>
@@ -238,4 +238,5 @@
     outline: none;
     border: none;
 }
+
 </style>

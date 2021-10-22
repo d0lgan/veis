@@ -166,6 +166,7 @@ s<template>
                                                                                                         {{ getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk }}
                                                                                                     </li>-->
                                                     <li class="select-option-item" v-for="value in option.product_values"
+                                                        v-if="value.value_option.public == 1"
                                                         @click="
                                                         product.options[key].select = value.value_option_id;
                                                         titleOptions[key] = getLang ? value.value_option.value_ru : value.value_option.value_uk;
@@ -192,6 +193,7 @@ s<template>
                                                 <img src="/assets/front/img/buy_close.svg" alt="" class="closer" data-modal-closer>
                                                 <div class="modal-box__wrap">
                                                     <div class="colors-modal__item" v-for="value in option.product_values"  data-modal-closer
+                                                            v-if="value.value_option.public == 1"
                                                              @click="
                                                             product.options[key].select = value.value_option_id;
                                                             titleOptions[key] = getLang ? value.value_option.value_ru : value.value_option.value_uk;
