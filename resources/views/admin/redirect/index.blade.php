@@ -15,7 +15,7 @@
 
                             <div class="col">
                                 <h2 class="title-1">Редиректы</h2>
-                            </div>   
+                            </div>
 
 
                             <div class="datateble-actions col">
@@ -33,9 +33,8 @@
                             <thead class="border-0">
                                 <tr class="border-0">
                                     <th class="align-middle py-1 pr-3">Название UK</th>
-                                    <th class="align-middle py-1 pr-3">ЧПУ RU</th>
-                                    <th class="align-middle py-1 pr-3">ЧПУ UK</th>
-                                    <th class="align-middle py-1 pr-3">Ссылка Uk</th>
+                                    <th class="align-middle py-1 pr-3">Ссылка Ua</th>
+                                    <th class="align-middle py-1 pr-3">Ссылка Ru</th>
                                     <th class="align-middle py-1 pr-3 bg-none"></th>
                                 </tr>
                             </thead>
@@ -44,9 +43,8 @@
                                 @foreach($redirects as $redirect)
                                     <tr>
                                         <td class="align-middle py-1 pr-3">{{$redirect->title_ru}}</td>
-                                        <td class="align-middle py-1 pr-3">{{$redirect->slug_ru}}</td>
-                                        <td class="align-middle py-1 pr-3">{{$redirect->slug_uk}}</td>
-                                        <td class="align-middle py-1 pr-3">{{url("/city/{$redirect->slug_uk}")}}</td>
+                                        <td class="align-middle py-1 pr-3">{{url("/{$redirect->slug_uk}")}}</td>
+                                        <td class="align-middle py-1 pr-3">{{url("/ru/{$redirect->slug_ru}")}}</td>
                                         <td class="align-middle py-1 pr-3">
 
                                             <div class="table-data-feature d-flex justify-content-center">

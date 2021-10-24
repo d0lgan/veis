@@ -509,13 +509,13 @@ class PageController extends Controller {
                     // Если находиться продукт с украинским слагом, но при этом locale русский, редиректит на правильный урл с русским слагом
                     $tag = Redirect::where('slug_uk', $categorySlug)->first();
                     if ($tag) {
-                        return redirect('/ru/city/' . $tag->slug_ru);
+                        return redirect('/ru/' . $tag->slug_ru);
                     }
                 } else if ($locale == 'uk') {
                     //
                     $tag = Redirect::where('slug_ru', $categorySlug)->first();
                     if ($tag) {
-                        return redirect('/city/' . $tag->slug_uk);
+                        return redirect('/' . $tag->slug_uk);
                     }
                 }
             }
@@ -662,6 +662,9 @@ class PageController extends Controller {
             }
             $page->title_ru = $instantRedirect->meta_h1_ru;
             $page->title_uk = $instantRedirect->meta_h1_uk;
+
+            $page->seo_ru = $instantRedirect->seo_ru;
+            $page->seo_uk = $instantRedirect->seo_uk;
         } else if ($instantCategory) {
             if ($instantCategory->description_ru || $instantCategory->description_uk) {
                 $desc['ru'] = $instantCategory->description_ru;
@@ -669,6 +672,9 @@ class PageController extends Controller {
             }
             $page->title_ru = $instantCategory->meta_h1_ru;
             $page->title_uk = $instantCategory->meta_h1_uk;
+
+            $page->seo_ru = $instantCategory->seo_ru;
+            $page->seo_uk = $instantCategory->seo_uk;
         } else if ($instantManufacturer) {
             if ($instantManufacturer->description_ru || $instantManufacturer->description_uk) {
                 $desc['ru'] = $instantManufacturer->description_ru;
@@ -676,6 +682,9 @@ class PageController extends Controller {
             }
             $page->title_ru = $instantManufacturer->meta_h1_ru;
             $page->title_uk = $instantManufacturer->meta_h1_uk;
+
+            $page->seo_ru = $instantManufacturer->seo_ru;
+            $page->seo_uk = $instantManufacturer->seo_uk;
         } else if ($instantTag) {
             if ($instantTag->description_ru || $instantTag->description_uk) {
                 $desc['ru'] = $instantTag->description_ru;
@@ -683,6 +692,9 @@ class PageController extends Controller {
             }
             $page->title_ru = $instantTag->meta_h1_ru;
             $page->title_uk = $instantTag->meta_h1_uk;
+
+            $page->seo_ru = $instantTag->seo_ru;
+            $page->seo_uk = $instantTag->seo_uk;
         } else {
             $desc['ru'] = $page->meta_h1_ru;
             $desc['uk'] = $page->meta_h1_uk;
@@ -735,7 +747,6 @@ class PageController extends Controller {
     public function info() {
 	    $locale = App::getLocale();
         $page = Page::where( 'type', 'info')->first();
-
         $translate = [
             'store' => Lang::trans('product.store'),
             'useful' => Lang::trans('site.info.useful'),
@@ -882,9 +893,16 @@ class PageController extends Controller {
     }
 
     public function emailMessage() {
-        $order = Order::where('id', 184)->firstOrFail();
+        $order = Order::where('id', 199)->firstOrFail();
         $locale = App::getLocale();
-        return view('emails.user.create_order', ['order' => $order, 'locale' => $locale]);
+
+        $products_arr = json_decode($order->products, true);
+        $products = [];
+        foreach ($products_arr as $prod) {
+            $products[] = Product::where('id', $prod['product'])->first();
+        }
+
+        return view('emails.user.create_order', ['order' => $order, 'locale' => $locale, 'products' => $products]);
     }
 
 

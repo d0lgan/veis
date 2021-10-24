@@ -16,7 +16,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <title>@yield('title')</title>
 
-    <meta name="description" content="@yield('title')">
+    <meta name="description" content="@yield('meta')">
 
     @php $locale = $__env->yieldContent('locale') @endphp
 

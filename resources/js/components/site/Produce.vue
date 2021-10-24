@@ -146,25 +146,19 @@ s<template>
 
 
                         <div class="product-card__wrapbox options" v-if="product.options.length">
-                            <p class="options__title">{{ translate.select_options }}</p>
+                            <p v-bind:class="{ 'options__title': true, 'error': error }">{{ translate.select_options }}</p>
                             <div class="product-card__flexer" style="justify-content: flex-start !important;">
+
                                 <div class="select select-custom" v-for="(option, key) in product.options" :key="option.option.id" v-if="option.option.public == 1">
                                     <div v-if="option.option.id != 5">
-
-                                        <div class="select-inner" style="padding-left: 10px;"
+                                        <div v-bind:class="{ 'select-inner': true, 'red-border': error }" style="padding-left: 10px;"
                                              @focusout="closeOptionsPopupsWithDelay();"
-                                             @click="checkOptionsPopups(key)">{{ titleOptions[key] }}</div>
+                                             @click="checkOptionsPopups(key); error = false">{{ titleOptions[key] }}</div>
 
                                         <div class="select-wrapper" data-select="2" v-if="selectOption == key"
                                              style="width: 240px;">
                                             <div class="select-content">
                                                 <ul class="select-options">
-                                                    <!--                                                <li class="select-option-item" @click="
-                                                                                                        checkOptionsPopups(key)
-                                                                                                        titleOptions[key] = getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk;
-                                                                                                        ">
-                                                                                                        {{ getLang ? 'Выберите '+option.option.title_ru : 'Виберіть '+option.option.title_uk }}
-                                                                                                    </li>-->
                                                     <li class="select-option-item" v-for="value in option.product_values"
                                                         v-if="value.value_option.public == 1"
                                                         @click="
@@ -184,7 +178,6 @@ s<template>
                                              @click="checkOptionsPopups(key)">
                                             {{ titleOptions[key] }}
                                         </div>
-
 
 
                                         <div class="modal-box colors-modal" data-modal-name="colors">
@@ -885,9 +878,9 @@ s<template>
                     }else{
                         this.confirm = false;
                         this.error = true;
-                        setTimeout(function(){
+                        /*setTimeout(function(){
                             self.error = false;
-                        }, 2000);
+                        }, 2000);*/
                     }
                 }
 
@@ -1047,6 +1040,15 @@ s<template>
         color: #989898;
         font-size: 14px;
         font-weight: 350;
+    }
+
+    .red-border {
+        border: 1px solid #d32f2f !important;
+    }
+
+    .error {
+        color: #d32f2f;
+        margin: 10px 0;
     }
 
 </style>

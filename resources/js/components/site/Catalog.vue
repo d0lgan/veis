@@ -508,7 +508,7 @@ export default {
                 this.pageNumber = this.instantRedirect.page - 1;
             }
 
-            if (this.instantRedirect.sail != null || this.instantRedirect.sail == 1) {
+            if (this.instantRedirect.sail == 1) {
                 this.selected.sale = true;
             }
         }

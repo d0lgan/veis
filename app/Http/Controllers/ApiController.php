@@ -1200,12 +1200,18 @@ class ApiController extends Controller
             }*/
 
 
+            $products_arr = json_decode($order->products, true);
+            $products = [];
+            foreach ($products_arr as $prod) {
+                $products[] = Product::where('id', $prod['product'])->first();
+            }
+
             $confirm = json_decode($request['confirm'], true);
             if($confirm == 1) {
                 if ($request['order']['email']) {
                     //отправка письма Клиенту
                     $mail_order = $request['order']['email'];
-                    Mail::send( 'emails.user.create_order', [ 'order' => $order ],
+                    Mail::send( 'emails.user.create_order', [ 'order' => $order, 'products' => $products ],
                         function ( $message ) use ( $mail_order ) {
                             $setting = Setting::find( 1 );
                             $message->from( $setting->send_email, 'Магазин Veis!' );
@@ -1215,7 +1221,7 @@ class ApiController extends Controller
                 }
 
                 //отправка письма Админу
-                Mail::send( 'emails.admin.create_order', [ 'order' => $order ],
+                Mail::send( 'emails.admin.create_order', [ 'order' => $order, 'products' => $products ],
                     function ( $message ) {
                         $setting = Setting::find( 1 );
                         $message->from($setting->send_email, 'Магазин Veis!' );
@@ -1280,7 +1286,7 @@ class ApiController extends Controller
             return response()->json($order);
 
         }*/
-        response()->json($order);
+        return response()->json($order);
     }
 
     public function searchOrderProduct(Request $request){

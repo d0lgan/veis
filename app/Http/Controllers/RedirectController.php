@@ -86,6 +86,8 @@ class RedirectController extends Controller
             $attributes[$key] = $attribute;
         }
 
+        $tags = Tag::get()->toArray();
+
         $categories_json = Category::select(['id', 'title_ru'])->get();
 
         $contacts      = Contact::all();
@@ -93,7 +95,7 @@ class RedirectController extends Controller
         $orders        = Order::all();
         $order_count   = $orders->count();
 
-        return view('admin.redirect.create', compact('redirect', 'attributes', 'langs', 'order_count', 'contacts_count', 'categories_json'));
+        return view('admin.redirect.create', compact('redirect', 'attributes', 'tags', 'langs', 'order_count', 'contacts_count', 'categories_json'));
     }
 
     /**
@@ -132,6 +134,15 @@ class RedirectController extends Controller
         $redirect->description_uk = $request->description_uk;
         $redirect->seo_ru = $request->seo_ru;
         $redirect->seo_uk = $request->seo_uk;
+
+
+        foreach (json_decode($request->categories) as $attr) {
+            $redirect->attributes()->syncWithoutDetaching($attr->id);
+        }
+
+        foreach (json_decode($request->tags) as $tag) {
+            $redirect->tags()->syncWithoutDetaching($tag->id);
+        }
 
 
         $redirect->save();

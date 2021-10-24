@@ -1,4 +1,7 @@
 @extends('layouts.site.layout_with_long_header')
+
+
+
 @section('content')
 
     <div class="breadcrumbs">

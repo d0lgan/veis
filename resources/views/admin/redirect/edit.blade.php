@@ -18,7 +18,7 @@
                             <div class="w-100">
                                 {!! Form::model($redirect,['method' => 'PUT','files' => true, 'route' =>
                           ['admin-redirects.update',$redirect->id]]) !!}
-                                
+
                                 <div class="mb-2 d-flex justify-content-between align-items-center">
                                     <strong>Редактирование - {{$redirect->title_ru}}</strong>
 
