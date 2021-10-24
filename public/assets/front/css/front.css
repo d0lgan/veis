@@ -5879,7 +5879,7 @@ textarea {
   max-width: none; }
 @media screen and (max-width: 600px) {
   .product-card__btn--consultation {
-    font-size: 16px;
+    font-size: 10px;
     border: 1px solid #171717;
     width: 100%; }
     .product-card__btn {
