@@ -513,7 +513,6 @@ export default {
             }
         }
 
-
         if (url.searchParams.has('min')) {
             this.$refs.start.innerText = url.searchParams.get('min');
             this.selected.prices[0] = url.searchParams.get('min');

@@ -159,6 +159,8 @@ class OptionController extends Controller
     public function edit(Request $request /*Option $option*/, $id)
     {
         $option = Option::with('values')->find($id);
+        $option->public_main = $option->public;
+
         $langs = Language::all();
 
         $arr = [];
@@ -198,15 +200,15 @@ class OptionController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $option = Option::find($id);
         $option->title_ru = $request->title_ru;
         $option->title_uk = $request->title_uk;
         $option->type = $request->type;
         $option->sort = $request->sort;
-        $option->public = $request->public;
+        $option->public = $request->public_main;
         $option->need = $request->need;
         $option->save();
-
         $langs = Language::all();
 
         foreach ($langs as $lang) {
@@ -244,6 +246,7 @@ class OptionController extends Controller
                     $value_option->value_ru = $request->value_ru[$i];
                     $value_option->value_uk = $request->value_uk[$i];
                     $value_option->sorting = $request->sorting[$i];
+                    $value_option->public = $request->public[$i];
                     $value_option->image = $request->image[$i];
                     $value_option->option_id = $option->id;
 
@@ -252,6 +255,7 @@ class OptionController extends Controller
                     $value_option->value_ru = $request->value_ru[$i];
                     $value_option->value_uk = $request->value_uk[$i];
                     $value_option->sorting = $request->sorting[$i];
+                    $value_option->public = $request->public[$i];
                     $value_option->image = $request->image[$i];
                     $value_option->option_id = $option->id;
                 }

@@ -44,8 +44,8 @@
                 <input type="text" name="sort" id="sort" required="required" class="form-control" v-model="option.sort">
             </div>
             <div class="form-group col-md-3">
-                <label for="public">Отображение</label>
-                <select name="public" id="public" required="required" v-model="option.public" class="form-control">
+                <label for="public_main">Отображение</label>
+                <select name="public_main" id="public_main" required="required" v-model="option.public_main" class="form-control">
                     <option value="0">Нет</option>
                     <option value="1">Да</option>
                 </select>
@@ -152,7 +152,7 @@
                 return{
                     title: '',
                     sort: '',
-                    option: {title: {'ru' : '', 'uk' : ''}, type: 'checkbox', sort: '', need: 0, public: 1},
+                    option: {title: {'ru' : '', 'uk' : ''}, type: 'checkbox', sort: '', need: 0, public_main: 1},
                     items: [{id: 0, value: {'ru' : '', 'uk' : ''}, image: null, sorting: 1}],
                     select: 'checkbox',
                     types: [

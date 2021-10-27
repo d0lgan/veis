@@ -949,10 +949,7 @@ class ProductController extends Controller
                 }
             }
         }
-        // echo "<pre>";
-        // var_dump($selected);
-        // echo "</pre>";
-        // exit;
+
         $product->options = $selected;
         $product->selected_options = [];
 

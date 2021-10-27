@@ -660,8 +660,8 @@
                 this.updateTotalPrice();
             }
 
-/*
-            this.$store.commit('clearCart');*/
+
+            this.$store.commit('clearCart');
         },
 
         created() {
