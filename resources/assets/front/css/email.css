@@ -234,17 +234,20 @@ body {
     display: flex;
     justify-content: flex-start;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 19px;
+    padding: 6px 5px;
 }
 
 .column .cell .name {
     max-width: 170px;
     font-weight: 400;
     width: 100%;
+    padding-right: 4px;
 }
 
 .column .cell .value {
     font-weight: 800;
+    max-width: 200px;
 }
 
 /*ФУТЕР*/

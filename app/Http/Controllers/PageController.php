@@ -893,7 +893,7 @@ class PageController extends Controller {
     }
 
     public function emailMessage() {
-        $order = Order::where('id', 199)->firstOrFail();
+        $order = Order::latest()->first();
         $locale = App::getLocale();
 
         $products_arr = json_decode($order->products, true);

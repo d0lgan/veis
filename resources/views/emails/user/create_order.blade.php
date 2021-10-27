@@ -12,8 +12,305 @@
 <!--    <link rel="stylesheet" href="{{ asset('assets/front/css/front.css') }}">-->
     <link rel="stylesheet" href="{{ asset('assets/front/css/email.css') }}">
 
+    @php $locale = $__env->yieldContent('locale') @endphp
+
 </head>
 <body>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        width: 100%;
+        max-width: 1920px;
+    }
+
+    .wrap {
+        max-width: 920px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .dark-line {
+        background-color: #000;
+        width: 100%;
+        height: 60px;
+    }
+
+    .head-wrap {
+        display: flex;
+        padding: 0 20px;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px;
+    }
+
+    .logo-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo {
+        color: #fff;
+        font-weight: 850;
+        font-size: 28.07px;
+        text-align: center;
+        line-height: 20px;
+        letter-spacing: 13px;
+        text-decoration: none !important;
+        position: relative;
+        z-index: 998; }
+
+    .logo span {
+        font-size: 11.08px;
+        letter-spacing: 10px;
+    }
+
+    .info-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .info-block span {
+        color: #fff;
+        font-size: 14px;
+        margin-left: 6px;
+    }
+
+    .gray-block {
+        padding: 40px 65px;
+        display: flex;
+        flex-direction: column;
+        background-color: #f5f4f5;
+        margin-top: 20px;
+    }
+
+    .details {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    .details-wrap {
+        display: flex;
+        align-items: center;
+    }
+
+    .details-wrap img {
+        width: 32px;
+        height: 32px;
+        margin: 0 10px;
+    }
+
+    .details-wrap h1 {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .gray-text {
+        color: #7c7c7c;
+    }
+
+    .full-list {
+        font-size: 15px;
+    }
+
+    .ordered-products {
+        margin: 20px 0;
+    }
+
+    .ordered-products h2 {
+        font-size: 24px;
+        text-transform: uppercase;
+        font-weight: 800;
+    }
+
+    .ordered-products span a {
+        color: #7c7c7c;
+    }
+
+    .products {
+        border-bottom: 2px #252529 solid;
+        border-top: 2px #252529 solid;
+    }
+
+    .product {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px #e6e6e6 solid;
+        border-top: 1px #e6e6e6 solid;
+    }
+
+    .img_price img {
+        height: 90px;
+        width: 90px;
+    }
+
+    .data .title {
+        font-size: 18px;
+        text-transform: uppercase;
+        font-weight: 800;
+    }
+
+    .data .model {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .data .attributes {
+        display: flex;
+        flex-direction: column;
+        font-size: 13px;
+    }
+
+    .product .img_price {
+        width: 40%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .img_price span {
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    .total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 16px;
+    }
+
+    .more {
+        width: 33%;
+        max-width: 300px;
+        height: 55px;
+    }
+
+    .btn-more {
+        width: 100%;
+        height: 100%;
+        color: #000;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px #000 solid;
+    }
+
+    .btn-more span {
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin: 0 8px;
+    }
+
+    .total_price {
+        font-size: 21px;
+        font-weight: 800;
+    }
+
+    .price {
+        display: flex;
+    }
+
+    .price-row {
+        display: flex;
+        flex-direction: column;
+        margin: 16px 13px;
+    }
+
+    .price .left {
+        text-align: right;
+    }
+
+    .price .right {
+        text-align: left;
+    }
+
+    .user-data {
+        border-top: 2px #252529 solid;
+        display: flex;
+        padding-top: 30px;
+    }
+
+    .user-data .column {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+    }
+
+    .column .cell {
+        display: flex;
+        justify-content: flex-start;
+        font-size: 16px;
+        line-height: 19px;
+        padding: 6px 5px;
+    }
+
+    .column .cell .name {
+        max-width: 170px;
+        font-weight: 400;
+        width: 100%;
+        padding-right: 4px;
+    }
+
+    .column .cell .value {
+        font-weight: 800;
+        max-width: 200px;
+    }
+
+    /*ФУТЕР*/
+
+    .pre_footer {
+        padding: 24px 0;
+        display: flex;
+        justify-content: space-evenly;
+        border-bottom: 2px #252529 solid;
+    }
+
+    .pre_footer .column {
+        display: flex;
+    }
+
+    .pre_footer .column .info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pre_footer .column .img {
+        margin: 13px 8px 0 0;
+    }
+
+    .column .info .title {
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .column .info span {
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .media__social {
+        padding: 30px 70px;
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+</style>
+
 <div class="header">
     <div class="dark-line">
         <div class="wrap">
@@ -27,7 +324,7 @@
                 </div>
                 <div class="info-block">
                     <img src="{{ asset("assets/front/img/vodafone.png") }}" alt="vodafone">
-                    <span>{{ $phone_site_2 }}</span>
+                    <span>{{ $phone_site_1 }}</span>
                 </div>
             </div>
         </div>
@@ -127,7 +424,7 @@
                     @if(!empty($order->name))
                         <div class="cell">
                             <div class="name">Почта</div>
-                            <div class="value">{{ $order->email }}</div>
+                            <div class="value" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ $order->email }}</div>
                         </div>
                     @endif
                 </div>
@@ -153,7 +450,7 @@
                         @if(!empty($order->comment))
                             <div class="cell">
                                 <div class="name">Комментарий</div>
-                                <div class="value">{{ $order->comment }}</div>
+                                <div class="value" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ $order->comment }}</div>
                             </div>
                         @endif
                         @if(false)
@@ -179,9 +476,9 @@
                 </div>
                 <div class="info">
                     <p class="title">Звоните нам</p>
-                    <span>+38 (334) 45-54-320</span>
-                    <span>+38 (334) 45-54-320</span>
-                    <span>+38 (334) 45-54-320</span>
+                    <span>{{ $phone_site_1 }}</span>
+                    <span>{{ $phone_site_2 }}</span>
+                    <span>{{ $phone_site_3 }}</span>
                 </div>
             </div>
             <div class="column time">
@@ -200,8 +497,7 @@
                 </div>
                 <div class="info">
                     <p class="title">Мы находимся</p>
-                    <span>г. Днепро 49000</span>
-                    <span>ул. Солидарная 2</span>
+                    <span>{{ $locale == 'uk' ? $address_site_uk : $address_site_ru }}</span>
                     <span class="map">Показать на карте &#187;</span>
                 </div>
             </div>
