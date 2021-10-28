@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-
+@php $locale = $__env->yieldContent('locale') @endphp
+<html lang="{{ $locale }}">
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112408707-3"></script>
@@ -15,16 +15,21 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <title>@yield('title')</title>
-
     <meta name="description" content="@yield('meta')">
-
-    @php $locale = $__env->yieldContent('locale') @endphp
+    <link rel="icon" type="image/png" href="https://veis.dp.ua/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://veis.dp.ua/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://veis.dp.ua/apple-touch-icon.png">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
 
     @if($locale == 'ru')
         <link rel="alternate" href="{{ route('setlocale', ['lang' => 'uk']) }}" hreflang="ua">
     @elseif($locale == 'uk')
         <link rel="alternate" href="{{ route('setlocale', ['lang' => 'ru']) }}" hreflang="ru">
     @endif
+
+    <meta name="google-site-verification=PsXb8ortvDDFs4oLiZWmYjLQroo-_mG01IOu7yZdmBI">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
