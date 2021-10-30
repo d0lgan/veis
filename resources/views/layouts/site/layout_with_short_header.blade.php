@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <title>@yield('title')</title>
-    <meta name="description" content="@yield('meta')">
+    <meta name="description" content="{{ isset(app()->view->getSections()['meta']) ? trim(app()->view->getSections()['meta'], '<p></p>') : '' }}">
     <link rel="icon" type="image/png" href="https://veis.dp.ua/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" sizes="32x32" href="https://veis.dp.ua/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://veis.dp.ua/apple-touch-icon.png">

@@ -1173,7 +1173,6 @@ class ProductController extends Controller
 
         if ($request->type_stock == 'percent' && $request->stock !== null) {
             $product->price_stock = $request->price - ceil($request->price * $request->stock / 100);
-
         } else {
             $product->price_stock = $request->stock;
         }

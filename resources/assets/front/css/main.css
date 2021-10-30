@@ -6612,7 +6612,7 @@ label {
   display: block;
   margin: 0 auto;
   margin-bottom: 7px;
-  max-width: 100px; }
+  max-width: 100%; }
 .colors-modal__item-text {
   color: #171717;
   font-size: 14px;

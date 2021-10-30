@@ -179,5 +179,67 @@
                           class="form-control">{{ @optional($item)->data[$lang->locate_code]['seo'] ?: old('seo_' . $lang->locate_code) }}</textarea>--}}
             </div>
         @endif
+
+
+        @if(isset($title_pole))
+            @php $method = "title_" . $lang->locate_code @endphp
+            <div class="form-group">
+                <label for="title_{{ $lang->locate_code }}">Название поля 1</label>
+                <input required name="title_{{ $lang->locate_code }}"
+                       id="title_{{ $lang->locate_code }}"
+                       value="'test'"
+                       placeholder="Title {{ strtoupper($lang->locate_code) }}"
+                       type="text"
+                       class="form-control"/>
+            </div>
+
+
+            <div class="form-group">
+                <label for="desc">Описание поля 1</label>
+                <div class="w-100">
+                    <editor-component :name="{{ json_encode('free_del_' . $lang->locate_code)}}" :v="'test'"></editor-component>
+                </div>
+
+            </div>
+                <hr>
+                <div class="form-group">
+                    <label for="title_{{ $lang->locate_code }}">Название поля 2</label>
+                    <input required name="title_{{ $lang->locate_code }}"
+                           id="title_{{ $lang->locate_code }}"
+                           value="'test'"
+                           placeholder="Title {{ strtoupper($lang->locate_code) }}"
+                           type="text"
+                           class="form-control"/>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="desc">Описание поля 2</label>
+                    <div class="w-100">
+                        <editor-component :name="{{ json_encode('free_del_' . $lang->locate_code)}}" :v="'test'"></editor-component>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label for="title_{{ $lang->locate_code }}">Название поля 3</label>
+                    <input required name="title_{{ $lang->locate_code }}"
+                           id="title_{{ $lang->locate_code }}"
+                           value="'test'"
+                           placeholder="Title {{ strtoupper($lang->locate_code) }}"
+                           type="text"
+                           class="form-control"/>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="desc">Описание поля 3</label>
+                    <div class="w-100">
+                        <editor-component :name="{{ json_encode('free_del_' . $lang->locate_code)}}" :v="'test'"></editor-component>
+                    </div>
+
+                </div>
+                <hr>
+        @endif
     </div>
 @endforeach
