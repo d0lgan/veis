@@ -30,8 +30,8 @@
         <link rel="alternate" href="{{ route('setlocale', ['lang' => 'ru']) }}" hreflang="ru">
     @endif
 
-    <meta name="google-site-verification=PsXb8ortvDDFs4oLiZWmYjLQroo-_mG01IOu7yZdmBI">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="google-site-verification" content="PsXb8ortvDDFs4oLiZWmYjLQroo-_mG01IOu7yZdmBI"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
