@@ -3,6 +3,8 @@
 @section('title', $locale == 'ru' ? $page->meta_h1_ru : $page->meta_h1_uk)
 @section('meta', $locale == 'ru' ? $page->seo_ru : $page->seo_uk)
 
+@section('h1', $locale == 'ru' ? $page->title_ru : $page->title_uk)
+
 @section('content')
 <site-basket-component :locale="{{ json_encode($locale) }}" :way-to-pays="{{ json_encode($wayToPays) }}" :translate="{{ json_encode($translate) }}" :settings="{{ json_encode($settings) }}"></site-basket-component>
 

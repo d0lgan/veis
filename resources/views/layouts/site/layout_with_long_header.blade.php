@@ -15,6 +15,9 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <title>@yield('title')</title>
+
+    <link href="https://veis.dp.ua" rel="@yield('additionalMeta')">
+
     <meta name="description" content="{{ isset(app()->view->getSections()['meta']) ? trim(app()->view->getSections()['meta'], '<p></p>') : '' }}">
     <link rel="icon" type="image/png" href="https://veis.dp.ua/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" sizes="32x32" href="https://veis.dp.ua/favicon-32x32.png">
@@ -51,6 +54,8 @@
 </head>
 
 <body>
+
+<h1 style="opacity: 0; height: 0px; position: absolute;">@yield('h1')</h1>
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWXDM7L"
@@ -277,8 +282,8 @@
         </div>
         <div class="choose__content hide">
             <a href="{{ $locale == 'ru' ? '/ru/category/ochki?sale=1' : '/category/okulyari?sale=1'}}" class="choose__bar_active">{{ __('site.header.sail') }}</a>
-            <a href="{{ $locale == 'ru' ? '/ru/category/ochki?f=muzhskie' : '/category/okulyari?f=cholovichi'}}">{{ __('site.header.male') }}</a>
-            <a href="{{ $locale == 'ru' ? '/ru/category/ochki?f=zhenskie' : '/category/okulyari?f=zhinochi'}}">{{ __('site.header.female') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/muzhskie-solncezashchitnye-ochki' : '/category/cholovichi-soncezahisni-okulyari'}}">{{ __('site.header.male') }}</a>
+            <a href="{{ $locale == 'ru' ? '/ru/category/zhenskie-solncezashchitnye-ochki' : '/category/zhinochi-soncezahisni-okulyari'}}">{{ __('site.header.female') }}</a>
             <a href="{{ $locale == 'ru' ? '/ru/category/sportivnye-ochki' : '/category/sportivni-okulyari'}}">{{ __('site.header.sport') }}</a>
         </div>
     </div>

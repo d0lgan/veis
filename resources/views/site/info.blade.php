@@ -4,6 +4,7 @@
 @section('meta', $locale == 'ru' ? $page->seo_ru : $page->seo_uk)
 
 @section('locale', $locale)
+@section('h1', $locale == 'ru' ? $page->title_ru : $page->title_uk)
 
 @section('content')
     <site-info-component :locale="{{json_encode($locale)}}" :translate="{{json_encode($translate)}}" :tabs="{{json_encode($tabs)}}"></site-info-component>

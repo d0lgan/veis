@@ -835,16 +835,16 @@ class ProductController extends Controller
         $product->galleries->sortBy('sort');
         $product->category;
 
-        // Текст в блоках "бесплатная доставка" и "возврат и гарантия"
+        // Дополнительные поля
         $category = Category::where('id', $product->category_id)->first();
         if ($locale == 'uk') {
-            $product->free_del = $category->free_del_uk;
-            if (!$product->free_del) {
+            $product->name_first_field = $category->name_first_field_uk;
+            if (!$product->name_first_field) {
                 $isParentCatHasFreeDel = true;
                 $parentCategory = Category::where('id', $category->parent_id)->first();
                 while ($isParentCatHasFreeDel) {
-                    if ($parentCategory->free_del_uk) {
-                        $product->free_del = $parentCategory->free_del_uk;
+                    if ($parentCategory->name_first_field_uk) {
+                        $product->name_first_field = $parentCategory->name_first_field_uk;
                         $isParentCatHasFreeDel = false;
                     } else {
                         $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
@@ -854,13 +854,83 @@ class ProductController extends Controller
                     }
                 }
             }
-            $product->payback = $category->payback_uk;
-            if (!$product->payback) {
+            $product->content_first_field = $category->content_first_field_uk;
+            if (!$product->content_first_field) {
                 $isParentCatHasPayback = true;
                 $parentCategory = Category::where('id', $category->parent_id)->first();
                 while ($isParentCatHasPayback) {
-                    if ($parentCategory->payback_uk) {
-                        $product->payback = $parentCategory->payback_uk;
+                    if ($parentCategory->content_first_field_uk) {
+                        $product->content_first_field = $parentCategory->content_first_field_uk;
+                        $isParentCatHasPayback = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+// ---------------------------------------
+
+            $product->name_second_field = $category->name_second_field_uk;
+            if (!$product->name_second_field) {
+                $isParentCatHasFreeDel = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasFreeDel) {
+                    if ($parentCategory->name_second_field_uk) {
+                        $product->name_second_field = $parentCategory->name_second_field_uk;
+                        $isParentCatHasFreeDel = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+            $product->content_second_field = $category->content_second_field_uk;
+            if (!$product->content_second_field) {
+                $isParentCatHasPayback = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasPayback) {
+                    if ($parentCategory->content_second_field_uk) {
+                        $product->content_second_field = $parentCategory->content_second_field_uk;
+                        $isParentCatHasPayback = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+// ---------------------------------------
+
+            $product->name_thirst_field = $category->name_thirst_field_uk;
+            if (!$product->name_thirst_field) {
+                $isParentCatHasFreeDel = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasFreeDel) {
+                    if ($parentCategory->name_thirst_field_uk) {
+                        $product->name_thirst_field = $parentCategory->name_thirst_field_uk;
+                        $isParentCatHasFreeDel = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+            $product->content_thirst_field = $category->content_thirst_field_uk;
+            if (!$product->content_thirst_field) {
+                $isParentCatHasPayback = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasPayback) {
+                    if ($parentCategory->content_thirst_field_uk) {
+                        $product->content_thirst_field = $parentCategory->content_thirst_field_uk;
                         $isParentCatHasPayback = false;
                     } else {
                         $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
@@ -871,13 +941,13 @@ class ProductController extends Controller
                 }
             }
         } else if ($locale == 'ru') {
-            $product->free_del = $category->free_del_ru;
-            if (!$product->free_del) {
+            $product->name_first_field = $category->name_first_field_ru;
+            if (!$product->name_first_field) {
                 $isParentCatHasFreeDel = true;
                 $parentCategory = Category::where('id', $category->parent_id)->first();
                 while ($isParentCatHasFreeDel) {
-                    if ($parentCategory->free_del_ru) {
-                        $product->free_del = $parentCategory->free_del_ru;
+                    if ($parentCategory->name_first_field_ru) {
+                        $product->name_first_field = $parentCategory->name_first_field_ru;
                         $isParentCatHasFreeDel = false;
                     } else {
                         $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
@@ -887,13 +957,83 @@ class ProductController extends Controller
                     }
                 }
             }
-            $product->payback = $category->payback_ru;
-            if (!$product->payback) {
+            $product->content_first_field = $category->content_first_field_ru;
+            if (!$product->content_first_field) {
                 $isParentCatHasPayback = true;
                 $parentCategory = Category::where('id', $category->parent_id)->first();
                 while ($isParentCatHasPayback) {
-                    if ($parentCategory->payback_ru) {
-                        $product->payback = $parentCategory->payback_ru;
+                    if ($parentCategory->content_first_field_ru) {
+                        $product->content_first_field = $parentCategory->content_first_field_ru;
+                        $isParentCatHasPayback = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+// ---------------------------------------
+
+            $product->name_second_field = $category->name_second_field_ru;
+            if (!$product->name_second_field) {
+                $isParentCatHasFreeDel = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasFreeDel) {
+                    if ($parentCategory->name_second_field_ru) {
+                        $product->name_second_field = $parentCategory->name_second_field_ru;
+                        $isParentCatHasFreeDel = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+            $product->content_second_field = $category->content_second_field_ru;
+            if (!$product->content_second_field) {
+                $isParentCatHasPayback = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasPayback) {
+                    if ($parentCategory->content_second_field_ru) {
+                        $product->content_second_field = $parentCategory->content_second_field_ru;
+                        $isParentCatHasPayback = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+// ---------------------------------------
+
+            $product->name_thirst_field = $category->name_thirst_field_ru;
+            if (!$product->name_thirst_field) {
+                $isParentCatHasFreeDel = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasFreeDel) {
+                    if ($parentCategory->name_thirst_field_ru) {
+                        $product->name_thirst_field = $parentCategory->name_thirst_field_ru;
+                        $isParentCatHasFreeDel = false;
+                    } else {
+                        $parentCategory = Category::where('id', $parentCategory->parent_id)->first();
+                        if (!$parentCategory) {
+                            break;
+                        }
+                    }
+                }
+            }
+            $product->content_thirst_field = $category->content_thirst_field_ru;
+            if (!$product->content_thirst_field) {
+                $isParentCatHasPayback = true;
+                $parentCategory = Category::where('id', $category->parent_id)->first();
+                while ($isParentCatHasPayback) {
+                    if ($parentCategory->content_thirst_field_ru) {
+                        $product->content_thirst_field = $parentCategory->content_thirst_field_ru;
                         $isParentCatHasPayback = false;
                     } else {
                         $parentCategory = Category::where('id', $parentCategory->parent_id)->first();

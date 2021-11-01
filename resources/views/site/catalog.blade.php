@@ -4,6 +4,7 @@
 @section('meta', $locale == 'ru' ? $page->seo_ru : $page->seo_uk)
 
 @section('locale', $locale)
+@section('h1', $locale == 'ru' ? $page->title_ru : $page->title_uk)
 
 @section('content')
 {{--{{dd(json_encode($filters, JSON_PRETTY_PRINT))}}--}}

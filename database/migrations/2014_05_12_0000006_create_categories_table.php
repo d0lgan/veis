@@ -28,11 +28,19 @@ class CreateCategoriesTable extends Migration {
 			$table->text('seo_ru')->nullable();
 			$table->text('seo_uk')->nullable();
 
-            // "Бесплатная доставка" и "возврат и гарантия"
-			$table->text('free_del_ru')->nullable();
-			$table->text('free_del_uk')->nullable();
-			$table->text('payback_ru')->nullable();
-			$table->text('payback_uk')->nullable();
+            // Дополнительные поля для описания товаров
+			$table->text('name_first_field_ru')->nullable();
+			$table->text('content_first_field_ru')->nullable();
+			$table->text('name_first_field_uk')->nullable();
+			$table->text('content_first_field_uk')->nullable();
+			$table->text('name_second_field_ru')->nullable();
+			$table->text('content_second_field_ru')->nullable();
+			$table->text('name_second_field_uk')->nullable();
+			$table->text('content_second_field_uk')->nullable();
+			$table->text('name_thirst_field_ru')->nullable();
+			$table->text('content_thirst_field_ru')->nullable();
+			$table->text('name_thirst_field_uk')->nullable();
+			$table->text('content_thirst_field_uk')->nullable();
 
 			$table->text('sort')->nullable();
 			$table->integer('at_home')->default(0);

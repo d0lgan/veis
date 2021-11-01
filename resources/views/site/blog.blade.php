@@ -1,6 +1,7 @@
 @extends('layouts.site.layout_with_long_header')
 
 
+@section('h1', $locale == 'ru' ? $page->title_ru : $page->title_uk)
 
 @section('content')
 

@@ -25,7 +25,6 @@
                                 <ul class="nav nav-tabs d-flex justify-content-start px-3" id="myTab">
                                     <li class="nav-item"><a class="nav-link active" href="#main" data-toggle="tab"><strong>Основное</strong></a></li>
                                     <li class="nav-item"><a class="nav-link" href="#seo" data-toggle="tab"><strong>SEO</strong></a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#add" data-toggle="tab"><strong>Доп</strong></a></li>
                                 </ul>
 
 
@@ -47,7 +46,7 @@
                                         </ul>
 
                                         <div style="background-color: #fff" class="tab-content">
-                                            @include('admin.partials.title', ['item' => $category, 'title' => true,  'description' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
+                                            @include('admin.partials.title', ['item' => $category, 'title' => true, 'description' => true, 'title_pole' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -134,42 +133,12 @@
                                             </ul>
                                             <div class="tab-content">
                                                 @include('admin.partials.url', ['item' => $category, 'title' => false, 'category_url' => '1', 'description' => false, 'meta' => true, 'seo' => true, 'id' => 'language', 'type' => 'seo'])
+
                                             </div>
+
                                         </div>
-                                        <div class="col-md-12">
-                                                <div class="row">
-                                                    {{--<div class="form-group col-md-12">
-                                                        <label for="meta_h1">Мета заголовок</label>
-                                                        <input type="text" value="{{ $category->meta_h1 }}" id="meta_h1" name="meta_h1" class="form-control">
-                                                    </div>--}}
-                                                    {{--<div class="form-group col-md-12">
-                                                        <label for="seo_desc">SEO описание</label>
-                                                        <editor-component :name="'seo_desc'" :v="{{ json_encode($category->seo) }}"></editor-component>
-        --}}{{--                                                <textarea type="text" id="seo_desc" name="seo_desc" class="form-control">{{ $category->seo }}</textarea>--}}{{--
-                                                    </div>--}}
-                                                </div>
-                                            </div>
                                     </div>
-                                    <di class="tab-pane p-3" id="add">
-                                        <div class="col-md-12 form-group">
-                                            <ul class="nav nav-tabs" id="language">
-                                                @foreach($langs as $key => $lang)
-                                                    <li class="nav-item {{ $key == 0 ? 'active' : null }}"><a
-                                                            href="#language_seo_{{ $lang->locate_code }}" class="nav-link {{ $key == 0 ? 'active' : null }}" data-toggle="tab"
-                                                        >
-                                                            @if($lang->locate_code == 'ru')
-                                                                <img style="height: 25px;" src="{{ asset('/images/russia.svg') }}" alt="">
-                                                            @elseif($lang->locate_code == 'uk')
-                                                                <img style="height: 25px;" src="{{ asset('/images/ukraine.svg') }}" alt="">
-                                                            @endif
-                                                        </a></li>
-                                                @endforeach
-                                            </ul>
-                                                <div style="background-color: #fff" class="tab-content">
-                                                    @include('admin.partials.title', ['item' => $category, 'title' => false,  'description' => false,  'title_pole' => true, 'meta' => false, 'seo' => false, 'id' => 'language', 'type' => 'main'])
-                                                </div>
-                                        </div>
-                                    </di>
+
                                 </div>
 
 

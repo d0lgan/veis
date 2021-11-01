@@ -5,6 +5,12 @@
 
 @section('locale', $locale)
 
+@section('h1', $locale == 'ru' ? $page->title_ru : $page->title_uk)
+
+@if($locale == 'uk')
+@section('additionalMeta', 'canonical')
+@endif
+
 @section('content')
 <div class="intro">
     <div class="intro__slider_block">

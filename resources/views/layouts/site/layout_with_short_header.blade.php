@@ -52,6 +52,8 @@
 
 <body>
 
+<h1 style="opacity: 0; height: 0px; position: absolute;">@yield('h1')</h1>
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWXDM7L"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

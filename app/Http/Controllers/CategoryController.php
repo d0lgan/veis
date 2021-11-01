@@ -25,8 +25,6 @@ use App\Manufacturer;
 
 class CategoryController extends Controller
 {
-
-
     public function index($slug)
     {
         $translate = [
@@ -423,6 +421,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -444,10 +443,20 @@ class CategoryController extends Controller
         $category->sort = $request->sort;
         $category->seo_ru = $request->seo_ru;
         $category->seo_uk = $request->seo_uk;
-        $category->free_del_ru = $request->free_del_ru;
-        $category->free_del_uk = $request->free_del_uk;
-        $category->payback_ru = $request->payback_ru;
-        $category->payback_uk = $request->payback_uk;
+
+        $category->name_first_field_ru = $request->name_first_field_ru;
+        $category->content_first_field_ru = $request->content_first_field_ru;
+        $category->name_first_field_uk = $request->name_first_field_uk;
+        $category->content_first_field_uk = $request->content_first_field_uk;
+        $category->name_second_field_ru = $request->name_second_field_ru;
+        $category->content_second_field_ru = $request->content_second_field_ru;
+        $category->name_second_field_uk = $request->name_second_field_uk;
+        $category->content_second_field_uk = $request->content_second_field_uk;
+        $category->name_thirst_field_ru = $request->name_thirst_field_ru;
+        $category->content_thirst_field_ru = $request->content_thirst_field_ru;
+        $category->name_thirst_field_uk = $request->name_thirst_field_uk;
+        $category->content_thirst_field_uk = $request->content_thirst_field_uk;
+
         $category->description_ru = $request->description_ru;
         $category->description_uk = $request->description_uk;
         $category->parent_id   = $request->parent_id;

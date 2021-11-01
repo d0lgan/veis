@@ -270,26 +270,6 @@ s<template>
                             </div>
                         </div>
 
-                        <div class="product-card__description" v-if="product.free_del">
-                            <div class="product-card__description-head">
-                                <h3 class="product-card__title">» {{ translate.free_del }}</h3>
-                                <svg class="" xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9"><g><g><path fill="#2a2a2f" d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/></g></g></svg>
-                            </div>
-                            <div class="product-card__description-body">
-                                <p class="product-card__description-text" v-html="product.free_del">
-                                </p>
-                            </div>
-                        </div>
-                        <div class="product-card__description" v-if="product.payback">
-                            <div class="product-card__description-head">
-                                <h3 class="product-card__title">» {{ translate.guarantee }}</h3>
-                                <a href="#" class="red-link">{{ translate.more }}</a>
-                                <svg class="" xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9"><g><g><path fill="#2a2a2f" d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/></g></g></svg>
-                            </div>
-                            <div class="product-card__description-body">
-                                <p class="product-card__description-text" v-html="product.payback"></p>
-                            </div>
-                        </div>
                         <div class="product-card__description" v-if="product.description_ru || product.description_uk">
                             <div class="product-card__description-head">
                                 <h3 class="product-card__title">» {{ translate.about_prod }}</h3>
@@ -300,6 +280,44 @@ s<template>
                                 <p class="product-card__description-text" v-if="locale == 'uk'" v-html="product.description_uk"></p>
                             </div>
                         </div>
+
+
+
+
+                        <div class="product-card__description" v-if="product.name_first_field || product.content_first_field">
+                            <div class="product-card__description-head">
+                                <h3 class="product-card__title">» {{ product.name_first_field }}</h3>
+                                <svg class="" xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9"><g><g><path fill="#2a2a2f" d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/></g></g></svg>
+                            </div>
+                            <div class="product-card__description-body">
+                                <p class="product-card__description-text" v-html="product.content_first_field">
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="product-card__description" v-if="product.name_second_field || product.content_second_field">
+                            <div class="product-card__description-head">
+                                <h3 class="product-card__title">» {{ product.name_second_field }}</h3>
+                                <svg class="" xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9"><g><g><path fill="#2a2a2f" d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/></g></g></svg>
+                            </div>
+                            <div class="product-card__description-body">
+                                <p class="product-card__description-text" v-html="product.content_second_field">
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="product-card__description" v-if="product.name_thirst_field || product.content_thirst_field">
+                            <div class="product-card__description-head">
+                                <h3 class="product-card__title">» {{ product.name_thirst_field }}</h3>
+                                <svg class="" xmlns="http://www.w3.org/2000/svg" width="19" height="9" viewBox="0 0 19 9"><g><g><path fill="#2a2a2f" d="M-.01 1V0l9.5 7.6L18.992 0v1l-9 7.2V9l-.5-.4-.5.4v-.8z"/></g></g></svg>
+                            </div>
+                            <div class="product-card__description-body">
+                                <p class="product-card__description-text" v-html="product.content_thirst_field">
+                                </p>
+                            </div>
+                        </div>
+
+
                         <!--<div class="product-card__description" v-if="product.how_size_ru || product.how_size_uk">
                             <div class="product-card__description-head">
                                 <h3 class="product-card__title">» {{ translate.add_info }}</h3>
