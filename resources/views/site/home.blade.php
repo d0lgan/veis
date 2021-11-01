@@ -16,7 +16,7 @@
     <div class="intro__slider_block">
         <div class="intro__inner">
             <div class="intro__iteam">
-                <h1 class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</h1>
+                <p class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</p>
                 <p class="intro__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </p>
                 <div class="intro__btn_box">
                     <a class="intro__btn left__btn" href="#/">вся коллекция</a>
@@ -31,7 +31,7 @@
         </div>
         <div class="intro__inner">
             <div class="intro__iteam">
-                <h1 class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</h1>
+                <p class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</p>
                 <p class="intro__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </p>
                 <div class="intro__btn_box">
                     <a class="intro__btn left__btn" href="#/">вся коллекция</a>
@@ -46,7 +46,7 @@
         </div>
         <div class="intro__inner">
             <div class="intro__iteam">
-                <h1 class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</h1>
+                <p class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</p>
                 <p class="intro__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </p>
                 <div class="intro__btn_box">
                     <a class="intro__btn left__btn" href="#/">вся коллекция</a>
@@ -64,7 +64,7 @@
     <div style="display: none;" class="intro__slider_block2">
         <div class="intro__inner">
             <div class="intro__iteam">
-                <h1 class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</h1>
+                <p class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</p>
                 <p class="intro__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </p>
                 <div class="intro__btn_box">
                     <a class="intro__btn left__btn" href="#/">вся коллекция</a>
@@ -79,7 +79,7 @@
         </div>
         <div class="intro__inner">
             <div class="intro__iteam">
-                <h1 class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</h1>
+                <p class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</p>
                 <p class="intro__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </p>
                 <div class="intro__btn_box">
                     <a class="intro__btn left__btn" href="#/">вся коллекция</a>
@@ -94,7 +94,7 @@
         </div>
         <div class="intro__inner">
             <div class="intro__iteam">
-                <h1 class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</h1>
+                <p class="intro__title">БЕЗУПРЕЧНЫЙ ВИД ВСЕГДА!</p>
                 <p class="intro__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </p>
                 <div class="intro__btn_box">
                     <a class="intro__btn left__btn" href="#/">вся коллекция</a>
