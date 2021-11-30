@@ -936,4 +936,25 @@ class PageController extends Controller {
 
         return $filters;
     }
+
+
+    // updateOptions
+    public function updateOptions() {
+        $instantCategory = Category::where('id', 55)->with('attributes')->firstOrFail();
+
+        // Дочерние категории
+        if ($instantCategory) {
+            $childCategories = Category::where('parent_id', $instantCategory->id)->get();
+            foreach ($childCategories as $childCategory) {
+                $cats = Category::where('parent_id', $childCategory->id)->get();
+                if ($cats->count()) {
+                    $childCategories = $childCategories->merge($cats);
+                }
+            }
+            $childCategories = $childCategories->pluck('id');
+            $childCategories->push(55);
+        }
+
+        
+    }
 }

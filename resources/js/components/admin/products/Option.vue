@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-       
+
       	<!-- <div class="btn btn-primary" v-if="!isModal" @click="saveValue()">Сохранить</div> -->
     </div>
 </template>
@@ -90,7 +90,6 @@
             product_selected:Array,
             fastEdit: Boolean,
             product_id: Number,
-
             isModal: Boolean
         },
         created() {
@@ -103,7 +102,6 @@
                 tab: 0,
                 notification: false,
                 product_id: this.product_id,
-
                 isModal: this.isModal
             }
         },

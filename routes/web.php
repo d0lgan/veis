@@ -37,8 +37,6 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
     Route::get('/updateProductUrl', 'PageController@updateProductUrl')->name('updateProductUrl');
     //
 
-
-
     Route::get('/map', 'PageController@map')->name('map')->middleware('pagePublic');
 
     Route::get('/search', 'PageController@search')->name('search')->middleware('pagePublic');
@@ -55,10 +53,10 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
 });
 
 Route::get('/takeOrder', 'PageController@takeOrder')->middleware('pagePublic');
+Route::get('/updateOptions', 'PageController@updateOptions')->middleware('pagePublic');
 
 //Переключение языков
 Route::get('setlocale/{lang}', function ($lang) {
-
     $referer = Redirect::back()->getTargetUrl(); //URL предыдущей страницы
     $parse_url = parse_url($referer, PHP_URL_PATH); //URI предыдущей страницы
 
